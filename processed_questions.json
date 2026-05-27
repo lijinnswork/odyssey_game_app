@@ -1,0 +1,738 @@
+[
+    {
+        "original_id": 1,
+        "question": "Which statement best distinguishes Artificial Intelligence from traditional rule-based software?",
+        "correctFeedback": "Correct. Modern AI systems learn patterns from data instead of relying only on explicitly coded rules.",
+        "incorrectFeedback": "Traditional software follows predefined rules. AI systems instead learn statistical patterns from data.",
+        "xp": 10,
+        "type": "choice",
+        "options": [
+            {
+                "text": "AI systems operate without any human input",
+                "correct": false,
+                "feedback": "Traditional software follows predefined rules. AI systems instead learn statistical patterns from data."
+            },
+            {
+                "text": "AI systems rely on statistical pattern learning rather than fixed rules",
+                "correct": true,
+                "feedback": "Correct. Modern AI systems learn patterns from data instead of relying only on explicitly coded rules."
+            },
+            {
+                "text": "AI systems always function autonomously once deployed",
+                "correct": false,
+                "feedback": "Traditional software follows predefined rules. AI systems instead learn statistical patterns from data."
+            },
+            {
+                "text": "AI systems primarily store and retrieve structured data and information",
+                "correct": false,
+                "feedback": "Traditional software follows predefined rules. AI systems instead learn statistical patterns from data."
+            }
+        ]
+    },
+    {
+        "original_id": 2,
+        "question": "A grammar correction tool improves over time by analyzing large amounts of writing data. What enables this improvement?",
+        "correctFeedback": "Correct. The tool improves because it learns from examples and refines pattern recognition over time.",
+        "incorrectFeedback": "AI systems improve primarily through exposure to data and statistical learning, not emotional sensitivity or manual updates alone.",
+        "xp": 10,
+        "type": "choice",
+        "options": [
+            {
+                "text": "Manual rule updates by programmers",
+                "correct": false,
+                "feedback": "AI systems improve primarily through exposure to data and statistical learning, not emotional sensitivity or manual updates alone."
+            },
+            {
+                "text": "Statistical learning from examples",
+                "correct": true,
+                "feedback": "Correct. The tool improves because it learns from examples and refines pattern recognition over time."
+            },
+            {
+                "text": "Built-in emotional sensitivity",
+                "correct": false,
+                "feedback": "AI systems improve primarily through exposure to data and statistical learning, not emotional sensitivity or manual updates alone."
+            },
+            {
+                "text": "Real-time internet fact-checking",
+                "correct": false,
+                "feedback": "AI systems improve primarily through exposure to data and statistical learning, not emotional sensitivity or manual updates alone."
+            }
+        ]
+    },
+    {
+        "original_id": 3,
+        "question": "Which statement most accurately reflects the AI systems currently used in education?",
+        "correctFeedback": "Correct. Most current AI systems are narrow\u2014they perform specific tasks without general human-like understanding.",
+        "incorrectFeedback": "Current AI does not possess broad reasoning or independent goal-setting. It is specialized for defined tasks.",
+        "xp": 10,
+        "type": "choice",
+        "options": [
+            {
+                "text": "They simulate broad human reasoning across domains",
+                "correct": false,
+                "feedback": "Current AI does not possess broad reasoning or independent goal-setting. It is specialized for defined tasks."
+            },
+            {
+                "text": "They specialize in specific tasks without general understanding",
+                "correct": true,
+                "feedback": "Correct. Most current AI systems are narrow\u2014they perform specific tasks without general human-like understanding."
+            },
+            {
+                "text": "They independently define their own learning goals",
+                "correct": false,
+                "feedback": "Current AI does not possess broad reasoning or independent goal-setting. It is specialized for defined tasks."
+            },
+            {
+                "text": "They replace human judgment in complex decisions",
+                "correct": false,
+                "feedback": "Current AI does not possess broad reasoning or independent goal-setting. It is specialized for defined tasks."
+            }
+        ]
+    },
+    {
+        "original_id": 4,
+        "question": "When a generative AI system produces a paragraph, it primarily:",
+        "correctFeedback": "Correct. Generative AI predicts likely word sequences based on learned statistical relationships.",
+        "incorrectFeedback": "Generative AI does not retrieve stored paragraphs or verify facts by default. It predicts word sequences based on patterns.",
+        "xp": 10,
+        "type": "choice",
+        "options": [
+            {
+                "text": "Retrieves a stored paragraph from an attached database",
+                "correct": false,
+                "feedback": "Generative AI does not retrieve stored paragraphs or verify facts by default. It predicts word sequences based on patterns."
+            },
+            {
+                "text": "Predicts the most statistically likely sequence of words",
+                "correct": true,
+                "feedback": "Correct. Generative AI predicts likely word sequences based on learned statistical relationships."
+            },
+            {
+                "text": "Verifies each statement against trusted sources",
+                "correct": false,
+                "feedback": "Generative AI does not retrieve stored paragraphs or verify facts by default. It predicts word sequences based on patterns."
+            },
+            {
+                "text": "Applies ethical and moral reasoning before responding",
+                "correct": false,
+                "feedback": "Generative AI does not retrieve stored paragraphs or verify facts by default. It predicts word sequences based on patterns."
+            }
+        ]
+    },
+    {
+        "original_id": 5,
+        "question": "Why can AI systems produce responses that sound convincing but contain errors?",
+        "correctFeedback": "Correct. AI systems optimize for linguistic plausibility, which can sometimes produce fluent but inaccurate responses.",
+        "incorrectFeedback": "AI errors are not intentional. They occur because systems prioritize probable language patterns over factual verification.",
+        "xp": 10,
+        "type": "choice",
+        "options": [
+            {
+                "text": "They prioritize linguistic plausibility over factuality",
+                "correct": true,
+                "feedback": "Correct. AI systems optimize for linguistic plausibility, which can sometimes produce fluent but inaccurate responses."
+            },
+            {
+                "text": "They intentionally introduce uncertainty for creativity",
+                "correct": false,
+                "feedback": "AI errors are not intentional. They occur because systems prioritize probable language patterns over factual verification."
+            },
+            {
+                "text": "They lack access to real-time data",
+                "correct": false,
+                "feedback": "AI errors are not intentional. They occur because systems prioritize probable language patterns over factual verification."
+            },
+            {
+                "text": "They simplify complex ideas to improve user readability",
+                "correct": false,
+                "feedback": "AI errors are not intentional. They occur because systems prioritize probable language patterns over factual verification."
+            }
+        ]
+    },
+    {
+        "original_id": 6,
+        "question": "Which perspective best supports responsible AI use in education?",
+        "correctFeedback": "Correct. Responsible AI use involves human oversight and treating AI output as a starting point, not a final authority.",
+        "incorrectFeedback": "Avoiding AI entirely or delegating full authority are extremes. Responsible use balances assistance with human judgment.",
+        "xp": 10,
+        "type": "choice",
+        "options": [
+            {
+                "text": "Treat AI outputs as authoritative if they appear coherent",
+                "correct": false,
+                "feedback": "Avoiding AI entirely or delegating full authority are extremes. Responsible use balances assistance with human judgment."
+            },
+            {
+                "text": "Avoid AI entirely to protect academic standards",
+                "correct": false,
+                "feedback": "Avoiding AI entirely or delegating full authority are extremes. Responsible use balances assistance with human judgment."
+            },
+            {
+                "text": "Use AI as a draft assistant retaining human oversight",
+                "correct": true,
+                "feedback": "Correct. Responsible AI use involves human oversight and treating AI output as a starting point, not a final authority."
+            },
+            {
+                "text": "Allow AI to automate evaluative decisions for consistency",
+                "correct": false,
+                "feedback": "Avoiding AI entirely or delegating full authority are extremes. Responsible use balances assistance with human judgment."
+            }
+        ]
+    },
+    {
+        "original_id": 7,
+        "question": "Which capabilities are central to most modern AI systems?",
+        "correctFeedback": "Correct. Pattern recognition, learning from examples, and prediction are core capabilities of modern AI systems.",
+        "incorrectFeedback": "AI systems recognize patterns and generate predictions from data, but they do not experience human emotions.",
+        "xp": 10,
+        "type": "multiple_choice",
+        "options": [
+            {
+                "text": "Recognizing patterns in data",
+                "correct": true
+            },
+            {
+                "text": "Learning from examples",
+                "correct": true
+            },
+            {
+                "text": "Experiencing human emotions",
+                "correct": false
+            },
+            {
+                "text": "Generating predictions",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "original_id": 8,
+        "question": "Which statements accurately describe Narrow AI?",
+        "correctFeedback": "Correct. Narrow AI focuses on specific tasks and is widely used in current educational tools.",
+        "incorrectFeedback": "Narrow AI does not possess human-level reasoning or independent ethical judgment.",
+        "xp": 10,
+        "type": "multiple_choice",
+        "options": [
+            {
+                "text": "Designed for specific, bounded tasks",
+                "correct": true
+            },
+            {
+                "text": "Equivalent to human-level reasoning",
+                "correct": false
+            },
+            {
+                "text": "Common in current educational tools",
+                "correct": true
+            },
+            {
+                "text": "Capable of independent ethical judgment",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "original_id": 9,
+        "question": "Which factors contributed significantly to the rapid growth of modern AI?",
+        "correctFeedback": "Correct. Large datasets, stronger computational power, and improved algorithms accelerated AI development.",
+        "incorrectFeedback": "Modern AI growth was driven by data, computing power, and algorithmic advances\u2014not by the creation of conscious machines.",
+        "xp": 10,
+        "type": "multiple_choice",
+        "options": [
+            {
+                "text": "Increased availability of large datasets",
+                "correct": true
+            },
+            {
+                "text": "Improved computational power",
+                "correct": true
+            },
+            {
+                "text": "Development of conscious machines",
+                "correct": false
+            },
+            {
+                "text": "Advances in machine learning algorithms",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "original_id": 10,
+        "question": "Which are recognized strengths of AI systems?",
+        "correctFeedback": "Correct. Speed, consistency, and automation are major strengths of AI systems.",
+        "incorrectFeedback": "AI excels at speed and pattern consistency, but it does not possess deep contextual understanding like humans.",
+        "xp": 10,
+        "type": "multiple_choice",
+        "options": [
+            {
+                "text": "Rapid processing of large volumes of information",
+                "correct": true
+            },
+            {
+                "text": "Consistent application of learned patterns",
+                "correct": true
+            },
+            {
+                "text": "Deep contextual understanding of human situations",
+                "correct": false
+            },
+            {
+                "text": "Automation of repetitive processes",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "original_id": 11,
+        "question": "Which reflect limitations of AI systems?",
+        "correctFeedback": "Correct. AI systems can fabricate information, depend heavily on training data, and lack independent ethical reasoning.",
+        "incorrectFeedback": "AI systems are not guaranteed to be objective. They depend on data patterns and lack independent ethical judgment.",
+        "xp": 10,
+        "type": "multiple_choice",
+        "options": [
+            {
+                "text": "Susceptibility to producing fabricated information",
+                "correct": true
+            },
+            {
+                "text": "Inability to independently evaluate ethical consequences",
+                "correct": true
+            },
+            {
+                "text": "Dependence on training data patterns",
+                "correct": true
+            },
+            {
+                "text": "Guaranteed objectivity in decision-making",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "original_id": 12,
+        "question": "Which elements are part of AI literacy for educators?",
+        "correctFeedback": "Correct. AI literacy involves conceptual understanding, awareness of limitations, and critical evaluation.",
+        "incorrectFeedback": "Delegating final decisions to AI contradicts responsible AI literacy. Human judgment remains essential.",
+        "xp": 10,
+        "type": "multiple_choice",
+        "options": [
+            {
+                "text": "Understanding core AI concepts",
+                "correct": true
+            },
+            {
+                "text": "Recognizing AI limitations",
+                "correct": true
+            },
+            {
+                "text": "Delegating final decisions to AI tools",
+                "correct": false
+            },
+            {
+                "text": "Evaluating outputs critically",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "original_id": 13,
+        "question": "Arrange the core AI loop in logical sequence:",
+        "correctFeedback": "Correct. AI systems typically perceive input, learn from patterns, reason over them, and then act.",
+        "incorrectFeedback": "Consider the logical flow: input is processed first, learning shapes reasoning, and action follows.",
+        "xp": 10,
+        "type": "ordering",
+        "items": [
+            "Perceive",
+            "Act",
+            "Learn",
+            "Reason"
+        ],
+        "correct_order": [
+            0,
+            2,
+            3,
+            1
+        ]
+    },
+    {
+        "original_id": 14,
+        "question": "Arrange the Machine Learning workflow:",
+        "correctFeedback": "Correct. Machine learning begins with training data and progresses toward predictive output.",
+        "incorrectFeedback": "Predictions occur only after patterns are identified from labeled data.",
+        "xp": 10,
+        "type": "ordering",
+        "items": [
+            "Identify patterns",
+            "Collect labeled examples",
+            "Make predictions",
+            "Provide training data"
+        ],
+        "correct_order": [
+            3,
+            1,
+            0,
+            2
+        ]
+    },
+    {
+        "original_id": 15,
+        "question": "Arrange responsible AI use in academic work:",
+        "correctFeedback": "Correct. AI assists first, but verification and human judgment must precede final revision.",
+        "incorrectFeedback": "Responsible AI use requires verification and human judgment before finalizing content.",
+        "xp": 10,
+        "type": "ordering",
+        "items": [
+            "Revise content",
+            "Generate draft",
+            "Verify key claims",
+            "Apply human judgment"
+        ],
+        "correct_order": [
+            1,
+            2,
+            3,
+            0
+        ]
+    },
+    {
+        "original_id": 16,
+        "question": "Arrange conceptual AI evolution:",
+        "correctFeedback": "Correct. AI evolved from explicit rule-based systems to machine learning, then predictive models, and finally generative systems.",
+        "incorrectFeedback": "Think historically: early AI relied on fixed rules before progressing to learning systems and eventually generative models.",
+        "xp": 10,
+        "type": "ordering",
+        "items": [
+            "Rule-based programming",
+            "Machine learning",
+            "Pattern-based prediction",
+            "Generative AI"
+        ],
+        "correct_order": [
+            0,
+            1,
+            2,
+            3
+        ]
+    },
+    {
+        "original_id": 17,
+        "question": "Arrange steps before relying on AI output:",
+        "correctFeedback": "Correct. After generating output, you interpret it, assess limitations, and then verify facts before trusting it.",
+        "incorrectFeedback": "Verification and limitation checks happen after reviewing the generated response\u2014not before it exists.",
+        "xp": 10,
+        "type": "ordering",
+        "items": [
+            "Interpret response",
+            "Generate response",
+            "Check for limitations",
+            "Cross-verify facts"
+        ],
+        "correct_order": [
+            1,
+            0,
+            2,
+            3
+        ]
+    },
+    {
+        "original_id": 18,
+        "question": "Arrange safe classroom AI integration:",
+        "correctFeedback": "Correct. Effective integration begins with understanding the tool, then careful introduction, monitoring, and reflection.",
+        "incorrectFeedback": "Responsible integration follows a structured approach: understand first, implement cautiously, then evaluate impact.",
+        "xp": 10,
+        "type": "ordering",
+        "items": [
+            "Understand tool purpose",
+            "Monitor outcomes",
+            "Introduce cautiously",
+            "Reflect on impact"
+        ],
+        "correct_order": [
+            0,
+            2,
+            1,
+            3
+        ]
+    },
+    {
+        "original_id": 19,
+        "question": "Match the concept to its description:",
+        "correctFeedback": "Correct. Narrow AI is task-specific, General AI is hypothetical broad intelligence, Machine Learning identifies patterns, and Generative AI creates new content.",
+        "incorrectFeedback": "Review each definition carefully: distinguish between task-specific systems, hypothetical general intelligence, pattern learning, and content creation.",
+        "xp": 10,
+        "type": "matching",
+        "pairs": [
+            {
+                "left": "Narrow AI",
+                "right": "AI specialized for defined tasks"
+            },
+            {
+                "left": "General AI",
+                "right": "Hypothetical broad human-like intelligence"
+            },
+            {
+                "left": "Machine Learning",
+                "right": "Systems trained on data to identify patterns"
+            },
+            {
+                "left": "Generative AI",
+                "right": "Systems that create new content"
+            }
+        ],
+        "shuffledRight": [
+            "Hypothetical broad human-like intelligence",
+            "Systems trained on data to identify patterns",
+            "AI specialized for defined tasks",
+            "Systems that create new content"
+        ]
+    },
+    {
+        "original_id": 20,
+        "question": "Match AI strength to example:",
+        "correctFeedback": "Correct. Spam filtering detects patterns, prediction suggests next items, automation handles scheduling, and language processing generates summaries.",
+        "incorrectFeedback": "Match each strength to its most typical application: detection, prediction, automation, and language tasks have distinct examples.",
+        "xp": 10,
+        "type": "matching",
+        "pairs": [
+            {
+                "left": "Pattern detection",
+                "right": "Spam filtering"
+            },
+            {
+                "left": "Prediction",
+                "right": "Suggesting next video"
+            },
+            {
+                "left": "Automation",
+                "right": "Scheduling reminders"
+            },
+            {
+                "left": "Language processing",
+                "right": "Auto-generating summaries"
+            }
+        ],
+        "shuffledRight": [
+            "Spam filtering",
+            "Suggesting next video",
+            "Auto-generating summaries",
+            "Scheduling reminders"
+        ]
+    },
+    {
+        "original_id": 21,
+        "question": "Match limitation to implication:",
+        "correctFeedback": "Correct. Statistical guessing may cause fluent errors, lack of empathy limits mentorship roles, data dependency can reproduce bias, and lack of ethical reasoning requires oversight.",
+        "incorrectFeedback": "Think carefully about how each technical limitation translates into a real-world educational implication.",
+        "xp": 10,
+        "type": "matching",
+        "pairs": [
+            {
+                "left": "Statistical guessing",
+                "right": "Can produce fluent but incorrect outputs"
+            },
+            {
+                "left": "Lack of empathy",
+                "right": "Cannot replace mentorship"
+            },
+            {
+                "left": "Data dependency",
+                "right": "May reproduce biases"
+            },
+            {
+                "left": "No ethical reasoning",
+                "right": "Requires human oversight"
+            }
+        ],
+        "shuffledRight": [
+            "Requires human oversight",
+            "May reproduce biases",
+            "Cannot replace mentorship",
+            "Can produce fluent but incorrect outputs"
+        ]
+    },
+    {
+        "original_id": 22,
+        "question": "Match process stage:",
+        "correctFeedback": "Correct. AI perceives input, learns patterns, reasons about them, and then acts.",
+        "incorrectFeedback": "Follow the logical flow of input to action: perception first, execution last.",
+        "xp": 10,
+        "type": "matching",
+        "pairs": [
+            {
+                "left": "Perceive",
+                "right": "Interpret incoming data"
+            },
+            {
+                "left": "Learn",
+                "right": "Analyze patterns"
+            },
+            {
+                "left": "Reason",
+                "right": "Decide next step"
+            },
+            {
+                "left": "Act",
+                "right": "Execute output"
+            }
+        ],
+        "shuffledRight": [
+            "Execute output",
+            "Analyze patterns",
+            "Interpret incoming data",
+            "Decide next step"
+        ]
+    },
+    {
+        "original_id": 23,
+        "question": "Match term with educational implication:",
+        "correctFeedback": "Correct. AI literacy involves awareness, hallucination refers to confident errors, Narrow AI is task-specific, and automation reduces repetitive work.",
+        "incorrectFeedback": "Be precise: hallucination relates to incorrect generation, while literacy relates to understanding and critical awareness.",
+        "xp": 10,
+        "type": "matching",
+        "pairs": [
+            {
+                "left": "AI literacy",
+                "right": "Awareness of AI strengths and limits"
+            },
+            {
+                "left": "Hallucination",
+                "right": "Confident but incorrect generation"
+            },
+            {
+                "left": "Narrow AI",
+                "right": "Task-specific system"
+            },
+            {
+                "left": "Automation",
+                "right": "Reducing repetitive manual effort"
+            }
+        ],
+        "shuffledRight": [
+            "Confident but incorrect generation",
+            "Awareness of AI strengths and limits",
+            "Task-specific system",
+            "Reducing repetitive manual effort"
+        ]
+    },
+    {
+        "original_id": 24,
+        "question": "Match use-case with suitability:",
+        "correctFeedback": "Correct. AI is suitable for brainstorming and summarization, but ethical grading and final judgments require human authority.",
+        "incorrectFeedback": "Distinguish between assistive tasks and decisions that require accountability and ethical responsibility.",
+        "xp": 10,
+        "type": "matching",
+        "pairs": [
+            {
+                "left": "Brainstorming ideas",
+                "right": "Appropriate AI assistance"
+            },
+            {
+                "left": "Ethical grading decisions",
+                "right": "Requires human authority"
+            },
+            {
+                "left": "Draft summarization",
+                "right": "Appropriate AI assistance"
+            },
+            {
+                "left": "Final academic judgment",
+                "right": "Requires human authority"
+            }
+        ],
+        "shuffledRight": [
+            "Appropriate AI assistance",
+            "Requires human authority"
+        ]
+    },
+    {
+        "original_id": 25,
+        "question": "Fill in the blank",
+        "correctFeedback": "Correct. AI systems rely on statistical patterns instead of fixed rules.",
+        "incorrectFeedback": "AI systems operate through learned statistical patterns, not emotions or intentions.",
+        "xp": 10,
+        "type": "fill_in_blanks",
+        "text": "Artificial Intelligence systems rely on statistical [patterns] rather than fixed [rules].",
+        "wordBank": [
+            "patterns",
+            "rules",
+            "emotions",
+            "intentions"
+        ]
+    },
+    {
+        "original_id": 26,
+        "question": "Fill in the blank",
+        "correctFeedback": "Correct. AI systems improve by learning patterns from data and examples.",
+        "incorrectFeedback": "AI systems do not learn through instincts. Their improvement comes from exposure to data and examples.",
+        "xp": 10,
+        "type": "fill_in_blanks",
+        "text": "Modern AI systems learn from large amounts of [data] and improve through exposure to [examples].",
+        "wordBank": [
+            "data",
+            "examples",
+            "instincts",
+            "hardware"
+        ]
+    },
+    {
+        "original_id": 27,
+        "question": "Fill in the blank",
+        "correctFeedback": "Correct. Most current AI tools are Narrow AI designed for specific tasks.",
+        "incorrectFeedback": "Today's AI tools are not general intelligence. They are narrow systems built for specific tasks.",
+        "xp": 10,
+        "type": "fill_in_blanks",
+        "text": "The AI used today in classrooms is considered [narrow] AI because it is designed for [specific] tasks.",
+        "wordBank": [
+            "narrow",
+            "specific",
+            "general",
+            "unlimited"
+        ]
+    },
+    {
+        "original_id": 28,
+        "question": "Fill in the blank",
+        "correctFeedback": "Correct. Generative AI creates new content by predicting sequences of words.",
+        "incorrectFeedback": "Generative AI predicts word sequences to generate content; it does not produce emotional or hardware outputs.",
+        "xp": 10,
+        "type": "fill_in_blanks",
+        "text": "Generative AI produces new [content] by predicting likely [word] sequences.",
+        "wordBank": [
+            "content",
+            "word",
+            "emotional",
+            "hardware"
+        ]
+    },
+    {
+        "original_id": 29,
+        "question": "Fill in the blank",
+        "correctFeedback": "Correct. AI often generates plausible language, but it may not always be factually correct.",
+        "incorrectFeedback": "AI systems prioritize plausible language patterns, which does not guarantee correctness.",
+        "xp": 10,
+        "type": "fill_in_blanks",
+        "text": "AI systems aim to produce responses that sound [plausible], even if they are not always [correct].",
+        "wordBank": [
+            "plausible",
+            "correct",
+            "conscious",
+            "neutral"
+        ]
+    },
+    {
+        "original_id": 30,
+        "question": "Fill in the blank",
+        "correctFeedback": "Correct. Human oversight and critical evaluation are essential when using AI tools.",
+        "incorrectFeedback": "Responsible AI use depends on oversight and evaluation, not full automation or delegation.",
+        "xp": 10,
+        "type": "fill_in_blanks",
+        "text": "Responsible AI use requires human [oversight] and critical [evaluation].",
+        "wordBank": [
+            "oversight",
+            "evaluation",
+            "automation",
+            "delegation"
+        ]
+    }
+]

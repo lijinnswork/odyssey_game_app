@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Odyssey by IIMBx</title>
+    <!-- Google Fonts: Outfit for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=27">
+</head>
+
+<body data-theme="dark" class="login-mode">
+    <div id="mobile-blocker" class="mobile-blocker">
+        <div style="width: 100%; max-width: 250px; margin-bottom: 1.5rem;">
+            <img src="landing-logo.png" alt="IIMBx Logo" style="width: 100%; height: auto; object-fit: contain; background: white; padding: 1rem 1.25rem; border-radius: var(--radius-m); display: block;" />
+        </div>
+        <div style="font-size: 2.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 0.25rem; color: var(--text-main);">
+            Odyssey
+        </div>
+        <div style="font-size: 1rem; font-weight: 600; color: var(--text-muted); margin-bottom: 2.5rem; letter-spacing: 1px;">
+            by IIMBx
+        </div>
+        
+        <div style="background: var(--bg-card); padding: 2rem 1.5rem; border-radius: var(--radius-m); max-width: 320px; border: 1px solid var(--border); box-shadow: var(--shadow-main);">
+            <span class="material-symbols-rounded" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; display: block;">desktop_windows</span>
+            <h2 style="font-size: 1.4rem; margin-bottom: 0.75rem; color: var(--text-main);">Optimize Your Experience</h2>
+            <p style="color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; margin: 0;">
+                To interact with our advanced learning modules and analytics, please access Odyssey from a desktop or laptop browser.
+            </p>
+        </div>
+    </div>
+    
+    <div id="layout-wrapper" class="layout-wrapper">
+        <aside id="left-panel" class="desktop-panel left-panel">
+            <!-- Populated by JS -->
+        </aside>
+
+        <div class="content-panel">
+            <main id="app" class="app-content">
+                <!-- Splash Loader (Overwritten by JS when ready) -->
+                <div class="splash-loader" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; width: 100%; text-align: center;">
+                    <div style="margin-bottom: 2rem; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4)); animation: mascot-hover 3s infinite ease-in-out;">
+                        <svg viewBox="-18 -8 136 118" width="140px" height="140px" style="overflow: visible;">
+                            <defs>
+                                <linearGradient id="s-body" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#4ade80" />
+                                    <stop offset="100%" stop-color="#16a34a" />
+                                </linearGradient>
+                                <linearGradient id="s-belly" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#bbf7d0" />
+                                    <stop offset="100%" stop-color="#4ade80" />
+                                </linearGradient>
+                                <linearGradient id="s-crest" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#ef4444" />
+                                    <stop offset="100%" stop-color="#b91c1c" />
+                                </linearGradient>
+                                <linearGradient id="s-tail" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#fde047" />
+                                    <stop offset="100%" stop-color="#eab308" />
+                                </linearGradient>
+                                <linearGradient id="s-beak" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#fbbf24" />
+                                    <stop offset="100%" stop-color="#d97706" />
+                                </linearGradient>
+                                <linearGradient id="s-wing" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#22c55e" />
+                                    <stop offset="100%" stop-color="#15803d" />
+                                </linearGradient>
+                            </defs>
+                            <g style="transform-origin: center;">
+                                <!-- Tail Feathers (still sleeping) -->
+                                <path d="M 42 75 Q 45 90 50 95 Q 55 90 58 75 Z" fill="url(#s-tail)" />
+                                <path d="M 35 70 Q 40 85 45 90 Q 45 80 45 70 Z" fill="url(#s-tail)" />
+                                <path d="M 65 70 Q 60 85 55 90 Q 55 80 55 70 Z" fill="url(#s-tail)" />
+
+                                <!-- Wings (relaxed) -->
+                                <path d="M 25 50 Q -5 45 0 70 Q 15 75 25 58 Z" fill="url(#s-wing)" />
+                                <path d="M 75 50 Q 105 45 100 70 Q 85 75 75 58 Z" fill="url(#s-wing)" />
+
+                                <!-- Body -->
+                                <g style="transform-origin: 50px 55px; transform: translateY(3px);">
+                                    <rect x="25" y="25" width="50" height="55" rx="25" fill="url(#s-body)" />
+                                    <path d="M 45 25 Q 45 12 50 15 Q 55 12 55 25 Z" fill="url(#s-crest)"/>
+                                    <path d="M 40 27 Q 38 15 45 20 Z" fill="url(#s-crest)"/>
+                                    <path d="M 60 27 Q 62 15 55 20 Z" fill="url(#s-crest)"/>
+                                    <ellipse cx="50" cy="62" rx="18" ry="15" fill="url(#s-belly)" />
+                                    <path d="M 30 40 Q 30 28 50 28 Q 70 28 70 40 Q 70 50 50 50 Q 30 50 30 40 Z" fill="#ffffff" opacity="0.95"/>
+                                    <circle cx="35" cy="45" r="4.5" fill="#ff8da1" opacity="0.8"/>
+                                    <circle cx="65" cy="45" r="4.5" fill="#ff8da1" opacity="0.8"/>
+                                    
+                                    <!-- SLEEPING EYES -->
+                                    <path d="M 36 38 Q 41 42 46 38" fill="none" stroke="#1e1e1e" stroke-width="2.5" stroke-linecap="round"/>
+                                    <path d="M 54 38 Q 59 42 64 38" fill="none" stroke="#1e1e1e" stroke-width="2.5" stroke-linecap="round"/>
+                                    
+                                    <!-- Zzzs -->
+                                    <text x="75" y="20" fill="#fff" font-family="Outfit, sans-serif" font-weight="900" font-size="14px" style="animation: float-z 2s infinite ease-in-out;">Z</text>
+                                    <text x="85" y="10" fill="#fff" font-family="Outfit, sans-serif" font-weight="900" font-size="10px" style="animation: float-z 2s infinite ease-in-out 0.5s;">z</text>
+                                    <text x="92" y="2" fill="#fff" font-family="Outfit, sans-serif" font-weight="900" font-size="6px" style="animation: float-z 2s infinite ease-in-out 1s;">z</text>
+
+                                    <path d="M 45 42 Q 50 38 55 42 L 50 54 Z" fill="url(#s-beak)"/>
+                                    <path d="M 48 42 Q 50 40 52 42 L 50 50 Z" fill="#b45309"/>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem;">
+                        Waking up Polly...
+                    </div>
+                    <div style="width: 140px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; top: 0; left: 0; height: 100%; width: 50%; background: #FF8A3D; border-radius: 6px; animation: splashLoad 1.5s ease-in-out infinite alternate;"></div>
+                    </div>
+                </div>
+                <style>
+                    @keyframes float-z {
+                        0% { opacity: 0; transform: translateY(0) scale(0.8); }
+                        50% { opacity: 1; transform: translateY(-10px) scale(1.1); }
+                        100% { opacity: 0; transform: translateY(-20px) scale(1.2); }
+                    }
+                    @keyframes splashLoad {
+                        0% { left: 0; width: 20%; }
+                        100% { left: 80%; width: 20%; }
+                    }
+
+                </style>
+            </main>
+
+            <aside id="right-panel" class="right-content">
+                <!-- Populated by JS -->
+            </aside>
+        </div>
+    </div>
+
+    <nav id="mobile-nav" class="mobile-nav" style="display: none;">
+        <button onclick="renderChapters()" class="mobile-nav-item" id="nav-home">
+            <span class="material-symbols-rounded">home</span>
+            <span>Home</span>
+        </button>
+        <button onclick="renderMobileChat()" class="mobile-nav-item" id="nav-chat">
+            <span class="material-symbols-rounded">smart_toy</span>
+            <span>Coach</span>
+        </button>
+        <button onclick="renderLeaderboard()" class="mobile-nav-item" id="nav-ranks">
+            <span class="material-symbols-rounded">trophy</span>
+            <span>Ranks</span>
+        </button>
+        <button onclick="toggleMobileSettings()" class="mobile-nav-item" id="nav-settings">
+            <span class="material-symbols-rounded">person</span>
+            <span>Profile</span>
+        </button>
+    </nav>
+    
+    <!-- Desktop Coach Drawer -->
+    <div id="desktop-coach-container" class="desktop-coach-wrapper" style="position: fixed; bottom: 2rem; right: 2rem; z-index: 10000; align-items: flex-end; gap: 1rem;">
+        
+        <!-- Sliding Drawer Panel -->
+        <div id="desktop-coach-drawer" style="width: 380px; height: 600px; max-height: 80vh; background: var(--surface-glass); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 15px 45px rgba(0,0,0,0.2); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transform: translateY(120%); opacity: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; display: flex; flex-direction: column; overflow: hidden; position: absolute; bottom: 80px; right: 0; pointer-events: none;">
+            
+            <!-- Chat Header -->
+            <div style="padding: 1.25rem; background: rgba(var(--primary-rgb), 0.1); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: white; border: 2px solid var(--accent); flex-shrink: 0;">
+                        <img src="polly.png" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 1.05rem; color: var(--text-secondary);">EduBot Coach</div>
+                        <div style="font-size: 0.75rem; color: #4CAF50; display: flex; align-items: center; gap: 0.3rem;"><span style="width: 6px; height: 6px; background: #4CAF50; border-radius: 50%;"></span>Online</div>
+                    </div>
+                </div>
+                <button onclick="toggleDesktopCoach()" style="background: none; border: none; color: var(--text-secondary); cursor: pointer;"><span class="material-symbols-rounded">close</span></button>
+            </div>
+
+            <!-- Chat History -->
+            <div id="desktop-coach-history" style="flex: 1; padding: 1.25rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Initial Welcome -->
+                <div style="display: flex; gap: 0.75rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: white; flex-shrink: 0; border: 2px solid var(--accent);"><img src="polly.png" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <div style="background: rgba(var(--primary-rgb), 0.15); border: 1px solid rgba(var(--primary-rgb), 0.3); border-radius: 4px 16px 16px 16px; padding: 0.85rem 1.1rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; font-family: 'Outfit', sans-serif;">
+                        Hi there! I'm your AI Coach. I'm here to help you master these concepts. Ask me anything about the current module!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div style="padding: 1.25rem; border-top: 1px solid var(--border); background: var(--surface);">
+                <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 50px; padding: 0.5rem 0.5rem 0.5rem 1.25rem;">
+                    <input type="text" id="desktop-coach-input" placeholder="Type your question here..." style="flex: 1; background: transparent; border: none; color: var(--text-secondary); outline: none; font-size: 0.95rem; font-family: 'Inter', sans-serif;" onkeypress="if(event.key === 'Enter') handleDesktopCoachSend()">
+                    <button onclick="handleDesktopCoachSend()" style="width: 40px; height: 40px; border-radius: 50%; background: var(--gradient-primary); border: none; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transition: transform 0.2s; flex-shrink: 0;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        <span class="material-symbols-rounded" style="font-size: 1.2rem;">send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAB Button -->
+        <button onclick="toggleDesktopCoach()" id="desktop-coach-fab" style="width: 64px; height: 64px; border-radius: 50%; background: var(--gradient-primary); border: none; box-shadow: 0 10px 30px rgba(199, 53, 40, 0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 10001;" onmouseover="this.style.transform='scale(1.1) rotate(5deg)'" onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+            <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: white; border: 2px solid white;">
+                <img src="polly.png" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); margin-top: 2px;">
+            </div>
+            <div id="desktop-coach-badge" style="position: absolute; top: 0; right: 0; width: 16px; height: 16px; background: #4CAF50; border: 2px solid var(--bg-deep); border-radius: 50%;"></div>
+        </button>
+
+    </div>
+
+    <div id="global-feedback-area"></div>
+
+    <script src="content.js?v=12"></script>
+    <script src="app.js?v=29"></script>
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "feedback_correct": "Artificial Intelligence systems typically learn patterns from data rather than following only fixed rule-based instructions.",
+        "feedback_incorrect": "Modern AI systems rely on statistical pattern learning rather than predefined rule-based programming."
+    },
+    {
+        "id": 2,
+        "feedback_correct": "Machine learning systems improve performance by learning statistical relationships from large collections of examples.",
+        "feedback_incorrect": "Improvement in machine learning systems occurs through statistical learning from large numbers of examples."
+    },
+    {
+        "id": 3,
+        "feedback_correct": "Most AI systems in education today are narrow systems designed to perform specific tasks rather than general reasoning.",
+        "feedback_incorrect": "Current educational AI systems are examples of narrow AI that specialize in defined tasks without broad understanding."
+    },
+    {
+        "id": 4,
+        "feedback_correct": "Generative AI models produce text by predicting the most probable sequence of words based on patterns learned during training.",
+        "feedback_incorrect": "Generative language models generate responses by predicting statistically likely word sequences."
+    },
+    {
+        "id": 5,
+        "feedback_correct": "AI systems often prioritize linguistic plausibility, which can result in fluent but factually incorrect outputs.",
+        "feedback_incorrect": "Language models optimize for plausible and coherent responses rather than guaranteed factual accuracy."
+    },
+    {
+        "id": 6,
+        "feedback_correct": "Responsible AI use in education treats AI as a drafting or assistance tool while retaining human oversight and judgment.",
+        "feedback_incorrect": "Responsible academic use of AI maintains human oversight while using AI primarily for assistance or drafting."
+    },
+    {
+        "id": 7,
+        "feedback_correct": "Modern AI systems recognize patterns in data, learn from examples, and generate predictions based on learned relationships.",
+        "feedback_incorrect": "Core AI capabilities involve pattern recognition, learning from examples, and generating predictions."
+    },
+    {
+        "id": 8,
+        "feedback_correct": "Narrow AI refers to systems designed for specific tasks and is the form most commonly used in present-day tools.",
+        "feedback_incorrect": "Narrow AI describes systems specialized for defined tasks and commonly used in current applications."
+    },
+    {
+        "id": 9,
+        "feedback_correct": "Modern AI growth has been driven by the availability of large datasets, improved computing power, and advances in machine learning algorithms.",
+        "feedback_incorrect": "The expansion of AI was enabled by large datasets, increased computational power, and improvements in machine learning methods."
+    },
+    {
+        "id": 10,
+        "feedback_correct": "AI systems excel at rapidly processing large volumes of information, applying learned patterns consistently, and automating repetitive tasks.",
+        "feedback_incorrect": "Key strengths of AI include rapid data processing, consistent pattern application, and automation of repetitive processes."
+    },
+    {
+        "id": 11,
+        "feedback_correct": "AI systems may generate fabricated information, rely heavily on training data patterns, and lack independent ethical reasoning.",
+        "feedback_incorrect": "Common AI limitations include hallucinated information, dependence on training data, and absence of ethical reasoning."
+    },
+    {
+        "id": 12,
+        "feedback_correct": "AI literacy involves understanding core AI concepts, recognizing system limitations, and critically evaluating generated outputs.",
+        "feedback_incorrect": "AI literacy requires conceptual understanding of AI systems, awareness of their limitations, and critical evaluation of outputs."
+    },
+    {
+        "id": 13,
+        "feedback_correct": "AI systems typically perceive input, learn patterns from data, reason about possible responses, and then act by producing outputs.",
+        "feedback_incorrect": "The AI cycle begins with perceiving data, followed by learning patterns, reasoning about possibilities, and finally acting."
+    },
+    {
+        "id": 14,
+        "feedback_correct": "Machine learning workflows begin with training data, then identify patterns from examples before making predictions.",
+        "feedback_incorrect": "Machine learning starts with providing data, collecting examples, identifying patterns, and then generating predictions."
+    },
+    {
+        "id": 15,
+        "feedback_correct": "Responsible academic use of AI begins with draft generation but requires verification, human judgment, and revision.",
+        "feedback_incorrect": "Responsible academic workflows involve generating drafts, verifying claims, applying human judgment, and revising content."
+    },
+    {
+        "id": 16,
+        "feedback_correct": "AI development progressed from rule-based programming to machine learning and later to modern generative systems.",
+        "feedback_incorrect": "AI evolution moved from rule-based programming toward machine learning, pattern prediction, and generative models."
+    },
+    {
+        "id": 17,
+        "feedback_correct": "Evaluating AI output requires interpreting responses, recognizing limitations, and verifying important claims.",
+        "feedback_incorrect": "Safe use of AI outputs includes interpreting the response, identifying possible limitations, and verifying factual accuracy."
+    },
+    {
+        "id": 18,
+        "feedback_correct": "Effective classroom AI integration begins with understanding the tool’s purpose, followed by cautious introduction and monitoring.",
+        "feedback_incorrect": "Responsible classroom adoption starts with understanding the tool, introducing it carefully, monitoring outcomes, and reflecting on impact."
+    },
+    {
+        "id": 19,
+        "feedback_correct": "Narrow AI performs specific tasks, General AI is hypothetical broad intelligence, Machine Learning identifies patterns from data, and Generative AI creates new content.",
+        "feedback_incorrect": "Narrow AI refers to task-specific systems, machine learning identifies patterns in data, generative AI produces new content, and general AI remains hypothetical."
+    },
+    {
+        "id": 20,
+        "feedback_correct": "AI strengths include recognizing patterns, making predictions, automating processes, and processing language tasks.",
+        "feedback_incorrect": "Pattern detection powers spam filters, prediction suggests recommendations, automation schedules tasks, and language processing generates summaries."
+    },
+    {
+        "id": 21,
+        "feedback_correct": "AI limitations include statistical guessing, lack of empathy, dependence on data patterns, and absence of ethical reasoning.",
+        "feedback_incorrect": "Statistical outputs can produce fluent errors, lack of empathy limits mentorship roles, and dependence on data may reproduce biases."
+    },
+    {
+        "id": 22,
+        "feedback_correct": "In the AI loop, systems perceive incoming data, learn patterns, reason about possible actions, and act by producing outputs.",
+        "feedback_incorrect": "Perception involves interpreting input data, learning analyzes patterns, reasoning determines the next step, and action executes output."
+    },
+    {
+        "id": 23,
+        "feedback_correct": "AI literacy means understanding AI capabilities and limits, while hallucinations refer to confident but incorrect outputs.",
+        "feedback_incorrect": "AI literacy involves awareness of system strengths and limits, and hallucinations refer to confident but incorrect generation."
+    },
+    {
+        "id": 24,
+        "feedback_correct": "AI is useful for brainstorming and summarization, while final academic judgment and ethical grading require human authority.",
+        "feedback_incorrect": "AI assistance suits idea generation and drafting tasks, whereas evaluative decisions require human judgment."
+    },
+    {
+        "id": 25,
+        "feedback_correct": "Artificial intelligence systems rely on statistical patterns rather than fixed rule-based instructions.",
+        "feedback_incorrect": "AI systems operate by identifying patterns in data instead of relying solely on predefined rules."
+    },
+    {
+        "id": 26,
+        "feedback_correct": "Modern AI models learn from large datasets and improve through exposure to numerous examples.",
+        "feedback_incorrect": "Machine learning systems improve by training on large datasets and learning from examples."
+    },
+    {
+        "id": 27,
+        "feedback_correct": "Most AI used today is narrow AI designed to perform specific tasks rather than general intelligence.",
+        "feedback_incorrect": "Current AI tools are narrow systems built for specific tasks rather than broad human-like reasoning."
+    },
+    {
+        "id": 28,
+        "feedback_correct": "Generative AI creates new content by predicting likely sequences of words based on learned patterns.",
+        "feedback_incorrect": "Generative models produce content by predicting probable word sequences."
+    },
+    {
+        "id": 29,
+        "feedback_correct": "AI responses are optimized to sound plausible, which means they may occasionally be incorrect.",
+        "feedback_incorrect": "Language models aim for plausible responses even when factual correctness is uncertain."
+    },
+    {
+        "id": 30,
+        "feedback_correct": "Responsible AI use combines human oversight with critical evaluation of generated outputs.",
+        "feedback_incorrect": "Effective AI use requires human oversight and critical evaluation of outputs."
+    }
+]
