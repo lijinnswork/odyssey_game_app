@@ -1420,8 +1420,13 @@ async function handleAuthCheck() {
         });
         const data = await res.json();
 
-        if (data.exists) {
+        if (data.error) {
+            errorDiv.textContent = data.error === 'Check failed' ? 'Database connection failed. Please check setup.' : data.error;
+        } else if (data.exists && data.hasPassword) {
             renderAuthModal('login', username);
+        } else if (data.exists && !data.hasPassword) {
+            // Old user migrating to password system
+            renderAuthModal('register', username);
         } else {
             renderAuthModal('register', username);
         }
