@@ -2308,18 +2308,22 @@ window.renderChapters = function () {
             }
 
             if (chapterNum > 1) {
+                // Ensure the container is positioned perfectly in the bottom center, clearing mobile nav and not overlapping the right-side coach.
+                const mobileNavOffset = window.innerWidth < 1024 ? 'calc(72px + env(safe-area-inset-bottom, 0px))' : '2rem';
                 html += `
-                <button onclick="${fabAction}"
-                    style="position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 0.5rem;
-                           background: var(--gradient-primary); color: white; padding: 1rem 1.5rem; border-radius: 50px;
-                           font-weight: 700; font-family: 'Inter', sans-serif; font-size: 1rem; border: none;
-                           box-shadow: 0 8px 25px rgba(199, 53, 40, 0.3); cursor: pointer; z-index: 9999;
-                           transition: transform 0.2s, box-shadow 0.2s;"
-                    onmouseover="this.style.transform='translateX(-50%) scale(1.05)'; this.style.boxShadow='0 12px 35px rgba(199, 53, 40, 0.45)'"
-                    onmouseout="this.style.transform='translateX(-50%) scale(1)'; this.style.boxShadow='0 8px 25px rgba(199, 53, 40, 0.3)'">
-                    <span class="material-symbols-rounded">${fabIcon}</span>
+                <div id="home-fab-container" style="position: fixed; bottom: \${mobileNavOffset}; left: 50%; transform: translateX(-50%); z-index: 9999; animation: slideInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                    <button onclick="\${fabAction}"
+                        style="display: flex; align-items: center; gap: 0.5rem;
+                               background: var(--gradient-primary); color: white; padding: 1rem 1.5rem; border-radius: 50px;
+                               font-weight: 700; font-family: 'Inter', sans-serif; font-size: 1rem; border: none;
+                               box-shadow: 0 8px 25px rgba(199, 53, 40, 0.3); cursor: pointer;
+                               transition: transform 0.2s, box-shadow 0.2s;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 12px 35px rgba(199, 53, 40, 0.45)'"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 25px rgba(199, 53, 40, 0.3)'">
+                        <span class="material-symbols-rounded">\${fabIcon}</span>
                     ${fabText}
-                </button>`;
+                </button>
+                </div>`;
             }
         }
     }
