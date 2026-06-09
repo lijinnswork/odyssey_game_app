@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css?v=27">
 </head>
 
-<body data-theme="dark" class="login-mode">
+<body data-theme="light" class="login-mode">
     <div id="mobile-blocker" class="mobile-blocker">
         <div style="width: 100%; max-width: 250px; margin-bottom: 1.5rem;">
             <img src="landing-logo.png" alt="IIMBx Logo" style="width: 100%; height: auto; object-fit: contain; background: white; padding: 1rem 1.25rem; border-radius: var(--radius-m); display: block;" />
@@ -158,7 +158,7 @@
     <div id="desktop-coach-container" class="desktop-coach-wrapper" style="position: fixed; bottom: 2rem; right: 2rem; z-index: 10000; align-items: flex-end; gap: 1rem;">
         
         <!-- Sliding Drawer Panel -->
-        <div id="desktop-coach-drawer" style="width: 380px; height: 600px; max-height: 80vh; background: var(--surface-glass); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 15px 45px rgba(0,0,0,0.2); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transform: translateY(120%); opacity: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; display: flex; flex-direction: column; overflow: hidden; position: absolute; bottom: 80px; right: 0; pointer-events: none;">
+        <div id="desktop-coach-drawer" style="width: 380px; height: 600px; max-height: 80vh; background: var(--surface-glass); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 15px 45px rgba(0,0,0,0.2); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transform: translateY(120%); opacity: 0; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease; display: flex; flex-direction: column; overflow: hidden; position: absolute; bottom: 80px; right: 0; pointer-events: none;">
             
             <!-- Chat Header -->
             <div style="padding: 1.25rem; background: rgba(var(--primary-rgb), 0.1); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
@@ -196,14 +196,47 @@
             </div>
         </div>
 
-        <!-- FAB Button -->
-        <button onclick="toggleDesktopCoach()" id="desktop-coach-fab" style="width: 64px; height: 64px; border-radius: 50%; background: var(--gradient-primary); border: none; box-shadow: 0 10px 30px rgba(199, 53, 40, 0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 10001;" onmouseover="this.style.transform='scale(1.1) rotate(5deg)'" onmouseout="this.style.transform='scale(1) rotate(0deg)'">
-            <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: white; border: 2px solid white;">
-                <img src="polly.png" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); margin-top: 2px;">
+        <!-- Dynamic Interactive Polly Mascot (Creative Desktop FAB) -->
+        <div id="desktop-coach-fab" style="position: relative; cursor: pointer; display: flex; align-items: flex-end; justify-content: center; z-index: 10001; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);" onmouseenter="showPollyBubble('Hey! Need some help? ✨', true)" onmouseleave="hidePollyBubble(true)" onclick="toggleDesktopCoach()">
+            
+            <!-- Hover Speech Bubble -->
+            <div id="polly-speech-bubble" style="
+                position: absolute; 
+                bottom: 100%; 
+                right: 20px; 
+                margin-bottom: 15px; 
+                background: var(--surface-glass); 
+                backdrop-filter: blur(12px); 
+                border: 1px solid var(--border); 
+                padding: 10px 16px; 
+                border-radius: 16px 16px 0 16px; 
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+                color: var(--text-main); 
+                font-family: 'Outfit', sans-serif; 
+                font-weight: 700; 
+                font-size: 0.95rem; 
+                white-space: nowrap; 
+                opacity: 0; 
+                transform: translateY(10px) scale(0.9); 
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                pointer-events: none;
+            ">
+                <span id="polly-bubble-text">Hey! Need some help? ✨</span>
             </div>
-            <div id="desktop-coach-badge" style="position: absolute; top: 0; right: 0; width: 16px; height: 16px; background: #4CAF50; border: 2px solid var(--bg-deep); border-radius: 50%;"></div>
-        </button>
 
+            <!-- Mascot Container (SVG Injected by JS) -->
+            <div id="polly-mascot-container" style="
+                width: 90px; 
+                height: 90px; 
+                filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5)); 
+                animation: mascot-hover 4s infinite ease-in-out;
+            ">
+                <!-- SVG injected here via app.js -->
+            </div>
+
+            <!-- Online Indicator -->
+            <div id="desktop-coach-badge" style="position: absolute; bottom: 10px; right: 0px; width: 16px; height: 16px; background: #4CAF50; border: 3px solid var(--bg-deep); border-radius: 50%; box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); z-index: 3;"></div>
+        </div>
     </div>
 
     <div id="global-feedback-area"></div>

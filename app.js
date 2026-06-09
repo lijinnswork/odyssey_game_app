@@ -5,8 +5,9 @@ const API_BASE = (window.location.hostname === 'localhost' || window.location.ho
 // ANIMATED MASCOT SVG
 // ─────────────────────────────────────────────
 window.getParrotSVG = function (width = "100%", height = "100%", state = "neutral") {
+    // Add the state class to the SVG for smooth CSS transitions
     return `
-    <svg viewBox="-18 -8 136 118" width="\${width}" height="\${height}" style="overflow: visible;">
+    <svg viewBox="-18 -8 136 118" width="\${width}" height="\${height}" style="overflow: visible;" class="polly-svg \${state}">
         <defs>
             <linearGradient id="p-body" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#4ade80" />
@@ -33,21 +34,47 @@ window.getParrotSVG = function (width = "100%", height = "100%", state = "neutra
                 <stop offset="100%" stop-color="#15803d" />
             </linearGradient>
         </defs>
+
+        <style>
+            /* Smooth Transitions */
+            .polly-svg .eyes-neutral { opacity: 1; transition: opacity 0.4s ease-in-out; }
+            .polly-svg .eyes-happy { opacity: 0; transition: opacity 0.4s ease-in-out; }
+            .polly-svg.happy .eyes-neutral { opacity: 0; }
+            .polly-svg.happy .eyes-happy { opacity: 1; }
+
+            /* Animation Speeds */
+            .polly-svg .body-group { animation: mascot-hover 3s infinite ease-in-out; transform-origin: center; transition: animation-duration 0.5s; }
+            .polly-svg.happy .body-group { animation-duration: 1s; }
+
+            .polly-svg .tail-feather-1 { animation: mascot-tail-wag 1.5s infinite alternate ease-in-out; transform-origin: 50px 75px; transition: animation-duration 0.5s; }
+            .polly-svg .tail-feather-2 { animation: mascot-tail-wag 1.5s infinite alternate ease-in-out; transform-origin: 45px 70px; transition: animation-duration 0.5s; }
+            .polly-svg .tail-feather-3 { animation: mascot-tail-wag 1.5s infinite alternate ease-in-out; transform-origin: 55px 70px; transition: animation-duration 0.5s; }
+            .polly-svg.happy .tail-feather-1, .polly-svg.happy .tail-feather-2, .polly-svg.happy .tail-feather-3 { animation-duration: 0.7s; }
+
+            .polly-svg .wing-left { animation: mascot-wing-left 1.5s infinite ease-in-out; transform-origin: 25px 50px; transition: animation-duration 0.5s; }
+            .polly-svg.happy .wing-left { animation-duration: 0.6s; }
+
+            .polly-svg .wing-right { animation: mascot-wing-right 1.5s infinite ease-in-out; transform-origin: 75px 50px; transition: animation-duration 0.5s; }
+            .polly-svg.happy .wing-right { animation-duration: 0.6s; }
+
+            .polly-svg .head-group { animation: mascot-head-tilt 4s infinite ease-in-out; transform-origin: 50px 55px; transition: animation-duration 0.5s; }
+            .polly-svg.happy .head-group { animation-duration: 1.5s; }
+        </style>
         
-        <g style="animation: mascot-hover ${state === 'happy' ? '1s' : '3s'} infinite ease-in-out; transform-origin: center;">
+        <g class="body-group">
             
             <!-- Tail Feathers -->
-            <path d="M 42 75 Q 45 90 50 95 Q 55 90 58 75 Z" fill="url(#p-tail)" style="animation: mascot-tail-wag ${state === 'happy' ? '0.7s' : '1.5s'} infinite alternate ease-in-out; transform-origin: 50px 75px;"/>
-            <path d="M 35 70 Q 40 85 45 90 Q 45 80 45 70 Z" fill="url(#p-tail)" style="animation: mascot-tail-wag ${state === 'happy' ? '0.7s' : '1.5s'} infinite alternate ease-in-out; transform-origin: 45px 70px;"/>
-            <path d="M 65 70 Q 60 85 55 90 Q 55 80 55 70 Z" fill="url(#p-tail)" style="animation: mascot-tail-wag ${state === 'happy' ? '0.7s' : '1.5s'} infinite alternate ease-in-out; transform-origin: 55px 70px;"/>
+            <path class="tail-feather-1" d="M 42 75 Q 45 90 50 95 Q 55 90 58 75 Z" fill="url(#p-tail)" />
+            <path class="tail-feather-2" d="M 35 70 Q 40 85 45 90 Q 45 80 45 70 Z" fill="url(#p-tail)" />
+            <path class="tail-feather-3" d="M 65 70 Q 60 85 55 90 Q 55 80 55 70 Z" fill="url(#p-tail)" />
 
             <!-- Left Wing -->
-            <path d="M 25 50 Q -5 45 0 70 Q 15 75 25 58 Z" fill="url(#p-wing)" style="animation: mascot-wing-left ${state === 'happy' ? '0.6s' : '1.5s'} infinite ease-in-out; transform-origin: 25px 50px;"/>
+            <path class="wing-left" d="M 25 50 Q -5 45 0 70 Q 15 75 25 58 Z" fill="url(#p-wing)" />
             <!-- Right Wing -->
-            <path d="M 75 50 Q 105 45 100 70 Q 85 75 75 58 Z" fill="url(#p-wing)" style="animation: mascot-wing-right ${state === 'happy' ? '0.6s' : '1.5s'} infinite ease-in-out; transform-origin: 75px 50px;"/>
+            <path class="wing-right" d="M 75 50 Q 105 45 100 70 Q 85 75 75 58 Z" fill="url(#p-wing)" />
 
             <!-- Head & Body combined -->
-            <g style="animation: mascot-head-tilt ${state === 'happy' ? '1.5s' : '4s'} infinite ease-in-out; transform-origin: 50px 55px;">
+            <g class="head-group">
                 <!-- Main Body -->
                 <rect x="25" y="25" width="50" height="55" rx="25" fill="url(#p-body)" />
                 
@@ -66,20 +93,21 @@ window.getParrotSVG = function (width = "100%", height = "100%", state = "neutra
                 <circle cx="35" cy="45" r="4.5" fill="#ff8da1" opacity="0.8"/>
                 <circle cx="65" cy="45" r="4.5" fill="#ff8da1" opacity="0.8"/>
 
-                <!-- Large Expressive Eyes -->
-                ${state === 'happy' ? `
-                <path d="M 35 41 Q 41 33 47 41" stroke="#1e1e1e" stroke-width="4.5" fill="none" stroke-linecap="round" />
-                <path d="M 53 41 Q 59 33 65 41" stroke="#1e1e1e" stroke-width="4.5" fill="none" stroke-linecap="round" />
-                ` : `
-                <circle cx="41" cy="38" r="6.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 41px 38px;"/>
-                <circle cx="59" cy="38" r="6.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 59px 38px;"/>
-                
-                <!-- Eye Highlights (Gleam) -->
-                <circle cx="39.5" cy="36" r="2.5" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 39.5px 36px;"/>
-                <circle cx="57.5" cy="36" r="2.5" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 57.5px 36px;"/>
-                <circle cx="43" cy="39" r="1" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 43px 39px;"/>
-                <circle cx="61" cy="39" r="1" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 61px 39px;"/>
-                `}
+                <!-- Eyes Container -->
+                <g class="eyes-neutral">
+                    <circle cx="41" cy="38" r="6.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 41px 38px;"/>
+                    <circle cx="59" cy="38" r="6.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 59px 38px;"/>
+                    <!-- Eye Highlights (Gleam) -->
+                    <circle cx="39.5" cy="36" r="2.5" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 39.5px 36px;"/>
+                    <circle cx="57.5" cy="36" r="2.5" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 57.5px 36px;"/>
+                    <circle cx="43" cy="39" r="1" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 43px 39px;"/>
+                    <circle cx="61" cy="39" r="1" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 61px 39px;"/>
+                </g>
+
+                <g class="eyes-happy">
+                    <path d="M 35 41 Q 41 33 47 41" stroke="#1e1e1e" stroke-width="4.5" fill="none" stroke-linecap="round" />
+                    <path d="M 53 41 Q 59 33 65 41" stroke="#1e1e1e" stroke-width="4.5" fill="none" stroke-linecap="round" />
+                </g>
 
                 <!-- Beak -->
                 <path d="M 45 42 Q 50 38 55 42 L 50 54 Z" fill="url(#p-beak)"/>
@@ -159,8 +187,11 @@ async function init() {
         console.warn("Could not fetch remote course data. Defaulting to local content.js fallback.", e);
     }
 
-    // Temporarily enforce dark mode on all screens (mobile and desktop)
-    document.body.setAttribute('data-theme', 'dark');
+    // Set theme based on local storage or default to light; force dark on mobile
+    const savedTheme = localStorage.getItem('user_theme') || 'light';
+    const isMobile = window.innerWidth < 1024;
+    document.body.setAttribute('data-theme', isMobile ? 'dark' : savedTheme);
+    updateThemeButtons();
 
     const savedUserStr = localStorage.getItem('saved_user');
     const loginTimeStr = localStorage.getItem('login_timestamp');
@@ -925,14 +956,24 @@ function updateThemeButtons() {
 }
 
 window.toggleTheme = function () {
-    // Temporarily disabled
-    return;
+    if (window.innerWidth < 1024) return; // Strictly no light theme in mobile mode
+    const currentTheme = document.body.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('user_theme', newTheme);
+    updateThemeButtons();
 }
 
 // Re-enforce theme on resize (e.g. rotating tablet into phone-width)
 ;(function () {
     window.addEventListener('resize', function () {
-        document.body.setAttribute('data-theme', 'dark');
+        const isMobile = window.innerWidth < 1024;
+        if (isMobile) {
+            document.body.setAttribute('data-theme', 'dark');
+        } else {
+            const savedTheme = localStorage.getItem('user_theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+        }
         updateThemeButtons();
     });
 })();
@@ -1752,7 +1793,7 @@ function renderHeader(backAction = null, title = "Odyssey by IIMBx") {
                     <span id="header-rank" style="font-weight: 800; color: var(--text-primary); font-size: 0.85rem;">#${gameState.rank}</span>
                 </div>
                 <button onclick="toggleTheme()" title="Toggle theme"
-                    style="display: none !important; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 50%; cursor: pointer; transition: all 0.2s; flex-shrink: 0;"
+                    style="width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 50%; cursor: pointer; transition: all 0.2s; flex-shrink: 0;"
                     onmouseover="this.style.background='var(--border)'"
                     onmouseout="this.style.background='var(--bg-overlay)'">
                     <span id="header-theme-icon" class="material-symbols-rounded theme-toggle-icon" style="font-size: 1.2rem; color: var(--text-primary);">${isLight ? 'dark_mode' : 'light_mode'}</span>
@@ -2112,6 +2153,7 @@ window.sendChatMessage = function () {
 
 // Render: Chapters Selection (HOME)
 window.renderChapters = function () {
+    document.body.classList.remove('game-active');
     window.currentView = 'home';
     updateDesktopPanels();
     updateMobileNav('home');
@@ -2752,6 +2794,14 @@ window.renderActivity = function () {
     // Render Activity UI with progress
     const realQuestions = level.questions.filter(q => !q.id.includes('INTRO'));
     const isIntro = activity.type === 'info_card';
+    
+    // Polly visibility logic: hide during game, show during info/chapters
+    if (isIntro) {
+        document.body.classList.remove('game-active');
+    } else {
+        document.body.classList.add('game-active');
+    }
+
     const totalSteps = realQuestions.length;
     // Current index in real questions (only if not intro)
     const currentQ = isIntro ? 0 : realQuestions.findIndex(q => q.id === question.id) + 1;
@@ -3106,7 +3156,7 @@ window.skipQuestion = function () {
     if (currentSkips === 1) {
         // Show warning before the fatal second skip
         showModal({
-            icon: 'warning',
+            icon: null,
             title: 'Final Skip Warning',
             message: `<br>You have skipped this question twice. If you continue, it will be marked as <strong>incorrect</strong> and you will earn <strong>no XP</strong> for this question. <br>Are you sure you want to skip?`,
             confirmText: 'Skip Anyway',
@@ -4024,6 +4074,7 @@ window.nextActivity = function (xpToAdd) {
 
 // Level Completion Summary
 function renderLevelComplete(chapterId, levelId) {
+    document.body.classList.remove('game-active');
     console.log("Entering renderLevelComplete:", { chapterId, levelId });
     window.currentView = 'complete';
     updateDesktopPanels();
@@ -4220,7 +4271,7 @@ function renderLevelComplete(chapterId, levelId) {
 // Confirm exit during level - Custom Modal
 window.confirmExitLevel = function (chapterId, levelId) {
     showModal({
-        icon: '⚠️',
+        icon: null,
         title: 'Exit Level?',
         message: 'Are you sure you want to exit? Your progress will be lost.',
         confirmText: 'Exit',
@@ -6622,6 +6673,8 @@ window.toggleDesktopCoach = function() {
     const drawer = document.getElementById('desktop-coach-drawer');
     const badge = document.getElementById('desktop-coach-badge');
     const input = document.getElementById('desktop-coach-input');
+    const fab = document.getElementById('desktop-coach-fab');
+    const mascotContainer = document.getElementById('polly-mascot-container');
     
     if (desktopCoachOpen) {
         drawer.style.transform = 'translateY(0)';
@@ -6629,12 +6682,50 @@ window.toggleDesktopCoach = function() {
         drawer.style.pointerEvents = 'auto';
         if (badge) badge.style.display = 'none';
         if (input) setTimeout(() => input.focus(), 300);
+        
+        // Hide Polly's bubble immediately when drawer is opened
+        const bubble = document.getElementById('polly-speech-bubble');
+        if (bubble) {
+            bubble.style.opacity = '0';
+            bubble.style.transform = 'translateY(10px) scale(0.9)';
+        }
+        
+        // Move Polly back to position
+        if (fab) {
+            fab.style.transform = 'scale(1) translateY(0)';
+        }
+        
+        // Maintain happy expression for 10 seconds
+        if (mascotContainer) {
+            const svg = mascotContainer.querySelector('.polly-svg');
+            if (svg) {
+                svg.classList.add('happy');
+                setTimeout(() => {
+                    // Only remove if we aren't hovering it right now
+                    if (!isPollyHovered) {
+                        svg.classList.remove('happy');
+                    }
+                }, 10000);
+            }
+        }
     } else {
         drawer.style.transform = 'translateY(120%)';
         drawer.style.opacity = '0';
         drawer.style.pointerEvents = 'none';
     }
 };
+
+// Close desktop coach when clicking outside of it
+document.addEventListener('click', function(e) {
+    if (desktopCoachOpen) {
+        const drawer = document.getElementById('desktop-coach-drawer');
+        const fab = document.getElementById('desktop-coach-fab');
+        // If click is outside drawer and outside fab, close the drawer
+        if (drawer && !drawer.contains(e.target) && fab && !fab.contains(e.target)) {
+            window.toggleDesktopCoach();
+        }
+    }
+});
 
 window.handleDesktopCoachSend = function() {
     const input = document.getElementById('desktop-coach-input');
@@ -6676,3 +6767,155 @@ window.handleDesktopCoachSend = function() {
         history.scrollTop = history.scrollHeight;
     }, 1000);
 };
+
+// Initialize Desktop FAB Mascot
+(function initPollyFAB() {
+    const container = document.getElementById('polly-mascot-container');
+    if (container && window.getParrotSVG) {
+        container.innerHTML = window.getParrotSVG('100%', '100%', 'neutral');
+    } else if (!container) {
+        document.addEventListener('DOMContentLoaded', initPollyFAB);
+    }
+})();
+
+// Polly Periodic Mentoring & Hover Logic
+let isPollyHovered = false;
+let pollyTimeout = null;
+
+window.showPollyBubble = function(text, isHover = false) {
+    if (isHover) isPollyHovered = true;
+    if (desktopCoachOpen) return;
+    
+    const bubble = document.getElementById('polly-speech-bubble');
+    const bubbleText = document.getElementById('polly-bubble-text');
+    const fab = document.getElementById('desktop-coach-fab');
+    const mascotContainer = document.getElementById('polly-mascot-container');
+    
+    if (!bubble || !bubbleText || !fab) return;
+
+    bubbleText.textContent = text;
+    bubble.style.opacity = '1';
+    bubble.style.transform = 'translateY(0) scale(1)';
+    
+    if (isHover) {
+        fab.style.transform = 'scale(1.1) translateY(-10px)';
+        if (mascotContainer) {
+            const svg = mascotContainer.querySelector('.polly-svg');
+            if (svg) svg.classList.add('happy');
+        }
+    }
+
+    // Auto hide if it's a periodic popup
+    if (!isHover) {
+        clearTimeout(pollyTimeout);
+        pollyTimeout = setTimeout(() => {
+            if (!isPollyHovered) window.hidePollyBubble(false);
+        }, 7000); // Show for 7 seconds
+    }
+};
+
+window.hidePollyBubble = function(isHover = false) {
+    if (isHover) isPollyHovered = false;
+    
+    const bubble = document.getElementById('polly-speech-bubble');
+    const fab = document.getElementById('desktop-coach-fab');
+    const mascotContainer = document.getElementById('polly-mascot-container');
+    
+    if (!bubble || !fab) return;
+
+    if (!isPollyHovered) {
+        bubble.style.opacity = '0';
+        bubble.style.transform = 'translateY(10px) scale(0.9)';
+    }
+    
+    if (isHover) {
+        fab.style.transform = 'scale(1) translateY(0)';
+        if (mascotContainer && !desktopCoachOpen) {
+            const svg = mascotContainer.querySelector('.polly-svg');
+            if (svg) svg.classList.remove('happy');
+        }
+    }
+};
+
+// 50 Context-Aware Mentoring Messages
+const pollyMessages = [
+    // Beginner Messages (XP < 300)
+    { text: "Welcome to your AI journey!", condition: (s) => s.xp < 300 },
+    { text: "Every great AI engineer started exactly where you are.", condition: (s) => s.xp < 300 },
+    { text: "Don't worry if concepts feel abstract right now. It clicks soon!", condition: (s) => s.xp < 300 },
+    { text: "Take your time reading through the fundamentals.", condition: (s) => s.xp < 300 },
+    { text: "Getting the basics right is the most important step.", condition: (s) => s.xp < 300 },
+    { text: "Machine learning sounds like magic, but it's just math and data.", condition: (s) => s.xp < 300 },
+    { text: "I'm here to help you navigate these new terms.", condition: (s) => s.xp < 300 },
+    { text: "A small step today is a giant leap for your AI career.", condition: (s) => s.xp < 300 },
+    { text: "We all make mistakes while learning. Keep trying!", condition: (s) => s.xp < 300 },
+    { text: "Curiosity is your best tool right now.", condition: (s) => s.xp < 300 },
+
+    // Intermediate Messages (XP between 300 and 1500)
+    { text: "You're building a solid foundation.", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "Notice how the concepts are starting to connect?", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "You're no longer a beginner. Keep pushing!", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "Neural networks can be tricky, but you're getting the hang of it.", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "You're leveling up fast. Great work.", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "Don't forget to review older chapters if you feel stuck.", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "Your analytical skills are sharpening.", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "You're halfway to becoming an AI pro.", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "Things are getting advanced, but so are you.", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+    { text: "It's all about pattern recognition, both for AI and for you.", condition: (s) => s.xp >= 300 && s.xp < 1500 },
+
+    // Advanced Messages (XP >= 1500)
+    { text: "Your dedication to AI is truly impressive.", condition: (s) => s.xp >= 1500 },
+    { text: "You have the knowledge of an advanced practitioner now.", condition: (s) => s.xp >= 1500 },
+    { text: "Complex algorithms are no match for you anymore.", condition: (s) => s.xp >= 1500 },
+    { text: "You're making this look easy.", condition: (s) => s.xp >= 1500 },
+    { text: "Look at that XP! You're a top performer.", condition: (s) => s.xp >= 1500 },
+    { text: "You've mastered concepts that confuse most people.", condition: (s) => s.xp >= 1500 },
+    { text: "The AI community needs minds like yours.", condition: (s) => s.xp >= 1500 },
+    { text: "I might need to start asking YOU for help soon.", condition: (s) => s.xp >= 1500 },
+    { text: "You are crushing the leaderboard.", condition: (s) => s.xp >= 1500 },
+    { text: "Incredible mastery. Keep aiming higher.", condition: (s) => s.xp >= 1500 },
+
+    // Streak-based Messages
+    { text: "A 3-day streak! You are building great habits.", condition: (s) => s.streak >= 3 && s.streak < 7 },
+    { text: "Consistency is key, and you're proving it.", condition: (s) => s.streak >= 3 && s.streak < 7 },
+    { text: "Don't break your streak now, you're on a roll.", condition: (s) => s.streak >= 3 && s.streak < 7 },
+    { text: "One week streak! 🔥 Incredible consistency.", condition: (s) => s.streak >= 7 && s.streak < 14 },
+    { text: "7 days of learning changes the brain. You're evolving.", condition: (s) => s.streak >= 7 && s.streak < 14 },
+    { text: "You've been here every day. That's true dedication.", condition: (s) => s.streak >= 7 && s.streak < 14 },
+    { text: "Over two weeks! Your learning momentum is unstoppable.", condition: (s) => s.streak >= 14 },
+    { text: "I've never seen such a long streak. Brilliant work.", condition: (s) => s.streak >= 14 },
+    { text: "You're making AI learning a core part of your daily life.", condition: (s) => s.streak >= 14 },
+    { text: "Keep this streak alive!", condition: (s) => s.streak >= 3 },
+
+    // General Engagement / Context-Free
+    { text: "Remember to take short breaks to let the information settle.", condition: (s) => true },
+    { text: "Need a hint? Click me and ask away.", condition: (s) => true },
+    { text: "AI is a marathon, not a sprint.", condition: (s) => true },
+    { text: "Data is the new oil, and you're learning how to refine it.", condition: (s) => true },
+    { text: "Think about how you can apply this concept in real life.", condition: (s) => true },
+    { text: "Every expert was once a beginner.", condition: (s) => true },
+    { text: "Feeling stuck? It happens to the best of us.", condition: (s) => true },
+    { text: "Learning is a process. Enjoy the journey.", condition: (s) => true },
+    { text: "You are doing great.", condition: (s) => true },
+    { text: "If you have questions, I'm right here.", condition: (s) => true }
+];
+
+function triggerPeriodicPolly() {
+    // Only show if user isn't actively hovering, the drawer is closed, and user is logged in
+    if (!isPollyHovered && !desktopCoachOpen && currentUser && gameState) {
+        // Filter messages based on the user's current gameState
+        const validMessages = pollyMessages.filter(msg => msg.condition(gameState));
+        
+        if (validMessages.length > 0) {
+            const randomMsg = validMessages[Math.floor(Math.random() * validMessages.length)];
+            window.showPollyBubble(randomMsg.text, false);
+        }
+    }
+}
+
+// Show the first progress-aware message after 5 seconds, then repeat every 45 seconds
+setTimeout(() => {
+    triggerPeriodicPolly();
+    setInterval(triggerPeriodicPolly, 45000);
+}, 5000);
+

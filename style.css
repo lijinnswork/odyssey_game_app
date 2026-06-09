@@ -87,17 +87,17 @@
     --radius-pill: 9999px;
 }
 
-/* Light Mode Theme - Elegant, Happy, Bright & Premium */
+/* Light Mode Theme - Ice Blue & Navy */
 body[data-theme="light"] {
-    --bg-main: #F8FAFC;
-    --bg-deep: #F1F5F9;
+    --bg-main: #F0F4F8;
+    --bg-deep: #E6F0FA;
     --surface: #FFFFFF;
     --surface-glass: rgba(255, 255, 255, 0.85);
     --bg-overlay: rgba(15, 23, 42, 0.05);
     
     --text-primary: #0F172A;
-    --text-secondary: #334155;
-    --text-muted: #64748B;
+    --text-secondary: #1E293B;
+    --text-muted: #475569;
     
     --unit-1-start: #3B82F6;
     --unit-1-end: #1D4ED8;
@@ -132,14 +132,14 @@ body[data-theme="light"] {
     --available-glow: rgba(59, 130, 246, 0.1);
     
     --locked: #E2E8F0;
-    --locked-border: #CBD5E1;
+    --locked-border: #D2E3FC;
     --locked-icon: #94A3B8;
     
     --success: #10B981;
     --danger: #EF4444;
     
     --white-ring: #0F172A;
-    --soft-border: rgba(0, 0, 0, 0.08);
+    --soft-border: #D2E3FC;
  
     /* Legacy Remap */
     --primary: var(--unit-1-start);
@@ -157,7 +157,7 @@ body[data-theme="light"] {
     --border: var(--soft-border);
     --text-main: var(--text-primary);
  
-    --gradient-sidebar: linear-gradient(180deg, #E2E8F0 0%, #F1F5F9 100%);
+    --gradient-sidebar: linear-gradient(180deg, #F0F4F8 0%, #E6F0FA 100%);
 }
 
 
@@ -924,9 +924,13 @@ button span {
 .chapter-card {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: var(--shadow-main);
-    border-top: 2px solid var(--border);
+    border: 2px solid transparent;
+    border-top-color: var(--border);
     margin-bottom: 1.25rem;
-    /* Added top border for visibility */
+}
+
+body[data-theme="light"] .chapter-card {
+    border-color: var(--border);
 }
 
 .chapter-label {
@@ -1227,11 +1231,58 @@ button span {
         --bg-deep: #101221 !important;
     }
 
+    body[data-theme="light"] .left-panel {
+        background: linear-gradient(180deg, #1A365D 0%, #0A192F 100%) !important;
+        border-right: none !important;
+        --surface: #0F1E36 !important;
+        --surface-glass: rgba(15, 29, 54, 0.82) !important;
+        --bg-deep: #0D1627 !important;
+        --border: rgba(209, 246, 255, 0.12) !important;
+        --text-secondary: #A7C2E0 !important;
+        --text-muted: #7899C2 !important;
+    }
+
+    /* Desktop Light Mode: Theme the top header to match the app's brand blue */
+    body[data-theme="light"] .app-content header {
+        background: linear-gradient(90deg, #1A365D 0%, #0A192F 100%) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    body[data-theme="light"] .app-content header > div:first-child > div {
+        color: #FFFFFF !important;
+    }
+
+    body[data-theme="light"] .app-content header .xp-container,
+    body[data-theme="light"] .app-content header #header-rank-container,
+    body[data-theme="light"] .app-content header button {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+        transition: all 0.2s ease !important;
+    }
+
+    body[data-theme="light"] .app-content header button:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    body[data-theme="light"] .app-content header #header-xp-value,
+    body[data-theme="light"] .app-content header #header-gems-value,
+    body[data-theme="light"] .app-content header #header-rank,
+    body[data-theme="light"] .app-content header button span {
+        color: #FFFFFF !important;
+    }
+
+    /* Fix white gap on overscroll in light mode */
+    body[data-theme="light"]:not(.login-mode) .app-content {
+        background: linear-gradient(180deg, #1A365D 0%, #1A365D 50vh, var(--bg-card) 50vh, var(--bg-card) 100%) !important;
+    }
+
     .main-scroll-area {
         flex: 1;
         background: var(--bg-card);
-        /* Match #1E1E26 */
-        border-top-left-radius: 40px;
+        /* Removed border-top-left-radius curve */
+        border-top-left-radius: 0px;
         display: flex;
         flex-direction: column;
     }
@@ -1755,6 +1806,11 @@ button span {
 /* --- Hero & Specialized Areas --- */
 .login-hero {
     background: var(--gradient-sidebar) !important;
+    color: white !important;
+}
+
+body[data-theme="light"] .login-hero {
+    background: linear-gradient(135deg, #1A365D 0%, #0A192F 100%) !important;
     color: white !important;
 }
 
@@ -3892,4 +3948,8 @@ button img,
        but individual toasts need to remain tappable */
 .toast {
     pointer-events: auto !important;
+}
+
+body.game-active .desktop-coach-wrapper {
+    display: none !important;
 }
