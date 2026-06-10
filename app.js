@@ -7,7 +7,7 @@ const API_BASE = (window.location.hostname === 'localhost' || window.location.ho
 window.getParrotSVG = function (width = "100%", height = "100%", state = "neutral") {
     // Add the state class to the SVG for smooth CSS transitions
     return `
-    <svg viewBox="-18 -8 136 118" width="\${width}" height="\${height}" style="overflow: visible;" class="polly-svg \${state}">
+    <svg viewBox="-18 -8 136 118" width="${width}" height="${height}" style="overflow: visible;" class="polly-svg ${state}">
         <defs>
             <linearGradient id="p-body" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#4ade80" />
@@ -118,6 +118,246 @@ window.getParrotSVG = function (width = "100%", height = "100%", state = "neutra
     </svg>
     `;
 };
+
+// --- ANIMATED COCOA GARFIELD MASCOT SVG ---
+window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neutral") {
+    return `
+    <svg viewBox="-18 -8 136 118" width="${width}" height="${height}" style="overflow: visible;" class="garfield-svg ${state}">
+        <defs>
+            <linearGradient id="g-body" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#cc6f36" />
+                <stop offset="100%" stop-color="#994f24" />
+            </linearGradient>
+            <linearGradient id="g-belly" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fff0e0" />
+                <stop offset="100%" stop-color="#ffdcb8" />
+            </linearGradient>
+            <linearGradient id="g-ear" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffa5a5" />
+                <stop offset="100%" stop-color="#f28080" />
+            </linearGradient>
+            <linearGradient id="g-bell" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffd700" />
+                <stop offset="100%" stop-color="#cc9b00" />
+            </linearGradient>
+            <linearGradient id="g-stripe" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#542b10" />
+                <stop offset="100%" stop-color="#3b1d0a" />
+            </linearGradient>
+        </defs>
+
+        <style>
+            /* Smooth Transitions */
+            .garfield-svg .eyes-neutral { opacity: 1; transition: opacity 0.4s ease-in-out; }
+            .garfield-svg .eyes-happy { opacity: 0; transition: opacity 0.4s ease-in-out; }
+            .garfield-svg.happy .eyes-neutral { opacity: 0; }
+            .garfield-svg.happy .eyes-happy { opacity: 1; }
+
+            .garfield-svg .mouth-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
+            .garfield-svg .mouth-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .garfield-svg.happy .mouth-neutral { opacity: 0; }
+            .garfield-svg.happy .mouth-happy { opacity: 1; }
+
+            .garfield-svg .paws-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
+            .garfield-svg .paws-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .garfield-svg.happy .paws-neutral { opacity: 0; }
+            .garfield-svg.happy .paws-happy { opacity: 1; }
+
+            .garfield-svg .tail-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
+            .garfield-svg .tail-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .garfield-svg.happy .tail-neutral { opacity: 0; }
+            .garfield-svg.happy .tail-happy { opacity: 1; }
+
+            /* Animation Speeds */
+            .garfield-svg .body-group { animation: mascot-hover 3s infinite ease-in-out; transform-origin: center; transition: animation-duration 0.5s; }
+            .garfield-svg.happy .body-group { animation-duration: 1s; }
+
+            .garfield-svg .tail-neutral { animation: mascot-tail-wag 2s infinite alternate ease-in-out; transform-origin: 30px 75px; }
+            .garfield-svg .tail-happy { animation: mascot-tail-wag 0.8s infinite alternate ease-in-out; transform-origin: 10px 65px; }
+
+            .garfield-svg .ear-left { animation: mascot-ear-wiggle-left 4.5s infinite alternate ease-in-out; transform-origin: 26px 34px; }
+            .garfield-svg .ear-right { animation: mascot-ear-wiggle-right 4.8s infinite alternate ease-in-out; transform-origin: 74px 34px; }
+
+            .garfield-svg .head-group { animation: mascot-head-tilt 4s infinite ease-in-out; transform-origin: 50px 42px; transition: animation-duration 0.5s; }
+            .garfield-svg.happy .head-group { animation-duration: 1.5s; }
+
+            .garfield-svg.happy .paws-happy { animation: mascot-paws-wave 0.8s infinite alternate ease-in-out; transform-origin: 50px 60px; }
+
+            @keyframes mascot-ear-wiggle-left {
+                0%, 90%, 100% { transform: rotate(0deg); }
+                93%           { transform: rotate(-6deg); }
+                96%           { transform: rotate(4deg); }
+                98%           { transform: rotate(-2deg); }
+            }
+            @keyframes mascot-ear-wiggle-right {
+                0%, 92%, 100% { transform: rotate(0deg); }
+                94%           { transform: rotate(6deg); }
+                97%           { transform: rotate(-4deg); }
+                99%           { transform: rotate(2deg); }
+            }
+            @keyframes mascot-paws-wave {
+                0%   { transform: translateY(0px) rotate(0deg); }
+                100% { transform: translateY(-3px) rotate(5deg); }
+            }
+        </style>
+
+        <g class="body-group">
+            <!-- Tail Groups (Switchable) -->
+            <!-- Neutral Tail (Curled Left) -->
+            <g class="tail-neutral">
+                <path d="M 30 75 Q 15 85 8 72 Q 4 62 12 55 Q 20 48 20 60 Q 20 70 30 75 Z" fill="url(#g-body)" />
+                <path d="M 23 72 Q 17 80 12 73" stroke="url(#g-stripe)" stroke-width="4" stroke-linecap="round" fill="none" />
+                <path d="M 13 65 Q 9 70 8 62" stroke="url(#g-stripe)" stroke-width="4" stroke-linecap="round" fill="none" />
+            </g>
+            <!-- Happy Tail (Wagging Right) -->
+            <g class="tail-happy">
+                <path d="M 70 75 Q 85 85 92 72 Q 96 62 88 55 Q 80 48 80 60 Q 80 70 70 75 Z" fill="url(#g-body)" />
+                <path d="M 77 72 Q 83 80 88 73" stroke="url(#g-stripe)" stroke-width="4" stroke-linecap="round" fill="none" />
+                <path d="M 87 65 Q 91 70 92 62" stroke="url(#g-stripe)" stroke-width="4" stroke-linecap="round" fill="none" />
+            </g>
+
+            <!-- Main Body -->
+            <ellipse cx="50" cy="72" rx="24" ry="20" fill="url(#g-body)" />
+            <!-- Cream Belly -->
+            <ellipse cx="50" cy="74" rx="15" ry="12" fill="url(#g-belly)" />
+
+            <!-- Collar & Bell -->
+            <rect x="36" y="60" width="28" height="4" rx="2" fill="url(#g-stripe)" />
+            <circle cx="50" cy="65" r="5.5" fill="url(#g-bell)" />
+            <circle cx="50" cy="65" r="1.5" fill="#4a2712" />
+            <line x1="50" y1="66.5" x2="50" y2="70.5" stroke="#4a2712" stroke-width="1.5" />
+
+            <!-- Paws Groups (Switchable) -->
+            <!-- Neutral Paws (Sitting) -->
+            <g class="paws-neutral">
+                <!-- Left back paw -->
+                <rect x="22" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
+                <line x1="25" y1="84" x2="25" y2="90" stroke="#4a2712" stroke-width="1.5" />
+                <line x1="29" y1="84" x2="29" y2="90" stroke="#4a2712" stroke-width="1.5" />
+                <!-- Right back paw -->
+                <rect x="68" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
+                <line x1="71" y1="84" x2="71" y2="90" stroke="#4a2712" stroke-width="1.5" />
+                <line x1="75" y1="84" x2="75" y2="90" stroke="#4a2712" stroke-width="1.5" />
+                <!-- Left front paw -->
+                <rect x="36" y="80" width="9" height="12" rx="4.5" fill="url(#g-belly)" />
+                <line x1="39" y1="86" x2="39" y2="92" stroke="#4a2712" stroke-width="1.5" />
+                <line x1="42" y1="86" x2="42" y2="92" stroke="#4a2712" stroke-width="1.5" />
+                <!-- Right front paw -->
+                <rect x="55" y="80" width="9" height="12" rx="4.5" fill="url(#g-belly)" />
+                <line x1="58" y1="86" x2="58" y2="92" stroke="#4a2712" stroke-width="1.5" />
+                <line x1="61" y1="86" x2="61" y2="92" stroke="#4a2712" stroke-width="1.5" />
+            </g>
+            <!-- Happy Paws (Waving) -->
+            <g class="paws-happy">
+                <!-- Left waving paw -->
+                <rect x="30" y="52" width="10" height="14" rx="5" fill="url(#g-belly)" />
+                <line x1="33" y1="52" x2="33" y2="58" stroke="#4a2712" stroke-width="1.5" />
+                <line x1="37" y1="52" x2="37" y2="58" stroke="#4a2712" stroke-width="1.5" />
+                <!-- Right waving paw -->
+                <rect x="60" y="52" width="10" height="14" rx="5" fill="url(#g-belly)" />
+                <line x1="63" y1="52" x2="63" y2="58" stroke="#4a2712" stroke-width="1.5" />
+                <line x1="67" y1="52" x2="67" y2="58" stroke="#4a2712" stroke-width="1.5" />
+                <!-- Left back sitting paw -->
+                <rect x="22" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
+                <line x1="25" y1="84" x2="25" y2="90" stroke="#4a2712" stroke-width="1.5" />
+                <!-- Right back sitting paw -->
+                <rect x="68" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
+                <line x1="71" y1="84" x2="71" y2="90" stroke="#4a2712" stroke-width="1.5" />
+            </g>
+
+            <!-- Head group -->
+            <g class="head-group">
+                <!-- Ears (left/right) -->
+                <path class="ear-left" d="M 28 34 L 16 10 Q 24 13 36 26 Z" fill="url(#g-body)" />
+                <path class="ear-left" d="M 27 31 L 18 14 Q 24 16 33 24 Z" fill="url(#g-ear)" />
+
+                <path class="ear-right" d="M 72 34 L 84 10 Q 76 13 64 26 Z" fill="url(#g-body)" />
+                <path class="ear-right" d="M 73 31 L 82 14 Q 76 16 67 24 Z" fill="url(#g-ear)" />
+
+                <!-- Hair Tuft -->
+                <path d="M 45 22 Q 50 10 52 20 Q 57 10 55 22 Z" fill="url(#g-body)" />
+
+                <!-- Main Head Base -->
+                <ellipse cx="50" cy="42" rx="27" ry="21" fill="url(#g-body)" />
+
+                <!-- Head Stripes -->
+                <!-- Forehead -->
+                <path d="M 47 21 L 48 26 L 46 26 Z" fill="url(#g-stripe)" />
+                <path d="M 50 21 L 50 28 L 49 28 Z" fill="url(#g-stripe)" />
+                <path d="M 53 21 L 52 26 L 54 26 Z" fill="url(#g-stripe)" />
+                <!-- Left cheek stripes -->
+                <path d="M 25 38 L 31 39 L 29 41 Z" fill="url(#g-stripe)" />
+                <path d="M 24 43 L 30 44 L 28 46 Z" fill="url(#g-stripe)" />
+                <!-- Right cheek stripes -->
+                <path d="M 75 38 L 69 39 L 71 41 Z" fill="url(#g-stripe)" />
+                <path d="M 76 43 L 70 44 L 72 46 Z" fill="url(#g-stripe)" />
+
+                <!-- Cream Cheeks / Muzzle -->
+                <ellipse cx="44" cy="48" rx="8" ry="6.5" fill="url(#g-belly)" />
+                <ellipse cx="56" cy="48" rx="8" ry="6.5" fill="url(#g-belly)" />
+                <!-- Whisker dots -->
+                <circle cx="41" cy="48" r="0.6" fill="#4a2712" />
+                <circle cx="43" cy="49" r="0.6" fill="#4a2712" />
+                <circle cx="45" cy="48" r="0.6" fill="#4a2712" />
+                <circle cx="59" cy="48" r="0.6" fill="#4a2712" />
+                <circle cx="57" cy="49" r="0.6" fill="#4a2712" />
+                <circle cx="55" cy="48" r="0.6" fill="#4a2712" />
+
+                <!-- Nose -->
+                <polygon points="48,43 52,43 50,46" fill="#e38a8a" />
+
+                <!-- Mouths -->
+                <!-- Neutral Mouth -->
+                <path class="mouth-neutral" d="M 45 46 Q 47.5 49.5 50 46.5 Q 52.5 49.5 55 46" fill="none" stroke="#4a2712" stroke-width="1.8" stroke-linecap="round" />
+                <!-- Happy Mouth -->
+                <g class="mouth-happy">
+                    <path d="M 45 46 C 46 52, 54 52, 55 46 Z" fill="#992424" />
+                    <path d="M 48 49.5 C 49 51.5, 51 51.5, 52 49.5 Z" fill="#ff8a8a" />
+                    <path d="M 45 46 Q 47.5 48.5 50 46.5 Q 52.5 48.5 55 46" fill="none" stroke="#4a2712" stroke-width="1.8" stroke-linecap="round" />
+                </g>
+
+                <!-- Blush Cheeks -->
+                <ellipse cx="32" cy="46" rx="3" ry="2" fill="#ff8da1" opacity="0.6" />
+                <ellipse cx="68" cy="46" rx="3" ry="2" fill="#ff8da1" opacity="0.6" />
+
+                <!-- Eyes Container -->
+                <!-- Neutral Eyes -->
+                <g class="eyes-neutral">
+                    <!-- Whites -->
+                    <ellipse cx="40" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <ellipse cx="60" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <!-- Pupils -->
+                    <ellipse cx="40" cy="37" rx="4.5" ry="5.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 40px 37px;" />
+                    <ellipse cx="60" cy="37" rx="4.5" ry="5.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 60px 37px;" />
+                    <!-- Gleams -->
+                    <circle cx="38.5" cy="35" r="1.6" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 38.5px 35px;" />
+                    <circle cx="58.5" cy="35" r="1.6" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 58.5px 35px;" />
+                    <circle cx="41.5" cy="39" r="0.6" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 41.5px 39px;" />
+                    <circle cx="61.5" cy="39" r="0.6" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 61.5px 39px;" />
+                </g>
+                <!-- Happy Eyes -->
+                <g class="eyes-happy">
+                    <path d="M 34 39 Q 40 31 46 39" stroke="#1e1e1e" stroke-width="4.2" fill="none" stroke-linecap="round" />
+                    <path d="M 54 39 Q 60 31 66 39" stroke="#1e1e1e" stroke-width="4.2" fill="none" stroke-linecap="round" />
+                </g>
+            </g>
+        </g>
+    </svg>
+    `;
+};
+
+// --- RESOLVE ACTIVE MASCOT SVG ---
+window.getMascotSVG = function (width = "100%", height = "100%", state = "neutral") {
+    if (gameState.selectedMascot === 'garfield') {
+        return window.getGarfieldSVG(width, height, state);
+    }
+    return window.getParrotSVG(width, height, state);
+};
+
+window.getMascotAvatarSrc = function () {
+    return (gameState.selectedMascot === 'garfield') ? 'garfield.png' : 'polly.png';
+};
+
 // App State for Chapter-Based System
 const defaultState = {
     xp: 0,
@@ -131,7 +371,8 @@ const defaultState = {
     userTitle: 'AI NOVICE',
     demoCompleted: false,
     lastPlayedDate: null,
-    selectedIcon: null // if null, uses landing-logo.png
+    selectedIcon: null, // if null, uses landing-logo.png
+    selectedMascot: 'polly'
 };
 
 const GAME_ICONS = [
@@ -291,7 +532,21 @@ function updateDesktopPanels(refreshLeaderboard = false) {
         if (desktopCoach) desktopCoach.style.display = 'none';
         return;
     } else {
-        if (desktopCoach) desktopCoach.style.display = 'flex';
+        if (desktopCoach) {
+            desktopCoach.style.display = 'flex';
+            const headerAvatar = document.getElementById('desktop-coach-header-avatar');
+            if (headerAvatar) {
+                headerAvatar.src = window.getMascotAvatarSrc();
+            }
+            const welcomeAvatar = document.getElementById('desktop-coach-welcome-avatar');
+            if (welcomeAvatar) {
+                welcomeAvatar.src = window.getMascotAvatarSrc();
+            }
+            const mascotContainer = document.getElementById('polly-mascot-container');
+            if (mascotContainer) {
+                mascotContainer.innerHTML = window.getMascotSVG('100%', '100%');
+            }
+        }
     }
 
     // Calculate Progress
@@ -445,6 +700,9 @@ function updateDesktopPanels(refreshLeaderboard = false) {
                     </div>
                     <div onclick="openIconPicker(); document.getElementById('settings-dropdown').classList.add('hidden')" style="padding: 0.75rem 1rem; font-size: 0.88rem; cursor: pointer; border-radius: var(--radius-s); transition: all 0.2s; display: flex; align-items: center; gap: 0.75rem; color: var(--text-secondary);" onmouseover="this.style.background='var(--bg-deep)'" onmouseout="this.style.background='transparent'">
                         <span class="material-symbols-rounded" style="font-size: 1.1rem;">face</span> Change Avatar
+                    </div>
+                    <div onclick="openMascotPicker(); document.getElementById('settings-dropdown').classList.add('hidden')" style="padding: 0.75rem 1rem; font-size: 0.88rem; cursor: pointer; border-radius: var(--radius-s); transition: all 0.2s; display: flex; align-items: center; gap: 0.75rem; color: var(--text-secondary);" onmouseover="this.style.background='var(--bg-deep)'" onmouseout="this.style.background='transparent'">
+                        <span class="material-symbols-rounded" style="font-size: 1.1rem;">pets</span> Choose Mascot
                     </div>
                     <div style="height: 1px; background: var(--border); margin: 0.25rem 0;"></div>
                     <div onclick="handleLogout(); document.getElementById('settings-dropdown').classList.add('hidden')" style="padding: 0.75rem 1rem; font-size: 0.88rem; color: #C73528; cursor: pointer; border-radius: var(--radius-s); transition: all 0.2s; display: flex; align-items: center; gap: 0.75rem;" onmouseover="this.style.background='rgba(199, 53, 40, 0.1)'" onmouseout="this.style.background='transparent'">
@@ -802,7 +1060,7 @@ window.toggleMobileSettings = function () {
         confirmText: 'Logout',
         cancelText: null,
         onConfirm: () => handleLogout(),
-        cardStyle: 'height: 580px; display: flex; flex-direction: column; justify-content: space-between;',
+        cardStyle: 'height: 640px; display: flex; flex-direction: column; justify-content: space-between;',
         customHtml: `
             <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1; margin-bottom: 0.5rem; margin-top: -1rem;">
                 <div>
@@ -853,6 +1111,9 @@ window.toggleMobileSettings = function () {
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 0.75rem; width: 100%; margin-bottom: 0.5rem;">
+                    <button onclick="openMascotPicker()" class="btn-secondary" style="width: 100%; justify-content: flex-start; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <span class="material-symbols-rounded">pets</span> Choose Mascot
+                    </button>
                     <button onclick="handleResetPassword()" class="btn-secondary" style="width: 100%; justify-content: flex-start; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
                         <span class="material-symbols-rounded">lock</span> Change Password
                     </button>
@@ -918,6 +1179,77 @@ window.selectIcon = function (icon) {
     if (typeof syncUIStats === 'function') syncUIStats();
     saveProgress();
     showToast('✅ Avatar updated!', 'success');
+};
+
+window.openMascotPicker = function () {
+    showModal({
+        icon: 'pets',
+        title: 'Choose Your Mascot',
+        message: 'Select your AI learning companion to guide you through the Odyssey.',
+        confirmText: null,
+        cancelText: 'Close',
+        cardStyle: 'height: 520px; display: flex; flex-direction: column; justify-content: space-between;',
+        customHtml: `
+            <div style="display: flex; gap: 1.5rem; width: 100%; margin: 1.5rem 0; flex: 1; align-items: center; justify-content: center;" class="mascot-picker-container">
+                <!-- Polly -->
+                <div onclick="selectMascot('polly')" 
+                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: \${gameState.selectedMascot !== 'garfield' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid \${gameState.selectedMascot !== 'garfield' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
+                     onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot === 'garfield') this.style.borderColor='var(--border)'">
+                    <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                        \${window.getParrotSVG('100px', '100px')}
+                    </div>
+                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Polly the Parrot</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">The vibrant, wise learning bird (Default)</div>
+                </div>
+                <!-- Garfield -->
+                <div onclick="selectMascot('garfield')" 
+                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: \${gameState.selectedMascot === 'garfield' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid \${gameState.selectedMascot === 'garfield' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
+                     onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot !== 'garfield') this.style.borderColor='var(--border)'">
+                    <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                        \${window.getGarfieldSVG('100px', '100px')}
+                    </div>
+                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Garfield Cat</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">The playful, cute ginger cat companion</div>
+                </div>
+            </div>
+        `
+    });
+};
+
+window.selectMascot = function (mascotId) {
+    gameState.selectedMascot = mascotId;
+
+    // Update local storage immediate state
+    const savedUser = JSON.parse(localStorage.getItem('saved_user') || '{}');
+    savedUser.selectedMascot = mascotId;
+    localStorage.setItem('saved_user', JSON.stringify(savedUser));
+
+    window.closeModal();
+
+    // Update static avatars in the DOM if they exist
+    const headerAvatar = document.getElementById('desktop-coach-header-avatar');
+    if (headerAvatar) {
+        headerAvatar.src = window.getMascotAvatarSrc();
+    }
+    const welcomeAvatar = document.getElementById('desktop-coach-welcome-avatar');
+    if (welcomeAvatar) {
+        welcomeAvatar.src = window.getMascotAvatarSrc();
+    }
+
+    // Refresh dynamic coach floating FAB mascot container if it exists
+    const mascotContainer = document.getElementById('polly-mascot-container');
+    if (mascotContainer) {
+        mascotContainer.innerHTML = window.getMascotSVG('100%', '100%');
+    }
+
+    // Clear left panel to force a full re-render and bypass early return
+    const leftPanel = document.getElementById('left-panel');
+    if (leftPanel) leftPanel.innerHTML = '';
+
+    updateDesktopPanels(true); // Force refresh
+    if (typeof syncUIStats === 'function') syncUIStats();
+    saveProgress();
+    showToast(`✅ Mascot changed to \${mascotId === 'garfield' ? 'Garfield' : 'Polly'}!`, 'success');
 };
 function updateMobileNav(activeKey) {
     if (activeKey !== 'settings') {
@@ -1649,7 +1981,7 @@ window.loginGuest = function (isRestore = false) {
                 <span class="material-symbols-rounded" style="font-size: 5rem; color: var(--success);">eco</span>
             </div>
             <div class="login-hero-polly" style="width: 120px; height: 120px; margin: 0 auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3)); animation: mascot-hover 3s infinite ease-in-out; justify-content: center; align-items: center;">
-                ${window.getParrotSVG('100%', '100%', 'happy')}
+                ${window.getMascotSVG('100%', '100%', 'happy')}
             </div>
             <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Welcome, Traveler.</h2>
             <p style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.6;">
@@ -1747,7 +2079,7 @@ function loginSuccess(user, isRestore = false, isNewRegistration = false) {
         <div class="animate-fade-in" style="padding: 2.5rem; text-align: center; display: flex; flex-direction: column; height: 100%; justify-content: center; gap: 1.5rem;">
             <div class="login-hero-icon" style="font-size: 5rem; animation: pop 0.6s ease-in-out; justify-content: center;">🌱</div>
             <div class="login-hero-polly" style="width: 120px; height: 120px; margin: 0 auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3)); animation: mascot-hover 3s infinite ease-in-out; justify-content: center; align-items: center;">
-                ${window.getParrotSVG('100%', '100%', 'happy')}
+                ${window.getMascotSVG('100%', '100%', 'happy')}
             </div>
             <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Welcome, ${currentUser}.</h2>
             <p style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.6;">
@@ -2015,7 +2347,7 @@ window.renderMobileChat = function () {
             <!-- Header -->
             <div style="padding: 1rem 1.25rem 0.75rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0;">
                 <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, hsl(${hue},80%,55%), hsl(${hue + 30},80%,40%)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 16px hsla(${hue},80%,55%,0.4);">
-                    ${window.getParrotSVG('28px', '28px')}
+                    ${window.getMascotSVG('28px', '28px')}
                 </div>
                 <div>
                     <div style="font-weight: 800; color: #fff; font-size: 0.95rem;">Odyssey Coach</div>
@@ -2504,7 +2836,7 @@ window.renderChapters = function () {
                 crownHtml = `
                 ${startLabelHtml}
                 <div style="position: absolute; left: calc(-1 * clamp(90px, 28vw, 130px) - 8px); top: 50%; transform: translateY(-50%); width: clamp(90px, 28vw, 130px); height: clamp(90px, 28vw, 130px); overflow: visible; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3)); z-index: 10;">
-                    ${window.getParrotSVG('100%', '100%')}
+                    ${window.getMascotSVG('100%', '100%')}
                 </div>
                 `;
             }
@@ -4222,7 +4554,7 @@ function renderLevelComplete(chapterId, levelId) {
     app.innerHTML = `
         <div class="main-scroll-area" style="padding: 2.5rem 1.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%;">
             <div style="width: 160px; height: 140px; margin: 1.5rem auto 1.5rem auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3)); display: flex; justify-content: center; align-items: center; position: relative; overflow: visible;">
-                ${window.getParrotSVG('100%', '100%', passed ? 'happy' : 'neutral')}
+                ${window.getMascotSVG('100%', '100%', passed ? 'happy' : 'neutral')}
             </div>
             <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-main);">${passed ? 'Level Complete!' : 'Keep Practicing!'}</h2>
             <p style="color: var(--text-muted); margin-bottom: 3rem;">${passed ? 'Great work! You passed this level.' : 'You need 80% accuracy to pass.'}</p>
@@ -4690,7 +5022,7 @@ function showModal({ icon = '❓', title, message, confirmText = 'Confirm', canc
             <span class="material-symbols-rounded" id="modal-close-icon" style="position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; transition: color 0.2s; user-select: none;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-muted)'">close</span>
             ${pollyState ? `
              <div style="width: 140px; height: 120px; margin: 1.5rem auto 1.5rem auto; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.25)); display: flex; justify-content: center; align-items: center; position: relative; overflow: visible;">
-                ${window.getParrotSVG('100%', '100%', pollyState)}
+                ${window.getMascotSVG('100%', '100%', pollyState)}
             </div>
             ` : icon ? `
             <div style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem;">${/\p{Emoji}/u.test(icon) ? icon : `<span class="material-symbols-rounded" style="font-size: 2.5rem; color: var(--accent);">${icon}</span>`}</div>
@@ -6701,7 +7033,7 @@ window.toggleDesktopCoach = function() {
         
         // Maintain happy expression for 10 seconds
         if (mascotContainer) {
-            const svg = mascotContainer.querySelector('.polly-svg');
+            const svg = mascotContainer.querySelector('.polly-svg, .garfield-svg');
             if (svg) {
                 svg.classList.add('happy');
                 setTimeout(() => {
@@ -6762,7 +7094,7 @@ window.handleDesktopCoachSend = function() {
         botDiv.style.gap = '0.75rem';
         botDiv.style.marginBottom = '1rem';
         botDiv.innerHTML = `
-            <div style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: white; flex-shrink: 0; border: 2px solid var(--accent);"><img src="polly.png" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: white; flex-shrink: 0; border: 2px solid var(--accent);"><img src="${window.getMascotAvatarSrc()}" style="width: 100%; height: 100%; object-fit: cover;"></div>
             <div style="background: rgba(var(--primary-rgb), 0.15); border: 1px solid rgba(var(--primary-rgb), 0.3); border-radius: 4px 16px 16px 16px; padding: 0.85rem 1.1rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; font-family: 'Outfit', sans-serif;">
                 That is a fantastic question! Let me check the knowledge base regarding: "${message}"...
             </div>
@@ -6775,8 +7107,8 @@ window.handleDesktopCoachSend = function() {
 // Initialize Desktop FAB Mascot
 (function initPollyFAB() {
     const container = document.getElementById('polly-mascot-container');
-    if (container && window.getParrotSVG) {
-        container.innerHTML = window.getParrotSVG('100%', '100%', 'neutral');
+    if (container && window.getMascotSVG) {
+        container.innerHTML = window.getMascotSVG('100%', '100%', 'neutral');
     } else if (!container) {
         document.addEventListener('DOMContentLoaded', initPollyFAB);
     }
@@ -6804,7 +7136,7 @@ window.showPollyBubble = function(text, isHover = false) {
     if (isHover) {
         fab.style.transform = 'scale(1.1) translateY(-10px)';
         if (mascotContainer) {
-            const svg = mascotContainer.querySelector('.polly-svg');
+            const svg = mascotContainer.querySelector('.polly-svg, .garfield-svg');
             if (svg) svg.classList.add('happy');
         }
     }
@@ -6835,7 +7167,7 @@ window.hidePollyBubble = function(isHover = false) {
     if (isHover) {
         fab.style.transform = 'scale(1) translateY(0)';
         if (mascotContainer && !desktopCoachOpen) {
-            const svg = mascotContainer.querySelector('.polly-svg');
+            const svg = mascotContainer.querySelector('.polly-svg, .garfield-svg');
             if (svg) svg.classList.remove('happy');
         }
     }

@@ -48,6 +48,7 @@ exports.handler = async (event) => {
             await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_played_date DATE`;
             await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS demo_completed BOOLEAN DEFAULT FALSE`;
             await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS selected_icon TEXT`;
+            await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS selected_mascot TEXT`;
         } catch (mErr) {
             // ignore
         }
@@ -91,6 +92,7 @@ exports.handler = async (event) => {
                 levelStats: (typeof user.level_stats === 'string') ? (() => { try { return JSON.parse(user.level_stats); } catch(e) { return {}; } })() : (user.level_stats || {}),
                 demoCompleted: user.demo_completed || false,
                 selectedIcon: user.selected_icon || null,
+                selectedMascot: user.selected_mascot || 'polly',
                 lastPlayedDate: user.last_played_date,
                 rank: user.current_rank
             })

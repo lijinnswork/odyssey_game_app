@@ -13,7 +13,7 @@ exports.handler = async (event) => {
 
     try {
         const data = JSON.parse(event.body || '{}');
-        const { username, xp, streak, unlockedLevels, unlockedChapters, completedQuestions, levelStats, demoCompleted, selectedIcon } = data;
+        const { username, xp, streak, unlockedLevels, unlockedChapters, completedQuestions, levelStats, demoCompleted, selectedIcon, selectedMascot } = data;
 
         if (!username) {
             return {
@@ -32,6 +32,7 @@ exports.handler = async (event) => {
             await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS level_stats JSONB`;
             await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS demo_completed BOOLEAN DEFAULT FALSE`;
             await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS selected_icon TEXT`;
+            await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS selected_mascot TEXT`;
         } catch (mErr) {
             // ignore if it already exists or if user lacks alter privileges
         }
@@ -54,6 +55,7 @@ exports.handler = async (event) => {
                     level_stats = ${levelStats && Object.keys(levelStats).length > 0 ? levelStats : null},
                     demo_completed = ${demoCompleted || false},
                     selected_icon = ${selectedIcon || null},
+                    selected_mascot = ${selectedMascot || 'polly'},
                     last_played_date = CURRENT_DATE,
                     updated_at = NOW()
                 WHERE username = ${username}
