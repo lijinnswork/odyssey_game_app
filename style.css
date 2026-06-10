@@ -1281,8 +1281,8 @@ body[data-theme="light"] .chapter-card {
     .main-scroll-area {
         flex: 1;
         background: var(--bg-card);
-        /* Removed border-top-left-radius curve */
-        border-top-left-radius: 0px;
+        /* Add a small curve to the top-left corner to match other UI elements */
+        border-top-left-radius: var(--radius-m);
         display: flex;
         flex-direction: column;
     }
