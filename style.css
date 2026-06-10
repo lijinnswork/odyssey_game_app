@@ -6,6 +6,7 @@
     --surface: #12131F;
     --surface-glass: rgba(18, 19, 31, 0.82);
     --bg-overlay: rgba(255, 255, 255, 0.06);
+    --mascot-modal-min-height: 620px;
     
     --text-primary: #FFFFFF;
     --text-secondary: #C6CBDA;
@@ -1390,6 +1391,16 @@ body[data-theme="light"] .chapter-card {
 
     .login-form-container {
         padding: 2rem !important;
+    }
+
+    :root {
+        --mascot-modal-min-height: auto;
+    }
+
+    .mascot-picker-container {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        margin: 1rem 0 !important;
     }
 }
 

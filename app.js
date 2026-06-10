@@ -1234,7 +1234,7 @@ window.openMascotPicker = function () {
         message: 'Select your AI learning companion to guide you through the Odyssey.',
         confirmText: null,
         cancelText: 'Close',
-        cardStyle: 'min-height: 620px; display: flex; flex-direction: column; justify-content: space-between;',
+        cardStyle: 'min-height: var(--mascot-modal-min-height, 620px); display: flex; flex-direction: column; justify-content: space-between;',
         customHtml: `
             <div style="display: flex; gap: 1.5rem; width: 100%; margin: 1.5rem 0; flex: 1; align-items: center; justify-content: center;" class="mascot-picker-container">
                 <!-- Polly -->
@@ -1293,6 +1293,20 @@ window.selectMascot = function (mascotId) {
     if (leftPanel) leftPanel.innerHTML = '';
 
     updateDesktopPanels(true); // Force refresh
+
+    // Dynamic mobile view re-rendering
+    if (window.innerWidth < 1024) {
+        if (window.currentView === 'chat' && typeof window.renderMobileChat === 'function') {
+            window.renderMobileChat();
+        } else if ((window.currentView === 'home' || window.currentView === 'journey') && typeof window.renderChapters === 'function') {
+            window.renderChapters();
+        } else if (window.currentView === 'chapter' && typeof window.renderLevels === 'function') {
+            window.renderLevels(window.currentChapterId || gameState.unlockedChapters[gameState.unlockedChapters.length - 1] || 'chapter1');
+        } else if (window.currentView === 'leaderboard' && typeof window.renderLeaderboard === 'function') {
+            window.renderLeaderboard();
+        }
+    }
+
     if (typeof syncUIStats === 'function') syncUIStats();
     saveProgress();
 
@@ -2930,6 +2944,7 @@ window.renderChapters = function () {
 // Render: Levels List for a Chapter
 window.renderLevels = function (chapterId) {
     window.currentView = 'chapter';
+    window.currentChapterId = chapterId;
     updateDesktopPanels();
     const chapter = window.courseData.find(c => c.id === chapterId);
 
