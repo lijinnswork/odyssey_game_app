@@ -358,6 +358,32 @@ window.getMascotAvatarSrc = function () {
     return (gameState.selectedMascot === 'garfield') ? 'garfield.png' : 'polly.png';
 };
 
+window.formatCompanionMarkdown = function(text) {
+    if (!text) return '';
+    let escaped = text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+    const codeBlocks = [];
+    escaped = escaped.replace(/```([\s\S]*?)```/g, (match, p1) => {
+        const id = `__CODE_BLOCK_${codeBlocks.length}__`;
+        codeBlocks.push(`<pre style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 0.75rem 1rem; border-radius: 8px; font-family: monospace; overflow-x: auto; margin: 0.75rem 0; font-size: 0.85rem; text-align: left;"><code style="color: #4A8BFF; background: none; border: none; padding: 0;">${p1.trim()}</code></pre>`);
+        return id;
+    });
+
+    escaped = escaped.replace(/`([^`]+)`/g, '<code style="background: rgba(255,255,255,0.08); border: 1px solid var(--border); padding: 0.15rem 0.3rem; border-radius: 4px; font-family: monospace; font-size: 0.88rem; color: var(--accent);">$1</code>');
+    escaped = escaped.replace(/\*\*([^*]+)\*\*/g, '<strong style="color: var(--text-primary); font-weight: 700;">$1</strong>');
+    escaped = escaped.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    escaped = escaped.split('\n').join('<br>');
+
+    codeBlocks.forEach((html, idx) => {
+        escaped = escaped.replace(`__CODE_BLOCK_${idx}__`, html);
+    });
+
+    return escaped;
+};
+
 // App State for Chapter-Based System
 const defaultState = {
     xp: 0,
@@ -2515,7 +2541,7 @@ window.renderMobileChat = function () {
 };
 
 // Handle chat message sends (simple echo + coach response)
-window.sendChatMessage = function () {
+window.sendChatMessage = async function () {
     const input = document.getElementById('chat-user-input');
     if (!input || !input.value.trim()) return;
     const text = input.value.trim();
@@ -2530,6 +2556,22 @@ window.sendChatMessage = function () {
     userBubble.textContent = text;
     msgs.appendChild(userBubble);
 
+    // Reconstruct history before adding the typing bubble
+    const history = [];
+    const bubbles = msgs.querySelectorAll('.chat-bubble-user, .chat-bubble-ai');
+    bubbles.forEach(bubble => {
+        if (!bubble.querySelector('.chat-typing')) {
+            const textContent = bubble.textContent.trim();
+            if (textContent) {
+                history.push({
+                    role: bubble.classList.contains('chat-bubble-user') ? 'user' : 'model',
+                    text: textContent
+                });
+            }
+        }
+    });
+    const recentHistory = history.slice(-10); // keep last 10 messages for context
+
     // Typing indicator
     const typing = document.createElement('div');
     typing.className = 'chat-bubble-ai';
@@ -2537,19 +2579,33 @@ window.sendChatMessage = function () {
     msgs.appendChild(typing);
     msgs.scrollTop = msgs.scrollHeight;
 
-    // Simple contextual reply
-    setTimeout(() => {
-        const lower = text.toLowerCase();
-        let reply = "I'm here to help! Tap the level card above to start learning, or navigate the Journey Map from the Home tab.";
-        if (lower.includes('xp') || lower.includes('score')) reply = `You currently have ${gameState.xp || 0} XP. Keep answering questions correctly to earn more! ⚡`;
-        else if (lower.includes('streak')) reply = `Your current streak is ${gameState.streak || 1} day${(gameState.streak || 1) > 1 ? 's' : ''}. Log in daily to keep it going! 🔥`;
-        else if (lower.includes('gem')) reply = `You have ${gameState.gems || 0} gems 💎. Earn them by completing levels with high accuracy.`;
-        else if (lower.includes('help') || lower.includes('what') || lower.includes('how')) reply = "Use the Journey Map (Home tab) to see all your levels. Tap a level node to start. Complete questions to unlock the next level! 🗺️";
-        else if (lower.includes('next') || lower.includes('start')) reply = "Tap the level card just above to jump straight in! I'll be cheering you on 🚀";
+    try {
+        const res = await fetch(API_BASE + '/.netlify/functions/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: text,
+                mascot: gameState.selectedMascot || 'polly',
+                history: recentHistory
+            })
+        });
 
-        typing.innerHTML = reply;
-        msgs.scrollTop = msgs.scrollHeight;
-    }, 900);
+        if (!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+
+        if (data.error) {
+            typing.innerHTML = `<span style="color: var(--error);">${data.error}</span>`;
+        } else {
+            typing.innerHTML = window.formatCompanionMarkdown(data.response);
+        }
+    } catch (err) {
+        console.error('Chat error:', err);
+        typing.innerHTML = `<span style="color: var(--error);">Oops, I had trouble connecting. Please try again!</span>`;
+    }
+
+    msgs.scrollTop = msgs.scrollHeight;
 };
 
 // Render: Chapters Selection (HOME)
@@ -7133,10 +7189,10 @@ document.addEventListener('click', function(e) {
     }
 });
 
-window.handleDesktopCoachSend = function() {
+window.handleDesktopCoachSend = async function() {
     const input = document.getElementById('desktop-coach-input');
-    const history = document.getElementById('desktop-coach-history');
-    if (!input || !history) return;
+    const historyContainer = document.getElementById('desktop-coach-history');
+    if (!input || !historyContainer) return;
 
     const message = input.value.trim();
     if (!message) return;
@@ -7151,27 +7207,74 @@ window.handleDesktopCoachSend = function() {
             ${message}
         </div>
     `;
-    history.appendChild(userDiv);
+    historyContainer.appendChild(userDiv);
     input.value = '';
 
-    // Scroll to bottom
-    history.scrollTop = history.scrollHeight;
+    // Reconstruct history before adding typing indicator
+    const history = [];
+    const children = historyContainer.children;
+    for (let child of children) {
+        const userBubble = child.querySelector('div[style*="background: var(--gradient-primary)"]');
+        const botBubble = child.querySelector('.desktop-coach-reply-bubble');
+        
+        if (userBubble) {
+            history.push({ role: 'user', text: userBubble.textContent.trim() });
+        } else if (botBubble && !botBubble.querySelector('.chat-typing')) {
+            history.push({ role: 'model', text: botBubble.textContent.trim() });
+        }
+    }
+    const recentHistory = history.slice(-10); // keep last 10 messages for context
 
-    // Mock bot response
-    setTimeout(() => {
-        const botDiv = document.createElement('div');
-        botDiv.style.display = 'flex';
-        botDiv.style.gap = '0.75rem';
-        botDiv.style.marginBottom = '1rem';
-        botDiv.innerHTML = `
-            <div style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: white; flex-shrink: 0; border: 2px solid var(--accent);"><img src="${window.getMascotAvatarSrc()}" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div style="background: rgba(var(--primary-rgb), 0.15); border: 1px solid rgba(var(--primary-rgb), 0.3); border-radius: 4px 16px 16px 16px; padding: 0.85rem 1.1rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; font-family: 'Outfit', sans-serif;">
-                That is a fantastic question! Let me check the knowledge base regarding: "${message}"...
-            </div>
-        `;
-        history.appendChild(botDiv);
-        history.scrollTop = history.scrollHeight;
-    }, 1000);
+    // Scroll to bottom
+    historyContainer.scrollTop = historyContainer.scrollHeight;
+
+    // Add typing indicator
+    const botDiv = document.createElement('div');
+    botDiv.style.display = 'flex';
+    botDiv.style.gap = '0.75rem';
+    botDiv.style.marginBottom = '1rem';
+    botDiv.innerHTML = `
+        <div style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: white; flex-shrink: 0; border: 2px solid var(--accent);"><img src="${window.getMascotAvatarSrc()}" style="width: 100%; height: 100%; object-fit: cover;"></div>
+        <div class="desktop-coach-reply-bubble" style="background: rgba(var(--primary-rgb), 0.15); border: 1px solid rgba(var(--primary-rgb), 0.3); border-radius: 4px 16px 16px 16px; padding: 0.85rem 1.1rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; font-family: 'Outfit', sans-serif;">
+            <div class="chat-typing"><span></span><span></span><span></span></div>
+        </div>
+    `;
+    historyContainer.appendChild(botDiv);
+    historyContainer.scrollTop = historyContainer.scrollHeight;
+
+    try {
+        const res = await fetch(API_BASE + '/.netlify/functions/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: message,
+                mascot: gameState.selectedMascot || 'polly',
+                history: recentHistory
+            })
+        });
+
+        const replyBubble = botDiv.querySelector('.desktop-coach-reply-bubble');
+        if (!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+
+        if (replyBubble) {
+            if (data.error) {
+                replyBubble.innerHTML = `<span style="color: var(--error);">${data.error}</span>`;
+            } else {
+                replyBubble.innerHTML = window.formatCompanionMarkdown(data.response);
+            }
+        }
+    } catch (err) {
+        console.error('Desktop Chat error:', err);
+        const replyBubble = botDiv.querySelector('.desktop-coach-reply-bubble');
+        if (replyBubble) {
+            replyBubble.innerHTML = `<span style="color: var(--error);">Sorry, I couldn't connect. Please try again!</span>`;
+        }
+    }
+
+    historyContainer.scrollTop = historyContainer.scrollHeight;
 };
 
 // Initialize Desktop FAB Mascot
