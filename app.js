@@ -324,8 +324,8 @@ window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neut
                 <!-- Neutral Eyes -->
                 <g class="eyes-neutral">
                     <!-- Whites -->
-                    <ellipse cx="40" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
-                    <ellipse cx="60" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <ellipse cx="40" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" style="animation: mascot-blink 7s infinite; transform-origin: 40px 37px;" />
+                    <ellipse cx="60" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" style="animation: mascot-blink 7s infinite; transform-origin: 60px 37px;" />
                     <!-- Pupils -->
                     <ellipse cx="40" cy="37" rx="4.5" ry="5.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 40px 37px;" />
                     <ellipse cx="60" cy="37" rx="4.5" ry="5.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 60px 37px;" />
@@ -401,6 +401,52 @@ const LEVEL_ICONS = ['eco', 'architecture', 'psychology', 'bolt', 'school', 'bio
 
 // Initialization
 async function init() {
+    // Sync Splash Loader mascot and text to the user's saved preference
+    try {
+        const splashLoader = document.querySelector('.splash-loader');
+        if (splashLoader) {
+            const savedUserStr = localStorage.getItem('saved_user');
+            const guestStr = localStorage.getItem('guest_gamestate');
+            let mascot = 'polly';
+            let mascotName = 'Polly';
+            
+            if (savedUserStr) {
+                try {
+                    const savedUser = JSON.parse(savedUserStr);
+                    if (savedUser && savedUser.selectedMascot === 'garfield') {
+                        mascot = 'garfield';
+                        mascotName = 'Garfield';
+                    }
+                } catch (e) {}
+            }
+            if (guestStr && mascot === 'polly') {
+                try {
+                    const guest = JSON.parse(guestStr);
+                    if (guest && guest.selectedMascot === 'garfield') {
+                        mascot = 'garfield';
+                        mascotName = 'Garfield';
+                    }
+                } catch (e) {}
+            }
+            
+            const textDiv = document.getElementById('splash-loading-text');
+            if (textDiv) {
+                textDiv.textContent = `Waking up ${mascotName}...`;
+            }
+            
+            const svgContainer = document.getElementById('splash-mascot-container');
+            if (svgContainer) {
+                if (mascot === 'garfield' && typeof window.getGarfieldSVG === 'function') {
+                    svgContainer.innerHTML = window.getGarfieldSVG('140px', '140px', 'neutral');
+                } else if (typeof window.getParrotSVG === 'function') {
+                    svgContainer.innerHTML = window.getParrotSVG('140px', '140px', 'neutral');
+                }
+            }
+        }
+    } catch (e) {
+        console.warn("Failed to dynamically initialize splash loader mascot:", e);
+    }
+
     try {
         const res = await fetch(API_BASE + '/.netlify/functions/get-course-content');
         if (res.ok) {
@@ -3204,7 +3250,7 @@ window.renderActivity = function () {
         </div>
         <header style="padding: 1rem; display: flex; align-items: center; justify-content: space-between; background: transparent;">
             <div style="display: flex; align-items: center; gap: 1rem;">
-                <button onclick="confirmExitLevel('${chapterId}', '${levelId}')" style="font-size: 1.5rem; background: none; border: none; color: white; cursor: pointer;">✕</button>
+                <button onclick="confirmExitLevel('${chapterId}', '${levelId}')" style="font-size: 1.5rem; background: none !important; border: none !important; box-shadow: none !important; color: white; cursor: pointer;">✕</button>
                 <div style="font-size: 0.9rem; color: white; font-weight: 600;">Level ${levelIndex + 1}: ${level.title}</div>
             </div>
             <div style="display: flex; align-items: center; gap: 1rem;">

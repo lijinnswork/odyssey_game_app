@@ -15,6 +15,13 @@
 </head>
 
 <body data-theme="light" class="login-mode">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('user_theme') || 'light';
+            const isMobile = window.innerWidth < 1024;
+            document.body.setAttribute('data-theme', isMobile ? 'dark' : savedTheme);
+        })();
+    </script>
     <div id="mobile-blocker" class="mobile-blocker">
         <div style="width: 100%; max-width: 250px; margin-bottom: 1.5rem;">
             <img src="landing-logo.png" alt="IIMBx Logo" style="width: 100%; height: auto; object-fit: contain; background: white; padding: 1rem 1.25rem; border-radius: var(--radius-m); display: block;" />
@@ -44,7 +51,7 @@
             <main id="app" class="app-content">
                 <!-- Splash Loader (Overwritten by JS when ready) -->
                 <div class="splash-loader" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; width: 100%; text-align: center;">
-                    <div style="margin-bottom: 2rem; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4)); animation: mascot-hover 3s infinite ease-in-out;">
+                    <div id="splash-mascot-container" style="margin-bottom: 2rem; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4)); animation: mascot-hover 3s infinite ease-in-out;">
                         <svg viewBox="-18 -8 136 118" width="140px" height="140px" style="overflow: visible;">
                             <defs>
                                 <linearGradient id="s-body" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -98,9 +105,9 @@
                                     <path d="M 54 38 Q 59 42 64 38" fill="none" stroke="#1e1e1e" stroke-width="2.5" stroke-linecap="round"/>
                                     
                                     <!-- Zzzs -->
-                                    <text x="75" y="20" fill="#fff" font-family="Outfit, sans-serif" font-weight="900" font-size="14px" style="animation: float-z 2s infinite ease-in-out;">Z</text>
-                                    <text x="85" y="10" fill="#fff" font-family="Outfit, sans-serif" font-weight="900" font-size="10px" style="animation: float-z 2s infinite ease-in-out 0.5s;">z</text>
-                                    <text x="92" y="2" fill="#fff" font-family="Outfit, sans-serif" font-weight="900" font-size="6px" style="animation: float-z 2s infinite ease-in-out 1s;">z</text>
+                                    <text x="75" y="20" fill="var(--text-primary)" font-family="Outfit, sans-serif" font-weight="900" font-size="14px" style="animation: float-z 2s infinite ease-in-out;">Z</text>
+                                    <text x="85" y="10" fill="var(--text-primary)" font-family="Outfit, sans-serif" font-weight="900" font-size="10px" style="animation: float-z 2s infinite ease-in-out 0.5s;">z</text>
+                                    <text x="92" y="2" fill="var(--text-primary)" font-family="Outfit, sans-serif" font-weight="900" font-size="6px" style="animation: float-z 2s infinite ease-in-out 1s;">z</text>
 
                                     <path d="M 45 42 Q 50 38 55 42 L 50 54 Z" fill="url(#s-beak)"/>
                                     <path d="M 48 42 Q 50 40 52 42 L 50 50 Z" fill="#b45309"/>
@@ -108,10 +115,10 @@
                             </g>
                         </svg>
                     </div>
-                    <div style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem;">
+                    <div id="splash-loading-text" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text-primary); margin-bottom: 1.25rem;">
                         Waking up Polly...
                     </div>
-                    <div style="width: 140px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; position: relative;">
+                    <div style="width: 140px; height: 6px; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; position: relative;">
                         <div style="position: absolute; top: 0; left: 0; height: 100%; width: 50%; background: #FF8A3D; border-radius: 6px; animation: splashLoad 1.5s ease-in-out infinite alternate;"></div>
                     </div>
                 </div>
