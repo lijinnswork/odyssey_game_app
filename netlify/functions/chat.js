@@ -1,3 +1,5 @@
+const https = require('https');
+
 exports.handler = async (event) => {
     const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -31,7 +33,6 @@ exports.handler = async (event) => {
 
         const apiKey = process.env.GEMINI_API_KEY;
         if (!apiKey) {
-            // Friendly fallback instructions if API key is not configured yet
             const isGarfield = mascot === 'garfield';
             const companionName = isGarfield ? 'Garfield' : 'Polly';
             const companionEmoji = isGarfield ? '🐾' : '✨';
@@ -45,7 +46,6 @@ exports.handler = async (event) => {
             };
         }
 
-        // Set up system instructions based on chosen mascot
         let systemInstructionText = '';
         if (mascot === 'garfield') {
             systemInstructionText = "You are Garfield, a playful, slightly lazy, but extremely cute ginger cat companion who is guiding the user through the Odyssey AI learning app. Keep your responses short, helpful, casual, and a bit sleepy, using cat/paw emojis (like 🐾, 🐱, 💤, 🐈) occasionally. You should refer to yourself as Garfield. Never break character.";
@@ -53,7 +53,6 @@ exports.handler = async (event) => {
             systemInstructionText = "You are Polly the Parrot, a wise, encouraging, and vibrant AI learning companion who is guiding the user through the Odyssey AI learning app. Keep your responses encouraging, helpful, concise, and smart, using bird/parrot/sparkle emojis (like 🦜, 🐦, ✨, 🌟) occasionally. You should refer to yourself as Polly. Never break character.";
         }
 
-        // Prepare contents history array for Gemini API
         const contents = [];
         if (history && Array.isArray(history)) {
             history.forEach(item => {
@@ -65,7 +64,6 @@ exports.handler = async (event) => {
             });
         }
 
-        // Ensure the latest message is added if not already in history
         if (contents.length === 0 || contents[contents.length - 1].role !== 'user') {
             contents.push({
                 role: 'user',
@@ -73,34 +71,56 @@ exports.handler = async (event) => {
             });
         }
 
-        // Call Gemini 1.5 Flash API
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: contents,
-                systemInstruction: {
-                    parts: [{ text: systemInstructionText }]
-                }
-            })
+        const payload = JSON.stringify({
+            contents: contents,
+            systemInstruction: {
+                parts: [{ text: systemInstructionText }]
+            }
         });
 
-        if (!response.ok) {
-            const errText = await response.text();
-            console.error('Gemini API Error Response:', errText);
-            throw new Error(`Gemini API returned status ${response.status}`);
-        }
+        // Perform HTTPS POST request using standard Node.js https module
+        const replyText = await new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'generativelanguage.googleapis.com',
+                path: `/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': Buffer.byteLength(payload)
+                }
+            };
 
-        const data = await response.json();
-        
-        let replyText = '';
-        if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
-            replyText = data.candidates[0].content.parts[0].text;
-        } else {
-            throw new Error('Unexpected response structure from Gemini API');
-        }
+            const req = https.request(options, (res) => {
+                let body = '';
+                res.setEncoding('utf8');
+                res.on('data', (chunk) => {
+                    body += chunk;
+                });
+                res.on('end', () => {
+                    if (res.statusCode >= 200 && res.statusCode < 300) {
+                        try {
+                            const data = JSON.parse(body);
+                            if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+                                resolve(data.candidates[0].content.parts[0].text);
+                            } else {
+                                reject(new Error('Invalid response structure from Gemini API'));
+                            }
+                        } catch (e) {
+                            reject(new Error('Failed to parse Gemini response: ' + e.message));
+                        }
+                    } else {
+                        reject(new Error(`Gemini API returned status ${res.statusCode}: ${body}`));
+                    }
+                });
+            });
+
+            req.on('error', (e) => {
+                reject(e);
+            });
+
+            req.write(payload);
+            req.end();
+        });
 
         return {
             statusCode: 200,
