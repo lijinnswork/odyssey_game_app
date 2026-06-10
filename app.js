@@ -479,6 +479,9 @@ async function init() {
             const data = await res.json();
             if (!data.needsSeeding && data.chapters) {
                 window.courseData = data.chapters;
+                if (data.levelRules) {
+                    window.levelRules = data.levelRules;
+                }
 
                 // Migration: STRIP ALL legacy "Level N: " prefixes from data recursively
                 window.courseData.forEach(ch => {
@@ -5681,6 +5684,20 @@ window.renderLeaderboard = async function () {
 init();
 
 // --- ADMIN GOD MODE EDITOR ---
+window.adminSelectedView = null;
+window.levelRules = {
+    totalQuestions: 10,
+    quota: {
+        micro_concept: 1,
+        choice: 3,
+        multiple_choice: 2,
+        ordering: 1,
+        matching: 2,
+        fill_in_blanks: 2,
+        task: 0
+    }
+};
+
 let adminSelectedChapter = null;
 let adminSelectedLevel = null;
 let adminSelectedQuestion = null;
@@ -5758,6 +5775,9 @@ window.renderGodModeLeftPane = function () {
             <h2 style="font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--error);"><span class="material-symbols-rounded">admin_panel_settings</span> Content Manager</h2>
             <button onclick="renderChapters()" style="margin-top: 1rem; width: 100%; padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); cursor: pointer;">Exit Admin Mode</button>
             <button onclick="exportContentJS()" class="pulse-cta" style="margin-top: 0.5rem; width: 100%; padding: 0.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-s); font-weight: 700; cursor: pointer;">Publish Live to DB</button>
+            <button onclick="adminSelectSettings()" style="margin-top: 0.5rem; width: 100%; padding: 0.5rem; background: ${window.adminSelectedView === 'settings' ? 'rgba(var(--primary-rgb), 0.15)' : 'var(--bg-overlay)'}; border: 1px solid ${window.adminSelectedView === 'settings' ? 'var(--primary)' : 'var(--border)'}; border-radius: var(--radius-s); color: ${window.adminSelectedView === 'settings' ? 'var(--primary)' : 'var(--text-main)'}; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: all 0.2s;" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='${window.adminSelectedView === 'settings' ? 'rgba(var(--primary-rgb), 0.15)' : 'var(--bg-overlay)'}'">
+                <span class="material-symbols-rounded" style="font-size: 1.1rem;">tune</span> Level Game Rules
+            </button>
         </div>
         
         <div style="padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
@@ -5836,6 +5856,22 @@ window.renderGodModeMiddlePane = function () {
     if (!pane) return;
 
     let html = '';
+
+    if (window.adminSelectedView === 'settings') {
+        html += `
+            <div style="padding: 1.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg-dark); z-index: 10;">
+                <h3 style="font-size: 1rem; margin-bottom: 0.2rem;">Level Game Rules</h3>
+                <div style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">Configure global parameters for every level session.</div>
+            </div>
+            <div style="padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                <div style="background: rgba(var(--primary-rgb), 0.08); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 1rem; font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">
+                    Adjust the number of questions that generate per level and control the exact distribution of question types.
+                </div>
+            </div>
+        `;
+        pane.innerHTML = html;
+        return;
+    }
 
     if (adminSelectedChapter && adminSelectedLevel) {
         const chapter = window.courseData.find(c => c.id === adminSelectedChapter);
@@ -5937,6 +5973,117 @@ window.renderGodModeRightPane = function () {
     if (!pane) return;
 
     let html = '';
+
+    if (window.adminSelectedView === 'settings') {
+        const rules = window.levelRules || {
+            totalQuestions: 10,
+            quota: {
+                micro_concept: 1,
+                choice: 3,
+                multiple_choice: 2,
+                ordering: 1,
+                matching: 2,
+                fill_in_blanks: 2,
+                task: 0
+            }
+        };
+        const quota = rules.quota || {};
+
+        html += `
+            <div style="width: 100%; max-width: 550px; padding: 1rem;">
+                <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.4rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;">
+                    <span class="material-symbols-rounded" style="color: var(--primary);">tune</span> Configure Level Game Rules
+                </h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">Set the global number of questions and specify the quota for each question type per level session.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1.5rem; background: var(--bg-dark); border: 1px solid var(--border); border-radius: var(--radius-m); padding: 1.75rem; margin-bottom: 2rem;">
+                    
+                    <!-- Total Questions -->
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label style="font-weight: 700; font-size: 0.9rem; color: var(--text-main);">Total Questions per Level</label>
+                        <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: -0.25rem;">The targeted number of questions presented to the learner (excluding the intro card).</span>
+                        <input type="number" id="settings-total-questions" value="${rules.totalQuestions || 10}" min="1" max="50" style="padding: 0.65rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); width: 100%; box-sizing: border-box; outline: none;" />
+                    </div>
+
+                    <div style="height: 1px; background: var(--border); margin: 0.5rem 0;"></div>
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-secondary); margin-bottom: -0.5rem;">Target Quota by Type</h3>
+
+                    <!-- Micro Concept -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Concept Slides (micro_concept)</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted);">Explainers placed at the very start of a level.</div>
+                        </div>
+                        <input type="number" id="settings-quota-micro_concept" value="${quota.micro_concept !== undefined ? quota.micro_concept : 1}" min="0" max="10" style="padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); width: 80px; text-align: center;" />
+                    </div>
+
+                    <!-- Single Choice -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Single Choice (choice)</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted);">Multiple choice questions with exactly one correct option.</div>
+                        </div>
+                        <input type="number" id="settings-quota-choice" value="${quota.choice !== undefined ? quota.choice : 3}" min="0" max="20" style="padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); width: 80px; text-align: center;" />
+                    </div>
+
+                    <!-- Multiple Choice -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Multiple Choice (multiple_choice)</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted);">Questions requiring selecting all correct options.</div>
+                        </div>
+                        <input type="number" id="settings-quota-multiple_choice" value="${quota.multiple_choice !== undefined ? quota.multiple_choice : 2}" min="0" max="20" style="padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); width: 80px; text-align: center;" />
+                    </div>
+
+                    <!-- Ordering -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Ordering (ordering)</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted);">Sort concepts/steps chronologically or logically.</div>
+                        </div>
+                        <input type="number" id="settings-quota-ordering" value="${quota.ordering !== undefined ? quota.ordering : 1}" min="0" max="20" style="padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); width: 80px; text-align: center;" />
+                    </div>
+
+                    <!-- Matching -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Matching (matching)</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted);">Interactive connection pairs.</div>
+                        </div>
+                        <input type="number" id="settings-quota-matching" value="${quota.matching !== undefined ? quota.matching : 2}" min="0" max="20" style="padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); width: 80px; text-align: center;" />
+                    </div>
+
+                    <!-- Fill In Blanks -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Fill In Blanks (fill_in_blanks)</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted);">Complete text segments by dragging words.</div>
+                        </div>
+                        <input type="number" id="settings-quota-fill_in_blanks" value="${quota.fill_in_blanks !== undefined ? quota.fill_in_blanks : 2}" min="0" max="20" style="padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); width: 80px; text-align: center;" />
+                    </div>
+
+                    <!-- Reflection / Text Task -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Open Reflection (task)</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted);">Freeform text answer tasks.</div>
+                        </div>
+                        <input type="number" id="settings-quota-task" value="${quota.task !== undefined ? quota.task : 0}" min="0" max="20" style="padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); width: 80px; text-align: center;" />
+                    </div>
+
+                </div>
+
+                <button onclick="adminSaveSettings()"
+                        style="width: 100%; padding: 0.85rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-s); font-weight: 700; cursor: pointer; font-size: 1rem; transition: background 0.2s;"
+                        onmouseover="this.style.background='var(--primary-dark)'"
+                        onmouseout="this.style.background='var(--primary)'">
+                    Save Level Rules
+                </button>
+            </div>
+        `;
+        pane.innerHTML = html;
+        return;
+    }
 
     if (adminSelectedQuestion && adminSelectedChapter && adminSelectedLevel) {
         let act = {};
@@ -6224,6 +6371,7 @@ window.renderGodModeRightPane = function () {
 
 // Admin State Handlers
 window.adminSelectChapter = function (chapterId) {
+    window.adminSelectedView = null;
     adminSelectedChapter = chapterId;
     const ch = window.courseData.find(c => c.id === chapterId);
     if (ch && ch.levels.length > 0) {
@@ -6237,6 +6385,7 @@ window.adminSelectChapter = function (chapterId) {
 }
 
 window.adminSelectLevel = function (chapterId, levelId) {
+    window.adminSelectedView = null;
     adminSelectedChapter = chapterId;
     adminSelectedLevel = levelId;
     adminSelectedQuestion = null;
@@ -6270,7 +6419,47 @@ window.adminSetNewQuestionType = function (type) {
     renderGodModeRightPane();
 }
 
+window.adminSelectSettings = function () {
+    window.adminSelectedView = 'settings';
+    adminSelectedChapter = null;
+    adminSelectedLevel = null;
+    adminSelectedQuestion = null;
 
+    renderGodModeLeftPane();
+    renderGodModeMiddlePane();
+    renderGodModeRightPane();
+}
+
+window.adminSaveSettings = function () {
+    const totalQEl = document.getElementById('settings-total-questions');
+    if (!totalQEl) return;
+
+    const totalQuestions = parseInt(totalQEl.value) || 10;
+    
+    const quota = {
+        micro_concept: parseInt(document.getElementById('settings-quota-micro_concept').value) || 0,
+        choice: parseInt(document.getElementById('settings-quota-choice').value) || 0,
+        multiple_choice: parseInt(document.getElementById('settings-quota-multiple_choice').value) || 0,
+        ordering: parseInt(document.getElementById('settings-quota-ordering').value) || 0,
+        matching: parseInt(document.getElementById('settings-quota-matching').value) || 0,
+        fill_in_blanks: parseInt(document.getElementById('settings-quota-fill_in_blanks').value) || 0,
+        task: parseInt(document.getElementById('settings-quota-task').value) || 0
+    };
+
+    window.levelRules = {
+        totalQuestions,
+        quota
+    };
+
+    showModal({
+        icon: 'check_circle',
+        title: 'Rules Saved',
+        message: 'Level Game Rules updated locally. Make sure to click "Publish Live to DB" to make these settings public.',
+        confirmText: 'OK'
+    });
+
+    renderGodModeRightPane();
+}
 
 window.adminEditChapter = function (chapterId) {
     const chapter = window.courseData.find(c => c.id === chapterId);
@@ -7086,6 +7275,7 @@ window.exportContentJS = async function () {
     const payload = {
         adminUser: currentUser,
         chapters: window.courseData,
+        levelRules: window.levelRules,
         pools: {}
     };
 

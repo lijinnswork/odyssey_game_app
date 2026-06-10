@@ -5653,18 +5653,42 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
     let selectedQuestions = [];
     const usedIds = new Set();
 
-    // 1. Select exactly one micro_concept to appear at the beginning
+    // Get rules dynamically from window/global level rules or use defaults
+    const rules = (typeof window !== 'undefined' && window.levelRules) ? window.levelRules : {
+        totalQuestions: 10,
+        quota: {
+            micro_concept: 1,
+            choice: 3,
+            multiple_choice: 2,
+            ordering: 1,
+            matching: 2,
+            fill_in_blanks: 2,
+            task: 0
+        }
+    };
+    const totalQuestionsTarget = rules.totalQuestions !== undefined ? rules.totalQuestions : 10;
+    const rulesQuota = rules.quota || {};
+
+    // 1. Select the micro_concept slides based on target quota
+    const targetMicroConceptsCount = rulesQuota.micro_concept !== undefined ? rulesQuota.micro_concept : 1;
     const microConcepts = shuffle(categorized.micro_concept || []);
-    let chosenConcept = null;
-    if (microConcepts.length > 0) {
-        chosenConcept = microConcepts[0];
-        usedIds.add(chosenConcept.original_id || JSON.stringify(chosenConcept));
+    const chosenConcepts = [];
+    for (let i = 0; i < Math.min(targetMicroConceptsCount, microConcepts.length); i++) {
+        chosenConcepts.push(microConcepts[i]);
+        usedIds.add(microConcepts[i].original_id || JSON.stringify(microConcepts[i]));
     }
 
-    // 2. Select the questions based on the new quota: 3 choice, 2 multiple_choice, 1 ordering, 2 matching, 2 fill_in_blanks, 0 task
-    const quota = { choice: 3, multiple_choice: 2, ordering: 1, matching: 2, fill_in_blanks: 2 };
+    // 2. Select questions based on the quota for other types
+    const activeQuota = {
+        choice: rulesQuota.choice !== undefined ? rulesQuota.choice : 3,
+        multiple_choice: rulesQuota.multiple_choice !== undefined ? rulesQuota.multiple_choice : 2,
+        ordering: rulesQuota.ordering !== undefined ? rulesQuota.ordering : 1,
+        matching: rulesQuota.matching !== undefined ? rulesQuota.matching : 2,
+        fill_in_blanks: rulesQuota.fill_in_blanks !== undefined ? rulesQuota.fill_in_blanks : 2,
+        task: rulesQuota.task !== undefined ? rulesQuota.task : 0
+    };
 
-    Object.entries(quota).forEach(([type, count]) => {
+    Object.entries(activeQuota).forEach(([type, count]) => {
         const available = shuffle(categorized[type] || []);
         let taken = 0;
         for (const q of available) {
@@ -5678,28 +5702,37 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
         }
     });
 
-    // 3. Fallback padding: If selectedQuestions length is less than 10, fill from other published questions (excluding micro_concept and task)
-    if (selectedQuestions.length < 10) {
-        const remainingPool = shuffle(pool.filter(q => q.type !== 'micro_concept' && q.type !== 'task'));
+    // 3. Adjust to meet totalQuestionsTarget
+    const remainingTarget = Math.max(0, totalQuestionsTarget - chosenConcepts.length);
+
+    if (selectedQuestions.length > remainingTarget) {
+        // Truncate selectedQuestions if we have too many
+        selectedQuestions = selectedQuestions.slice(0, remainingTarget);
+    } else if (selectedQuestions.length < remainingTarget) {
+        // Pad using other published questions (excluding micro_concept and info_card, and task unless task has a non-zero quota)
+        const needed = remainingTarget - selectedQuestions.length;
+        const remainingPool = shuffle(pool.filter(q => q.type !== 'micro_concept' && q.type !== 'info_card' && (activeQuota.task > 0 || q.type !== 'task')));
+        let padded = 0;
         for (const q of remainingPool) {
-            if (selectedQuestions.length >= 10) break;
+            if (padded >= needed) break;
             const uniqueId = q.original_id || JSON.stringify(q);
             if (!usedIds.has(uniqueId)) {
                 selectedQuestions.push(q);
                 usedIds.add(uniqueId);
+                padded++;
             }
         }
     }
 
-    // 4. Randomize the 10 questions so the order is unpredictable
+    // 4. Randomize the selected questions so the order is unpredictable
     selectedQuestions = shuffle(selectedQuestions);
 
     // 5. Build final questions array
-    // Add chosen concept at the very beginning
-    if (chosenConcept) {
-        let q = JSON.parse(JSON.stringify(chosenConcept));
-        q.id = `${chapterId}-L${levelIndex + 1}-CONCEPT`;
-        q.title = `Learn`;
+    // Add chosen concepts at the very beginning
+    chosenConcepts.forEach((concept, cIdx) => {
+        let q = JSON.parse(JSON.stringify(concept));
+        q.id = `${chapterId}-L${levelIndex + 1}-CONCEPT-${cIdx + 1}`;
+        q.title = `Learn ${cIdx + 1}`;
         q.xp = xp;
 
         questions.push({
@@ -5707,9 +5740,9 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
             title: q.title,
             activities: [q]
         });
-    }
+    });
 
-    // Add the 10 shuffled questions, properly ID'd and numbered
+    // Add the shuffled questions, properly ID'd and numbered
     for (let j = 0; j < selectedQuestions.length; j++) {
         let q = JSON.parse(JSON.stringify(selectedQuestions[j]));
         q.id = `${chapterId}-L${levelIndex + 1}-Q${j + 1}`;
