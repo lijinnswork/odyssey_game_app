@@ -1188,7 +1188,7 @@ window.openMascotPicker = function () {
         message: 'Select your AI learning companion to guide you through the Odyssey.',
         confirmText: null,
         cancelText: 'Close',
-        cardStyle: 'height: 520px; display: flex; flex-direction: column; justify-content: space-between;',
+        cardStyle: 'min-height: 620px; display: flex; flex-direction: column; justify-content: space-between;',
         customHtml: `
             <div style="display: flex; gap: 1.5rem; width: 100%; margin: 1.5rem 0; flex: 1; align-items: center; justify-content: center;" class="mascot-picker-container">
                 <!-- Polly -->
@@ -1249,7 +1249,16 @@ window.selectMascot = function (mascotId) {
     updateDesktopPanels(true); // Force refresh
     if (typeof syncUIStats === 'function') syncUIStats();
     saveProgress();
-    showToast(`✅ Mascot changed to \${mascotId === 'garfield' ? 'Garfield' : 'Polly'}!`, 'success');
+
+    setTimeout(() => {
+        if (typeof window.showPollyBubble === 'function') {
+            if (mascotId === 'garfield') {
+                window.showPollyBubble("Hey! I'm Garfield, your new companion! Let's learn! 🐾");
+            } else {
+                window.showPollyBubble("Hey! I'm Polly, back to help you master AI! ✨");
+            }
+        }
+    }, 500);
 };
 function updateMobileNav(activeKey) {
     if (activeKey !== 'settings') {
@@ -2165,7 +2174,7 @@ function renderHomeBanner() {
             <div class="stats-row">
 
                 <!-- XP -->
-                <div class="stat-item" onmouseenter="showStatTooltip(this, 'XP (Experience Points) — earned by completing questions.<br>Higher XP = Deeper Mastery')" onmouseleave="hideStatTooltip()">
+                <div class="stat-item" onmouseenter="showStatTooltip(this, 'XP (Experience Points) - earned by completing questions.<br>Higher XP = Deeper Mastery')" onmouseleave="hideStatTooltip()">
                     <div class="stat-icon-bg" style="background: var(--bg-overlay);">
                         <span class="material-symbols-rounded" style="color: var(--success); font-size: 1.2rem;">bolt</span>
                     </div>
@@ -2176,7 +2185,7 @@ function renderHomeBanner() {
                 </div>
 
                 <!-- Gems -->
-                <div class="stat-item" onmouseenter="showStatTooltip(this, 'Gems — bonus rewards for completing levels and chapters.')" onmouseleave="hideStatTooltip()">
+                <div class="stat-item" onmouseenter="showStatTooltip(this, 'Gems - bonus rewards for completing levels and chapters.')" onmouseleave="hideStatTooltip()">
                     <div class="stat-icon-bg" style="background: var(--bg-overlay);">
                         <span class="material-symbols-rounded" style="color: var(--accent); font-size: 1.2rem;">diamond</span>
                     </div>
@@ -2187,7 +2196,7 @@ function renderHomeBanner() {
                 </div>
 
                 <!-- Rank -->
-                <div class="stat-item" onmouseenter="showStatTooltip(this, 'Rank — your position on the global leaderboard based on total XP.<br>Click to view rankings.')" onmouseleave="hideStatTooltip()" onclick="renderLeaderboard()" style="cursor: pointer;">
+                <div class="stat-item" onmouseenter="showStatTooltip(this, 'Rank - your position on the global leaderboard based on total XP.<br>Click to view rankings.')" onmouseleave="hideStatTooltip()" onclick="renderLeaderboard()" style="cursor: pointer;">
                     <div class="stat-icon-bg" style="background: var(--bg-overlay);">
                         <span class="material-symbols-rounded" style="color: var(--accent); font-size: 1.2rem;">trophy</span>
                     </div>
@@ -2198,7 +2207,7 @@ function renderHomeBanner() {
                 </div>
 
                 <!-- Streak -->
-                <div class="stat-item" onmouseenter="showStatTooltip(this, 'Streak — number of consecutive days you have practised.<br>Keep it up every day to grow it!')" onmouseleave="hideStatTooltip()">
+                <div class="stat-item" onmouseenter="showStatTooltip(this, 'Streak - number of consecutive days you have practised.<br>Keep it up every day to grow it!')" onmouseleave="hideStatTooltip()">
                     <div class="stat-icon-bg" style="background: var(--bg-overlay);">
                         <span class="material-symbols-rounded" style="color: var(--streak); font-size: 1.2rem;">local_fire_department</span>
                     </div>
@@ -2330,7 +2339,7 @@ window.renderMobileChat = function () {
     const encouragements = [
         "You're on a roll! Keep pushing 🔥",
         "Every level gets you closer to mastery 🎯",
-        "Consistency is key — you've got this 💪",
+        "Consistency is key - you've got this 💪",
         "Let's keep the momentum going! 🚀"
     ];
     const enc = encouragements[Math.floor(Math.random() * encouragements.length)];
@@ -2420,7 +2429,7 @@ window.renderMobileChat = function () {
                 ` : `
                 <div class="chat-bubble-ai" style="animation-delay: 0.3s;">
                     <div style="font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.5;">
-                        🎉 Amazing — you've completed all available levels! Check back soon for new content.
+                        🎉 Amazing - you've completed all available levels! Check back soon for new content.
                     </div>
                 </div>
                 `}
@@ -4647,7 +4656,7 @@ function getDemoSteps() {
             {
                 targetId: 'mobile-nav',
                 title: 'Navigation Bar',
-                message: 'Use the bottom bar to jump between Home, Rankings, and Settings — including theme and logout controls.',
+                message: 'Use the bottom bar to jump between Home, Rankings, and Settings, including theme and logout controls.',
                 position: 'top'
             },
             {
@@ -5774,7 +5783,7 @@ window.renderGodModeMiddlePane = function () {
                 'info_card': '📖'
             };
             const typeIcon = typeIconMap[qType] || '❓';
-            const previewText = q.question || q.prompt || q.text || q.title || '—';
+            const previewText = q.question || q.prompt || q.text || q.title || '-';
 
             html += `
                 <div style="padding: 0.9rem 1rem; background: ${isQSelected ? 'rgba(var(--primary-rgb),0.15)' : 'var(--bg-card)'}; border: 1px solid ${isQSelected ? 'var(--primary)' : 'var(--border)'}; border-radius: var(--radius-s); cursor: pointer; opacity: ${isQSelected ? '1' : '0.5'}; transition: opacity 0.2s;"

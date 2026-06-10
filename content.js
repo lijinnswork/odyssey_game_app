@@ -4,7 +4,7 @@
 const rawExistingContent = {
     foundations: [
         { type: "micro_concept", text: "Welcome to the Era of AI. It's not just robots and sci-fi. It's the invisible engine powering the future. Let's see what makes it tick.", xp: 10 },
-        { type: "choice", question: "How does AI fit into technology's evolution?", options: [{ text: "AI replaces everything before it", correct: false, feedback: "AI didn't appear from nowhere—it built on decades of progress." }, { text: "AI is the next step built on data, computing, and the internet", correct: true, feedback: "Exactly! AI is built on computers, big data, and connectivity." }], xp: 10 },
+        { type: "choice", question: "How does AI fit into technology's evolution?", options: [{ text: "AI replaces everything before it", correct: false, feedback: "AI didn't appear from nowhere - it built on decades of progress." }, { text: "AI is the next step built on data, computing, and the internet", correct: true, feedback: "Exactly! AI is built on computers, big data, and connectivity." }], xp: 10 },
         { type: "choice", question: "True or False: AI means machines that learn from data and do tasks requiring human intelligence.", options: [{ text: "True", correct: true, feedback: "Yes! AI learns from data to perform intelligent tasks." }, { text: "False", correct: false, feedback: "Actually, AI does learn from data and simulate human intelligence." }], xp: 10 },
         { type: "choice", question: "Why is AI especially relevant for educators today?", options: [{ text: "It supports personalized learning and efficiency", correct: true, feedback: "Correct. AI helps tailor learning and saves educators time." }, { text: "It replaces textbooks", correct: false, feedback: "AI supports teachers; it does not replace teaching or textbooks." }], xp: 10 },
         { type: "task", prompt: "In one sentence, what is Artificial Intelligence?", placeholder: "Type your answer here...", xp: 10 },
@@ -30,13 +30,13 @@ window.LEVEL_FACTS = {
     "chapter1": [
         "AI is the simulation of human intelligence by machines, replicating functions like learning and problem-solving.",
         "The Turing Test, proposed by Alan Turing in 1950, was the first real attempt to define machine intelligence.",
-        "Modern AI requires massive amounts of data—Big Data—to find the patterns it needs to make decisions.",
+        "Modern AI requires massive amounts of data (Big Data) to find the patterns it needs to make decisions.",
         "An algorithm is a set of logical rules; AI uses them to process data and 'learn' without explicit programming.",
         "Deep Learning is a subset of AI inspired by the brain, using multiple layers of processing to handle complex data.",
         "Neural Networks consist of interconnected nodes (neurons) that pass information to recognize speech or images.",
         "Training is the phase where an AI model is fed data repeatedly until it can accurately predict outcomes.",
         "Inference is the 'action' phase where a finished AI model applies its training to new, real-world data.",
-        "AI applications are already everywhere—from your Netflix recommendations to the fraud alerts on your bank card.",
+        "AI applications are already everywhere - from your Netflix recommendations to the fraud alerts on your bank card.",
         "The ultimate goal of AI is to solve massive human challenges, from curing diseases to managing climate change."
     ],
     "chapter2": [
