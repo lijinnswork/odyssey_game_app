@@ -1193,20 +1193,20 @@ window.openMascotPicker = function () {
             <div style="display: flex; gap: 1.5rem; width: 100%; margin: 1.5rem 0; flex: 1; align-items: center; justify-content: center;" class="mascot-picker-container">
                 <!-- Polly -->
                 <div onclick="selectMascot('polly')" 
-                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: \${gameState.selectedMascot !== 'garfield' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid \${gameState.selectedMascot !== 'garfield' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
+                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: ${gameState.selectedMascot !== 'garfield' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid ${gameState.selectedMascot !== 'garfield' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
                      onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot === 'garfield') this.style.borderColor='var(--border)'">
                     <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
-                        \${window.getParrotSVG('100px', '100px')}
+                        ${window.getParrotSVG('100px', '100px')}
                     </div>
                     <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Polly the Parrot</div>
                     <div style="font-size: 0.8rem; color: var(--text-muted);">The vibrant, wise learning bird (Default)</div>
                 </div>
                 <!-- Garfield -->
                 <div onclick="selectMascot('garfield')" 
-                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: \${gameState.selectedMascot === 'garfield' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid \${gameState.selectedMascot === 'garfield' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
+                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: ${gameState.selectedMascot === 'garfield' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid ${gameState.selectedMascot === 'garfield' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
                      onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot !== 'garfield') this.style.borderColor='var(--border)'">
                     <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
-                        \${window.getGarfieldSVG('100px', '100px')}
+                        ${window.getGarfieldSVG('100px', '100px')}
                     </div>
                     <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Garfield Cat</div>
                     <div style="font-size: 0.8rem; color: var(--text-muted);">The playful, cute ginger cat companion</div>
