@@ -3258,7 +3258,7 @@ window.renderActivity = function () {
 
     // Render Activity UI with progress
     const realQuestions = level.questions.filter(q => !q.id.includes('INTRO'));
-    const isIntro = activity.type === 'info_card';
+    const isIntro = activity.type === 'info_card' || activity.type === 'video_card';
     
     // Polly visibility logic: hide during game, show during info/chapters
     if (isIntro) {
@@ -3538,6 +3538,24 @@ window.renderActivity = function () {
                 <h3 style="color: var(--accent); margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;">${activity.subtitle}</h3>
                 <p style="font-size: 1.2rem; line-height: 1.6; color: var(--text-muted); margin: 0 auto 3rem; max-width: 640px;">${activity.text}</p>
                 <button class="btn-primary" onclick="nextActivity(0)" style="max-width: 300px; margin: 0 auto; width: 100%;">Start Challenge</button>
+            </div>
+        `;
+    } else if (activity.type === 'video_card') {
+        const videoUrl = activity.platform === 'youtube'
+            ? `https://www.youtube.com/embed/${activity.videoId}?rel=0&enablejsapi=1`
+            : `https://player.vimeo.com/video/${activity.videoId}?api=1`;
+
+        html += `
+            <div style="text-align: center; margin-top: 1rem; max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem;">
+                <h2 style="margin-bottom: 0.2rem; font-size: 1.8rem;">${activity.title}</h2>
+                <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 1rem;">${activity.text || ''}</p>
+                <div class="video-player-wrapper" style="width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius-m); border: 2px solid var(--border); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); background: #000; margin-bottom: 1.5rem;">
+                    <iframe src="${videoUrl}" 
+                            style="width: 100%; height: 100%; border: 0;" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen></iframe>
+                </div>
+                <button class="btn-primary" onclick="nextActivity(0)" style="max-width: 300px; margin: 0 auto; width: 100%;">Continue</button>
             </div>
         `;
     }
