@@ -4616,7 +4616,7 @@ window.handleInfoCardContinue = function() {
         whiteBackdrop.style.cssText = `
             position: fixed;
             inset: 0;
-            background: #FFFFFF;
+            background: var(--bg-main);
             z-index: 999998;
             opacity: 0;
             transition: opacity 0.6s ease-out;
