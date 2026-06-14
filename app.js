@@ -3349,7 +3349,7 @@ window.renderActivity = function () {
             `}
 
             <!-- Scrollable content card -->
-            <div id="stories-content" class="animate-fade-in" style="flex: 1; overflow-y: auto; padding: 1rem 1.25rem 1.5rem 1.25rem; display: flex; flex-direction: column; position: relative; z-index: 2;">
+            <div id="stories-content" class="animate-fade-in" style="flex: 1; overflow-y: auto; padding: ${isVideo ? '0' : '1rem 1.25rem 1.5rem 1.25rem'}; display: flex; flex-direction: column; position: relative; z-index: 2;">
     ` : `
         <div style="height: 8px; background: transparent;">
             <div style="width: ${isIntro ? 0 : (currentQ / totalSteps) * 100}%; height: 100%; background: var(--primary); transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);"></div>
@@ -3371,7 +3371,7 @@ window.renderActivity = function () {
             </div>
         </header>
         `}
-        <main class="main-scroll-area animate-fade-in" style="padding: 2rem; flex: 1; display: flex; flex-direction: column;">
+        <main class="main-scroll-area animate-fade-in" style="padding: ${isVideo ? '0' : '2rem'}; flex: 1; display: flex; flex-direction: column;">
     `;
 
     // Helper to shuffle arrays
@@ -3566,13 +3566,25 @@ window.renderActivity = function () {
         `;
     } else if (activity.type === 'video') {
         html += `
-            <div style="text-align: center; margin-top: 1rem; flex: 1; display: flex; flex-direction: column;">
-                <h2 style="margin-bottom: 0.5rem; font-size: 1.8rem;">${activity.title || 'Video Lesson'}</h2>
-                <h3 style="color: var(--accent); margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">${activity.subtitle || 'Watch to continue'}</h3>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: var(--radius-m); background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-bottom: 2rem;">
+            <div style="flex: 1; display: flex; flex-direction: column; width: 100%; max-width: 1000px; margin: 0 auto; padding-top: ${isMobile ? '0' : '2rem'};">
+                
+                <!-- Cinematic Video Player -->
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; border-radius: ${isMobile ? '0' : 'var(--radius-l)'}; background: #000; box-shadow: 0 10px 40px rgba(0,0,0,0.6); margin-bottom: 2rem;">
                     <iframe src="${activity.videoUrl}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <button class="btn-primary" onclick="nextActivity(0)" style="max-width: 300px; margin: 0 auto; width: 100%;">Continue</button>
+                
+                <!-- Metadata & Controls -->
+                <div style="display: flex; flex-direction: column; gap: 1.5rem; padding: ${isMobile ? '0 1.5rem 2rem 1.5rem' : '0 1rem 2rem 1rem'}; text-align: left;">
+                    <div>
+                        <h2 style="margin-bottom: 0.4rem; font-size: 2.2rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;">${activity.title || 'Video Lesson'}</h2>
+                        <h3 style="color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px;">${activity.subtitle || 'Watch to continue'}</h3>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="nextActivity(0)" style="max-width: max-content; padding: 1rem 2rem; font-size: 1.1rem; border-radius: 100px; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);">
+                        <span class="material-symbols-rounded" style="font-size: 1.3rem;">check_circle</span>
+                        Continue Journey
+                    </button>
+                </div>
             </div>
         `;
     } else if (activity.type === 'info_card') {
@@ -6310,11 +6322,30 @@ window.renderGodModeRightPane = function () {
 
                 <div id="admin-error-msg" style="display: none; padding: 0.8rem 1rem; background: rgba(var(--error-rgb), 0.1); color: var(--error); border: 1px solid rgba(var(--error-rgb), 0.3); border-radius: var(--radius-s); font-size: 0.9rem; font-weight: 600; text-align: center;"></div>
 
-                <div style="${sectionStyle}">
+                <div style="${sectionStyle}; ${qType === 'video' ? 'display: none;' : ''}">
                     <label style="${labelStyle}">Question Text</label>
                     <textarea id="admin-q-question" style="${taStyle(90)}" placeholder="Enter question content...">${act.question || act.prompt || act.text || ''}</textarea>
                 </div>
         `;
+
+        if (qType === 'video') {
+            html += `
+                <div style="${sectionStyle}">
+                    <label style="${labelStyle}">Video URL</label>
+                    <input type="text" id="admin-q-video-url" value="${(act.videoUrl || '').replace(/"/g, '&quot;')}" placeholder="e.g., https://player.vimeo.com/video/12345" style="${inputStyle}">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Video Title</label>
+                        <input type="text" id="admin-q-video-title" value="${(act.title || '').replace(/"/g, '&quot;')}" placeholder="e.g., Introduction" style="${inputStyle}">
+                    </div>
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Video Subtitle</label>
+                        <input type="text" id="admin-q-video-subtitle" value="${(act.subtitle || '').replace(/"/g, '&quot;')}" placeholder="e.g., Watch to continue" style="${inputStyle}">
+                    </div>
+                </div>
+            `;
+        }
 
         if (qType === 'choice' || qType === 'multiple_choice') {
             const opts = act.options || [];
@@ -6427,7 +6458,7 @@ window.renderGodModeRightPane = function () {
                 `;
         }
 
-        if (qType !== 'info_card') {
+        if (qType !== 'info_card' && qType !== 'video') {
             html += `
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <div style="${sectionStyle}">
@@ -6928,7 +6959,7 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
     // --- Gather & Validate Question Text ---
     const qNode = document.getElementById('admin-q-question');
     const qVal = qNode ? qNode.value.trim() : '';
-    if (!qVal) setError("Question text is required.");
+    if (!qVal && q.type !== 'video') setError("Question text is required.");
 
     q.question = qVal;
     if (q.type === 'task') q.prompt = qVal;
@@ -6944,7 +6975,7 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
     q.xp = xpNode ? parseInt(xpNode.value) || 10 : 10;
 
     // --- Feedback ---
-    if (q.type !== 'info_card') {
+    if (q.type !== 'info_card' && q.type !== 'video') {
         const fCorNode = document.getElementById('admin-q-feedback-correct');
         const fIncNode = document.getElementById('admin-q-feedback-incorrect');
         const fCor = fCorNode ? fCorNode.value.trim() : '';
@@ -6972,6 +7003,19 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
         });
         if (!hasCorrect) setError("You must select at least one correct answer.");
         q.options = opts;
+    }
+
+    if (q.type === 'video') {
+        const vUrlNode = document.getElementById('admin-q-video-url');
+        const vTitleNode = document.getElementById('admin-q-video-title');
+        const vSubNode = document.getElementById('admin-q-video-subtitle');
+        
+        q.videoUrl = vUrlNode ? vUrlNode.value.trim() : '';
+        q.title = vTitleNode ? vTitleNode.value.trim() : '';
+        q.subtitle = vSubNode ? vSubNode.value.trim() : '';
+        
+        if (!q.videoUrl) setError("Video URL is required.");
+        if (!q.title) setError("Video title is required.");
     }
 
     if (q.type === 'task') {
