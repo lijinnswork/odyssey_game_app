@@ -587,6 +587,11 @@ function updateDesktopPanels(refreshLeaderboard = false) {
         }
     }
 
+    if (window.currentView !== 'activity') {
+        document.body.classList.remove('video-active');
+        document.body.classList.remove('game-active');
+    }
+
     // Hide mobile nav during gameplay/complete/login/loading so it doesn't overlap feedback panels/buttons
     const mobileNav = document.getElementById('mobile-nav');
     if (mobileNav) {
@@ -653,15 +658,24 @@ function updateDesktopPanels(refreshLeaderboard = false) {
     left.innerHTML = `
         <!-- MINI PANEL: visible only when left panel is collapsed during level play -->
         <div class="panel-mini">
-            <!-- Top group: Avatar + Username -->
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6rem; padding-top: 1rem;">
-                <div style="width: 44px; height: 44px; background: rgba(var(--primary-rgb), 0.15); border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
-                    ${getAppLogo()}
+            <!-- Top Group Container -->
+            <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                <!-- Back Button for Video Page -->
+                <div id="video-back-btn-container" style="display: none; width: 100%; justify-content: center; margin-bottom: 0.5rem;">
+                    <button onclick="confirmExitLevel(currentActivityState.chapterId, currentActivityState.levelId)" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                        <span class="material-symbols-rounded" style="font-size: 1.2rem;">arrow_back</span>
+                    </button>
                 </div>
-                <div style="font-size: 0.6rem; font-weight: 800; color: var(--text-secondary); text-align: center;
-                            text-transform: uppercase; letter-spacing: 0.5px; width: 100%;
-                            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 4px;">
-                    ${currentUser}
+                <!-- Avatar + Username -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6rem;">
+                    <div style="width: 44px; height: 44px; background: rgba(var(--primary-rgb), 0.15); border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                        ${getAppLogo()}
+                    </div>
+                    <div style="font-size: 0.6rem; font-weight: 800; color: var(--text-secondary); text-align: center;
+                                text-transform: uppercase; letter-spacing: 0.5px; width: 100%;
+                                overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 4px;">
+                        ${currentUser}
+                    </div>
                 </div>
             </div>
 
@@ -3076,6 +3090,7 @@ window.renderLevels = function (chapterId) {
         const realQuestions = level.questions ? level.questions.filter(q => !q.id.includes('INTRO')) : [];
         const totalQs = realQuestions.length || 10;
         const completeCount = isCompleted ? totalQs : 0;
+        const hideQuestionsCount = (chapterId === 'chapter1' && (idx === 0 || idx === 1));
 
         // Force unlock if previous one is completed
         let isActuallyUnlocked = isUnlocked;
@@ -3114,7 +3129,7 @@ window.renderLevels = function (chapterId) {
                                 ${level.title}
                             </div>
                             <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                                <span>${completeCount}/${totalQs} questions</span>
+                                ${hideQuestionsCount ? '' : `<span>${completeCount}/${totalQs} questions</span>`}
                                 ${isCompleted ? `<span style="color: var(--success); font-weight: 700;">✓ Complete</span>` : (isLocked ? `<span style="color: var(--text-muted);">Locked</span>` : '')}
                             </div>
                         </div>
@@ -3258,13 +3273,24 @@ window.renderActivity = function () {
 
     // Render Activity UI with progress
     const realQuestions = level.questions.filter(q => !q.id.includes('INTRO'));
-    const isIntro = activity.type === 'info_card' || activity.type === 'video_card';
+    const isIntro = activity.type === 'info_card' || activity.type === 'video';
+    const isVideo = activity.type === 'video' || (activity.type === 'info_card' && levelIndex === 0);
     
     // Polly visibility logic: hide during game, show during info/chapters
     if (isIntro) {
         document.body.classList.remove('game-active');
     } else {
         document.body.classList.add('game-active');
+    }
+
+    if (isVideo) {
+        document.body.classList.add('video-active');
+        const backBtnContainer = document.getElementById('video-back-btn-container');
+        if (backBtnContainer) backBtnContainer.style.display = 'flex';
+    } else {
+        document.body.classList.remove('video-active');
+        const backBtnContainer = document.getElementById('video-back-btn-container');
+        if (backBtnContainer) backBtnContainer.style.display = 'none';
     }
 
     const totalSteps = realQuestions.length;
@@ -3304,6 +3330,11 @@ window.renderActivity = function () {
             ${storyBarsHtml}
 
             <!-- Header -->
+            ${isVideo ? `
+            <div style="display: flex; padding: 1rem; position: relative; z-index: 10;">
+                <button onclick="confirmExitLevel('${chapterId}', '${levelId}')" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;"><span class="material-symbols-rounded">arrow_back</span></button>
+            </div>
+            ` : `
             <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1rem 0.4rem 1rem; position: relative; z-index: 10;">
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                     <button onclick="confirmExitLevel('${chapterId}', '${levelId}')"
@@ -3315,13 +3346,15 @@ window.renderActivity = function () {
                     ${!isIntro ? `<div style="font-size: 0.8rem; color: rgba(255,255,255,0.5); font-weight: 700;">${currentQ}/${totalSteps}</div>` : ''}
                 </div>
             </div>
+            `}
 
             <!-- Scrollable content card -->
-            <div id="stories-content" style="flex: 1; overflow-y: auto; padding: 1rem 1.25rem 1.5rem 1.25rem; display: flex; flex-direction: column; position: relative; z-index: 2;">
+            <div id="stories-content" class="animate-fade-in" style="flex: 1; overflow-y: auto; padding: 1rem 1.25rem 1.5rem 1.25rem; display: flex; flex-direction: column; position: relative; z-index: 2;">
     ` : `
         <div style="height: 8px; background: transparent;">
             <div style="width: ${isIntro ? 0 : (currentQ / totalSteps) * 100}%; height: 100%; background: var(--primary); transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);"></div>
         </div>
+        ${isVideo ? '' : `
         <header style="padding: 1rem; display: flex; align-items: center; justify-content: space-between; background: transparent;">
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <button onclick="confirmExitLevel('${chapterId}', '${levelId}')" style="font-size: 1.5rem; background: none !important; border: none !important; box-shadow: none !important; color: white; cursor: pointer;">✕</button>
@@ -3337,7 +3370,8 @@ window.renderActivity = function () {
                 </div>
             </div>
         </header>
-        <main class="main-scroll-area" style="padding: 2rem; flex: 1; display: flex; flex-direction: column;">
+        `}
+        <main class="main-scroll-area animate-fade-in" style="padding: 2rem; flex: 1; display: flex; flex-direction: column;">
     `;
 
     // Helper to shuffle arrays
@@ -3530,32 +3564,27 @@ window.renderActivity = function () {
                 </div>
             </div>
         `;
-    } else if (activity.type === 'info_card') {
+    } else if (activity.type === 'video') {
         html += `
-            <div style="text-align: center; margin-top: 1rem;">
-                <div style="height: 6rem; margin-bottom: 2rem;"></div>
-                <h2 style="margin-bottom: 0.5rem; font-size: 2.2rem;">${activity.title}</h2>
-                <h3 style="color: var(--accent); margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;">${activity.subtitle}</h3>
-                <p style="font-size: 1.2rem; line-height: 1.6; color: var(--text-muted); margin: 0 auto 3rem; max-width: 640px;">${activity.text}</p>
-                <button class="btn-primary" onclick="nextActivity(0)" style="max-width: 300px; margin: 0 auto; width: 100%;">Start Challenge</button>
-            </div>
-        `;
-    } else if (activity.type === 'video_card') {
-        const videoUrl = activity.platform === 'youtube'
-            ? `https://www.youtube.com/embed/${activity.videoId}?rel=0&enablejsapi=1`
-            : `https://player.vimeo.com/video/${activity.videoId}?api=1`;
-
-        html += `
-            <div style="text-align: center; margin-top: 1rem; max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem;">
-                <h2 style="margin-bottom: 0.2rem; font-size: 1.8rem;">${activity.title}</h2>
-                <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 1rem;">${activity.text || ''}</p>
-                <div class="video-player-wrapper" style="width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius-m); border: 2px solid var(--border); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); background: #000; margin-bottom: 1.5rem;">
-                    <iframe src="${videoUrl}" 
-                            style="width: 100%; height: 100%; border: 0;" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen></iframe>
+            <div style="text-align: center; margin-top: 1rem; flex: 1; display: flex; flex-direction: column;">
+                <h2 style="margin-bottom: 0.5rem; font-size: 1.8rem;">${activity.title || 'Video Lesson'}</h2>
+                <h3 style="color: var(--accent); margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">${activity.subtitle || 'Watch to continue'}</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: var(--radius-m); background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-bottom: 2rem;">
+                    <iframe src="${activity.videoUrl}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <button class="btn-primary" onclick="nextActivity(0)" style="max-width: 300px; margin: 0 auto; width: 100%;">Continue</button>
+            </div>
+        `;
+    } else if (activity.type === 'info_card') {
+        const btnText = activity.buttonText || 'Start Challenge';
+        const imageHtml = activity.image ? `<div style="font-size: 5rem; margin-bottom: 1.5rem; animation: float-up-fade 0.8s ease-out forwards;">${activity.image}</div>` : `<div style="height: 6rem; margin-bottom: 2rem;"></div>`;
+        html += `
+            <div style="text-align: center; margin-top: 1rem;">
+                ${imageHtml}
+                <h2 style="margin-bottom: 0.5rem; font-size: 2.2rem;">${activity.title}</h2>
+                ${activity.subtitle ? `<h3 style="color: var(--accent); margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;">${activity.subtitle}</h3>` : ''}
+                <p style="font-size: 1.2rem; line-height: 1.6; color: var(--text-muted); margin: 0 auto 3rem; max-width: 640px; white-space: pre-wrap;">${activity.text}</p>
+                <button class="btn-primary" onclick="handleInfoCardContinue()" style="max-width: 300px; margin: 0 auto; width: 100%;">${btnText}</button>
             </div>
         `;
     }
@@ -3616,6 +3645,8 @@ window.getCorrectAnswerHtml = function (activity) {
         return `<p style="margin-top: 0.5rem; line-height: 1.6;">${text}</p>`;
     } else if (type === 'task') {
         return `<p style="margin-top: 0.5rem;">This was a subjective task without a single right answer.</p>`;
+    } else if (type === 'video') {
+        return `<p style="margin-top: 0.5rem;">Video lesson watched.</p>`;
     }
     return '';
 }
@@ -4538,6 +4569,78 @@ window.handleFeedbackContinue = function () {
     }
 }
 
+window.handleInfoCardContinue = function() {
+    if (currentActivityState && currentActivityState.chapterId === 'chapter1' && currentActivityState.levelId === 'c1-l1' && currentActivityState.activityIndex === 0) {
+        
+        // Create full-screen plain white backdrop
+        const whiteBackdrop = document.createElement('div');
+        whiteBackdrop.style.cssText = `
+            position: fixed;
+            inset: 0;
+            background: #FFFFFF;
+            z-index: 999998;
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+            pointer-events: none;
+        `;
+        document.body.appendChild(whiteBackdrop);
+
+        // Create flying mascot container
+        const flyMascot = document.createElement('div');
+        flyMascot.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+            z-index: 999999;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 15px 35px rgba(0,0,0,0.4));
+            pointer-events: none;
+        `;
+        
+        // Insert SVG (Happy State)
+        flyMascot.innerHTML = window.getMascotSVG('250px', '250px', 'happy');
+        document.body.appendChild(flyMascot);
+        
+        // 1. Appear as main (Center)
+        setTimeout(() => {
+            whiteBackdrop.style.opacity = '1';
+            flyMascot.style.transform = 'translate(-50%, -50%) scale(1)';
+            flyMascot.style.opacity = '1';
+            
+            // 2. Progress to side (Bottom Right)
+            setTimeout(() => {
+                // Keep white background solid while mascot flies to side
+                flyMascot.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                flyMascot.style.top = 'calc(100vh - 60px)';
+                flyMascot.style.left = 'calc(100vw - 60px)';
+                flyMascot.style.transform = 'translate(-50%, -50%) scale(0.35)';
+                flyMascot.style.opacity = '0';
+                
+                // 3. Start video activity just as it reaches the side
+                setTimeout(() => {
+                    flyMascot.remove();
+                    
+                    // Render the new page UNDER the white backdrop
+                    window.nextActivity(0);
+                    
+                    // 4. Fade out the white backdrop onto the new page
+                    whiteBackdrop.style.opacity = '0';
+                    setTimeout(() => {
+                        whiteBackdrop.remove();
+                    }, 600);
+                }, 800);
+                
+            }, 1000); // Show in center for 1 second
+            
+        }, 50); // Small delay to trigger DOM reflow
+        
+    } else {
+        window.nextActivity(0);
+    }
+};
+
 window.nextActivity = function (xpToAdd) {
     if (xpToAdd > 0) {
         // Track for session
@@ -4753,6 +4856,16 @@ function renderLevelComplete(chapterId, levelId) {
 
 // Confirm exit during level - Custom Modal
 window.confirmExitLevel = function (chapterId, levelId) {
+    // If the game hasn't started (e.g. on info cards or video screens), just exit without prompting
+    if (!document.body.classList.contains('game-active')) {
+        if (window.innerWidth < 1024) {
+            renderChapters();
+        } else {
+            renderLevels(chapterId);
+        }
+        return;
+    }
+
     showModal({
         icon: null,
         title: 'Exit Level?',
@@ -7618,6 +7731,12 @@ const pollyMessages = [
 ];
 
 function triggerPeriodicPolly() {
+    // Strictly limit random mascot popups to the homepage and levels selection page
+    const allowedViews = ['home', 'journey', 'chapter'];
+    if (!allowedViews.includes(window.currentView)) {
+        return;
+    }
+
     // Only show if user isn't actively hovering, the drawer is closed, and user is logged in
     if (!isPollyHovered && !desktopCoachOpen && currentUser && gameState) {
         // Filter messages based on the user's current gameState

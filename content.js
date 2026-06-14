@@ -5381,17 +5381,6 @@ const chapter3Level5Questions = [
 function generateLevelQuestions(chapterId, levelIndex, baseXP) {
     const questions = [];
 
-    // Find active level configuration
-    let levelObj = null;
-    if (typeof window !== 'undefined' && window.courseData) {
-        const chapter = window.courseData.find(c => c.id === chapterId);
-        if (chapter && chapter.levels) {
-            levelObj = chapter.levels[levelIndex];
-        }
-    }
-    const levelType = (levelObj && levelObj.levelType) ? levelObj.levelType : 'standard';
-    const videoId = (levelObj && levelObj.videoId) ? levelObj.videoId : null;
-
     // Extract chapter number from ID
     const chapMatch = chapterId.match(/\d+$/);
     const chapNum = chapMatch ? chapMatch[0] : '1';
@@ -5430,42 +5419,48 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
     const introId = `${chapterId}-L${levelIndex + 1}-INTRO`;
     const customIntro = rawPool.find(q => q.original_id === introId);
 
-    if (levelType === 'video_only' && videoId) {
+    if (chapterId === 'chapter1' && levelIndex === 0) {
+        // Level 1: Introduction. Shows Welcome Card first, then Video.
         questions.push({
             id: introId,
             title: "Introduction",
-            activities: [{
-                type: "info_card",
-                title: (levelObj && levelObj.title) ? levelObj.title : `Welcome to Level ${levelIndex + 1}`,
-                subtitle: levelTitle,
-                text: `Did you know? ${factualText}\n\nComplete this introduction to unlock the next chapter!`,
-                xp: 0
-            }]
+            activities: [
+                {
+                    type: "info_card",
+                    title: `Getting started with AI`,
+                    subtitle: ``,
+                    text: `<span style="color: var(--accent); font-size: 1.3rem; font-weight: 500; display: block; margin-bottom: 1.5rem;">Welcome to the first module of your journey!</span>\nIn this chapter, you will learn the fundamental building blocks of Artificial Intelligence, how algorithms process data, and what makes AI systems learn and adapt.`,
+                    buttonText: `Begin Journey`,
+                    xp: 0
+                },
+                {
+                    type: "video",
+                    title: `Introduction to Sangam`,
+                    subtitle: `Watch the video to begin your journey`,
+                    videoUrl: "https://player.vimeo.com/video/1175392225?h=3914191f9f",
+                    xp: 0
+                }
+            ]
         });
-
-        questions.push({
-            id: `${chapterId}-L${levelIndex + 1}-INTRO-VIDEO`,
-            title: "Intro Video",
-            activities: [{
-                type: "video_card",
-                title: (levelObj && levelObj.title) ? levelObj.title : `Welcome to Level ${levelIndex + 1}`,
-                text: (levelObj && levelObj.description) ? levelObj.description : "Watch this brief introduction video to begin.",
-                videoId: videoId,
-                platform: "vimeo",
-                xp: 0
-            }]
-        });
-
         return questions;
     }
 
-    if (customIntro) {
+    if (chapterId === 'chapter1' && levelIndex === 1) {
+        // Level 2: What is AI? Shows Video first, then Welcome Card, then quiz questions.
+        // 1. Video Card (ID includes INTRO to exclude from questions count)
         questions.push({
-            id: introId,
-            title: "Introduction",
-            activities: [customIntro]
+            id: `${chapterId}-L${levelIndex + 1}-INTRO-VIDEO`,
+            title: "Video Lesson",
+            activities: [{
+                type: "video",
+                title: `What is AI?`,
+                subtitle: `Watch the video before starting the challenge`,
+                videoUrl: "https://player.vimeo.com/video/1174724684?h=9005d5b2f8",
+                xp: 0
+            }]
         });
-    } else {
+
+        // 2. Welcome Card
         questions.push({
             id: introId,
             title: "Introduction",
@@ -5477,22 +5472,27 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
                 xp: 0
             }]
         });
-    }
-
-    // Inject video lecture card if videoId exists
-    if (videoId) {
-        questions.push({
-            id: `${chapterId}-L${levelIndex + 1}-INTRO-VIDEO`,
-            title: "Video Lesson",
-            activities: [{
-                type: "video_card",
-                title: (levelObj && levelObj.title) ? levelObj.title : `Video Lesson`,
-                text: "Watch this video lesson, then solve the challenges that follow.",
-                videoId: videoId,
-                platform: "vimeo",
-                xp: 0
-            }]
-        });
+    } else {
+        // Default Welcome Card for other chapters/levels
+        if (customIntro) {
+            questions.push({
+                id: introId,
+                title: "Introduction",
+                activities: [customIntro]
+            });
+        } else {
+            questions.push({
+                id: introId,
+                title: "Introduction",
+                activities: [{
+                    type: "info_card",
+                    title: `Welcome to Level ${levelIndex + 1}`,
+                    subtitle: levelTitle,
+                    text: `Did you know? ${factualText}\n\nComplete the challenges to master this topic!`,
+                    xp: 0
+                }]
+            });
+        }
     }
 
     // --- OFFLINE TEST DATA LOGIC ---
@@ -5821,40 +5821,12 @@ const chapters = [
         id: "chapter1",
         title: "Getting started with AI",
         description: "The building blocks of Artificial Intelligence.",
-        levels: [
-            {
-                id: "c1-l1",
-                title: "Introduction",
-                description: "Watch this brief introduction to get started with the module.",
-                levelType: "video_only",
-                videoId: "1174728387"
-            },
-            {
-                id: "c1-l2",
-                title: "What is AI?",
-                description: "Master the core concepts of AI.",
-                levelType: "standard",
-                videoId: "1174724684"
-            },
-            {
-                id: "c1-l3",
-                title: "AI Systems",
-                description: "Understand the structures of artificial systems.",
-                levelType: "standard"
-            },
-            {
-                id: "c1-l4",
-                title: "Limitations",
-                description: "Understand the boundaries of AI models.",
-                levelType: "standard"
-            },
-            {
-                id: "c1-l5",
-                title: "AI in Practice",
-                description: "See how AI is applied in real workflows.",
-                levelType: "standard"
-            }
-        ]
+        levels: Array.from({ length: 5 }, (_, i) => ({
+            id: `c1-l${i + 1}`,
+            title: `Level ${i + 1}: ${['Foundations', 'Concepts', 'AI Systems', 'Limitations', 'AI in Practice'][i]}`,
+            description: "Master the core concepts of AI.",
+            questions: generateLevelQuestions('chapter1', i)
+        }))
     },
     {
         id: "chapter2",
@@ -5864,7 +5836,7 @@ const chapters = [
             id: `c2-l${i + 1}`,
             title: `Level ${i + 1}: ${['Education', 'Healthcare', 'Finance', 'Transport', 'Creativity'][i]}`,
             description: "Explore real-world applications.",
-            levelType: "standard"
+            questions: generateLevelQuestions('chapter2', i)
         }))
     },
     {
@@ -5875,19 +5847,11 @@ const chapters = [
             id: `c3-l${i + 1}`,
             title: `Level ${i + 1}: ${['Bias', 'Privacy', 'Security', 'Automation', 'Human-AI'][i]}`,
             description: "Understand the ethical landscape.",
-            levelType: "standard"
+            questions: generateLevelQuestions('chapter3', i)
         }))
     }
 ];
 
-// Expose globally first so generateLevelQuestions can look it up
+// Expose globally
 window.courseData = chapters;
-
-// Dynamically generate the questions arrays for the levels
-chapters.forEach(ch => {
-    ch.levels.forEach((lvl, i) => {
-        lvl.questions = generateLevelQuestions(ch.id, i);
-    });
-});
-
 console.log("Chapter-based Course Data Loaded:", window.courseData);

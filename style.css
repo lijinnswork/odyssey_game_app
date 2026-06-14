@@ -1288,6 +1288,10 @@ body[data-theme="light"] .chapter-card {
         flex-direction: column;
     }
 
+    body.video-active .main-scroll-area {
+        border-top-left-radius: 0 !important;
+    }
+
     .right-content {
         display: none !important;
     }
