@@ -680,8 +680,8 @@ function updateDesktopPanels(refreshLeaderboard = false) {
             </div>
 
             <!-- Bottom: Settings icon -->
-            <div style="padding-bottom: 1rem;">
-                <button id="mini-settings-btn" onclick="event.stopPropagation(); toggleMiniSettings(this);"
+            <div id="mini-settings-container" style="padding-bottom: 1rem; position: relative; display: flex; justify-content: center;">
+                <button id="mini-settings-btn" onclick="toggleMiniSettings(this, event);"
                     style="background: var(--surface-glass); border: 1px solid var(--border); border-radius: 50%;
                            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
                            color: var(--text-secondary); cursor: pointer; transition: background 0.2s;"
@@ -833,59 +833,50 @@ if (!document.getElementById('sidebar-styles')) {
 }
 
 // --- Mini Settings Popup (for collapsed left panel) ---
-// Uses position:fixed appended to body to escape overflow:hidden clipping
-window.toggleMiniSettings = function (btn) {
+window.toggleMiniSettings = function (btn, e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
     const existing = document.getElementById('mini-settings-popup');
     if (existing) { existing.remove(); return; }
 
     const rect = btn.getBoundingClientRect();
+    
     const popup = document.createElement('div');
     popup.id = 'mini-settings-popup';
     popup.style.cssText = `
         position: fixed;
-        bottom: ${window.innerHeight - rect.top + 8}px;
-        left: ${rect.left}px;
-        background: #143C63;
-        border: 1px solid rgba(209, 246, 255, 0.15);
-        border-radius: 14px;
-        padding: 0.5rem;
+        bottom: ${window.innerHeight - rect.bottom - 10}px;
+        left: ${rect.right + 20}px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-m);
+        padding: 0.75rem;
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
-        box-shadow: 0 -8px 30px rgba(20, 60, 99, 0.5);
-        z-index: 99999;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        z-index: 999999;
         animation: scaleIn 0.15s ease;
-        min-width: 52px;
+        min-width: 200px;
     `;
+
     popup.innerHTML = `
-        <button onclick="handleResetPassword(); document.getElementById('mini-settings-popup')?.remove();"
-            title="Change Password"
-            style="background: rgba(209, 246, 255, 0.06); border: 1px solid rgba(209, 246, 255, 0.1); border-radius: 10px;
-                   width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-                   color: rgba(209, 246, 255, 0.8); cursor: pointer; transition: background 0.2s;"
-            onmouseover="this.style.background='rgba(209, 246, 255, 0.14)'"
-            onmouseout="this.style.background='rgba(209, 246, 255, 0.06)'">
-            <span class="material-symbols-rounded" style="font-size: 1.2rem;">lock</span>
-        </button>
-        <button onclick="showIntroDemo(true); document.getElementById('mini-settings-popup')?.remove();"
-            title="Show Me Around"
-            style="background: rgba(209, 246, 255, 0.06); border: 1px solid rgba(209, 246, 255, 0.1); border-radius: 10px;
-                   width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-                   color: rgba(209, 246, 255, 0.8); cursor: pointer; transition: background 0.2s;"
-            onmouseover="this.style.background='rgba(209, 246, 255, 0.14)'"
-            onmouseout="this.style.background='rgba(209, 246, 255, 0.06)'">
-            <span class="material-symbols-rounded" style="font-size: 1.2rem;">explore</span>
-        </button>
-        <button onclick="handleLogout(); document.getElementById('mini-settings-popup')?.remove();"
-            title="Logout"
-            style="background: rgba(199, 53, 40, 0.08); border: 1px solid rgba(199, 53, 40, 0.2); border-radius: 10px;
-                   width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-                   color: #C73528; cursor: pointer; transition: background 0.2s;"
-            onmouseover="this.style.background='rgba(199, 53, 40, 0.2)'"
-            onmouseout="this.style.background='rgba(199, 53, 40, 0.08)'">
-            <span class="material-symbols-rounded" style="font-size: 1.2rem;">logout</span>
-        </button>
+        <div style="position: absolute; bottom: 20px; left: -6px; width: 12px; height: 12px; background: var(--surface); border-left: 1px solid var(--border); border-bottom: 1px solid var(--border); transform: rotate(45deg);"></div>
+        <div style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 0.25rem;">
+            <div onclick="window.renderChapters(); document.getElementById('mini-settings-popup')?.remove();" style="padding: 0.75rem 1rem; font-size: 0.88rem; cursor: pointer; border-radius: var(--radius-s); transition: all 0.2s; display: flex; align-items: center; gap: 0.75rem; color: var(--text-main);" onmouseover="this.style.background='var(--bg-deep)'" onmouseout="this.style.background='transparent'">
+                <span class="material-symbols-rounded" style="font-size: 1.2rem;">home</span>
+                Move to Homepage
+            </div>
+            <div onclick="handleLogout(); document.getElementById('mini-settings-popup')?.remove();" style="padding: 0.75rem 1rem; font-size: 0.88rem; color: #C73528; cursor: pointer; border-radius: var(--radius-s); transition: all 0.2s; display: flex; align-items: center; gap: 0.75rem;" onmouseover="this.style.background='rgba(199, 53, 40, 0.1)'" onmouseout="this.style.background='transparent'">
+                <span class="material-symbols-rounded" style="font-size: 1.2rem;">logout</span>
+                Logout
+            </div>
+        </div>
     `;
+    
     document.body.appendChild(popup);
 
     // Close on outside click
@@ -3574,16 +3565,52 @@ window.renderActivity = function () {
                 </div>
                 
                 <!-- Metadata & Controls -->
-                <div style="display: flex; flex-direction: column; gap: 1.5rem; padding: ${isMobile ? '0 1.5rem 2rem 1.5rem' : '0 1rem 2rem 1rem'}; text-align: left;">
-                    <div>
-                        <h2 style="margin-bottom: 0.4rem; font-size: 2.2rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;">${activity.title || 'Video Lesson'}</h2>
-                        <h3 style="color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px;">${activity.subtitle || 'Watch to continue'}</h3>
-                    </div>
+                <div style="display: flex; flex-direction: column; gap: 2rem; padding: ${isMobile ? '0 1.5rem 2rem 1.5rem' : '0 1rem 2rem 1rem'}; text-align: left;">
                     
-                    <button class="btn-primary" onclick="nextActivity(0)" style="max-width: max-content; padding: 1rem 2rem; font-size: 1.1rem; border-radius: 100px; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);">
-                        <span class="material-symbols-rounded" style="font-size: 1.3rem;">check_circle</span>
-                        Continue Journey
-                    </button>
+                    <div style="display: flex; flex-direction: ${isMobile ? 'column' : 'row'}; justify-content: space-between; align-items: ${isMobile ? 'flex-start' : 'center'}; gap: 1.5rem;">
+                        <div>
+                            <h2 style="margin-bottom: 0.4rem; font-size: 2.2rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;">${activity.title || 'Video Lesson'}</h2>
+                            <h3 style="color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; margin-bottom: 1rem;">${activity.subtitle || 'Watch to continue'}</h3>
+                            
+                            ${activity.duration || activity.topic || activity.difficulty ? `
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem;">
+                                ${activity.duration ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">schedule</span> ${activity.duration}</span>` : ''}
+                                ${activity.topic ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">category</span> ${activity.topic}</span>` : ''}
+                                ${activity.difficulty ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">military_tech</span> ${activity.difficulty}</span>` : ''}
+                            </div>
+                            ` : ''}
+                        </div>
+                        
+                        <button class="btn-primary" onclick="nextActivity(0)" style="max-width: max-content; padding: 1rem 2rem; font-size: 1.1rem; border-radius: 100px; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3); flex-shrink: 0;">
+                            <span class="material-symbols-rounded" style="font-size: 1.3rem;">check_circle</span>
+                            Continue Journey
+                        </button>
+                    </div>
+
+                    ${activity.description ? `
+                    <div style="background: var(--surface-glass); border: 1px solid var(--border); border-radius: var(--radius-m); padding: 1.5rem; margin-top: -0.5rem; animation: fade-in 0.5s ease 0.2s both;">
+                        <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="material-symbols-rounded" style="font-size: 1.2rem; color: var(--accent);">info</span>
+                            About this session
+                        </h4>
+                        <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: ${activity.takeaways && activity.takeaways.length > 0 ? '1.5rem' : '0'};">${activity.description}</p>
+                        
+                        ${activity.takeaways && activity.takeaways.length > 0 ? `
+                        <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="material-symbols-rounded" style="font-size: 1.2rem; color: var(--accent);">lightbulb</span>
+                            What you'll learn
+                        </h4>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem;">
+                            ${activity.takeaways.map(t => `
+                            <li style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5;">
+                                <span class="material-symbols-rounded" style="font-size: 1.1rem; color: #4CAF50; margin-top: 0.1rem;">check</span>
+                                <span>${t}</span>
+                            </li>
+                            `).join('')}
+                        </ul>
+                        ` : ''}
+                    </div>
+                    ` : ''}
                 </div>
             </div>
         `;
@@ -6242,7 +6269,8 @@ window.renderGodModeRightPane = function () {
                     { id: 'ordering', name: 'Ordering', icon: '🔢', desc: 'Arrange items in order' },
                     { id: 'matching', name: 'Matching', icon: '🔗', desc: 'Match pairs of items' },
                     { id: 'task', name: 'Text Task', icon: '✏️', desc: 'Open-ended answer' },
-                    { id: 'info_card', name: 'Info Card', icon: '📖', desc: 'Informational slide' }
+                    { id: 'info_card', name: 'Info Card', icon: '📖', desc: 'Informational slide' },
+                    { id: 'video', name: 'Video Lesson', icon: '▶️', desc: 'Embedded video player' }
                 ];
 
                 html += `
@@ -6343,6 +6371,28 @@ window.renderGodModeRightPane = function () {
                         <label style="${labelStyle}">Video Subtitle</label>
                         <input type="text" id="admin-q-video-subtitle" value="${(act.subtitle || '').replace(/"/g, '&quot;')}" placeholder="e.g., Watch to continue" style="${inputStyle}">
                     </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Duration</label>
+                        <input type="text" id="admin-q-video-duration" value="${(act.duration || '').replace(/"/g, '&quot;')}" placeholder="e.g., 5 mins" style="${inputStyle}">
+                    </div>
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Topic</label>
+                        <input type="text" id="admin-q-video-topic" value="${(act.topic || '').replace(/"/g, '&quot;')}" placeholder="e.g., Orientation" style="${inputStyle}">
+                    </div>
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Difficulty</label>
+                        <input type="text" id="admin-q-video-difficulty" value="${(act.difficulty || '').replace(/"/g, '&quot;')}" placeholder="e.g., Beginner" style="${inputStyle}">
+                    </div>
+                </div>
+                <div style="${sectionStyle}">
+                    <label style="${labelStyle}">Video Description</label>
+                    <textarea id="admin-q-video-description" style="${taStyle(100)}" placeholder="A summary of the video content...">${act.description || ''}</textarea>
+                </div>
+                <div style="${sectionStyle}">
+                    <label style="${labelStyle}">Key Takeaways (one per line)</label>
+                    <textarea id="admin-q-video-takeaways" style="${taStyle(120)}" placeholder="Learn about AI\nUnderstand models">${(act.takeaways || []).join('\n')}</textarea>
                 </div>
             `;
         }
@@ -7009,10 +7059,20 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
         const vUrlNode = document.getElementById('admin-q-video-url');
         const vTitleNode = document.getElementById('admin-q-video-title');
         const vSubNode = document.getElementById('admin-q-video-subtitle');
+        const vDurNode = document.getElementById('admin-q-video-duration');
+        const vTopNode = document.getElementById('admin-q-video-topic');
+        const vDiffNode = document.getElementById('admin-q-video-difficulty');
+        const vDescNode = document.getElementById('admin-q-video-description');
+        const vTakeNode = document.getElementById('admin-q-video-takeaways');
         
         q.videoUrl = vUrlNode ? vUrlNode.value.trim() : '';
         q.title = vTitleNode ? vTitleNode.value.trim() : '';
         q.subtitle = vSubNode ? vSubNode.value.trim() : '';
+        q.duration = vDurNode ? vDurNode.value.trim() : '';
+        q.topic = vTopNode ? vTopNode.value.trim() : '';
+        q.difficulty = vDiffNode ? vDiffNode.value.trim() : '';
+        q.description = vDescNode ? vDescNode.value.trim() : '';
+        q.takeaways = vTakeNode ? vTakeNode.value.split('\n').map(l => l.trim().replace(/^- /g, '')).filter(Boolean) : [];
         
         if (!q.videoUrl) setError("Video URL is required.");
         if (!q.title) setError("Video title is required.");

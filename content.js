@@ -67,6 +67,34 @@ window.LEVEL_FACTS = {
 
 const chapter1Level1Questions = [
     {
+        "original_id": "chapter1-L1-INTRO-1",
+        "type": "info_card",
+        "title": "Getting started with AI",
+        "subtitle": "",
+        "text": "<span style=\"color: var(--accent); font-size: 1.3rem; font-weight: 500; display: block; margin-bottom: 1.5rem;\">Welcome to the first module of your journey!</span>\nIn this chapter, you will learn the fundamental building blocks of Artificial Intelligence, how algorithms process data, and what makes AI systems learn and adapt.",
+        "buttonText": "Begin Journey",
+        "xp": 0,
+        "published": true
+    },
+    {
+        "original_id": "chapter1-L1-INTRO-2-VIDEO",
+        "type": "video",
+        "title": "Introduction to Sangam",
+        "subtitle": "Watch the video to begin your journey",
+        "videoUrl": "https://player.vimeo.com/video/1175392225?h=3914191f9f",
+        "duration": "4 mins",
+        "topic": "Orientation",
+        "difficulty": "Beginner",
+        "description": "Welcome to Project Sangam! In this introductory session, we will outline the structure of the course and how you can make the most out of your learning journey with Odyssey.",
+        "takeaways": [
+            "Understand the core objectives of Project Sangam",
+            "Learn how to navigate the Odyssey learning platform",
+            "Discover the benefits of interactive AI learning"
+        ],
+        "xp": 0,
+        "published": true
+    },
+    {
         "original_id": 1,
         "question": "Which statement best distinguishes Artificial Intelligence from traditional rule-based software?",
         "correctFeedback": "Artificial Intelligence systems typically learn patterns from data rather than following only fixed rule-based instructions.",
@@ -831,6 +859,34 @@ const chapter1Level1Questions = [
 ];
 
 const chapter1Level2Questions = [
+    {
+        "original_id": "chapter1-L2-INTRO-1-VIDEO",
+        "type": "video",
+        "title": "What is AI?",
+        "subtitle": "Watch the video before starting the challenge",
+        "videoUrl": "https://player.vimeo.com/video/1174724684?h=9005d5b2f8",
+        "duration": "6 mins",
+        "topic": "AI Fundamentals",
+        "difficulty": "Beginner",
+        "description": "Dive into the fundamental concepts of Artificial Intelligence. This module breaks down what AI is, how it differs from traditional programming, and its impact on modern technology.",
+        "takeaways": [
+            "Define Artificial Intelligence and its basic principles",
+            "Differentiate between AI and standard software",
+            "Identify common use cases of AI in everyday life"
+        ],
+        "xp": 0,
+        "published": true
+    },
+    {
+        "original_id": "chapter1-L2-INTRO-2",
+        "type": "info_card",
+        "title": "Welcome to Level 2",
+        "subtitle": "History",
+        "text": "Did you know? Keep expanding your knowledge base.\n\nComplete the challenges to master this topic!",
+        "buttonText": "Start Challenge",
+        "xp": 0,
+        "published": true
+    },
     {
         "original_id": 1,
         "question": "An educator uses AI to generate quiz questions and then edits them before use. What role is the educator primarily playing?",
@@ -5415,52 +5471,32 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
         factualText = LEVEL_FACTS[chapterId][levelIndex];
     }
 
-    // 1. Add intro info card (Check pool first for custom one)
-    const introId = `${chapterId}-L${levelIndex + 1}-INTRO`;
-    const customIntro = rawPool.find(q => q.original_id === introId);
+    // 1. Add intro info cards and videos
+    // Find all introductory nodes explicitly marked to be at the start
+    const introNodes = rawPool.filter(q => String(q.original_id).includes('-INTRO'));
+    introNodes.sort((a, b) => String(a.original_id).localeCompare(String(b.original_id)));
 
-    if (chapterId === 'chapter1' && levelIndex === 0) {
-        // Level 1: Introduction. Shows Welcome Card first, then Video.
-        questions.push({
-            id: introId,
-            title: "Introduction",
-            activities: [
-                {
-                    type: "info_card",
-                    title: `Getting started with AI`,
-                    subtitle: ``,
-                    text: `<span style="color: var(--accent); font-size: 1.3rem; font-weight: 500; display: block; margin-bottom: 1.5rem;">Welcome to the first module of your journey!</span>\nIn this chapter, you will learn the fundamental building blocks of Artificial Intelligence, how algorithms process data, and what makes AI systems learn and adapt.`,
-                    buttonText: `Begin Journey`,
-                    xp: 0
-                },
-                {
-                    type: "video",
-                    title: `Introduction to Sangam`,
-                    subtitle: `Watch the video to begin your journey`,
-                    videoUrl: "https://player.vimeo.com/video/1175392225?h=3914191f9f",
-                    xp: 0
-                }
-            ]
-        });
-        return questions;
-    }
-
-    if (chapterId === 'chapter1' && levelIndex === 1) {
-        // Level 2: What is AI? Shows Video first, then Welcome Card, then quiz questions.
-        // 1. Video Card (ID includes INTRO to exclude from questions count)
-        questions.push({
-            id: `${chapterId}-L${levelIndex + 1}-INTRO-VIDEO`,
-            title: "Video Lesson",
-            activities: [{
-                type: "video",
-                title: `What is AI?`,
-                subtitle: `Watch the video before starting the challenge`,
-                videoUrl: "https://player.vimeo.com/video/1174724684?h=9005d5b2f8",
-                xp: 0
-            }]
-        });
-
-        // 2. Welcome Card
+    if (introNodes.length > 0) {
+        if (chapterId === 'chapter1' && levelIndex === 0) {
+            // Level 1 explicitly wants the info_card and video in ONE question node (so they play back to back)
+            questions.push({
+                id: `${chapterId}-L${levelIndex + 1}-INTRO`,
+                title: "Introduction",
+                activities: introNodes
+            });
+        } else {
+            // Add them sequentially
+            introNodes.forEach(node => {
+                questions.push({
+                    id: node.original_id,
+                    title: node.title || "Introduction",
+                    activities: [node]
+                });
+            });
+        }
+    } else {
+        // Fallback generic intro
+        const introId = `${chapterId}-L${levelIndex + 1}-INTRO`;
         questions.push({
             id: introId,
             title: "Introduction",
@@ -5469,31 +5505,14 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
                 title: `Welcome to Level ${levelIndex + 1}`,
                 subtitle: levelTitle,
                 text: `Did you know? ${factualText}\n\nComplete the challenges to master this topic!`,
+                buttonText: `Start Challenge`,
                 xp: 0
             }]
         });
-    } else {
-        // Default Welcome Card for other chapters/levels
-        if (customIntro) {
-            questions.push({
-                id: introId,
-                title: "Introduction",
-                activities: [customIntro]
-            });
-        } else {
-            questions.push({
-                id: introId,
-                title: "Introduction",
-                activities: [{
-                    type: "info_card",
-                    title: `Welcome to Level ${levelIndex + 1}`,
-                    subtitle: levelTitle,
-                    text: `Did you know? ${factualText}\n\nComplete the challenges to master this topic!`,
-                    xp: 0
-                }]
-            });
-        }
     }
+
+    // Filter out intros from the pool so they aren't selected as regular questions
+    const availablePool = rawPool.filter(q => !String(q.original_id).includes('-INTRO'));
 
     // --- OFFLINE TEST DATA LOGIC ---
     // This allows testing before Netlify deployment. Strictly restricted to localhost.
@@ -5502,7 +5521,7 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
          window.location.hostname === '127.0.0.1' || 
          !window.location.hostname);
 
-    let pool = rawPool.filter(q => q.published === true);
+    let pool = availablePool.filter(q => q.published === true);
 
     if (pool.length === 0 && isTestEnv) {
         console.log(`[Dev] Generating dummy questions for ${chapterId} Level ${levelIndex + 1}`);
