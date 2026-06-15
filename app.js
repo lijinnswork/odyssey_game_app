@@ -1679,7 +1679,15 @@ function validateProgressionIntegrity() {
                 // Unlock NEXT level in this chapter
                 if (j + 1 < chapter.levels.length) {
                     const nextId = chapter.levels[j + 1].id;
-                    if (!validLevels.includes(nextId)) validLevels.push(nextId);
+                    if (j === 0 && i > 0) {
+                        const prevChapter = window.courseData[i - 1];
+                        const prevChapterDone = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
+                        if (prevChapterDone) {
+                            if (!validLevels.includes(nextId)) validLevels.push(nextId);
+                        }
+                    } else {
+                        if (!validLevels.includes(nextId)) validLevels.push(nextId);
+                    }
                 }
             } else {
                 // Not passed yet. 
@@ -2650,7 +2658,7 @@ window.renderChapters = function () {
     }
 
     window.courseData.forEach((chapter, index) => {
-        const isUnlocked = gameState.unlockedChapters.includes(chapter.id);
+        const isUnlocked = true;
         const isActive = chapter.id === activeChapterId;
         const levels = chapter.levels;
         // Calc Chapter Progress
@@ -2856,7 +2864,7 @@ window.renderChapters = function () {
         const accent = `var(--unit-${unitTheme}-accent)`;
 
         mobileHtml += `
-            <div class="journey-section" style="${isChapterUnlocked ? '' : 'opacity: 0.6; filter: grayscale(1); pointer-events: none;'}">
+            <div class="journey-section" style="">
                 <div class="journey-section-header-wrapper" style="margin: 0 0.75rem 3rem 0.75rem; position: relative; z-index: 10;">
                     <!-- Solid backing -->
                     <div style="position: absolute; inset: 0; background: var(--bg-dark); border-radius: 20px; z-index: 1; pointer-events: none;"></div>
@@ -3075,7 +3083,7 @@ window.renderLevels = function (chapterId) {
             <!-- Level Cards -->
             <div style="display: flex; flex-direction: column; gap: 0.75rem;" class="level-list">
                 ${chapter.levels.map((level, idx) => {
-        const isUnlocked = gameState.unlockedLevels.includes(level.id) || (chapterId === 'chapter1' && idx === 0);
+        const isUnlocked = gameState.unlockedLevels.includes(level.id) || idx === 0;
         const levelIdx = gameState.unlockedLevels.indexOf(level.id);
         const isCompleted = (levelIdx !== -1 && levelIdx < gameState.unlockedLevels.length - 1) || gameState.levelStats[level.id]?.passed;
         const realQuestions = level.questions ? level.questions.filter(q => !q.id.includes('INTRO')) : [];
@@ -3089,30 +3097,39 @@ window.renderLevels = function (chapterId) {
             const prevLevel = chapter.levels[idx - 1];
             const prevIdx = gameState.unlockedLevels.indexOf(prevLevel.id);
             const prevDone = (prevIdx !== -1 && prevIdx < gameState.unlockedLevels.length - 1) || gameState.levelStats[prevLevel.id]?.passed;
-            if (prevDone) isActuallyUnlocked = true;
+            if (prevDone) {
+                if (idx === 1 && chapterId !== 'chapter1') {
+                    const chIdx = window.courseData.findIndex(c => c.id === chapterId);
+                    const prevChapter = window.courseData[chIdx - 1];
+                    const prevChapterDone = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
+                    if (prevChapterDone) isActuallyUnlocked = true;
+                } else {
+                    isActuallyUnlocked = true;
+                }
+            }
         }
 
         const isLocked = !isActuallyUnlocked && !isCompleted;
 
-        const statusColor = isCompleted ? 'var(--success)' : (isLocked ? 'var(--text-muted)' : 'var(--accent)');
-        const statusIcon = isCompleted ? 'check_circle' : (isLocked ? 'lock' : 'play_circle');
-        const borderColor = isCompleted ? 'var(--success)' : (isLocked ? 'var(--border)' : 'var(--primary)');
+        const statusColor = isCompleted ? 'var(--success)' : 'var(--accent)';
+        const statusIcon = isCompleted ? 'check_circle' : 'play_circle';
+        const borderColor = isCompleted ? 'var(--success)' : 'var(--primary)';
 
         return `
-                    <button onclick="${!isLocked ? `renderQuestionList('${chapterId}', '${level.id}')` : ''}"
+                    <button onclick="renderQuestionList('${chapterId}', '${level.id}')"
                         class="unit-card"
                         style="padding: 1rem 1.1rem; background: var(--bg-card); backdrop-filter: var(--backdrop-blur); -webkit-backdrop-filter: var(--backdrop-blur);
                                border: 2px solid ${borderColor}; border-radius: var(--radius-m); text-align: left;
                                display: flex; align-items: center; gap: 1rem;
-                               opacity: ${isLocked ? 0.55 : 1}; cursor: ${isLocked ? 'default' : 'pointer'};
+                               opacity: 1; cursor: pointer;
                                transition: all 0.25s ease-out; width: 100%; box-sizing: border-box;">
                         <!-- Level Number Badge -->
                         <div style="width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-                                    background: ${isCompleted ? 'rgba(0,200,150,0.12)' : (isLocked ? 'var(--bg-overlay)' : 'rgba(var(--primary-rgb),0.12)')};
+                                    background: ${isCompleted ? 'rgba(0,200,150,0.12)' : 'rgba(var(--primary-rgb),0.12)'};
                                     border: 1.5px solid ${borderColor};
                                     display: flex; align-items: center; justify-content: center;
                                     font-weight: 900; font-size: 1rem; color: ${statusColor}; font-family: 'Outfit', sans-serif;">
-                            ${idx + 1}
+                            ${idx === 0 ? '<span class="material-symbols-rounded" style="font-size: 1.2rem;">play_circle</span>' : idx}
                         </div>
                         <!-- Level Info -->
                         <div style="flex: 1; min-width: 0;">
@@ -3121,7 +3138,7 @@ window.renderLevels = function (chapterId) {
                             </div>
                             <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
                                 ${hideQuestionsCount ? '' : `<span>${completeCount}/${totalQs} questions</span>`}
-                                ${isCompleted ? `<span style="color: var(--success); font-weight: 700;">✓ Complete</span>` : (isLocked ? `<span style="color: var(--text-muted);">Locked</span>` : '')}
+                                ${isCompleted ? `<span style="color: var(--success); font-weight: 700;">✓ Complete</span>` : (isLocked ? `<span style="color: var(--text-muted);"><span class="material-symbols-rounded" style="font-size: 0.85rem; vertical-align: middle; margin-right: 0.1rem;">lock</span> Quiz Locked</span>` : '')}
                             </div>
                         </div>
                         <!-- Status Icon -->
@@ -3220,6 +3237,42 @@ window.renderActivity = function () {
     }
 
     const levelIndex = chapter.levels.indexOf(level);
+
+    // GAMEPLAY LOCK CHECK
+    // Determine if gameplay (questions) is actually allowed
+    let isGameplayAllowed = gameState.unlockedLevels.includes(levelId) || levelIndex === 0;
+    if (!isGameplayAllowed && levelIndex === 1 && chapterId !== 'chapter1') {
+        const chIdx = window.courseData.findIndex(c => c.id === chapterId);
+        const prevChapter = window.courseData[chIdx - 1];
+        const prevChapterDone = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
+        if (prevChapterDone) isGameplayAllowed = true;
+    }
+    if (!isGameplayAllowed && levelIndex > 1) {
+        const prevLevel = chapter.levels[levelIndex - 1];
+        const prevIdx = gameState.unlockedLevels.indexOf(prevLevel.id);
+        const prevDone = (prevIdx !== -1 && prevIdx < gameState.unlockedLevels.length - 1) || gameState.levelStats[prevLevel.id]?.passed;
+        if (prevDone) isGameplayAllowed = true;
+    }
+
+    if (!isGameplayAllowed) {
+        const q = level.questions[currentActivityState.questionIndex];
+        const a = q?.activities?.[currentActivityState.activityIndex];
+        
+        // If there's no activity, or it's not a video/info_card, block!
+        if (!a || (a.type !== 'video' && a.type !== 'info_card')) {
+            showModal({
+                title: 'Gameplay Locked',
+                message: 'You must complete previous levels to play this quiz! You can only watch the videos for now.',
+                confirmText: 'Back to Map',
+                cancelText: null,
+                pollyState: 'neutral',
+                onConfirm: () => {
+                    renderLevels(chapterId);
+                }
+            });
+            return;
+        }
+    }
 
     // CRITICAL: Always check if level is complete AT THE START using live state
     if (currentActivityState.questionIndex >= level.questions.length) {
@@ -3349,7 +3402,7 @@ window.renderActivity = function () {
         <header style="padding: 1rem; display: flex; align-items: center; justify-content: space-between; background: transparent;">
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <button onclick="confirmExitLevel('${chapterId}', '${levelId}')" style="font-size: 1.5rem; background: none !important; border: none !important; box-shadow: none !important; color: white; cursor: pointer;">✕</button>
-                <div style="font-size: 0.9rem; color: white; font-weight: 600;">Level ${levelIndex + 1}: ${level.title}</div>
+                <div style="font-size: 0.9rem; color: white; font-weight: 600;">${levelIndex === 0 ? 'Introduction' : `Level ${levelIndex}`}: ${level.title}</div>
             </div>
             <div style="display: flex; align-items: center; gap: 1rem;">
                 ${isIntro ? '' : `
@@ -3572,11 +3625,11 @@ window.renderActivity = function () {
                             <h2 style="margin-bottom: 0.4rem; font-size: 2.2rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;">${activity.title || 'Video Lesson'}</h2>
                             <h3 style="color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; margin-bottom: 1rem;">${activity.subtitle || 'Watch to continue'}</h3>
                             
-                            ${activity.duration || activity.topic || activity.difficulty ? `
+                            ${(activity.duration && !activity.hideDuration) || (activity.topic && !activity.hideTopic) || (activity.difficulty && !activity.hideDifficulty) ? `
                             <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem;">
-                                ${activity.duration ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">schedule</span> ${activity.duration}</span>` : ''}
-                                ${activity.topic ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">category</span> ${activity.topic}</span>` : ''}
-                                ${activity.difficulty ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">military_tech</span> ${activity.difficulty}</span>` : ''}
+                                ${activity.duration && !activity.hideDuration ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">schedule</span> ${activity.duration}</span>` : ''}
+                                ${activity.topic && !activity.hideTopic ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">category</span> ${activity.topic}</span>` : ''}
+                                ${activity.difficulty && !activity.hideDifficulty ? `<span style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;"><span class="material-symbols-rounded" style="font-size: 1rem;">military_tech</span> ${activity.difficulty}</span>` : ''}
                             </div>
                             ` : ''}
                         </div>
@@ -3587,15 +3640,17 @@ window.renderActivity = function () {
                         </button>
                     </div>
 
-                    ${activity.description ? `
+                    ${(activity.description && !activity.hideDescription) || (activity.takeaways && activity.takeaways.length > 0 && !activity.hideTakeaways) ? `
                     <div style="background: var(--surface-glass); border: 1px solid var(--border); border-radius: var(--radius-m); padding: 1.5rem; margin-top: -0.5rem; animation: fade-in 0.5s ease 0.2s both;">
+                        ${activity.description && !activity.hideDescription ? `
                         <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
                             <span class="material-symbols-rounded" style="font-size: 1.2rem; color: var(--accent);">info</span>
                             About this session
                         </h4>
-                        <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: ${activity.takeaways && activity.takeaways.length > 0 ? '1.5rem' : '0'};">${activity.description}</p>
+                        <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: ${activity.takeaways && activity.takeaways.length > 0 && !activity.hideTakeaways ? '1.5rem' : '0'};">${activity.description}</p>
+                        ` : ''}
                         
-                        ${activity.takeaways && activity.takeaways.length > 0 ? `
+                        ${activity.takeaways && activity.takeaways.length > 0 && !activity.hideTakeaways ? `
                         <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
                             <span class="material-symbols-rounded" style="font-size: 1.2rem; color: var(--accent);">lightbulb</span>
                             What you'll learn
@@ -3616,14 +3671,13 @@ window.renderActivity = function () {
         `;
     } else if (activity.type === 'info_card') {
         const btnText = activity.buttonText || 'Start Challenge';
-        const imageHtml = activity.image ? `<div style="font-size: 5rem; margin-bottom: 1.5rem; animation: float-up-fade 0.8s ease-out forwards;">${activity.image}</div>` : `<div style="height: 6rem; margin-bottom: 2rem;"></div>`;
         html += `
             <div style="text-align: center; margin-top: 1rem;">
-                ${imageHtml}
+                <div style="height: 4rem; margin-bottom: 1rem;"></div>
                 <h2 style="margin-bottom: 0.5rem; font-size: 2.2rem;">${activity.title}</h2>
                 ${activity.subtitle ? `<h3 style="color: var(--accent); margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;">${activity.subtitle}</h3>` : ''}
                 <p style="font-size: 1.2rem; line-height: 1.6; color: var(--text-muted); margin: 0 auto 3rem; max-width: 640px; white-space: pre-wrap;">${activity.text}</p>
-                <button class="btn-primary" onclick="handleInfoCardContinue()" style="max-width: 300px; margin: 0 auto; width: 100%;">${btnText}</button>
+                <button class="btn-primary" onclick="handleInfoCardContinue(${activity.showMascotAnimation ? 'true' : 'false'})" style="max-width: 300px; margin: 0 auto; width: 100%;">${btnText}</button>
             </div>
         `;
     }
@@ -4608,8 +4662,76 @@ window.handleFeedbackContinue = function () {
     }
 }
 
-window.handleInfoCardContinue = function() {
-    window.nextActivity(0);
+window.handleInfoCardContinue = function(showMascot) {
+    if (showMascot) {
+        
+        // Create full-screen plain white backdrop
+        const whiteBackdrop = document.createElement('div');
+        whiteBackdrop.style.cssText = `
+            position: fixed;
+            inset: 0;
+            background: var(--bg-main);
+            z-index: 999998;
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+            pointer-events: none;
+        `;
+        document.body.appendChild(whiteBackdrop);
+
+        // Create flying mascot container
+        const flyMascot = document.createElement('div');
+        flyMascot.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+            z-index: 999999;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 15px 35px rgba(0,0,0,0.4));
+            pointer-events: none;
+        `;
+        
+        // Insert SVG (Happy State)
+        flyMascot.innerHTML = window.getMascotSVG('250px', '250px', 'happy');
+        document.body.appendChild(flyMascot);
+        
+        // 1. Appear as main (Center)
+        setTimeout(() => {
+            whiteBackdrop.style.opacity = '1';
+            flyMascot.style.transform = 'translate(-50%, -50%) scale(1)';
+            flyMascot.style.opacity = '1';
+            
+            // 2. Progress to side (Bottom Right)
+            setTimeout(() => {
+                // Keep white background solid while mascot flies to side
+                flyMascot.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                flyMascot.style.top = 'calc(100vh - 60px)';
+                flyMascot.style.left = 'calc(100vw - 60px)';
+                flyMascot.style.transform = 'translate(-50%, -50%) scale(0.35)';
+                flyMascot.style.opacity = '0';
+                
+                // 3. Start video activity just as it reaches the side
+                setTimeout(() => {
+                    flyMascot.remove();
+                    
+                    // Render the new page UNDER the white backdrop
+                    window.nextActivity(0);
+                    
+                    // 4. Fade out the white backdrop onto the new page
+                    whiteBackdrop.style.opacity = '0';
+                    setTimeout(() => {
+                        whiteBackdrop.remove();
+                    }, 600);
+                }, 800);
+                
+            }, 1000); // Show in center for 1 second
+            
+        }, 50); // Small delay to trigger DOM reflow
+        
+    } else {
+        window.nextActivity(0);
+    }
 };
 
 window.nextActivity = function (xpToAdd) {
@@ -4719,7 +4841,16 @@ function renderLevelComplete(chapterId, levelId) {
     const nextLevelUnlocked = passed && nextLevel && !gameState.unlockedLevels.includes(nextLevel.id);
 
     if (nextLevelUnlocked) {
-        gameState.unlockedLevels.push(nextLevel.id);
+        let canUnlock = true;
+        if (levelIndex === 0 && chapterId !== 'chapter1') {
+            const chIdx = window.courseData.findIndex(c => c.id === chapterId);
+            const prevChapter = window.courseData[chIdx - 1];
+            const prevChapterDone = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
+            if (!prevChapterDone) canUnlock = false;
+        }
+        if (canUnlock) {
+            gameState.unlockedLevels.push(nextLevel.id);
+        }
     }
 
     // CHAPTER UNLOCK LOGIC: Check if ALL levels in this chapter are now passed
@@ -5833,7 +5964,7 @@ window.getGodModePool = function (chapterId, levelId) {
         pool.unshift({
             original_id: introId,
             type: "info_card",
-            title: `Welcome to Level ${lvlNum}`,
+            title: parseInt(lvlNum) === 1 ? "Introduction" : `Welcome to Level ${parseInt(lvlNum) - 1}`,
             text: `Did you know? ${factualText}\n\nComplete the challenges to master this topic!`,
             xp: 0,
             published: true
@@ -6282,7 +6413,7 @@ window.renderGodModeRightPane = function () {
 
                 <div id="admin-error-msg" style="display: none; padding: 0.8rem 1rem; background: rgba(var(--error-rgb), 0.1); color: var(--error); border: 1px solid rgba(var(--error-rgb), 0.3); border-radius: var(--radius-s); font-size: 0.9rem; font-weight: 600; text-align: center;"></div>
 
-                <div style="${sectionStyle}; ${qType === 'video' ? 'display: none;' : ''}">
+                <div style="${sectionStyle}; ${qType === 'video' || qType === 'info_card' ? 'display: none;' : ''}">
                     <label style="${labelStyle}">Question Text</label>
                     <textarea id="admin-q-question" style="${taStyle(90)}" placeholder="Enter question content...">${act.question || act.prompt || act.text || ''}</textarea>
                 </div>
@@ -6306,25 +6437,69 @@ window.renderGodModeRightPane = function () {
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
                     <div style="${sectionStyle}">
-                        <label style="${labelStyle}">Duration</label>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                            <label style="${labelStyle}; margin-bottom: 0;">Duration</label>
+                            <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;"><input type="checkbox" id="admin-q-show-duration" ${act.hideDuration ? '' : 'checked'}> Show</label>
+                        </div>
                         <input type="text" id="admin-q-video-duration" value="${(act.duration || '').replace(/"/g, '&quot;')}" placeholder="e.g., 5 mins" style="${inputStyle}">
                     </div>
                     <div style="${sectionStyle}">
-                        <label style="${labelStyle}">Topic</label>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                            <label style="${labelStyle}; margin-bottom: 0;">Topic</label>
+                            <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;"><input type="checkbox" id="admin-q-show-topic" ${act.hideTopic ? '' : 'checked'}> Show</label>
+                        </div>
                         <input type="text" id="admin-q-video-topic" value="${(act.topic || '').replace(/"/g, '&quot;')}" placeholder="e.g., Orientation" style="${inputStyle}">
                     </div>
                     <div style="${sectionStyle}">
-                        <label style="${labelStyle}">Difficulty</label>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                            <label style="${labelStyle}; margin-bottom: 0;">Difficulty</label>
+                            <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;"><input type="checkbox" id="admin-q-show-difficulty" ${act.hideDifficulty ? '' : 'checked'}> Show</label>
+                        </div>
                         <input type="text" id="admin-q-video-difficulty" value="${(act.difficulty || '').replace(/"/g, '&quot;')}" placeholder="e.g., Beginner" style="${inputStyle}">
                     </div>
                 </div>
                 <div style="${sectionStyle}">
-                    <label style="${labelStyle}">Video Description</label>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                        <label style="${labelStyle}; margin-bottom: 0;">Video Description</label>
+                        <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;"><input type="checkbox" id="admin-q-show-description" ${act.hideDescription ? '' : 'checked'}> Show</label>
+                    </div>
                     <textarea id="admin-q-video-description" style="${taStyle(100)}" placeholder="A summary of the video content...">${act.description || ''}</textarea>
                 </div>
                 <div style="${sectionStyle}">
-                    <label style="${labelStyle}">Key Takeaways (one per line)</label>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                        <label style="${labelStyle}; margin-bottom: 0;">Key Takeaways (one per line)</label>
+                        <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;"><input type="checkbox" id="admin-q-show-takeaways" ${act.hideTakeaways ? '' : 'checked'}> Show</label>
+                    </div>
                     <textarea id="admin-q-video-takeaways" style="${taStyle(120)}" placeholder="Learn about AI\nUnderstand models">${(act.takeaways || []).join('\n')}</textarea>
+                </div>
+            `;
+        }
+
+        if (qType === 'info_card') {
+            html += `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Page Title</label>
+                        <input type="text" id="admin-q-info-title" value="${(act.title || '').replace(/"/g, '&quot;')}" placeholder="e.g., Welcome to Odyssey!" style="${inputStyle}">
+                    </div>
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Page Subtitle (Optional)</label>
+                        <input type="text" id="admin-q-info-subtitle" value="${(act.subtitle || '').replace(/"/g, '&quot;')}" placeholder="e.g., Getting Started" style="${inputStyle}">
+                    </div>
+                </div>
+                <div style="${sectionStyle}">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                        <label style="${labelStyle}; margin-bottom: 0;">Show Live Emoji Graphic on Continue</label>
+                        <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;"><input type="checkbox" id="admin-q-info-mascot" ${act.showMascotAnimation ? 'checked' : ''}> Enable</label>
+                    </div>
+                </div>
+                <div style="${sectionStyle}">
+                    <label style="${labelStyle}">Body Text</label>
+                    <textarea id="admin-q-info-text" style="${taStyle(120)}" placeholder="Enter the main content of this card...">${act.text || ''}</textarea>
+                </div>
+                <div style="${sectionStyle}">
+                    <label style="${labelStyle}">Button Text</label>
+                    <input type="text" id="admin-q-info-btn" value="${(act.buttonText || '').replace(/"/g, '&quot;')}" placeholder="e.g., Start Challenge" style="${inputStyle}">
                 </div>
             `;
         }
@@ -6987,6 +7162,23 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
         q.options = opts;
     }
 
+    if (q.type === 'info_card') {
+        const iTitleNode = document.getElementById('admin-q-info-title');
+        const iSubNode = document.getElementById('admin-q-info-subtitle');
+        const iMascotNode = document.getElementById('admin-q-info-mascot');
+        const iTextNode = document.getElementById('admin-q-info-text');
+        const iBtnNode = document.getElementById('admin-q-info-btn');
+        
+        q.title = iTitleNode ? iTitleNode.value.trim() : '';
+        q.subtitle = iSubNode ? iSubNode.value.trim() : '';
+        q.showMascotAnimation = iMascotNode ? iMascotNode.checked : false;
+        q.text = iTextNode ? iTextNode.value.trim() : '';
+        q.buttonText = iBtnNode ? iBtnNode.value.trim() : '';
+
+        if (!q.title) setError("Page title is required.");
+        if (!q.text) setError("Body text is required.");
+    }
+
     if (q.type === 'video') {
         const vUrlNode = document.getElementById('admin-q-video-url');
         const vTitleNode = document.getElementById('admin-q-video-title');
@@ -7006,6 +7198,18 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
         q.description = vDescNode ? vDescNode.value.trim() : '';
         q.takeaways = vTakeNode ? vTakeNode.value.split('\n').map(l => l.trim().replace(/^- /g, '')).filter(Boolean) : [];
         
+        const showDur = document.getElementById('admin-q-show-duration');
+        const showTop = document.getElementById('admin-q-show-topic');
+        const showDiff = document.getElementById('admin-q-show-difficulty');
+        const showDesc = document.getElementById('admin-q-show-description');
+        const showTake = document.getElementById('admin-q-show-takeaways');
+        
+        q.hideDuration = showDur ? !showDur.checked : false;
+        q.hideTopic = showTop ? !showTop.checked : false;
+        q.hideDifficulty = showDiff ? !showDiff.checked : false;
+        q.hideDescription = showDesc ? !showDesc.checked : false;
+        q.hideTakeaways = showTake ? !showTake.checked : false;
+
         if (!q.videoUrl) setError("Video URL is required.");
         if (!q.title) setError("Video title is required.");
     }

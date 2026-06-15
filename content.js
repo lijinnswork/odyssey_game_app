@@ -5502,7 +5502,7 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
             title: "Introduction",
             activities: [{
                 type: "info_card",
-                title: `Welcome to Level ${levelIndex + 1}`,
+                title: levelIndex === 0 ? "Introduction" : `Welcome to Level ${levelIndex}`,
                 subtitle: levelTitle,
                 text: `Did you know? ${factualText}\n\nComplete the challenges to master this topic!`,
                 buttonText: `Start Challenge`,
