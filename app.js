@@ -3423,7 +3423,7 @@ window.renderActivity = function () {
             </div>
         </header>
         `}
-        <main class="main-scroll-area animate-fade-in" style="padding: ${isVideo ? '0' : '2rem'}; flex: 1; display: flex; flex-direction: column; background: var(--bg-card); border-top-left-radius: var(--radius-l); overflow: hidden;">
+        <main class="main-scroll-area animate-fade-in" style="padding: ${isVideo ? '0' : '2rem'}; flex: 1; display: flex; flex-direction: column; background: var(--bg-card); border-top-left-radius: var(--radius-l); overflow-y: auto;">
     `;
 
     // Helper to shuffle arrays
