@@ -4609,75 +4609,7 @@ window.handleFeedbackContinue = function () {
 }
 
 window.handleInfoCardContinue = function() {
-    if (currentActivityState && currentActivityState.chapterId === 'chapter1' && currentActivityState.levelId === 'c1-l1' && currentActivityState.activityIndex === 0) {
-        
-        // Create full-screen plain white backdrop
-        const whiteBackdrop = document.createElement('div');
-        whiteBackdrop.style.cssText = `
-            position: fixed;
-            inset: 0;
-            background: var(--bg-main);
-            z-index: 999998;
-            opacity: 0;
-            transition: opacity 0.6s ease-out;
-            pointer-events: none;
-        `;
-        document.body.appendChild(whiteBackdrop);
-
-        // Create flying mascot container
-        const flyMascot = document.createElement('div');
-        flyMascot.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            opacity: 0;
-            z-index: 999999;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: drop-shadow(0 15px 35px rgba(0,0,0,0.4));
-            pointer-events: none;
-        `;
-        
-        // Insert SVG (Happy State)
-        flyMascot.innerHTML = window.getMascotSVG('250px', '250px', 'happy');
-        document.body.appendChild(flyMascot);
-        
-        // 1. Appear as main (Center)
-        setTimeout(() => {
-            whiteBackdrop.style.opacity = '1';
-            flyMascot.style.transform = 'translate(-50%, -50%) scale(1)';
-            flyMascot.style.opacity = '1';
-            
-            // 2. Progress to side (Bottom Right)
-            setTimeout(() => {
-                // Keep white background solid while mascot flies to side
-                flyMascot.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                flyMascot.style.top = 'calc(100vh - 60px)';
-                flyMascot.style.left = 'calc(100vw - 60px)';
-                flyMascot.style.transform = 'translate(-50%, -50%) scale(0.35)';
-                flyMascot.style.opacity = '0';
-                
-                // 3. Start video activity just as it reaches the side
-                setTimeout(() => {
-                    flyMascot.remove();
-                    
-                    // Render the new page UNDER the white backdrop
-                    window.nextActivity(0);
-                    
-                    // 4. Fade out the white backdrop onto the new page
-                    whiteBackdrop.style.opacity = '0';
-                    setTimeout(() => {
-                        whiteBackdrop.remove();
-                    }, 600);
-                }, 800);
-                
-            }, 1000); // Show in center for 1 second
-            
-        }, 50); // Small delay to trigger DOM reflow
-        
-    } else {
-        window.nextActivity(0);
-    }
+    window.nextActivity(0);
 };
 
 window.nextActivity = function (xpToAdd) {
@@ -5988,7 +5920,7 @@ window.renderGodModeLeftPane = function () {
                      onmouseout="this.style.opacity='${isLevelSelected ? '1' : '0.5'}'; this.style.background='${isLevelSelected ? 'rgba(var(--primary-rgb), 0.15)' : 'transparent'}'">
                      <div style="display: flex; align-items: center; gap: 0.5rem; overflow: hidden;">
                         <span class="material-symbols-rounded" style="font-size: 1rem; opacity: 0.4;">drag_indicator</span>
-                        <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">L${lIdx + 1}: ${lvl.title || 'New Level'}</span>
+                        <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${lIdx === 0 ? 'Introduction' : ('L' + lIdx + ': ' + (lvl.title || 'New Level'))}</span>
                      </div>
                      <span style="font-size: 0.75rem; opacity: ${isLevelSelected ? '0.8' : '0.5'}; margin-left: 0.5rem;">${realQCount} Qs</span>
                 </div>
@@ -6051,7 +5983,7 @@ window.renderGodModeMiddlePane = function () {
 
         html += `<div style="padding: 1.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg-dark); z-index: 10; display: flex; justify-content: space-between; align-items: flex-start;">
                     <div style="flex: 1;">
-                        <h3 style="font-size: 1rem; margin-bottom: 0.2rem;">Level ${lIdx + 1}: ${level?.title || 'Unknown Level'}</h3>
+                        <h3 style="font-size: 1rem; margin-bottom: 0.2rem;">${lIdx === 0 ? 'Introduction' : ('Level ' + lIdx + ': ' + (level?.title || 'Unknown Level'))}</h3>
                         <div style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${level?.description || ''}</div>
                     </div>
                     <div style="display: flex; gap: 0.5rem; margin-left: 1rem;">
@@ -6899,7 +6831,7 @@ window.adminEditLevel = function (chapterId, levelId) {
                 <div>
                     <label style="display: block; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Level Topic Name</label>
                     <div style="display: flex; align-items: stretch; background: var(--bg-dark); border: 1px solid var(--border); border-radius: var(--radius-s); overflow: hidden;">
-                        <span style="padding: 0 0.8rem; color: var(--text-muted); font-size: 0.95rem; border-right: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); display: flex; align-items: center; white-space: nowrap;">Level ${levelNum}:</span>
+                        <span style="padding: 0 0.8rem; color: var(--text-muted); font-size: 0.95rem; border-right: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); display: flex; align-items: center; white-space: nowrap;">${levelNum === 1 ? 'Introduction' : 'Level ' + (levelNum - 1) + ':'}</span>
                         <input type="text" id="modal-lvl-topic" value="${(level.title || '').replace(/"/g, '&quot;')}" 
                                style="flex: 1; padding: 0.8rem; background: transparent; color: var(--text-main); border: none; font-size: 0.95rem; font-family: inherit; outline: none; width: 100%;">
                     </div>
