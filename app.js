@@ -580,7 +580,7 @@ function updateDesktopPanels(refreshLeaderboard = false) {
     const layoutWrapper = document.getElementById('layout-wrapper');
 
     if (layoutWrapper) {
-        if (window.currentView === 'activity' || window.currentView === 'admin') {
+        if (window.currentView === 'activity' || window.currentView === 'admin' || window.currentView === 'complete') {
             layoutWrapper.classList.add('panel-collapsed');
         } else {
             layoutWrapper.classList.remove('panel-collapsed');
@@ -3259,7 +3259,7 @@ window.renderActivity = function () {
         const a = q?.activities?.[currentActivityState.activityIndex];
         
         // If there's no activity, or it's not a video/info_card, block!
-        if (!a || (a.type !== 'video' && a.type !== 'info_card')) {
+        if (!a || (a.type !== 'video' && a.type !== 'info_card' && a.type !== 'gameplay_tutorial')) {
             showModal({
                 title: 'Gameplay Locked',
                 message: 'You must complete previous levels to play this quiz! You can only watch the videos for now.',
@@ -3317,8 +3317,8 @@ window.renderActivity = function () {
 
     // Render Activity UI with progress
     const realQuestions = level.questions.filter(q => !q.id.includes('INTRO'));
-    const isIntro = activity.type === 'info_card' || activity.type === 'video';
-    const isVideo = activity.type === 'video' || (activity.type === 'info_card' && levelIndex === 0);
+    const isIntro = activity.type === 'info_card' || activity.type === 'video' || activity.type === 'gameplay_tutorial';
+    const isVideo = activity.type === 'video' || activity.type === 'info_card' || activity.type === 'gameplay_tutorial';
     
     // Polly visibility logic: hide during game, show during info/chapters
     if (isIntro) {
@@ -3395,27 +3395,35 @@ window.renderActivity = function () {
             <!-- Scrollable content card -->
             <div id="stories-content" class="animate-fade-in" style="flex: 1; overflow-y: auto; padding: ${isVideo ? '0' : '1rem 1.25rem 1.5rem 1.25rem'}; display: flex; flex-direction: column; position: relative; z-index: 2;">
     ` : `
+        <div style="min-height: 100vh; display: flex; flex-direction: column; background: linear-gradient(180deg, #101221 0%, #191D2F 100%)">
         <div style="height: 8px; background: transparent;">
             <div style="width: ${isIntro ? 0 : (currentQ / totalSteps) * 100}%; height: 100%; background: var(--primary); transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);"></div>
         </div>
         ${isVideo ? '' : `
-        <header style="padding: 1rem; display: flex; align-items: center; justify-content: space-between; background: transparent;">
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <button onclick="confirmExitLevel('${chapterId}', '${levelId}')" style="font-size: 1.5rem; background: none !important; border: none !important; box-shadow: none !important; color: white; cursor: pointer;">✕</button>
-                <div style="font-size: 0.9rem; color: white; font-weight: 600;">${levelIndex === 0 ? 'Introduction' : `Level ${levelIndex}`}: ${level.title}</div>
+        <header style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: transparent; z-index: 100;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; min-width: 0; flex: 1;">
+                <button onclick="confirmExitLevel('${chapterId}', '${levelId}')" style="font-size: 1.4rem; color: white; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; border-radius: 50px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                    <span class="material-symbols-rounded" style="font-size:1.2rem">arrow_back</span>
+                </button>
+                <div style="font-weight: 700; font-size: 1.1rem; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${level.title}</div>
             </div>
-            <div style="display: flex; align-items: center; gap: 1rem;">
+            
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0;">
                 ${isIntro ? '' : `
-                <div style="font-size: 0.95rem; color: white; font-weight: 700; background: rgba(0,0,0,0.15); padding: 0.4rem 0.8rem; border-radius: var(--radius-s);">Q: ${currentQ} / ${totalSteps}</div>
+                <div style="font-size: 0.85rem; color: white; font-weight: 700; background: rgba(0,0,0,0.15); padding: 0.5rem 0.8rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);">Q: ${currentQ} / ${totalSteps}</div>
                 `}
-                <div class="xp-container" style="display: flex; gap: 0.5rem;">
-                    <div style="font-weight: 700; color: var(--success); background: var(--bg-overlay); padding: 0.4rem 0.8rem; border-radius: var(--radius-m); transition: all 0.3s ease;">⚡ <span>${gameState.xp || 0}</span></div>
-                    <div style="font-weight: 700; color: var(--accent); background: var(--bg-overlay); padding: 0.4rem 0.8rem; border-radius: var(--radius-m); transition: all 0.3s ease;">💎 <span>${gameState.gems || 0}</span></div>
+                <div class="xp-container" style="display: flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 50px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);">
+                    <span class="material-symbols-rounded" style="color: #4ade80; font-size: 1.2rem;">bolt</span>
+                    <span style="font-weight: 700; color: white;">${gameState.xp || 0}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);">
+                    <span class="material-symbols-rounded" style="color: #fb923c; font-size: 1.2rem;">trophy</span>
+                    <span style="font-weight: 800; color: white; font-size: 0.85rem;">#${gameState.rank}</span>
                 </div>
             </div>
         </header>
         `}
-        <main class="main-scroll-area animate-fade-in" style="padding: ${isVideo ? '0' : '2rem'}; flex: 1; display: flex; flex-direction: column;">
+        <main class="main-scroll-area animate-fade-in" style="padding: ${isVideo ? '0' : '2rem'}; flex: 1; display: flex; flex-direction: column; background: var(--bg-card); border-top-left-radius: var(--radius-l); overflow: hidden;">
     `;
 
     // Helper to shuffle arrays
@@ -3672,12 +3680,188 @@ window.renderActivity = function () {
     } else if (activity.type === 'info_card') {
         const btnText = activity.buttonText || 'Start Challenge';
         html += `
-            <div style="text-align: center; margin-top: 1rem;">
-                <div style="height: 4rem; margin-bottom: 1rem;"></div>
+            <div style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; flex: 1; min-height: 60vh;">
                 <h2 style="margin-bottom: 0.5rem; font-size: 2.2rem;">${activity.title}</h2>
-                ${activity.subtitle ? `<h3 style="color: var(--accent); margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;">${activity.subtitle}</h3>` : ''}
+                ${activity.subtitle ? `<h3 style="color: var(--accent); margin-bottom: ${activity.orangeSubtitle ? '0.5rem' : '1.5rem'}; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;">${activity.subtitle}</h3>` : ''}
+                ${activity.orangeSubtitle ? `<div style="color: #F26A1A !important; margin-bottom: 1.5rem; font-size: 1.1rem; font-weight: 700;">${activity.orangeSubtitle}</div>` : ''}
                 <p style="font-size: 1.2rem; line-height: 1.6; color: var(--text-muted); margin: 0 auto 3rem; max-width: 640px; white-space: pre-wrap;">${activity.text}</p>
                 <button class="btn-primary" onclick="handleInfoCardContinue(${activity.showMascotAnimation ? 'true' : 'false'})" style="max-width: 300px; margin: 0 auto; width: 100%;">${btnText}</button>
+            </div>
+        `;
+    } else if (activity.type === 'gameplay_tutorial') {
+        window.currentTutorialCardIndex = 0;
+        const cardsData = [
+            {
+                title: "Meet Your Companions",
+                subtitle: "Polly & Garfield",
+                content: "Polly is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Polly in the bottom-right corner to open your Chat Coach! 💬",
+                graphic: `
+                    <div style="display: flex; gap: 2.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out;">
+                                <img src="polly.png" style="width: 100%; height: 100%; object-fit: contain;">
+                            </div>
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--accent-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Polly (Coach)</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out 1.5s;">
+                                <img src="garfield.png" style="width: 100%; height: 100%; object-fit: contain;">
+                            </div>
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--primary-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Garfield (Learner)</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Stay in the Game",
+                subtitle: "Hearts & Gems",
+                content: "Each level starts with 5 hearts ❤️. Making mistakes costs a heart. Don't worry—completing activities rewards you with Gems 💎, which you can use to restore health!",
+                graphic: `
+                    <div style="display: flex; gap: 3.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: mascot-hover 3s infinite ease-in-out;">
+                            <span class="material-symbols-rounded" style="color: #ef4444; font-size: 3.8rem; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.4));">favorite</span>
+                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">5 Hearts (Lives)</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: mascot-hover 3s infinite ease-in-out 1.5s;">
+                            <span class="material-symbols-rounded" style="color: var(--accent); font-size: 3.8rem; filter: drop-shadow(0 0 10px rgba(8, 145, 178, 0.4));">diamond</span>
+                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">Gems (Rewards)</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Learn by Playing",
+                subtitle: "Challenge Formats",
+                content: "You'll solve matching cards, order processes, fill-in-the-blanks, and choice tasks. Every correct answer earns you experience points (⚡ XP)!",
+                graphic: `
+                    <div style="display: flex; flex-direction: column; gap: 0.6rem; width: 100%; max-width: 280px; margin: 0 auto 1.2rem; pointer-events: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(var(--primary-rgb), 0.1); border: 1px dashed var(--primary); padding: 0.5rem 0.9rem; border-radius: 12px; font-weight: 600; font-size: 0.85rem; color: var(--text-main);">
+                            <span>Algorithm</span>
+                            <span style="color: var(--primary);">↔️</span>
+                            <span>Step-by-step Rules</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem; background: var(--surface-glass); border: 1px solid var(--border); padding: 0.5rem 0.9rem; border-radius: 12px; font-weight: 600; font-size: 0.85rem; color: var(--text-main);">
+                            <span style="background: var(--success); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 800;">✓</span>
+                            <span>Correct Choice Option</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "The Chapter Map & Ranks",
+                subtitle: "Track Progress",
+                content: "Unlock new chapters on the map as you learn. Maintain your daily streak to rank up the leaderboard and prove your AI knowledge! 🏆",
+                graphic: `
+                    <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
+                        <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 85px;">
+                            <span class="material-symbols-rounded" style="color: #fb923c; font-size: 2rem; margin-bottom: 0.25rem; display: block;">local_fire_department</span>
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-main);">Streak</span>
+                        </div>
+                        <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 95px; transform: scale(1.1);">
+                            <span class="material-symbols-rounded" style="color: #fbbf24; font-size: 2.4rem; margin-bottom: 0.25rem; display: block;">trophy</span>
+                            <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-main);">Leaderboard</span>
+                        </div>
+                        <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 85px;">
+                            <span class="material-symbols-rounded" style="color: var(--primary); font-size: 2rem; margin-bottom: 0.25rem; display: block;">map</span>
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-main);">Map</span>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        html += `
+            <div class="tutorial-deck-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 580px; margin: 0 auto; padding: 1.5rem 1rem 0 1rem; box-sizing: border-box;">
+                <style>
+                    .tutorial-card {
+                        position: absolute;
+                        inset: 0;
+                        background: var(--surface);
+                        border: 1px solid var(--border);
+                        border-radius: var(--radius-m);
+                        padding: 2.2rem 1.8rem;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+                        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+                        transform-origin: center bottom;
+                        pointer-events: none;
+                        opacity: 0;
+                        z-index: 1;
+                    }
+                    .tutorial-card.active {
+                        opacity: 1;
+                        transform: translateX(0) scale(1) rotate(0deg);
+                        z-index: 10;
+                        pointer-events: auto;
+                    }
+                    .tutorial-card.prev {
+                        opacity: 0;
+                        transform: translateX(-120%) rotate(-12deg);
+                        z-index: 1;
+                    }
+                    .tutorial-card.next-1 {
+                        opacity: 0.8;
+                        transform: translateY(12px) scale(0.95);
+                        z-index: 9;
+                    }
+                    .tutorial-card.next-2 {
+                        opacity: 0.4;
+                        transform: translateY(24px) scale(0.9);
+                        z-index: 8;
+                    }
+                    
+                    .dot {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background: rgba(var(--primary-rgb), 0.2);
+                        transition: all 0.3s ease;
+                        cursor: pointer;
+                    }
+                    .dot.active {
+                        background: var(--primary);
+                        width: 24px;
+                        border-radius: 10px;
+                    }
+                </style>
+                
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; color: var(--text-main); font-family: 'Outfit', sans-serif;">${activity.title || "Polly's Flight Manual"}</h2>
+                    <p style="color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin: 0;">${activity.subtitle || "How to Play LearnAI"}</p>
+                </div>
+
+                <!-- Card Stack Container -->
+                <div style="position: relative; width: 100%; height: 380px; margin-bottom: 2.5rem; perspective: 1000px;">
+                    ${cardsData.map((card, i) => `
+                        <div class="tutorial-card ${i === 0 ? 'active' : i === 1 ? 'next-1' : i === 2 ? 'next-2' : ''}" data-index="${i}">
+                            <div style="margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; min-height: 110px; width: 100%;">
+                                ${card.graphic}
+                            </div>
+                            <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.4rem; color: var(--text-main); font-family: 'Outfit', sans-serif;">${card.title}</h3>
+                            <h4 style="font-size: 0.82rem; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; font-weight: 600; letter-spacing: 1.5px; font-family: 'Outfit', sans-serif;">${card.subtitle}</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); max-width: 420px; margin: 0; font-family: 'Inter', sans-serif;">${card.content}</p>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- Controls -->
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 400px; gap: 1rem; z-index: 100; margin-top: 1rem;">
+                    <button id="tutorial-prev-btn" class="btn-secondary" onclick="window.prevTutorialCard()" style="padding: 0.75rem 1.25rem; border-radius: var(--radius-s); display: flex; align-items: center; gap: 0.4rem; font-weight: 700; min-width: 100px; justify-content: center; cursor: pointer; visibility: hidden; opacity: 0; transition: opacity 0.3s ease;">
+                         <span class="material-symbols-rounded" style="font-size: 1.1rem;">arrow_back</span> Back
+                    </button>
+                    
+                    <div style="display: flex; gap: 8px;" id="tutorial-dots">
+                         ${cardsData.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}" onclick="window.goTutorialCard(${i})"></div>`).join('')}
+                    </div>
+                    
+                    <button id="tutorial-next-btn" class="btn-primary" onclick="window.nextTutorialCard()" style="padding: 0.75rem 1.25rem; border-radius: var(--radius-s); display: flex; align-items: center; gap: 0.4rem; font-weight: 700; min-width: 110px; justify-content: center; cursor: pointer;">
+                         Next <span class="material-symbols-rounded" style="font-size: 1.1rem;">arrow_forward</span>
+                    </button>
+                </div>
             </div>
         `;
     }
@@ -4734,6 +4918,71 @@ window.handleInfoCardContinue = function(showMascot) {
     }
 };
 
+window.currentTutorialCardIndex = 0;
+
+window.prevTutorialCard = function() {
+    if (window.currentTutorialCardIndex > 0) {
+        window.goTutorialCard(window.currentTutorialCardIndex - 1);
+    }
+};
+
+window.nextTutorialCard = function() {
+    if (window.currentTutorialCardIndex < 3) {
+        window.goTutorialCard(window.currentTutorialCardIndex + 1);
+    } else {
+        window.nextActivity(0);
+    }
+};
+
+window.goTutorialCard = function(idx) {
+    window.currentTutorialCardIndex = idx;
+    const cards = document.querySelectorAll('.tutorial-card');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('tutorial-prev-btn');
+    const nextBtn = document.getElementById('tutorial-next-btn');
+    
+    if (!cards || cards.length === 0) return;
+    
+    cards.forEach((card, i) => {
+        card.className = 'tutorial-card';
+        if (i < idx) {
+            card.classList.add('prev');
+        } else if (i === idx) {
+            card.classList.add('active');
+        } else if (i === idx + 1) {
+            card.classList.add('next-1');
+        } else if (i === idx + 2) {
+            card.classList.add('next-2');
+        }
+    });
+    
+    dots.forEach((dot, i) => {
+        if (i === idx) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+    
+    if (prevBtn) {
+        if (idx === 0) {
+            prevBtn.style.visibility = 'hidden';
+            prevBtn.style.opacity = '0';
+        } else {
+            prevBtn.style.visibility = 'visible';
+            prevBtn.style.opacity = '1';
+        }
+    }
+    
+    if (nextBtn) {
+        if (idx === 3) {
+            nextBtn.innerHTML = `Start Journey <span class="material-symbols-rounded" style="font-size: 1.1rem;">rocket_launch</span>`;
+        } else {
+            nextBtn.innerHTML = `Next <span class="material-symbols-rounded" style="font-size: 1.1rem;">arrow_forward</span>`;
+        }
+    }
+};
+
 window.nextActivity = function (xpToAdd) {
     if (xpToAdd > 0) {
         // Track for session
@@ -4780,7 +5029,7 @@ function renderLevelComplete(chapterId, levelId) {
     const realQuestions = level.questions.filter(q => !q.id.includes('INTRO'));
     const actualTotalQs = realQuestions.length || 1; // Avoid division by zero
     const percentage = Math.round((correctCount / actualTotalQs) * 100);
-    const passed = percentage >= 80;
+    const passed = realQuestions.length === 0 ? true : percentage >= 80;
 
     // Commit Level Stats if passed
     let displayXP = 0;
@@ -4788,11 +5037,17 @@ function renderLevelComplete(chapterId, levelId) {
 
     if (passed) {
         const currentStats = gameState.levelStats[levelId] || { score: 0, total: 0, passed: false };
+        const isFirstPass = !currentStats.passed;
 
         // Calculate what we should show in the results UI
         const rewards = getGamificationRewards(chapterId, levelId);
-        displayXP = correctCount * rewards.xpPerQuestion;
-        displayGems = rewards.gemsForLevel;
+        if (isFirstPass) {
+            displayXP = realQuestions.length === 0 ? 50 : correctCount * rewards.xpPerQuestion;
+            displayGems = rewards.gemsForLevel;
+        } else {
+            displayXP = 0;
+            displayGems = 0;
+        }
 
         // Only update if the score is better or it's the first pass
         if (!currentStats.passed || (correctCount > currentStats.score)) {
@@ -4911,30 +5166,46 @@ function renderLevelComplete(chapterId, levelId) {
             <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-main);">${passed ? 'Level Complete!' : 'Keep Practicing!'}</h2>
             <p style="color: var(--text-muted); margin-bottom: 3rem;">${passed ? 'Great work! You passed this level.' : 'You need 80% accuracy to pass.'}</p>
             
-            <div style="background: var(--bg-card); backdrop-filter: var(--backdrop-blur); -webkit-backdrop-filter: var(--backdrop-blur); border-radius: var(--radius-m); padding: 2rem; margin-bottom: 2rem; border: 1px solid var(--border); width: 100%; max-width: 420px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 2rem;">
-                    <div>
-                        <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent); white-space: nowrap;">${correctCount}/${actualTotalQs}</div>
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">Correct</div>
+            ${(realQuestions.length > 0 || displayXP > 0 || displayGems > 0) ? `
+            <div style="width: 100%; max-width: 580px; margin-bottom: 2rem;">
+                <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05)); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: var(--radius-l); border: 1px solid rgba(255, 255, 255, 0.4); padding: 2.5rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5);">
+                    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 2rem;">
+                        ${realQuestions.length > 0 ? `
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; text-shadow: 0 2px 10px rgba(var(--accent-rgb), 0.3);">${correctCount}/${actualTotalQs}</div>
+                            <div style="color: var(--text-main); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-top: 0.8rem; opacity: 0.8;">Correct</div>
+                        </div>` : ''}
+                        
+                        ${displayXP > 0 || !passed ? `
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: ${passed ? 'var(--success)' : 'var(--text-muted)'}; line-height: 1; display: flex; align-items: center; gap: 0.3rem; text-shadow: ${passed ? '0 2px 10px rgba(var(--success-rgb), 0.3)' : 'none'};"><span style="font-size: 2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">⚡</span> +${displayXP}</div>
+                            <div style="color: var(--text-main); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-top: 0.8rem; opacity: 0.8;">XP Earned</div>
+                        </div>` : ''}
+                        
+                        ${displayGems > 0 ? `
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: ${passed && displayGems > 0 ? '#00C896' : 'var(--text-muted)'}; line-height: 1; display: flex; align-items: center; gap: 0.3rem; text-shadow: ${passed && displayGems > 0 ? '0 2px 10px rgba(0, 200, 150, 0.3)' : 'none'};"><span style="font-size: 2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">💎</span> +${displayGems}</div>
+                            <div style="color: var(--text-main); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-top: 0.8rem; opacity: 0.8;">Gems</div>
+                        </div>` : ''}
                     </div>
-                    <div>
-                        <div style="font-size: 1.6rem; font-weight: 700; color: ${passed ? 'var(--success)' : 'var(--text-muted)'}; white-space: nowrap;">⚡ +${displayXP}</div>
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">XP</div>
+                    
+                    ${realQuestions.length > 0 ? `
+                    <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(0, 0, 0, 0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.8rem;">
+                            <span style="font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; opacity: 0.8;">Accuracy</span>
+                            <span style="font-size: 1.4rem; font-weight: 800; color: ${passed ? 'var(--success)' : 'var(--text-muted)'};">${percentage}%</span>
+                        </div>
+                        <div style="height: 14px; background: rgba(0, 0, 0, 0.05); border-radius: 12px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                            <div style="width: ${percentage}%; height: 100%; background: ${passed ? 'linear-gradient(90deg, #4CAF50, #81C784)' : 'var(--error)'}; transition: width 1s cubic-bezier(0.25, 1, 0.5, 1); border-radius: 12px;"></div>
+                        </div>
                     </div>
-                    <div>
-                        <div style="font-size: 1.6rem; font-weight: 700; color: ${passed && displayGems > 0 ? '#00C896' : 'var(--text-muted)'}; white-space: nowrap;">💎 +${displayGems}</div>
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">Gems</div>
-                    </div>
+                    ` : ''}
                 </div>
-                
-                <div style="height: 8px; background: rgba(209, 246, 255, 0.1); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem;">
-                    <div style="width: ${percentage}%; height: 100%; background: ${passed ? 'var(--success)' : 'var(--error)'}; transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);"></div>
-                </div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">${percentage}% Accuracy</div>
             </div>
+            ` : ''}
             
             ${nextLevelUnlocked ? `
-                <div style="background: rgba(var(--primary-rgb), 0.1); border: 1px solid rgba(var(--primary-rgb), 0.3); border-radius: var(--radius-m); padding: 1.5rem; margin-bottom: 2rem; width: 100%; max-width: 420px;">
+                <div style="background: rgba(var(--primary-rgb), 0.1); border: 1px solid rgba(var(--primary-rgb), 0.3); border-radius: var(--radius-m); padding: 1.5rem; margin-bottom: 2rem; width: 100%; max-width: 580px;">
                     <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">🔓 Level Unlocked!</div>
                     <div style="color: var(--text-muted);">${nextLevel.title}</div>
                 </div>
@@ -4942,7 +5213,7 @@ function renderLevelComplete(chapterId, levelId) {
         }
 
             ${(passed && nextLevel) ? `
-                <div style="display: flex; flex-direction: row; gap: 1rem; width: 100%; max-width: 480px;">
+                <div style="display: flex; flex-direction: row; gap: 1rem; width: 100%; max-width: 580px;">
                     <button class="btn-secondary" onclick="window.innerWidth < 1024 ? renderChapters() : renderLevels('${chapterId}')" style="flex: 1; white-space: nowrap;">Back to Home</button>
                     <button class="btn-primary" onclick="renderQuestionList('${chapterId}', '${nextLevel.id}')" style="flex: 1; white-space: nowrap;">Next Level</button>
                 </div>
@@ -5956,7 +6227,7 @@ window.getGodModePool = function (chapterId, levelId) {
 
     // Inject Intro if missing for God Mode editing
     const introId = `${chapNum}-L${lvlNum}-INTRO`;
-    if (pool && !pool.some(q => q.original_id === introId)) {
+    if (pool && !pool.some(q => String(q.original_id).includes('-INTRO'))) {
         const factualText = (window.LEVEL_FACTS && window.LEVEL_FACTS[`chapter${chapNum}`])
             ? window.LEVEL_FACTS[`chapter${chapNum}`][parseInt(lvlNum) - 1]
             : "No fact available.";
@@ -6166,16 +6437,24 @@ window.renderGodModeMiddlePane = function () {
                 'ordering': '🔢',
                 'matching': '🔗',
                 'fill_in_blanks': '⬜',
-                'info_card': '📖'
+                'info_card': '📖',
+                'video': '🎬',
+                'gameplay_tutorial': '📖'
             };
             const typeIcon = typeIconMap[qType] || '❓';
-            const previewText = q.question || q.prompt || q.text || q.title || '-';
+            const rawPreviewText = q.question || q.prompt || q.text || q.title || '-';
+            const previewText = rawPreviewText.replace(/<[^>]*>?/gm, '');
 
+            const isInfoType = ['info_card', 'video', 'gameplay_tutorial'].includes(qType);
+            
             html += `
-                <div style="padding: 0.9rem 1rem; background: ${isQSelected ? 'rgba(var(--primary-rgb),0.15)' : 'var(--bg-card)'}; border: 1px solid ${isQSelected ? 'var(--primary)' : 'var(--border)'}; border-radius: var(--radius-s); cursor: pointer; opacity: ${isQSelected ? '1' : '0.5'}; transition: opacity 0.2s;"
+                <div style="padding: 0.9rem 1rem; background: ${isQSelected ? 'rgba(var(--primary-rgb),0.15)' : (isInfoType ? 'rgba(var(--accent-rgb), 0.05)' : 'var(--bg-card)')}; border: 1px solid ${isQSelected ? 'var(--primary)' : (isInfoType ? 'rgba(var(--accent-rgb), 0.3)' : 'var(--border)')}; border-radius: var(--radius-s); cursor: pointer; opacity: ${isQSelected ? '1' : '0.5'}; transition: opacity 0.2s;"
                      onclick="adminSelectQuestion('${qKey}')"
                      onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='${isQSelected ? '1' : '0.5'}'">
-                    <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.4rem;">${typeIcon} <span style="font-family: monospace;">#${qIdx + 1}</span></div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.3rem; display: flex; align-items: center; justify-content: space-between;">
+                        <span style="display: flex; align-items: center; gap: 0.4rem;">${typeIcon} <span style="font-family: monospace;">#${qIdx + 1}</span></span>
+                        ${isInfoType ? `<span style="color: var(--accent); font-weight: 700; font-size: 0.6rem; letter-spacing: 0.5px; text-transform: uppercase;">Info Page</span>` : ''}
+                    </div>
                     <div style="font-size: 0.88rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: var(--text-main);">
                         ${previewText}
                     </div>
@@ -6413,7 +6692,7 @@ window.renderGodModeRightPane = function () {
 
                 <div id="admin-error-msg" style="display: none; padding: 0.8rem 1rem; background: rgba(var(--error-rgb), 0.1); color: var(--error); border: 1px solid rgba(var(--error-rgb), 0.3); border-radius: var(--radius-s); font-size: 0.9rem; font-weight: 600; text-align: center;"></div>
 
-                <div style="${sectionStyle}; ${qType === 'video' || qType === 'info_card' ? 'display: none;' : ''}">
+                <div style="${sectionStyle}; ${qType === 'video' || qType === 'info_card' || qType === 'gameplay_tutorial' ? 'display: none;' : ''}">
                     <label style="${labelStyle}">Question Text</label>
                     <textarea id="admin-q-question" style="${taStyle(90)}" placeholder="Enter question content...">${act.question || act.prompt || act.text || ''}</textarea>
                 </div>
@@ -6488,6 +6767,10 @@ window.renderGodModeRightPane = function () {
                     </div>
                 </div>
                 <div style="${sectionStyle}">
+                    <label style="${labelStyle}; color: #F26A1A;">Orange Subtitle Highlight (Optional)</label>
+                    <input type="text" id="admin-q-info-orange-subtitle" value="${(act.orangeSubtitle || '').replace(/"/g, '&quot;')}" placeholder="e.g., Welcome to the first module of your journey!" style="${inputStyle}; border-color: rgba(242, 106, 26, 0.4);">
+                </div>
+                <div style="${sectionStyle}">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
                         <label style="${labelStyle}; margin-bottom: 0;">Show Live Emoji Graphic on Continue</label>
                         <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer;"><input type="checkbox" id="admin-q-info-mascot" ${act.showMascotAnimation ? 'checked' : ''}> Enable</label>
@@ -6500,6 +6783,19 @@ window.renderGodModeRightPane = function () {
                 <div style="${sectionStyle}">
                     <label style="${labelStyle}">Button Text</label>
                     <input type="text" id="admin-q-info-btn" value="${(act.buttonText || '').replace(/"/g, '&quot;')}" placeholder="e.g., Start Challenge" style="${inputStyle}">
+                </div>
+            `;
+        }
+
+        if (qType === 'gameplay_tutorial') {
+            html += `
+                <div style="${sectionStyle}">
+                    <label style="${labelStyle}">Gameplay Tutorial Node</label>
+                    <div style="background: var(--bg-overlay); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; text-align: center; box-sizing: border-box;">
+                        <span class="material-symbols-rounded" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem; display: block;">school</span>
+                        This is the Interactive Gameplay Tutorial card stack node.
+                        Its cards, graphics, and interactive navigation are managed directly in system code.
+                    </div>
                 </div>
             `;
         }
@@ -7116,7 +7412,7 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
     // --- Gather & Validate Question Text ---
     const qNode = document.getElementById('admin-q-question');
     const qVal = qNode ? qNode.value.trim() : '';
-    if (!qVal && q.type !== 'video') setError("Question text is required.");
+    if (!qVal && q.type !== 'video' && q.type !== 'gameplay_tutorial') setError("Question text is required.");
 
     q.question = qVal;
     if (q.type === 'task') q.prompt = qVal;
@@ -7132,7 +7428,7 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
     q.xp = xpNode ? parseInt(xpNode.value) || 10 : 10;
 
     // --- Feedback ---
-    if (q.type !== 'info_card' && q.type !== 'video') {
+    if (q.type !== 'info_card' && q.type !== 'video' && q.type !== 'gameplay_tutorial') {
         const fCorNode = document.getElementById('admin-q-feedback-correct');
         const fIncNode = document.getElementById('admin-q-feedback-incorrect');
         const fCor = fCorNode ? fCorNode.value.trim() : '';
@@ -7165,12 +7461,14 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
     if (q.type === 'info_card') {
         const iTitleNode = document.getElementById('admin-q-info-title');
         const iSubNode = document.getElementById('admin-q-info-subtitle');
+        const iOrangeSubNode = document.getElementById('admin-q-info-orange-subtitle');
         const iMascotNode = document.getElementById('admin-q-info-mascot');
         const iTextNode = document.getElementById('admin-q-info-text');
         const iBtnNode = document.getElementById('admin-q-info-btn');
         
         q.title = iTitleNode ? iTitleNode.value.trim() : '';
         q.subtitle = iSubNode ? iSubNode.value.trim() : '';
+        q.orangeSubtitle = iOrangeSubNode ? iOrangeSubNode.value.trim() : '';
         q.showMascotAnimation = iMascotNode ? iMascotNode.checked : false;
         q.text = iTextNode ? iTextNode.value.trim() : '';
         q.buttonText = iBtnNode ? iBtnNode.value.trim() : '';

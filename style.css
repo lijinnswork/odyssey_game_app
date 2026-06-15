@@ -1288,7 +1288,8 @@ body[data-theme="light"] .chapter-card {
         flex-direction: column;
     }
 
-    body.video-active .main-scroll-area {
+    body.video-active .main-scroll-area,
+    .panel-collapsed .main-scroll-area {
         border-top-left-radius: 0 !important;
     }
 
@@ -3967,4 +3968,17 @@ button img,
 
 body.game-active .desktop-coach-wrapper {
     display: none !important;
+}
+
+/* Desktop gameplay page: dark background on app-content so the white content area curves are visible */
+@media (min-width: 1024px) {
+    body.game-active .app-content {
+        background: linear-gradient(180deg, #101221 0%, #191D2F 100%) !important;
+    }
+
+    body.game-active .app-content main.main-scroll-area {
+        border-top-left-radius: var(--radius-l) !important;
+        border-top-right-radius: 0 !important;
+        background: var(--bg-card) !important;
+    }
 }

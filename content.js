@@ -70,8 +70,8 @@ const chapter1Level1Questions = [
         "original_id": "chapter1-L1-INTRO-1",
         "type": "info_card",
         "title": "Getting started with AI",
-        "subtitle": "",
-        "text": "<span style=\"color: var(--accent); font-size: 1.3rem; font-weight: 500; display: block; margin-bottom: 1.5rem;\">Welcome to the first module of your journey!</span>\nIn this chapter, you will learn the fundamental building blocks of Artificial Intelligence, how algorithms process data, and what makes AI systems learn and adapt.",
+        "subtitle": "Welcome to the first module of your journey!",
+        "text": "In this chapter, you will learn the fundamental building blocks of Artificial Intelligence, how algorithms process data, and what makes AI systems learn and adapt.",
         "buttonText": "Begin Journey",
         "xp": 0,
         "published": true
@@ -91,6 +91,14 @@ const chapter1Level1Questions = [
             "Learn how to navigate the Odyssey learning platform",
             "Discover the benefits of interactive AI learning"
         ],
+        "xp": 0,
+        "published": true
+    },
+    {
+        "original_id": "chapter1-L1-INTRO-3-TUTORIAL",
+        "type": "gameplay_tutorial",
+        "title": "Polly's Flight Manual",
+        "subtitle": "How to Play LearnAI",
         "xp": 0,
         "published": true
     },
@@ -5484,6 +5492,8 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
                 title: "Introduction",
                 activities: introNodes
             });
+            // Stop here for Chapter 1 Level 1 so it only shows the introduction
+            return questions;
         } else {
             // Add them sequentially
             introNodes.forEach(node => {
@@ -5840,34 +5850,58 @@ const chapters = [
         id: "chapter1",
         title: "Getting started with AI",
         description: "The building blocks of Artificial Intelligence.",
-        levels: Array.from({ length: 5 }, (_, i) => ({
-            id: `c1-l${i + 1}`,
-            title: `Level ${i + 1}: ${['Foundations', 'Concepts', 'AI Systems', 'Limitations', 'AI in Practice'][i]}`,
-            description: "Master the core concepts of AI.",
-            questions: generateLevelQuestions('chapter1', i)
-        }))
+        levels: [
+            {
+                id: `c1-l1`,
+                title: `Introduction: AI Foundations`,
+                description: `Master the core concepts of AI.`,
+                questions: generateLevelQuestions('chapter1', 0)
+            },
+            ...Array.from({ length: 4 }, (_, i) => ({
+                id: `c1-l${i + 2}`,
+                title: `Level ${i + 1}: ${['Concepts', 'AI Systems', 'Limitations', 'AI in Practice'][i]}`,
+                description: "Master the core concepts of AI.",
+                questions: generateLevelQuestions('chapter1', i + 1)
+            }))
+        ]
     },
     {
         id: "chapter2",
         title: "AI use cases in Education",
         description: "How AI is transforming the real world.",
-        levels: Array.from({ length: 5 }, (_, i) => ({
-            id: `c2-l${i + 1}`,
-            title: `Level ${i + 1}: ${['Education', 'Healthcare', 'Finance', 'Transport', 'Creativity'][i]}`,
-            description: "Explore real-world applications.",
-            questions: generateLevelQuestions('chapter2', i)
-        }))
+        levels: [
+            {
+                id: `c2-l1`,
+                title: `Introduction: Real-world AI`,
+                description: `Explore real-world applications.`,
+                questions: generateLevelQuestions('chapter2', 0)
+            },
+            ...Array.from({ length: 4 }, (_, i) => ({
+                id: `c2-l${i + 2}`,
+                title: `Level ${i + 1}: ${['Education', 'Healthcare', 'Finance', 'Transport'][i]}`,
+                description: "Explore real-world applications.",
+                questions: generateLevelQuestions('chapter2', i + 1)
+            }))
+        ]
     },
     {
         id: "chapter3",
         title: "Getting to know AI Tools",
         description: "Navigating the responsibilities of powerful tech.",
-        levels: Array.from({ length: 5 }, (_, i) => ({
-            id: `c3-l${i + 1}`,
-            title: `Level ${i + 1}: ${['Bias', 'Privacy', 'Security', 'Automation', 'Human-AI'][i]}`,
-            description: "Understand the ethical landscape.",
-            questions: generateLevelQuestions('chapter3', i)
-        }))
+        levels: [
+            {
+                id: `c3-l1`,
+                title: `Introduction: Ethical Landscape`,
+                description: `Understand the ethical landscape.`,
+                questions: generateLevelQuestions('chapter3', 0)
+            },
+            ...Array.from({ length: 4 }, (_, i) => ({
+                id: `c3-l${i + 2}`,
+                title: `Level ${i + 1}: ${['Bias', 'Privacy', 'Security', 'Automation'][i]}`,
+                description: "Understand the ethical landscape.",
+                questions: generateLevelQuestions('chapter3', i + 1)
+            }))
+        ]
     }
 ];
 
