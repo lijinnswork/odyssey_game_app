@@ -4847,7 +4847,7 @@ window.handleFeedbackContinue = function () {
 }
 
 window.handleInfoCardContinue = function(showMascot) {
-    if (showMascot) {
+    if (showMascot && window.innerWidth > 768) {
         
         // Create full-screen plain white backdrop
         const whiteBackdrop = document.createElement('div');
