@@ -3976,6 +3976,18 @@ body.game-active .desktop-coach-wrapper {
         background: linear-gradient(180deg, #101221 0%, #191D2F 100%) !important;
     }
 
+    body[data-theme="light"].game-active .app-content {
+        background: linear-gradient(90deg, #1A365D 0%, #0A192F 100%) !important;
+    }
+
+    .gameplay-wrapper {
+        background: linear-gradient(180deg, #101221 0%, #191D2F 100%) !important;
+    }
+
+    body[data-theme="light"] .gameplay-wrapper {
+        background: linear-gradient(90deg, #1A365D 0%, #0A192F 100%) !important;
+    }
+
     body.game-active .app-content main.main-scroll-area {
         border-top-left-radius: var(--radius-l) !important;
         border-top-right-radius: 0 !important;

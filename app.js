@@ -3395,7 +3395,7 @@ window.renderActivity = function () {
             <!-- Scrollable content card -->
             <div id="stories-content" class="animate-fade-in" style="flex: 1; overflow-y: auto; padding: ${isVideo ? '0' : '1rem 1.25rem 1.5rem 1.25rem'}; display: flex; flex-direction: column; position: relative; z-index: 2;">
     ` : `
-        <div style="min-height: 100vh; display: flex; flex-direction: column; background: linear-gradient(180deg, #101221 0%, #191D2F 100%)">
+        <div class="gameplay-wrapper" style="min-height: 100vh; display: flex; flex-direction: column;">
         <div style="height: 8px; background: transparent;">
             <div style="width: ${isIntro ? 0 : (currentQ / totalSteps) * 100}%; height: 100%; background: var(--primary); transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);"></div>
         </div>
