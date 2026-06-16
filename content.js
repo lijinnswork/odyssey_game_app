@@ -889,746 +889,176 @@ const chapter1Level2Questions = [
         "original_id": "chapter1-L2-INTRO-2",
         "type": "info_card",
         "title": "Welcome to Level 2",
-        "subtitle": "History",
-        "text": "Did you know? Keep expanding your knowledge base.\n\nComplete the challenges to master this topic!",
+        "subtitle": "AI Fundamentals",
+        "text": "Now that you've watched the video, let's put your AI literacy to the test!\n\nRemember: modern AI is pattern-based, not understanding-based. Treat it as a capable but sometimes unreliable assistant that always needs human oversight.\n\nComplete the challenges to master this topic!",
         "buttonText": "Start Challenge",
         "xp": 0,
         "published": true
     },
     {
         "original_id": 1,
-        "question": "An educator uses AI to generate quiz questions and then edits them before use. What role is the educator primarily playing?",
-        "correctFeedback": "Correct. Human supervision ensures AI outputs are reviewed and refined before use.",
-        "incorrectFeedback": "Editing and validating AI-generated content reflects oversight of AI outputs rather than training or autonomous evaluation.",
+        "question": "In traditional programming, humans write step-by-step rules. How does Machine Learning 'flip the script'?",
+        "correctFeedback": "Correct! Machine learning reverses traditional programming by using data and outcomes to discover the underlying patterns and rules.",
+        "incorrectFeedback": "Try again. Machine learning learns patterns from examples and works backward, rather than relying on pre-programmed rules.",
         "xp": 10,
         "type": "choice",
         "options": [
-            {
-                "text": "Data annotator",
-                "correct": false,
-                "feedback": "Editing and validating AI-generated content reflects oversight of AI outputs rather than training or autonomous evaluation."
-            },
-            {
-                "text": "System trainer",
-                "correct": false,
-                "feedback": "Editing and validating AI-generated content reflects oversight of AI outputs rather than training or autonomous evaluation."
-            },
-            {
-                "text": "Human supervisor",
-                "correct": true,
-                "feedback": "Correct. Human supervision ensures AI outputs are reviewed and refined before use."
-            },
-            {
-                "text": "Autonomous evaluator",
-                "correct": false,
-                "feedback": "Editing and validating AI-generated content reflects oversight of AI outputs rather than training or autonomous evaluation."
-            }
+            { "text": "It requires software developers to pre-write code for every single possible action.", "correct": false, "feedback": "Try again. Machine learning learns patterns from examples and works backward, rather than relying on pre-programmed rules." },
+            { "text": "It uses data and answers to discover patterns and rules.", "correct": true, "feedback": "Correct! Machine learning reverses traditional programming by using data and outcomes to discover the underlying patterns and rules." },
+            { "text": "It replaces statistical calculations with human intuition during live sessions.", "correct": false, "feedback": "Try again. Machine learning learns patterns from examples and works backward, rather than relying on pre-programmed rules." },
+            { "text": "It generates random mathematical algorithms without relying on training datasets.", "correct": false, "feedback": "Try again. Machine learning learns patterns from examples and works backward, rather than relying on pre-programmed rules." }
         ]
     },
     {
         "original_id": 2,
-        "question": "A predictive AI model performs poorly after being introduced to a new type of student data. What is the most likely reason?",
-        "correctFeedback": "Correct. AI models rely on patterns learned from their training data.",
-        "incorrectFeedback": "Model performance often declines when new input data differs significantly from the distribution of the training dataset.",
+        "question": "If a generative AI chatbot outputs a persuasive but factually incorrect explanation, what does this illustrate about its design?",
+        "correctFeedback": "Correct! Generative AI predicts the most likely next word based on patterns. It prioritizes fluency and plausibility over factual accuracy.",
+        "incorrectFeedback": "Incorrect. Chatbots predict words statistically to sound plausible, but they do not inherently check for factual correctness.",
         "xp": 10,
         "type": "choice",
         "options": [
-            {
-                "text": "The model lacks emotional calibration",
-                "correct": false,
-                "feedback": "Model performance often declines when new input data differs significantly from the distribution of the training dataset."
-            },
-            {
-                "text": "The new data differs from its training distribution",
-                "correct": true,
-                "feedback": "Correct. AI models rely on patterns learned from their training data."
-            },
-            {
-                "text": "The algorithm stopped updating automatically",
-                "correct": false,
-                "feedback": "Model performance often declines when new input data differs significantly from the distribution of the training dataset."
-            },
-            {
-                "text": "The interface is not optimized",
-                "correct": false,
-                "feedback": "Model performance often declines when new input data differs significantly from the distribution of the training dataset."
-            }
+            { "text": "It encountered an internal database search failure during execution.", "correct": false, "feedback": "Incorrect. Chatbots predict words statistically to sound plausible, but they do not inherently check for factual correctness." },
+            { "text": "It achieved deep logical understanding of the user's specific context.", "correct": false, "feedback": "Incorrect. Chatbots predict words statistically to sound plausible, but they do not inherently check for factual correctness." },
+            { "text": "It prioritizes sounding plausible over being factually correct.", "correct": true, "feedback": "Correct! Generative AI predicts the most likely next word based on patterns. It prioritizes fluency and plausibility over factual accuracy." },
+            { "text": "It was programmed to deliberately deceive users for educational purposes.", "correct": false, "feedback": "Incorrect. Chatbots predict words statistically to sound plausible, but they do not inherently check for factual correctness." }
         ]
     },
     {
         "original_id": 3,
-        "question": "Why is AI often described as 'pattern-based' rather than 'understanding-based'?",
-        "correctFeedback": "Correct. AI identifies statistical relationships between patterns in data.",
-        "incorrectFeedback": "Most AI systems detect correlations in data rather than interpreting meaning with contextual awareness.",
+        "question": "Why are everyday tools like facial recognition, traffic maps, and grammar checkers classified as 'Narrow AI'?",
+        "correctFeedback": "Correct! Narrow AI is specialized for specific domains, whereas General AI (broad, human-like intelligence) remains in the realm of science fiction.",
+        "incorrectFeedback": "Remember, Narrow AI refers to systems specialized for dedicated tasks (like spam filters or spelling helpers), not all-purpose human intelligence.",
         "xp": 10,
         "type": "choice",
         "options": [
-            {
-                "text": "It encodes symbolic reasoning rules to process information",
-                "correct": false,
-                "feedback": "Most AI systems detect correlations in data rather than interpreting meaning with contextual awareness."
-            },
-            {
-                "text": "It relies on correlations without contextual awareness",
-                "correct": true,
-                "feedback": "Correct. AI identifies statistical relationships between patterns in data."
-            },
-            {
-                "text": "It simulates conscious reflection",
-                "correct": false,
-                "feedback": "Most AI systems detect correlations in data rather than interpreting meaning with contextual awareness."
-            },
-            {
-                "text": "It adapts goals based on feedback",
-                "correct": false,
-                "feedback": "Most AI systems detect correlations in data rather than interpreting meaning with contextual awareness."
-            }
+            { "text": "They display broad human-like capabilities across all subject matters.", "correct": false, "feedback": "Remember, Narrow AI refers to systems specialized for dedicated tasks (like spam filters or spelling helpers), not all-purpose human intelligence." },
+            { "text": "They require constant high-speed cloud connections to operate at all.", "correct": false, "feedback": "Remember, Narrow AI refers to systems specialized for dedicated tasks (like spam filters or spelling helpers), not all-purpose human intelligence." },
+            { "text": "They possess self-aware consciousness similar to advanced human minds.", "correct": false, "feedback": "Remember, Narrow AI refers to systems specialized for dedicated tasks (like spam filters or spelling helpers), not all-purpose human intelligence." },
+            { "text": "They are specialized for single tasks.", "correct": true, "feedback": "Correct! Narrow AI is specialized for specific domains, whereas General AI (broad, human-like intelligence) remains in the realm of science fiction." }
         ]
     },
     {
         "original_id": 4,
-        "question": "If a generative AI creates a persuasive but factually incorrect explanation, this illustrates:",
-        "correctFeedback": "Correct. Generative AI produces fluent responses by predicting language patterns.",
-        "incorrectFeedback": "Generative models generate likely word sequences and do not inherently verify factual accuracy.",
+        "question": "According to the video, which of the following are examples of 'invisible' AI that are already stitched into our everyday lives? (Select all that apply)",
+        "correctFeedback": "Correct! Face unlock, traffic routing, and grammar assistance are real-world examples of Narrow AI quietly operating in the background.",
+        "incorrectFeedback": "Not quite. Humanoid household chores robots are still mostly science fiction, but face unlock, traffic routing, and grammar helpers are real everyday AI.",
         "xp": 10,
-        "type": "choice",
+        "type": "multiple_choice",
         "options": [
-            {
-                "text": "Overfitting to training data",
-                "correct": false,
-                "feedback": "Generative models generate likely word sequences and do not inherently verify factual accuracy."
-            },
-            {
-                "text": "Deterministic bias",
-                "correct": false,
-                "feedback": "Generative models generate likely word sequences and do not inherently verify factual accuracy."
-            },
-            {
-                "text": "Statistical fluency without verification",
-                "correct": true,
-                "feedback": "Correct. Generative AI produces fluent responses by predicting language patterns."
-            },
-            {
-                "text": "Incomplete dataset indexing",
-                "correct": false,
-                "feedback": "Generative models generate likely word sequences and do not inherently verify factual accuracy."
-            }
+            { "text": "Unlocking your phone using facial recognition.", "correct": true, "feedback": "Correct! Face unlock, traffic routing, and grammar assistance are real-world examples of Narrow AI quietly operating in the background." },
+            { "text": "A map app calculating the best route to dodge traffic.", "correct": true, "feedback": "Correct! Face unlock, traffic routing, and grammar assistance are real-world examples of Narrow AI quietly operating in the background." },
+            { "text": "A digital grammar helper correcting typos as you type.", "correct": true, "feedback": "Correct! Face unlock, traffic routing, and grammar assistance are real-world examples of Narrow AI quietly operating in the background." },
+            { "text": "A humanoid robot autonomously cleaning your home.", "correct": false, "feedback": "Not quite. Humanoid household chores robots are still mostly science fiction, but face unlock, traffic routing, and grammar helpers are real everyday AI." },
+            { "text": "A self-writing notebook that attends school lectures for you.", "correct": false, "feedback": "Not quite. Humanoid household chores robots are still mostly science fiction, but face unlock, traffic routing, and grammar helpers are real everyday AI." }
         ]
     },
     {
         "original_id": 5,
-        "question": "Which scenario best demonstrates responsible AI integration in teaching?",
-        "correctFeedback": "Correct. AI can support preparation while educators retain instructional authority.",
-        "incorrectFeedback": "Responsible AI integration supports instructional tasks but does not replace human judgment or classroom interaction.",
+        "question": "Which of the following are recognized strengths of modern AI tools in an educational setting? (Select all that apply)",
+        "correctFeedback": "Correct! AI excels at pattern-finding and drafting support, but completely lacks human context, ethical judgment, and empathy.",
+        "incorrectFeedback": "Try again. Remember that AI cannot replicate human empathy or mentorship, nor can it make ethical judgments.",
         "xp": 10,
-        "type": "choice",
+        "type": "multiple_choice",
         "options": [
-            {
-                "text": "Using AI-generated grades without review",
-                "correct": false,
-                "feedback": "Responsible AI integration supports instructional tasks but does not replace human judgment or classroom interaction."
-            },
-            {
-                "text": "Using AI summaries as preparation before class discussion",
-                "correct": true,
-                "feedback": "Correct. AI can support preparation while educators retain instructional authority."
-            },
-            {
-                "text": "Replacing classroom interaction with AI tutoring",
-                "correct": false,
-                "feedback": "Responsible AI integration supports instructional tasks but does not replace human judgment or classroom interaction."
-            },
-            {
-                "text": "Delegating all assessment design to AI",
-                "correct": false,
-                "feedback": "Responsible AI integration supports instructional tasks but does not replace human judgment or classroom interaction."
-            }
+            { "text": "Automating repetitive tasks quickly.", "correct": true, "feedback": "Correct! AI excels at pattern-finding and drafting support, but completely lacks human context, ethical judgment, and empathy." },
+            { "text": "Providing genuine empathy and mentorship to students.", "correct": false, "feedback": "Try again. Remember that AI cannot replicate human empathy or mentorship, nor can it make ethical judgments." },
+            { "text": "Serving as a starting point for drafts and summaries.", "correct": true, "feedback": "Correct! AI excels at pattern-finding and drafting support, but completely lacks human context, ethical judgment, and empathy." },
+            { "text": "Making final ethical and moral grading decisions.", "correct": false, "feedback": "Try again. Remember that AI cannot replicate human empathy or mentorship, nor can it make ethical judgments." },
+            { "text": "Replacing human teaching staff entirely to cut costs.", "correct": false, "feedback": "Try again. Remember that AI cannot replicate human empathy or mentorship, nor can it make ethical judgments." }
         ]
     },
     {
         "original_id": 6,
-        "question": "When AI suggests a personalized learning pathway, what underlying mechanism enables this?",
-        "correctFeedback": "Correct. Personalized recommendations emerge from patterns identified in prior learner data.",
-        "incorrectFeedback": "AI personalization systems analyze historical learner behavior and performance to detect patterns that guide recommendations.",
+        "question": "Arrange the steps of AI's core loop in the correct sequence, starting from receiving input to taking action:",
+        "correctFeedback": "Correct! The loop is: Perceive → Learn → Reason → Act.",
+        "incorrectFeedback": "Not quite. The correct sequence is: Perceive (data input) → Learn (patterns) → Reason (decision) → Act (execution).",
         "xp": 10,
-        "type": "choice",
-        "options": [
-            {
-                "text": "Emotional profiling",
-                "correct": false,
-                "feedback": "AI personalization systems analyze historical learner behavior and performance to detect patterns that guide recommendations."
-            },
-            {
-                "text": "Predefined academic rules",
-                "correct": false,
-                "feedback": "AI personalization systems analyze historical learner behavior and performance to detect patterns that guide recommendations."
-            },
-            {
-                "text": "Pattern recognition from prior data",
-                "correct": true,
-                "feedback": "Correct. Personalized recommendations emerge from patterns identified in prior learner data."
-            },
-            {
-                "text": "Independent pedagogical reasoning",
-                "correct": false,
-                "feedback": "AI personalization systems analyze historical learner behavior and performance to detect patterns that guide recommendations."
-            }
+        "type": "ordering",
+        "items": [
+            "Perceive",
+            "Act",
+            "Learn",
+            "Reason"
+        ],
+        "correct_order": [
+            0,
+            2,
+            3,
+            1
         ]
     },
     {
         "original_id": 7,
-        "question": "Which characteristics distinguish Machine Learning systems from traditional programs?",
-        "correctFeedback": "Correct. Machine learning systems adapt through data exposure and optimize statistical models.",
-        "incorrectFeedback": "Machine learning systems update their behavior through statistical learning from data rather than relying only on manually coded rules.",
+        "question": "Match each AI term with its correct definition:",
+        "correctFeedback": "Correct! You successfully matched the key terms to their descriptions.",
+        "incorrectFeedback": "Check your matches. Remember, General AI is broad and human-like, Narrow AI is task-specific, Machine Learning extracts rules from data, and Generative AI builds new content.",
         "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Adaptation based on data exposure",
-                "correct": true
-            },
-            {
-                "text": "Fixed logical decision trees",
-                "correct": false
-            },
-            {
-                "text": "Statistical optimization",
-                "correct": true
-            },
-            {
-                "text": "Explicit manual rule encoding",
-                "correct": false
-            }
+        "type": "matching",
+        "pairs": [
+            { "left": "Narrow AI", "right": "AI specialized for specific, defined tasks" },
+            { "left": "General AI", "right": "Hypothetical broad human-like intelligence" },
+            { "left": "Machine Learning", "right": "Systems that find patterns in data to learn rules" },
+            { "left": "Generative AI", "right": "Systems that create new content from scratch" }
+        ],
+        "shuffledRight": [
+            "Hypothetical broad human-like intelligence",
+            "Systems that find patterns in data to learn rules",
+            "AI specialized for specific, defined tasks",
+            "Systems that create new content from scratch"
         ]
     },
     {
         "original_id": 8,
-        "question": "Which risks emerge when AI systems are deployed without sufficient oversight?",
-        "correctFeedback": "Correct. Lack of oversight can amplify bias and increase dependence on automated decisions.",
-        "incorrectFeedback": "Unmonitored AI systems can reproduce biases present in data and shift decision responsibility away from human oversight.",
+        "question": "Match each AI capability or limitation to its real-world classroom scenario:",
+        "correctFeedback": "Correct! You've matched the classroom scenarios with the correct AI limitations and roles.",
+        "incorrectFeedback": "Some matches are incorrect. Remember that editing questions represents human supervision, and hallucinating reflects prioritizing fluency over accuracy.",
         "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Reinforcement of hidden biases",
-                "correct": true
-            },
-            {
-                "text": "Reduced human accountability",
-                "correct": true
-            },
-            {
-                "text": "Improved contextual sensitivity",
-                "correct": false
-            },
-            {
-                "text": "Overreliance on automated outputs",
-                "correct": true
-            }
+        "type": "matching",
+        "pairs": [
+            { "left": "Human Supervisor", "right": "An educator editing AI quiz questions before use" },
+            { "left": "Fluency over Accuracy", "right": "A chatbot writing a fluent but incorrect response" },
+            { "left": "Data Distribution Dependency", "right": "An AI failing when introduced to new student data" },
+            { "left": "No Ethical Judgment", "right": "An AI unable to replace teacher mentorship" }
+        ],
+        "shuffledRight": [
+            "A chatbot writing a fluent but incorrect response",
+            "An AI unable to replace teacher mentorship",
+            "An educator editing AI quiz questions before use",
+            "An AI failing when introduced to new student data"
         ]
     },
     {
         "original_id": 9,
-        "question": "Which elements influence the quality of AI-generated responses?",
-        "correctFeedback": "Correct. Response quality depends on the training data, model design, and the clarity of prompts.",
-        "incorrectFeedback": "AI output quality is determined by factors such as training data diversity, model structure, and how clearly prompts guide the model.",
+        "question": "Fill in the blank",
+        "correctFeedback": "Correct! As emphasized in the video, AI is a capable but sometimes unreliable assistant, and humans must verify its outputs for truth.",
+        "incorrectFeedback": "Incorrect. The video advises us to treat AI as a 'capable but sometimes unreliable assistant' and never as the final word on 'truth' or judgment.",
         "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Training data diversity",
-                "correct": true
-            },
-            {
-                "text": "Prompt clarity",
-                "correct": true
-            },
-            {
-                "text": "Hardware casing design",
-                "correct": false
-            },
-            {
-                "text": "Model architecture",
-                "correct": true
-            }
+        "type": "fill_in_blanks",
+        "text": "Treat AI like a very [capable] but sometimes [unreliable] assistant. It is a tool that can help you, but it should never be treated as the final word on [truth] or judgment.",
+        "wordBank": [
+            "capable",
+            "unreliable",
+            "truth",
+            "perfect",
+            "useless",
+            "error"
         ]
     },
     {
         "original_id": 10,
-        "question": "Which scenarios reflect appropriate AI assistance rather than replacement?",
-        "correctFeedback": "Correct. AI can assist with idea generation and drafting tasks.",
-        "incorrectFeedback": "High-stakes academic evaluation and ethical decisions require human authority, while early-stage thinking and drafting tasks can be supported by AI.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Brainstorming research angles",
-                "correct": true
-            },
-            {
-                "text": "Final grading of dissertations",
-                "correct": false
-            },
-            {
-                "text": "Draft structuring support",
-                "correct": true
-            },
-            {
-                "text": "Automated ethical adjudication",
-                "correct": false
-            }
-        ]
-    },
-    {
-        "original_id": 11,
-        "question": "Which statements about AI limitations are accurate?",
-        "correctFeedback": "Correct. AI systems generate probabilistic outputs and may generalize patterns beyond their training data.",
-        "incorrectFeedback": "AI outputs are generated through probability-based predictions and pattern generalization rather than intentional or independent reasoning.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "AI lacks intrinsic intent",
-                "correct": true
-            },
-            {
-                "text": "AI responses are probabilistic",
-                "correct": true
-            },
-            {
-                "text": "AI evaluates moral trade-offs independently",
-                "correct": false
-            },
-            {
-                "text": "AI may generalize patterns inaccurately",
-                "correct": true
-            }
-        ]
-    },
-    {
-        "original_id": 12,
-        "question": "Which factors can reduce hallucination risk?",
-        "correctFeedback": "Correct. Clear prompts, verification, and domain constraints improve reliability.",
-        "incorrectFeedback": "Hallucination risk decreases when outputs are constrained, prompts are clear, and responses are verified against reliable information.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Clear prompting",
-                "correct": true
-            },
-            {
-                "text": "Cross-verification",
-                "correct": true
-            },
-            {
-                "text": "Blind trust in fluent output",
-                "correct": false
-            },
-            {
-                "text": "Domain-specific constraints",
-                "correct": true
-            }
-        ]
-    },
-    {
-        "original_id": 13,
-        "question": "Arrange steps in evaluating AI-generated content:",
-        "correctFeedback": "Correct. Evaluation progresses from understanding the response to verifying accuracy before approval.",
-        "incorrectFeedback": "Evaluation of AI output typically begins with reviewing the response, followed by fact-checking, corrections, and final approval.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Cross-check claims",
-            "Revise inaccuracies",
-            "Assess coherence",
-            "Approve for use"
-        ],
-        "correct_order": [
-            2,
-            0,
-            1,
-            3
-        ]
-    },
-    {
-        "original_id": 14,
-        "question": "Arrange the AI adaptation cycle:",
-        "correctFeedback": "Correct. AI systems adapt through deployment, data collection, parameter adjustment, and evaluation.",
-        "incorrectFeedback": "AI improvement cycles begin with real-world deployment, followed by data collection, model adjustment, and performance evaluation.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Collect new data",
-            "Evaluate performance",
-            "Deploy model",
-            "Adjust internal parameters"
-        ],
-        "correct_order": [
-            2,
-            0,
-            3,
-            1
-        ]
-    },
-    {
-        "original_id": 15,
-        "question": "Arrange responsible AI classroom implementation:",
-        "correctFeedback": "Correct. Effective AI integration begins with objectives and ends with evaluation of impact.",
-        "incorrectFeedback": "Responsible implementation typically starts with defining the learning goal, followed by tool selection, pilot testing, and reviewing outcomes.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Identify objective",
-            "Pilot in controlled context",
-            "Review impact",
-            "Select appropriate tool"
-        ],
-        "correct_order": [
-            0,
-            3,
-            1,
-            2
-        ]
-    },
-    {
-        "original_id": 16,
-        "question": "Arrange generative output formation conceptually:",
-        "correctFeedback": "Correct. Generative models transform prompts into probability distributions and produce responses from predicted sequences.",
-        "incorrectFeedback": "Generative models first interpret the prompt, then calculate token probabilities, choose the most likely sequence, and output the response.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Produce response",
-            "Generate token probabilities",
-            "Process prompt",
-            "Select likely sequence"
-        ],
-        "correct_order": [
-            2,
-            1,
-            3,
-            0
-        ]
-    },
-    {
-        "original_id": 17,
-        "question": "Arrange risk mitigation steps:",
-        "correctFeedback": "Correct. Risk mitigation begins with identifying bias and introducing safeguards before monitoring and adjusting systems.",
-        "incorrectFeedback": "Risk mitigation generally starts by identifying possible bias, followed by safeguards, monitoring real-world usage, and adjusting deployment.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Implement safeguards",
-            "Adjust deployment",
-            "Identify potential bias",
-            "Monitor usage patterns"
-        ],
-        "correct_order": [
-            2,
-            0,
-            3,
-            1
-        ]
-    },
-    {
-        "original_id": 18,
-        "question": "Arrange increasing abstraction:",
-        "correctFeedback": "Correct. AI systems transform raw data into patterns, predictions, and ultimately decisions.",
-        "incorrectFeedback": "Information processing typically moves from raw data to patterns, then predictions, and finally decision-making.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Decisions",
-            "Data points",
-            "Predictions",
-            "Patterns"
-        ],
-        "correct_order": [
-            1,
-            3,
-            2,
-            0
-        ]
-    },
-    {
-        "original_id": 19,
-        "question": "Match concept to implication:",
-        "correctFeedback": "Correct. Probabilistic outputs create variability, training distribution shapes relevance, human oversight reduces risk, and prompts influence responses.",
-        "incorrectFeedback": "Probabilistic systems naturally produce varied outputs, training data defines context relevance, oversight reduces risk, and prompts shape generated responses.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Probabilistic output",
-                "right": "Explains variability in responses"
-            },
-            {
-                "left": "Training distribution",
-                "right": "Determines contextual relevance"
-            },
-            {
-                "left": "Human oversight",
-                "right": "Reduces automation risks"
-            },
-            {
-                "left": "Prompt design",
-                "right": "Influences response quality"
-            }
-        ],
-        "shuffledRight": [
-            "Determines contextual relevance",
-            "Reduces automation risks",
-            "Explains variability in responses",
-            "Influences response quality"
-        ]
-    },
-    {
-        "original_id": 20,
-        "question": "Match AI behavior to explanation:",
-        "correctFeedback": "Correct. Each behavior reflects how AI systems extend patterns, personalize outputs, automate processes, or replicate data trends.",
-        "incorrectFeedback": "Hallucination occurs when patterns extend beyond evidence, personalization reflects prior data patterns, automation executes repeated tasks, and bias amplification mirrors skewed datasets.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Hallucination",
-                "right": "Pattern extension beyond evidence"
-            },
-            {
-                "left": "Personalization",
-                "right": "Behavior shaped by prior user data"
-            },
-            {
-                "left": "Automation",
-                "right": "Execution of repetitive processes"
-            },
-            {
-                "left": "Bias amplification",
-                "right": "Replication of skewed dataset trends"
-            }
-        ],
-        "shuffledRight": [
-            "Behavior shaped by prior user data",
-            "Replication of skewed dataset trends",
-            "Execution of repetitive processes",
-            "Pattern extension beyond evidence"
-        ]
-    },
-    {
-        "original_id": 21,
-        "question": "Match limitation with mitigation:",
-        "correctFeedback": "Correct. Each mitigation directly addresses a specific AI limitation.",
-        "incorrectFeedback": "Bias relates to dataset composition, overconfidence requires human review, context issues improve with better prompts, and statistical errors require validation.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Data bias",
-                "right": "Broader training data"
-            },
-            {
-                "left": "Overconfidence",
-                "right": "Critical human review"
-            },
-            {
-                "left": "Context loss",
-                "right": "Prompt refinement"
-            },
-            {
-                "left": "Statistical error",
-                "right": "Validation checks"
-            }
-        ],
-        "shuffledRight": [
-            "Validation checks",
-            "Critical human review",
-            "Broader training data",
-            "Prompt refinement"
-        ]
-    },
-    {
-        "original_id": 22,
-        "question": "Match AI strength to educational use:",
-        "correctFeedback": "Correct. Each AI strength supports a different educational function.",
-        "incorrectFeedback": "Summarization condenses reading, clustering groups patterns, predictive analytics forecasts outcomes, and generative models create draft content.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Rapid summarization",
-                "right": "Reading condensation"
-            },
-            {
-                "left": "Pattern clustering",
-                "right": "Thematic grouping"
-            },
-            {
-                "left": "Predictive analytics",
-                "right": "Student performance forecasting"
-            },
-            {
-                "left": "Content generation",
-                "right": "Draft creation"
-            }
-        ],
-        "shuffledRight": [
-            "Draft creation",
-            "Student performance forecasting",
-            "Reading condensation",
-            "Thematic grouping"
-        ]
-    },
-    {
-        "original_id": 23,
-        "question": "Match concept to scope:",
-        "correctFeedback": "Correct. Each concept reflects a different level or function of AI capability.",
-        "incorrectFeedback": "Narrow AI performs specific tasks, general AI refers to hypothetical broad intelligence, machine learning optimizes patterns, and generative models create content.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Narrow AI",
-                "right": "Task-bound system"
-            },
-            {
-                "left": "General AI",
-                "right": "Hypothetical multi-domain intelligence"
-            },
-            {
-                "left": "Machine Learning",
-                "right": "Pattern optimization method"
-            },
-            {
-                "left": "Generative Model",
-                "right": "Content-producing system"
-            }
-        ],
-        "shuffledRight": [
-            "Content-producing system",
-            "Pattern optimization method",
-            "Hypothetical multi-domain intelligence",
-            "Task-bound system"
-        ]
-    },
-    {
-        "original_id": 24,
-        "question": "Match classroom decision with AI suitability:",
-        "correctFeedback": "Correct. Some tasks benefit from AI support, while others require human responsibility.",
-        "incorrectFeedback": "Creative support tasks such as brainstorming or visualization can use AI assistance, while ethical decisions and high-stakes evaluations require human authority.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Brainstorming session",
-                "right": "Suitable AI support"
-            },
-            {
-                "left": "Final ethics review",
-                "right": "Requires human authority"
-            },
-            {
-                "left": "Data visualization",
-                "right": "Suitable AI support"
-            },
-            {
-                "left": "High-stakes evaluation",
-                "right": "Requires human authority"
-            }
-        ],
-        "shuffledRight": [
-            "Requires human authority",
-            "Suitable AI support"
-        ]
-    },
-    {
-        "original_id": 25,
         "question": "Fill in the blank",
-        "correctFeedback": "Correct. AI generates outputs using statistical probabilities.",
-        "incorrectFeedback": "AI output generation relies on probability calculations rather than conscious awareness.",
+        "correctFeedback": "Correct! The goal of the course is to build AI literacy, which includes recognizing both the power and limits of these systems.",
+        "incorrectFeedback": "Try again. The goal is building 'AI literacy' by understanding how AI works and understanding its 'limits'.",
         "xp": 10,
         "type": "fill_in_blanks",
-        "text": "AI systems produce outputs based on statistical [probabilities] rather than conscious [awareness].",
+        "text": "For most educators, the goal is not to become a programmer, but to build [AI literacy]. This means having a good gut feeling for what AI is, how it works, and knowing where its [limits] are.",
         "wordBank": [
-            "awareness",
-            "intention",
-            "probabilities",
-            "reasoning"
-        ]
-    },
-    {
-        "original_id": 26,
-        "question": "Fill in the blank",
-        "correctFeedback": "Correct. AI models depend on the distribution of their training data.",
-        "incorrectFeedback": "Model performance depends on similarity between new input data and the distribution of data used during training.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "A model performs poorly when exposed to unfamiliar [data] because it was trained within a limited [distribution].",
-        "wordBank": [
-            "interface",
-            "distribution",
-            "hardware",
-            "data"
-        ]
-    },
-    {
-        "original_id": 27,
-        "question": "Fill in the blank",
-        "correctFeedback": "Correct. Human oversight ensures ethical accountability in AI use.",
-        "incorrectFeedback": "AI systems generate outputs without independent ethical judgment, which makes human oversight necessary.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "Human [oversight] is necessary because AI systems lack independent [ethical] judgment.",
-        "wordBank": [
-            "ethical",
-            "oversight",
-            "statistical",
-            "autonomous"
-        ]
-    },
-    {
-        "original_id": 28,
-        "question": "Fill in the blank",
-        "correctFeedback": "Correct. Generative models predict tokens using learned patterns from training data.",
-        "incorrectFeedback": "Generative AI predicts sequences of tokens derived from statistical patterns learned during training.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "Generative AI creates responses by predicting likely [tokens] based on learned [patterns].",
-        "wordBank": [
-            "memories",
-            "instincts",
-            "patterns",
-            "tokens"
-        ]
-    },
-    {
-        "original_id": 29,
-        "question": "Fill in the blank",
-        "correctFeedback": "Correct. Balanced and diverse datasets help reduce bias in AI outputs.",
-        "incorrectFeedback": "Bias in AI systems often originates from imbalances in historical datasets that lack sufficient diversity.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "Bias can emerge when training data reflects historical [imbalances] and is not adequately [diversified].",
-        "wordBank": [
-            "automated",
-            "imbalances",
-            "diversified",
-            "neutral"
-        ]
-    },
-    {
-        "original_id": 30,
-        "question": "Fill in the blank",
-        "correctFeedback": "Correct. Responsible AI use requires evaluation and contextual awareness.",
-        "incorrectFeedback": "Responsible AI use depends on critical evaluation of outputs and awareness of context and limitations.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "Responsible AI integration involves critical [evaluation] and contextual [awareness].",
-        "wordBank": [
-            "delegation",
-            "awareness",
-            "evaluation",
-            "automation"
+            "AI literacy",
+            "limits",
+            "programming",
+            "strengths",
+            "algorithms",
+            "intelligence"
         ]
     }
 ];
