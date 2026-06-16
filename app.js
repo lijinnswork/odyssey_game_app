@@ -4864,6 +4864,7 @@ window.handleInfoCardContinue = function(showMascot) {
 
         // Create flying mascot container
         const flyMascot = document.createElement('div');
+        const isMobile = window.innerWidth <= 768;
         flyMascot.style.cssText = `
             position: fixed;
             top: 50%;
@@ -4872,12 +4873,13 @@ window.handleInfoCardContinue = function(showMascot) {
             opacity: 0;
             z-index: 999999;
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: drop-shadow(0 15px 35px rgba(0,0,0,0.4));
+            filter: drop-shadow(0 ${isMobile ? '10px 20px' : '15px 35px'} rgba(0,0,0,0.4));
             pointer-events: none;
         `;
         
         // Insert SVG (Happy State)
-        flyMascot.innerHTML = window.getMascotSVG('250px', '250px', 'happy');
+        const mascotSize = isMobile ? '180px' : '250px';
+        flyMascot.innerHTML = window.getMascotSVG(mascotSize, mascotSize, 'happy');
         document.body.appendChild(flyMascot);
         
         // 1. Appear as main (Center)
@@ -4890,10 +4892,19 @@ window.handleInfoCardContinue = function(showMascot) {
             setTimeout(() => {
                 // Keep white background solid while mascot flies to side
                 flyMascot.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                flyMascot.style.top = 'calc(100vh - 60px)';
-                flyMascot.style.left = 'calc(100vw - 60px)';
-                flyMascot.style.transform = 'translate(-50%, -50%) scale(0.35)';
-                flyMascot.style.opacity = '0';
+                
+                if (window.innerWidth <= 768) {
+                    // On mobile, fly up smoothly and fade out instead of traveling to a weird corner
+                    flyMascot.style.top = '35%';
+                    flyMascot.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                    flyMascot.style.opacity = '0';
+                    flyMascot.style.filter = 'blur(8px)';
+                } else {
+                    flyMascot.style.top = 'calc(100vh - 60px)';
+                    flyMascot.style.left = 'calc(100vw - 60px)';
+                    flyMascot.style.transform = 'translate(-50%, -50%) scale(0.35)';
+                    flyMascot.style.opacity = '0';
+                }
                 
                 // 3. Start video activity just as it reaches the side
                 setTimeout(() => {
