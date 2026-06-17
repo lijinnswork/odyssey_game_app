@@ -2667,7 +2667,9 @@ window.renderChapters = function () {
             const idx = gameState.unlockedLevels.indexOf(l.id);
             return (idx !== -1 && idx < gameState.unlockedLevels.length - 1) || gameState.levelStats[l.id]?.passed;
         }).length;
-        const progressPercent = Math.round((levelsPassed / totalLevels) * 100);
+        let progressPercent = Math.round(((levelsPassed / totalLevels) * 100) / 5) * 5;
+        if (progressPercent === 0 && levelsPassed > 0) progressPercent = 5;
+        if (progressPercent === 100 && levelsPassed < totalLevels) progressPercent = 95;
 
         const statusIcon = isUnlocked ? (progressPercent === 100 ? 'check_circle' : 'lock_open') : 'lock';
 
@@ -3032,7 +3034,9 @@ window.renderLevels = function (chapterId) {
         const idx = gameState.unlockedLevels.indexOf(l.id);
         return (idx !== -1 && idx < gameState.unlockedLevels.length - 1) || gameState.levelStats[l.id]?.passed;
     }).length;
-    const progressPercent = Math.round((levelsPassed / totalLevels) * 100);
+    let progressPercent = Math.round(((levelsPassed / totalLevels) * 100) / 5) * 5;
+    if (progressPercent === 0 && levelsPassed > 0) progressPercent = 5;
+    if (progressPercent === 100 && levelsPassed < totalLevels) progressPercent = 95;
 
     let fabText = "Start Chapter";
     let fabIcon = "play_arrow";
