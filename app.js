@@ -3694,85 +3694,84 @@ window.renderActivity = function () {
         `;
     } else if (activity.type === 'gameplay_tutorial') {
         window.currentTutorialCardIndex = 0;
-        const cardsData = [
-            {
-                title: "Meet Your Companions",
-                subtitle: "Polly & Garfield",
-                content: "Polly is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Polly in the bottom-right corner to open your Chat Coach! 💬",
-                graphic: `
-                    <div style="display: flex; gap: 2.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out;">
-                                <img src="polly.png" style="width: 100%; height: 100%; object-fit: contain;">
-                            </div>
-                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--accent-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Polly (Coach)</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out 1.5s;">
-                                <img src="garfield.png" style="width: 100%; height: 100%; object-fit: contain;">
-                            </div>
-                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--primary-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Garfield (Learner)</span>
-                        </div>
-                    </div>
-                `
-            },
-            {
-                title: "Stay in the Game",
-                subtitle: "Hearts & Gems",
-                content: "Each level starts with 5 hearts ❤️. Making mistakes costs a heart. Don't worry—completing activities rewards you with Gems 💎, which you can use to restore health!",
-                graphic: `
-                    <div style="display: flex; gap: 3.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: mascot-hover 3s infinite ease-in-out;">
-                            <span class="material-symbols-rounded" style="color: #ef4444; font-size: 3.8rem; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.4));">favorite</span>
-                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">5 Hearts (Lives)</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: mascot-hover 3s infinite ease-in-out 1.5s;">
-                            <span class="material-symbols-rounded" style="color: var(--accent); font-size: 3.8rem; filter: drop-shadow(0 0 10px rgba(8, 145, 178, 0.4));">diamond</span>
-                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">Gems (Rewards)</span>
-                        </div>
-                    </div>
-                `
-            },
-            {
-                title: "Learn by Playing",
-                subtitle: "Challenge Formats",
-                content: "You'll solve matching cards, order processes, fill-in-the-blanks, and choice tasks. Every correct answer earns you experience points (⚡ XP)!",
-                graphic: `
-                    <div style="display: flex; flex-direction: column; gap: 0.6rem; width: 100%; max-width: 280px; margin: 0 auto 1.2rem; pointer-events: none;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(var(--primary-rgb), 0.1); border: 1px dashed var(--primary); padding: 0.5rem 0.9rem; border-radius: 12px; font-weight: 600; font-size: 0.85rem; color: var(--text-main);">
-                            <span>Algorithm</span>
-                            <span style="color: var(--primary);">↔️</span>
-                            <span>Step-by-step Rules</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.75rem; background: var(--surface-glass); border: 1px solid var(--border); padding: 0.5rem 0.9rem; border-radius: 12px; font-weight: 600; font-size: 0.85rem; color: var(--text-main);">
-                            <span style="background: var(--success); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 800;">✓</span>
-                            <span>Correct Choice Option</span>
-                        </div>
-                    </div>
-                `
-            },
-            {
-                title: "The Chapter Map & Ranks",
-                subtitle: "Track Progress",
-                content: "Unlock new chapters on the map as you learn. Maintain your daily streak to rank up the leaderboard and prove your AI knowledge! 🏆",
-                graphic: `
-                    <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
-                        <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 85px;">
-                            <span class="material-symbols-rounded" style="color: #fb923c; font-size: 2rem; margin-bottom: 0.25rem; display: block;">local_fire_department</span>
-                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-main);">Streak</span>
-                        </div>
-                        <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 95px; transform: scale(1.1);">
-                            <span class="material-symbols-rounded" style="color: #fbbf24; font-size: 2.4rem; margin-bottom: 0.25rem; display: block;">trophy</span>
-                            <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-main);">Leaderboard</span>
-                        </div>
-                        <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 85px;">
-                            <span class="material-symbols-rounded" style="color: var(--primary); font-size: 2rem; margin-bottom: 0.25rem; display: block;">map</span>
-                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-main);">Map</span>
-                        </div>
-                    </div>
-                `
-            }
+        const defaultTitles = ["Meet Your Companions", "Stay in the Game", "Learn by Playing", "The Chapter Map & Ranks"];
+        const defaultSubtitles = ["Polly & Garfield", "Hearts & Gems", "Challenge Formats", "Track Progress"];
+        const defaultContents = [
+            "Polly is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Polly in the bottom-right corner to open your Chat Coach! 💬",
+            "Each level starts with 5 hearts ❤️. Making mistakes costs a heart. Don't worry—completing activities rewards you with Gems 💎, which you can use to restore health!",
+            "You'll solve matching cards, order processes, fill-in-the-blanks, and choice tasks. Every correct answer earns you experience points (⚡ XP)!",
+            "Unlock new chapters on the map as you learn. Maintain your daily streak to rank up the leaderboard and prove your AI knowledge! 🏆"
         ];
+        const defaultGraphics = [
+            `
+                <div style="display: flex; gap: 2.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out;">
+                            <img src="polly.png" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--accent-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Polly (Coach)</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out 1.5s;">
+                            <img src="garfield.png" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--primary-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Garfield (Learner)</span>
+                    </div>
+                </div>
+            `,
+            `
+                <div style="display: flex; gap: 3.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: mascot-hover 3s infinite ease-in-out;">
+                        <span class="material-symbols-rounded" style="color: #ef4444; font-size: 3.8rem; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.4));">favorite</span>
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">5 Hearts (Lives)</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: mascot-hover 3s infinite ease-in-out 1.5s;">
+                        <span class="material-symbols-rounded" style="color: var(--accent); font-size: 3.8rem; filter: drop-shadow(0 0 10px rgba(8, 145, 178, 0.4));">diamond</span>
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">Gems (Rewards)</span>
+                    </div>
+                </div>
+            `,
+            `
+                <div style="display: flex; flex-direction: column; gap: 0.6rem; width: 100%; max-width: 280px; margin: 0 auto 1.2rem; pointer-events: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(var(--primary-rgb), 0.1); border: 1px dashed var(--primary); padding: 0.5rem 0.9rem; border-radius: 12px; font-weight: 600; font-size: 0.85rem; color: var(--text-main);">
+                        <span>Algorithm</span>
+                        <span style="color: var(--primary);">↔️</span>
+                        <span>Step-by-step Rules</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; background: var(--surface-glass); border: 1px solid var(--border); padding: 0.5rem 0.9rem; border-radius: 12px; font-weight: 600; font-size: 0.85rem; color: var(--text-main);">
+                        <span style="background: var(--success); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 800;">✓</span>
+                        <span>Correct Choice Option</span>
+                    </div>
+                </div>
+            `,
+            `
+                <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
+                    <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 85px;">
+                        <span class="material-symbols-rounded" style="color: #fb923c; font-size: 2rem; margin-bottom: 0.25rem; display: block;">local_fire_department</span>
+                        <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-main);">Streak</span>
+                    </div>
+                    <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 95px; transform: scale(1.1);">
+                        <span class="material-symbols-rounded" style="color: #fbbf24; font-size: 2.4rem; margin-bottom: 0.25rem; display: block;">trophy</span>
+                        <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-main);">Leaderboard</span>
+                    </div>
+                    <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--border); border-radius: 16px; padding: 0.65rem 0.85rem; text-align: center; box-shadow: var(--shadow-main); width: 85px;">
+                        <span class="material-symbols-rounded" style="color: var(--primary); font-size: 2rem; margin-bottom: 0.25rem; display: block;">map</span>
+                        <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-main);">Map</span>
+                    </div>
+                </div>
+            `
+        ];
+
+        const cardsData = [];
+        for (let i = 0; i < 4; i++) {
+            const cardObj = (activity.cards && activity.cards[i]) || {};
+            cardsData.push({
+                title: cardObj.title !== undefined ? cardObj.title : defaultTitles[i],
+                subtitle: cardObj.subtitle !== undefined ? cardObj.subtitle : defaultSubtitles[i],
+                content: cardObj.content !== undefined ? cardObj.content : defaultContents[i],
+                graphic: defaultGraphics[i]
+            });
+        }
 
         html += `
             <div class="tutorial-deck-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 580px; margin: 0 auto; padding: 1.5rem 1rem 0 1rem; box-sizing: border-box;">
@@ -5039,12 +5038,34 @@ function renderLevelComplete(chapterId, levelId) {
     }
 
     const { correctCount, xpGained, startXP, completedThisSession } = currentLevelSession;
+    const isSummaryLevel = level.title.toLowerCase().includes('summary') || levelId.includes('summary');
 
     // Safety filter to ensure we don't count INTRO cards as questions if they were skipped/tracked weirdly
     const realQuestions = level.questions.filter(q => !q.id.includes('INTRO'));
     const actualTotalQs = realQuestions.length || 1; // Avoid division by zero
-    const percentage = Math.round((correctCount / actualTotalQs) * 100);
-    const passed = realQuestions.length === 0 ? true : percentage >= 80;
+    const rawPercentage = Math.round((correctCount / actualTotalQs) * 100);
+    const passed = realQuestions.length === 0 ? true : rawPercentage >= 80;
+
+    let percentage = 100;
+    if (realQuestions.length > 0) {
+        if (correctCount === 0) {
+            percentage = 0;
+        } else if (correctCount === actualTotalQs) {
+            percentage = 100;
+        } else {
+            let rounded = Math.round(rawPercentage / 5) * 5;
+            if (rounded === 0) rounded = 5;
+            if (rounded === 100) rounded = 95;
+
+            // Adjust to align with pass/fail threshold
+            if (passed && rounded < 80) {
+                rounded = 80;
+            } else if (!passed && rounded >= 80) {
+                rounded = 75;
+            }
+            percentage = rounded;
+        }
+    }
 
     // Commit Level Stats if passed
     let displayXP = 0;
@@ -5171,6 +5192,59 @@ function renderLevelComplete(chapterId, levelId) {
             cancelText: null,
             pollyState: 'happy'
         });
+    }
+
+    if (isSummaryLevel) {
+        const chapterIndex = window.courseData.findIndex(c => c.id === chapterId);
+        const nextChapterObj = (chapterIndex < window.courseData.length - 1) ? window.courseData[chapterIndex + 1] : null;
+
+        app.innerHTML = `
+        <div class="main-scroll-area" style="padding: 2.5rem 1.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%;">
+            <div style="width: 160px; height: 140px; margin: 1.5rem auto 1.5rem auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3)); display: flex; justify-content: center; align-items: center; position: relative; overflow: visible;">
+                ${window.getMascotSVG('100%', '100%', 'happy')}
+            </div>
+            
+            <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text-main); font-family: 'Outfit', sans-serif;">🎉 Module Complete!</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 600px; line-height: 1.6;">
+                Amazing job! You have successfully completed Chapter 1: <strong>${chapter.title}</strong>.
+            </p>
+
+            <div style="width: 100%; max-width: 580px; margin-bottom: 2.5rem;">
+                <div style="background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.12), rgba(var(--accent-rgb), 0.05)); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: var(--radius-l); border: 1px solid rgba(var(--primary-rgb), 0.25); padding: 2.5rem; box-shadow: var(--shadow-main); text-align: center;">
+                    <div style="font-size: 3.5rem; margin-bottom: 1rem; animation: mascot-hover 3s infinite ease-in-out;">🏆</div>
+                    <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.8rem; font-family: 'Outfit', sans-serif;">Module 1 Journey Completed</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; font-family: 'Inter', sans-serif;">
+                        You've built a solid foundation! From understanding what AI is, tracing its historical milestones, imagining the next 10 years, to learning why AI matters for educators and exploring crucial AI ethics principles.
+                    </p>
+                    
+                    <div style="display: flex; justify-content: center; gap: 3rem; border-top: 1px solid rgba(var(--primary-rgb), 0.1); padding-top: 1.5rem;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="font-size: 1.8rem; font-weight: 800; color: var(--success); line-height: 1; display: flex; align-items: center; gap: 0.2rem;">
+                                <span style="font-size: 1.5rem;">⚡</span> +50
+                            </div>
+                            <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 0.5rem;">XP Awarded</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="font-size: 1.8rem; font-weight: 800; color: #00C896; line-height: 1; display: flex; align-items: center; gap: 0.2rem;">
+                                <span style="font-size: 1.5rem;">💎</span> +50
+                            </div>
+                            <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 0.5rem;">Gems Awarded</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: row; gap: 1rem; width: 100%; max-width: 580px;">
+                <button class="btn-secondary" onclick="window.innerWidth < 1024 ? renderChapters() : renderLevels('${chapterId}')" style="flex: 1; white-space: nowrap;">Back to Map</button>
+                ${nextChapterObj ? `
+                <button class="btn-primary" onclick="renderLevels('${nextChapterObj.id}')" style="flex: 1; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    Next Chapter 🚀
+                </button>
+                ` : ''}
+            </div>
+        </div>
+        `;
+        return;
     }
 
     app.innerHTML = `
@@ -6823,16 +6897,56 @@ window.renderGodModeRightPane = function () {
         }
 
         if (qType === 'gameplay_tutorial') {
+            const defaultTitles = ["Meet Your Companions", "Stay in the Game", "Learn by Playing", "The Chapter Map & Ranks"];
+            const defaultSubtitles = ["Polly & Garfield", "Hearts & Gems", "Challenge Formats", "Track Progress"];
+            const defaultContents = [
+                "Polly is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Polly in the bottom-right corner to open your Chat Coach! 💬",
+                "Each level starts with 5 hearts ❤️. Making mistakes costs a heart. Don't worry—completing activities rewards you with Gems 💎, which you can use to restore health!",
+                "You'll solve matching cards, order processes, fill-in-the-blanks, and choice tasks. Every correct answer earns you experience points (⚡ XP)!",
+                "Unlock new chapters on the map as you learn. Maintain your daily streak to rank up the leaderboard and prove your AI knowledge! 🏆"
+            ];
+
             html += `
-                <div style="${sectionStyle}">
-                    <label style="${labelStyle}">Gameplay Tutorial Node</label>
-                    <div style="background: var(--bg-overlay); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; text-align: center; box-sizing: border-box;">
-                        <span class="material-symbols-rounded" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem; display: block;">school</span>
-                        This is the Interactive Gameplay Tutorial card stack node.
-                        Its cards, graphics, and interactive navigation are managed directly in system code.
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Page Title</label>
+                        <input type="text" id="admin-q-tutorial-title" value="${(act.title || "Polly's Flight Manual").replace(/"/g, '&quot;')}" placeholder="e.g., Polly's Flight Manual" style="${inputStyle}">
+                    </div>
+                    <div style="${sectionStyle}">
+                        <label style="${labelStyle}">Page Subtitle</label>
+                        <input type="text" id="admin-q-tutorial-subtitle" value="${(act.subtitle || "How to Play LearnAI").replace(/"/g, '&quot;')}" placeholder="e.g., How to Play LearnAI" style="${inputStyle}">
                     </div>
                 </div>
+
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin: 1.5rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Card Contents (4 Cards)</h4>
             `;
+
+            for (let i = 0; i < 4; i++) {
+                const card = (act.cards && act.cards[i]) || {};
+                const cTitle = card.title !== undefined ? card.title : defaultTitles[i];
+                const cSubtitle = card.subtitle !== undefined ? card.subtitle : defaultSubtitles[i];
+                const cContent = card.content !== undefined ? card.content : defaultContents[i];
+
+                html += `
+                    <div style="background: rgba(var(--primary-rgb), 0.03); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 1rem; margin-bottom: 1rem;">
+                        <h5 style="font-size: 0.85rem; font-weight: 700; color: var(--primary); margin: 0 0 0.8rem 0; text-transform: uppercase; letter-spacing: 0.5px;">Card ${i + 1}</h5>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem;">
+                            <div style="${sectionStyle}; margin-bottom: 0;">
+                                <label style="${labelStyle}">Card Title</label>
+                                <input type="text" id="admin-q-card-title-${i}" value="${cTitle.replace(/"/g, '&quot;')}" placeholder="Title" style="${inputStyle}">
+                            </div>
+                            <div style="${sectionStyle}; margin-bottom: 0;">
+                                <label style="${labelStyle}">Card Subtitle</label>
+                                <input type="text" id="admin-q-card-subtitle-${i}" value="${cSubtitle.replace(/"/g, '&quot;')}" placeholder="Subtitle" style="${inputStyle}">
+                            </div>
+                        </div>
+                        <div style="${sectionStyle}; margin-bottom: 0; margin-top: 0.75rem;">
+                            <label style="${labelStyle}">Card Content</label>
+                            <textarea id="admin-q-card-content-${i}" style="${taStyle(80)}" placeholder="Content...">${cContent}</textarea>
+                        </div>
+                    </div>
+                `;
+            }
         }
 
         if (qType === 'choice' || qType === 'multiple_choice') {
@@ -7640,6 +7754,37 @@ window.adminSaveQuestion = function (isPublish = false, isUnpublish = false) {
 
         if (!q.videoUrl) setError("Video URL is required.");
         if (!q.title) setError("Video title is required.");
+    }
+
+    if (q.type === 'gameplay_tutorial') {
+        const tutTitleNode = document.getElementById('admin-q-tutorial-title');
+        const tutSubTitleNode = document.getElementById('admin-q-tutorial-subtitle');
+        q.title = tutTitleNode ? tutTitleNode.value.trim() : '';
+        q.subtitle = tutSubTitleNode ? tutSubTitleNode.value.trim() : '';
+        q.question = q.title;
+        q.text = q.title;
+
+        if (!q.title) setError("Page title is required.");
+
+        q.cards = [];
+        for (let i = 0; i < 4; i++) {
+            const cardTitleNode = document.getElementById(`admin-q-card-title-${i}`);
+            const cardSubNode = document.getElementById(`admin-q-card-subtitle-${i}`);
+            const cardContentNode = document.getElementById(`admin-q-card-content-${i}`);
+
+            const cTitle = cardTitleNode ? cardTitleNode.value.trim() : '';
+            const cSub = cardSubNode ? cardSubNode.value.trim() : '';
+            const cContent = cardContentNode ? cardContentNode.value.trim() : '';
+
+            if (!cTitle) setError(`Card ${i + 1} title is required.`);
+            if (!cContent) setError(`Card ${i + 1} content is required.`);
+
+            q.cards.push({
+                title: cTitle,
+                subtitle: cSub,
+                content: cContent
+            });
+        }
     }
 
     if (q.type === 'task') {

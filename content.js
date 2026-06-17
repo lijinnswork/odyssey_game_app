@@ -4911,7 +4911,7 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
 
     // 1. Add intro info cards and videos
     // Find all introductory nodes explicitly marked to be at the start
-    const introNodes = rawPool.filter(q => String(q.original_id).includes('-INTRO'));
+    const introNodes = rawPool.filter(q => (String(q.original_id).includes('-INTRO') || q.type === 'gameplay_tutorial') && q.published !== false);
     introNodes.sort((a, b) => String(a.original_id).localeCompare(String(b.original_id)));
 
     if (introNodes.length > 0) {
