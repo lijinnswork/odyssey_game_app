@@ -3086,72 +3086,104 @@ window.renderLevels = function (chapterId) {
 
             <!-- Level Cards -->
             <div style="display: flex; flex-direction: column; gap: 0.75rem;" class="level-list">
-                ${chapter.levels.map((level, idx) => {
-        const isUnlocked = gameState.unlockedLevels.includes(level.id) || idx === 0;
-        const levelIdx = gameState.unlockedLevels.indexOf(level.id);
-        const isCompleted = (levelIdx !== -1 && levelIdx < gameState.unlockedLevels.length - 1) || gameState.levelStats[level.id]?.passed;
-        const realQuestions = level.questions ? level.questions.filter(q => !q.id.includes('INTRO')) : [];
-        const totalQs = realQuestions.length || 10;
-        const completeCount = isCompleted ? totalQs : 0;
-        const hideQuestionsCount = (chapterId === 'chapter1' && (idx === 0 || idx === 1));
+                ${(() => {
+                    // Precalculate the single active level index for the chapter
+                    let activeLevelIndex = -1;
+                    for (let i = 0; i < chapter.levels.length; i++) {
+                        const lvl = chapter.levels[i];
+                        const isLvlUnlocked = gameState.unlockedLevels.includes(lvl.id) || i === 0;
+                        let isLvlActuallyUnlocked = isLvlUnlocked;
+                        if (i > 0) {
+                            const prevLvl = chapter.levels[i - 1];
+                            const prevIdx = gameState.unlockedLevels.indexOf(prevLvl.id);
+                            const prevDone = (prevIdx !== -1 && prevIdx < gameState.unlockedLevels.length - 1) || gameState.levelStats[prevLvl.id]?.passed;
+                            if (prevDone) {
+                                if (i === 1 && chapterId !== 'chapter1') {
+                                    const chIdx = window.courseData.findIndex(c => c.id === chapterId);
+                                    const prevChapter = window.courseData[chIdx - 1];
+                                    const prevChapterDone = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
+                                    if (prevChapterDone) isLvlActuallyUnlocked = true;
+                                } else {
+                                    isLvlActuallyUnlocked = true;
+                                }
+                            }
+                        }
+                        const isLvlCompleted = gameState.levelStats[lvl.id]?.passed;
+                        const isLvlLocked = !isLvlActuallyUnlocked && !isLvlCompleted;
 
-        // Force unlock if previous one is completed
-        let isActuallyUnlocked = isUnlocked;
-        if (idx > 0) {
-            const prevLevel = chapter.levels[idx - 1];
-            const prevIdx = gameState.unlockedLevels.indexOf(prevLevel.id);
-            const prevDone = (prevIdx !== -1 && prevIdx < gameState.unlockedLevels.length - 1) || gameState.levelStats[prevLevel.id]?.passed;
-            if (prevDone) {
-                if (idx === 1 && chapterId !== 'chapter1') {
-                    const chIdx = window.courseData.findIndex(c => c.id === chapterId);
-                    const prevChapter = window.courseData[chIdx - 1];
-                    const prevChapterDone = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
-                    if (prevChapterDone) isActuallyUnlocked = true;
-                } else {
-                    isActuallyUnlocked = true;
-                }
-            }
-        }
+                        if (!isLvlCompleted && !isLvlLocked) {
+                            activeLevelIndex = i;
+                            break;
+                        }
+                    }
 
-        const isLocked = !isActuallyUnlocked && !isCompleted;
+                    return chapter.levels.map((level, idx) => {
+                        const isUnlocked = gameState.unlockedLevels.includes(level.id) || idx === 0;
+                        const levelIdx = gameState.unlockedLevels.indexOf(level.id);
+                        const isCompleted = (levelIdx !== -1 && levelIdx < gameState.unlockedLevels.length - 1) || gameState.levelStats[level.id]?.passed;
+                        const realQuestions = level.questions ? level.questions.filter(q => !q.id.includes('INTRO')) : [];
+                        const totalQs = realQuestions.length || 10;
+                        const completeCount = isCompleted ? totalQs : 0;
 
-        const statusColor = isCompleted ? 'var(--success)' : 'var(--accent)';
-        const statusIcon = isCompleted ? 'check_circle' : 'play_circle';
-        const borderColor = isCompleted ? 'var(--success)' : 'var(--primary)';
+                        // Force unlock if previous one is completed
+                        let isActuallyUnlocked = isUnlocked;
+                        if (idx > 0) {
+                            const prevLevel = chapter.levels[idx - 1];
+                            const prevIdx = gameState.unlockedLevels.indexOf(prevLevel.id);
+                            const prevDone = (prevIdx !== -1 && prevIdx < gameState.unlockedLevels.length - 1) || gameState.levelStats[prevLevel.id]?.passed;
+                            if (prevDone) {
+                                if (idx === 1 && chapterId !== 'chapter1') {
+                                    const chIdx = window.courseData.findIndex(c => c.id === chapterId);
+                                    const prevChapter = window.courseData[chIdx - 1];
+                                    const prevChapterDone = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
+                                    if (prevChapterDone) isActuallyUnlocked = true;
+                                } else {
+                                    isActuallyUnlocked = true;
+                                }
+                            }
+                        }
 
-        return `
-                    <button onclick="renderQuestionList('${chapterId}', '${level.id}')"
-                        class="unit-card"
-                        style="padding: 1rem 1.1rem; background: var(--bg-card); backdrop-filter: var(--backdrop-blur); -webkit-backdrop-filter: var(--backdrop-blur);
-                               border: 2px solid ${borderColor}; border-radius: var(--radius-m); text-align: left;
-                               display: flex; align-items: center; gap: 1rem;
-                               opacity: 1; cursor: pointer;
-                               transition: all 0.25s ease-out; width: 100%; box-sizing: border-box;">
-                        <!-- Level Number Badge -->
-                        <div style="width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-                                    background: ${isCompleted ? 'rgba(0,200,150,0.12)' : 'rgba(var(--primary-rgb),0.12)'};
-                                    border: 1.5px solid ${borderColor};
-                                    display: flex; align-items: center; justify-content: center;
-                                    font-weight: 900; font-size: 1rem; color: ${statusColor}; font-family: 'Outfit', sans-serif;">
-                            ${idx === 0 ? '<span class="material-symbols-rounded" style="font-size: 1.2rem;">play_circle</span>' : idx}
-                        </div>
-                        <!-- Level Info -->
-                        <div style="flex: 1; min-width: 0;">
-                            <div style="font-weight: 700; font-size: 1rem; color: ${isCompleted ? 'var(--success)' : 'var(--text-main)'}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                ${level.title}
-                            </div>
-                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                                ${hideQuestionsCount ? '' : `<span>${completeCount}/${totalQs} questions</span>`}
-                                ${isCompleted ? `<span style="color: var(--success); font-weight: 700;">✓ Complete</span>` : (isLocked ? `<span style="color: var(--text-muted);"><span class="material-symbols-rounded" style="font-size: 0.85rem; vertical-align: middle; margin-right: 0.1rem;">lock</span> Quiz Locked</span>` : '')}
-                            </div>
-                        </div>
-                        <!-- Status Icon -->
-                        <div style="font-size: 1.4rem; color: ${statusColor}; flex-shrink: 0;">
-                            <span class="material-symbols-rounded" style="font-size: inherit;">${statusIcon}</span>
-                        </div>
-                    </button>
-                `;
-    }).join('')}
+                        const isLocked = !isActuallyUnlocked && !isCompleted;
+                        const showQuestionsCount = (idx === activeLevelIndex) && (realQuestions.length > 0);
+
+                        const statusColor = isCompleted ? 'var(--success)' : 'var(--accent)';
+                        const statusIcon = isCompleted ? 'check_circle' : 'play_circle';
+                        const borderColor = isCompleted ? 'var(--success)' : 'var(--primary)';
+
+                        return `
+                                    <button onclick="renderQuestionList('${chapterId}', '${level.id}')"
+                                        class="unit-card"
+                                        style="padding: 1rem 1.1rem; background: var(--bg-card); backdrop-filter: var(--backdrop-blur); -webkit-backdrop-filter: var(--backdrop-blur);
+                                               border: 2px solid ${borderColor}; border-radius: var(--radius-m); text-align: left;
+                                               display: flex; align-items: center; gap: 1rem;
+                                               opacity: 1; cursor: pointer;
+                                               transition: all 0.25s ease-out; width: 100%; box-sizing: border-box;">
+                                        <!-- Level Number Badge -->
+                                        <div style="width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+                                                    background: ${isCompleted ? 'rgba(0,200,150,0.12)' : 'rgba(var(--primary-rgb),0.12)'};
+                                                    border: 1.5px solid ${borderColor};
+                                                    display: flex; align-items: center; justify-content: center;
+                                                    font-weight: 900; font-size: 1rem; color: ${statusColor}; font-family: 'Outfit', sans-serif;">
+                                            ${idx === 0 ? '<span class="material-symbols-rounded" style="font-size: 1.2rem;">play_circle</span>' : idx}
+                                        </div>
+                                        <!-- Level Info -->
+                                        <div style="flex: 1; min-width: 0;">
+                                            <div style="font-weight: 700; font-size: 1rem; color: ${isCompleted ? 'var(--success)' : 'var(--text-main)'}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                ${level.title}
+                                            </div>
+                                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                                                ${showQuestionsCount ? `<span>${completeCount}/${totalQs} questions</span>` : ''}
+                                                ${isCompleted ? `<span style="color: var(--success); font-weight: 700;">✓ Complete</span>` : (isLocked ? `<span style="color: var(--text-muted);"><span class="material-symbols-rounded" style="font-size: 0.85rem; vertical-align: middle; margin-right: 0.1rem;">lock</span> Quiz Locked</span>` : '')}
+                                            </div>
+                                        </div>
+                                        <!-- Status Icon -->
+                                        <div style="font-size: 1.4rem; color: ${statusColor}; flex-shrink: 0;">
+                                            <span class="material-symbols-rounded" style="font-size: inherit;">${statusIcon}</span>
+                                        </div>
+                                    </button>
+                                `;
+                    }).join('');
+                })()}
             </div>
         </div>
 
