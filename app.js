@@ -6307,12 +6307,21 @@ window.renderGodModeLeftPane = function () {
                          onclick="adminSelectChapter('${ch.id}')">
                          Chapter ${cIdx + 1}: ${ch.title.split(': ')[0]}
                     </div>
-                    <div onclick="adminEditChapter('${ch.id}')" 
-                         style="cursor: pointer; opacity: 0.8; color: var(--text-main); transition: all 0.2s; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--bg-overlay);" 
-                         onmouseover="this.style.opacity=1; this.style.background='rgba(var(--primary-rgb), 0.1)'" 
-                         onmouseout="this.style.opacity=0.8; this.style.background='var(--bg-overlay)'" 
-                         title="Edit Chapter Settings">
-                        <span class="material-symbols-rounded" style="font-size: 1.1rem;">settings</span>
+                    <div style="display: flex; gap: 0.2rem;">
+                        <div onclick="adminDuplicateChapter('${ch.id}', event)" 
+                             style="cursor: pointer; opacity: 0.8; color: var(--text-main); transition: all 0.2s; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--bg-overlay);" 
+                             onmouseover="this.style.opacity=1; this.style.background='rgba(var(--primary-rgb), 0.1)'" 
+                             onmouseout="this.style.opacity=0.8; this.style.background='var(--bg-overlay)'" 
+                             title="Duplicate Chapter">
+                            <span class="material-symbols-rounded" style="font-size: 1.1rem;">content_copy</span>
+                        </div>
+                        <div onclick="adminEditChapter('${ch.id}')" 
+                             style="cursor: pointer; opacity: 0.8; color: var(--text-main); transition: all 0.2s; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--bg-overlay);" 
+                             onmouseover="this.style.opacity=1; this.style.background='rgba(var(--primary-rgb), 0.1)'" 
+                             onmouseout="this.style.opacity=0.8; this.style.background='var(--bg-overlay)'" 
+                             title="Edit Chapter Settings">
+                            <span class="material-symbols-rounded" style="font-size: 1.1rem;">settings</span>
+                        </div>
                     </div>
                 </div>
                 <div style="padding-left: 1rem; padding-top: 0.5rem; display: ${isChapterSelected || (adminSelectedChapter === null && cIdx === 0) ? 'block' : 'none'}; border-left: 1px solid var(--border); margin-left: 0.5rem;">
@@ -6400,6 +6409,13 @@ window.renderGodModeMiddlePane = function () {
                         <div style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${level?.description || ''}</div>
                     </div>
                     <div style="display: flex; gap: 0.5rem; margin-left: 1rem;">
+                        <button onclick="adminDuplicateLevel('${adminSelectedChapter}', '${adminSelectedLevel}')" 
+                                style="background: rgba(209, 246, 255, 0.05); border: 1px solid var(--border); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;"
+                                onmouseover="this.style.background='rgba(209, 246, 255, 0.15)'; this.style.color='var(--primary)'"
+                                onmouseout="this.style.background='rgba(209, 246, 255, 0.05)'; this.style.color='var(--text-main)'"
+                                title="Duplicate Level">
+                            <span class="material-symbols-rounded" style="font-size: 1.1rem;">content_copy</span>
+                        </button>
                         <button onclick="adminEditLevel('${adminSelectedChapter}', '${adminSelectedLevel}')" 
                                 style="background: rgba(209, 246, 255, 0.05); border: 1px solid var(--border); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;"
                                 onmouseover="this.style.background='rgba(209, 246, 255, 0.15)'; this.style.color='var(--primary)'"
@@ -7231,6 +7247,58 @@ window.adminDeleteChapter = function (chapterId) {
     });
 }
 
+window.adminDuplicateChapter = function (chapterId, event) {
+    if(event) event.stopPropagation();
+    
+    const cIdx = window.courseData.findIndex(c => c.id === chapterId);
+    if (cIdx === -1) return;
+
+    // Shift subsequent chapters up
+    for (let i = window.courseData.length - 1; i > cIdx; i--) {
+        const oldChapterNum = i + 1;
+        const newChapterNum = i + 2;
+        
+        // Shift pools for this chapter
+        const currentChapter = window.courseData[i];
+        for(let l = 0; l < currentChapter.levels.length; l++) {
+            const oldPoolVar = `chapter${oldChapterNum}Level${l + 1}Questions`;
+            const newPoolVar = `chapter${newChapterNum}Level${l + 1}Questions`;
+            window[newPoolVar] = window[oldPoolVar] || [];
+            window[oldPoolVar] = undefined;
+            currentChapter.levels[l].id = `c${newChapterNum}-l${l + 1}`;
+        }
+        currentChapter.id = `chapter${newChapterNum}`;
+    }
+
+    // Clone chapter
+    const sourceChapter = window.courseData[cIdx];
+    const newChapter = JSON.parse(JSON.stringify(sourceChapter));
+    const newChapterNum = cIdx + 2;
+    newChapter.id = `chapter${newChapterNum}`;
+    newChapter.title = newChapter.title ? `${newChapter.title} (Copy)` : 'Copy';
+
+    // Clone pools
+    newChapter.levels.forEach((lvl, l) => {
+        lvl.id = `c${newChapterNum}-l${l + 1}`;
+        const sourcePoolVar = `chapter${cIdx + 1}Level${l + 1}Questions`;
+        const newPoolVar = `chapter${newChapterNum}Level${l + 1}Questions`;
+        
+        let clonedPool = JSON.parse(JSON.stringify(window[sourcePoolVar] || []));
+        clonedPool.forEach(q => {
+            if(q.original_id) q.original_id = q.original_id + '_copy_' + Date.now() + Math.floor(Math.random()*1000);
+        });
+        window[newPoolVar] = clonedPool;
+    });
+
+    window.courseData.splice(cIdx + 1, 0, newChapter);
+    
+    showToast(`Chapter duplicated!`, 'success');
+    adminSelectedChapter = newChapter.id;
+    adminSelectedLevel = newChapter.levels.length > 0 ? newChapter.levels[0].id : null;
+    adminSelectedQuestion = null;
+    renderGodModeEditor();
+};
+
 window.adminAddChapter = function () {
     const chapterNum = window.courseData.length + 1;
     const newChapterId = `chapter${chapterNum}`;
@@ -7335,6 +7403,49 @@ window.adminEditLevel = function (chapterId, levelId) {
         }
     });
 };
+window.adminDuplicateLevel = function (chapterId, levelId) {
+    const chapter = window.courseData.find(c => c.id === chapterId);
+    if (!chapter) return;
+
+    const lIdx = chapter.levels.findIndex(l => l.id === levelId);
+    if (lIdx === -1) return;
+
+    const chapMatch = chapterId.match(/\d+$/);
+    const chapterNum = chapMatch ? chapMatch[0] : '1';
+
+    // Shift subsequent pools up
+    for (let i = chapter.levels.length - 1; i > lIdx; i--) {
+        const oldPoolVar = `chapter${chapterNum}Level${i + 1}Questions`;
+        const newPoolVar = `chapter${chapterNum}Level${i + 2}Questions`;
+        window[newPoolVar] = window[oldPoolVar] || [];
+        chapter.levels[i].id = `c${chapterNum}-l${i + 2}`;
+    }
+
+    // Clone the level
+    const sourceLevel = chapter.levels[lIdx];
+    const newLevel = JSON.parse(JSON.stringify(sourceLevel));
+    newLevel.id = `c${chapterNum}-l${lIdx + 2}`;
+    newLevel.title = newLevel.title ? `${newLevel.title} (Copy)` : 'Copy';
+
+    chapter.levels.splice(lIdx + 1, 0, newLevel);
+
+    // Clone the pool
+    const sourcePoolVar = `chapter${chapterNum}Level${lIdx + 1}Questions`;
+    const newPoolVar = `chapter${chapterNum}Level${lIdx + 2}Questions`;
+    
+    let clonedPool = JSON.parse(JSON.stringify(window[sourcePoolVar] || []));
+    clonedPool.forEach(q => {
+        if(q.original_id) q.original_id = q.original_id + '_copy_' + Date.now() + Math.floor(Math.random()*1000);
+    });
+
+    window[newPoolVar] = clonedPool;
+
+    showToast(`Level duplicated!`, 'success');
+    adminSelectedLevel = newLevel.id;
+    adminSelectedQuestion = null;
+    renderGodModeEditor();
+};
+
 window.adminDeleteLevel = function (chapterId, levelId) {
     showModal({
         icon: null,
