@@ -1065,453 +1065,135 @@ const chapter1Level2Questions = [
 
 const chapter1Level3Questions = [
     {
+        "original_id": "chapter1-L3-INTRO-1-VIDEO",
+        "type": "video",
+        "title": "Evolution of Technology",
+        "subtitle": "Watch the video before starting the challenge",
+        "videoUrl": "https://player.vimeo.com/video/1174724606",
+        "duration": "5 mins",
+        "topic": "AI History",
+        "difficulty": "Beginner",
+        "description": "Discover the long and winding history of AI. From ancient philosophers dreaming of formal logic to modern agentic systems, trace the evolution of the technology that is changing our world.",
+        "takeaways": [
+            "Understand the historical roots of Artificial Intelligence",
+            "Identify key milestones like the Turing Test and Deep Blue",
+            "Recognize the factors that ended the 'AI Winter' and sparked modern AI"
+        ],
+        "xp": 0,
+        "published": true
+    },
+    {
+        "original_id": "chapter1-L3-INTRO-2",
+        "type": "info_card",
+        "title": "Welcome to Level 3",
+        "subtitle": "Evolution of Technology",
+        "text": "Now that you've watched the video, let's test your knowledge of AI's history!\n\nRemember: AI is not a sudden invention but the result of a long cycle of big ideas, hardware improvements, and massive data collection.\n\nComplete the challenges to master this topic!",
+        "buttonText": "Start Challenge",
+        "xp": 0,
+        "published": true
+    },
+    {
         "original_id": 1,
-        "question": "An AI summarization tool consistently omits nuanced counterarguments in academic texts. What does this most directly reflect?",
-        "correctFeedback": "Many summarization systems are optimized to compress information efficiently, which can cause subtle arguments or minority perspectives to be removed.",
-        "incorrectFeedback": "Summarization models prioritize condensed outputs. When brevity is optimized, nuanced arguments and counterpoints are often the first elements lost.",
+        "question": "What is considered the 'philosophical seed' for all of computation and AI?",
+        "correctFeedback": "Correct! Ancient philosophers breaking down thoughts into a system of rules (formal logic) was the first step toward mechanizing reason.",
+        "incorrectFeedback": "Try again. The journey of AI started long before computers, with ancient philosophers trying to map out thought using formal logic.",
         "xp": 10,
         "type": "choice",
         "options": [
             {
-                "text": "Token generation bias",
+                "text": "The invention of the microchip in the 1960s.",
                 "correct": false,
-                "feedback": "Summarization models prioritize condensed outputs. When brevity is optimized, nuanced arguments and counterpoints are often the first elements lost."
+                "feedback": "Try again. The journey of AI started long before computers, with ancient philosophers trying to map out thought using formal logic."
             },
             {
-                "text": "Optimization for brevity over depth",
+                "text": "The idea of formal logic and mechanizing reason.",
                 "correct": true,
-                "feedback": "Many summarization systems are optimized to compress information efficiently, which can cause subtle arguments or minority perspectives to be removed."
+                "feedback": "Correct! Ancient philosophers breaking down thoughts into a system of rules (formal logic) was the first step toward mechanizing reason."
             },
             {
-                "text": "Training data corruption",
+                "text": "The launch of the first digital chatbot.",
                 "correct": false,
-                "feedback": "Summarization models prioritize condensed outputs. When brevity is optimized, nuanced arguments and counterpoints are often the first elements lost."
+                "feedback": "Try again. The journey of AI started long before computers, with ancient philosophers trying to map out thought using formal logic."
             },
             {
-                "text": "Computational limitation",
+                "text": "The development of graphical processing units (GPUs).",
                 "correct": false,
-                "feedback": "Summarization models prioritize condensed outputs. When brevity is optimized, nuanced arguments and counterpoints are often the first elements lost."
+                "feedback": "Try again. The journey of AI started long before computers, with ancient philosophers trying to map out thought using formal logic."
             }
         ]
     },
     {
         "original_id": 2,
-        "question": "An AI grading assistant performs well in structured assessments but inconsistently in open-ended essays. Why?",
-        "correctFeedback": "Structured assessments follow predictable patterns, while open-ended essays require nuanced interpretation that statistical models evaluate less reliably.",
-        "incorrectFeedback": "Open-ended responses introduce ambiguity and subjective interpretation, which statistical models handle less consistently than structured patterns.",
+        "question": "What challenge did Alan Turing propose in 1950 to test machine intelligence?",
+        "correctFeedback": "Correct! Turing asked if a machine could chat with a human so well that the human wouldn't know it was a machine.",
+        "incorrectFeedback": "Incorrect. The Turing test specifically involves evaluating a machine's ability to exhibit intelligent behavior indistinguishable from a human in conversation.",
         "xp": 10,
         "type": "choice",
         "options": [
             {
-                "text": "It struggles with subjective evaluation patterns",
+                "text": "Could a machine solve advanced calculus problems faster than humans?",
+                "correct": false,
+                "feedback": "Incorrect. The Turing test specifically involves evaluating a machine's ability to exhibit intelligent behavior indistinguishable from a human in conversation."
+            },
+            {
+                "text": "Could a machine beat a grandmaster at chess?",
+                "correct": false,
+                "feedback": "Incorrect. The Turing test specifically involves evaluating a machine's ability to exhibit intelligent behavior indistinguishable from a human in conversation."
+            },
+            {
+                "text": "Could a machine chat so well that you wouldn't know it's a machine?",
                 "correct": true,
-                "feedback": "Structured assessments follow predictable patterns, while open-ended essays require nuanced interpretation that statistical models evaluate less reliably."
+                "feedback": "Correct! Turing asked if a machine could chat with a human so well that the human wouldn't know it was a machine."
             },
             {
-                "text": "It lacks access to external databases and sources",
+                "text": "Could a machine physically navigate an obstacle course?",
                 "correct": false,
-                "feedback": "Open-ended responses introduce ambiguity and subjective interpretation, which statistical models handle less consistently than structured patterns."
-            },
-            {
-                "text": "It applies excessive rule-based logic for evaluation",
-                "correct": false,
-                "feedback": "Open-ended responses introduce ambiguity and subjective interpretation, which statistical models handle less consistently than structured patterns."
-            },
-            {
-                "text": "It requires emotional calibration",
-                "correct": false,
-                "feedback": "Open-ended responses introduce ambiguity and subjective interpretation, which statistical models handle less consistently than structured patterns."
+                "feedback": "Incorrect. The Turing test specifically involves evaluating a machine's ability to exhibit intelligent behavior indistinguishable from a human in conversation."
             }
         ]
     },
     {
         "original_id": 3,
-        "question": "If a generative AI produces highly confident but fabricated citations, this indicates:",
-        "correctFeedback": "Generative models construct plausible sequences based on patterns in training data, not by verifying whether sources actually exist.",
-        "incorrectFeedback": "Generative AI predicts plausible text patterns but does not inherently verify external references, allowing fabricated citations to appear convincing.",
+        "question": "Which of the following are examples of early AI successes mentioned in the video? (Select all that apply)",
+        "correctFeedback": "Correct! ELIZA was an early chatbot ancestor, and Shakey was an incredible robot that could see and navigate its surroundings.",
+        "incorrectFeedback": "Not quite. While Siri and AlexNet are AI successes, they came much later. The early successes mentioned were ELIZA and Shakey the robot.",
         "xp": 10,
-        "type": "choice",
+        "type": "multiple_choice",
         "options": [
             {
-                "text": "Incomplete indexing of academic sources",
-                "correct": false,
-                "feedback": "Generative AI predicts plausible text patterns but does not inherently verify external references, allowing fabricated citations to appear convincing."
-            },
-            {
-                "text": "Pattern completion without source verification",
+                "text": "ELIZA, a program that could have a conversation.",
                 "correct": true,
-                "feedback": "Generative models construct plausible sequences based on patterns in training data, not by verifying whether sources actually exist."
+                "feedback": "Correct! ELIZA was an early chatbot ancestor, and Shakey was an incredible robot that could see and navigate its surroundings."
             },
             {
-                "text": "Intentional creative augmentation",
-                "correct": false,
-                "feedback": "Generative AI predicts plausible text patterns but does not inherently verify external references, allowing fabricated citations to appear convincing."
+                "text": "Shakey the robot, which could see its surroundings.",
+                "correct": true,
+                "feedback": "Correct! ELIZA was an early chatbot ancestor, and Shakey was an incredible robot that could see and navigate its surroundings."
             },
             {
-                "text": "Semantic compression error",
+                "text": "Siri, a voice assistant for smartphones.",
                 "correct": false,
-                "feedback": "Generative AI predicts plausible text patterns but does not inherently verify external references, allowing fabricated citations to appear convincing."
+                "feedback": "Not quite. While Siri and AlexNet are AI successes, they came much later. The early successes mentioned were ELIZA and Shakey the robot."
+            },
+            {
+                "text": "AlexNet, an image recognition system.",
+                "correct": false,
+                "feedback": "Not quite. While Siri and AlexNet are AI successes, they came much later. The early successes mentioned were ELIZA and Shakey the robot."
             }
         ]
     },
     {
         "original_id": 4,
-        "question": "A model trained primarily on urban student data underperforms in rural contexts. This highlights:",
-        "correctFeedback": "When the deployment environment differs from the training environment, model performance can decline due to distribution shift.",
-        "incorrectFeedback": "AI models learn patterns from training data. When the real-world context differs from that data, the model encounters distribution shift.",
-        "xp": 10,
-        "type": "choice",
-        "options": [
-            {
-                "text": "Interface misalignment",
-                "correct": false,
-                "feedback": "AI models learn patterns from training data. When the real-world context differs from that data, the model encounters distribution shift."
-            },
-            {
-                "text": "Contextual distribution shift",
-                "correct": true,
-                "feedback": "When the deployment environment differs from the training environment, model performance can decline due to distribution shift."
-            },
-            {
-                "text": "Autonomous reasoning failure",
-                "correct": false,
-                "feedback": "AI models learn patterns from training data. When the real-world context differs from that data, the model encounters distribution shift."
-            },
-            {
-                "text": "Prompt ambiguity",
-                "correct": false,
-                "feedback": "AI models learn patterns from training data. When the real-world context differs from that data, the model encounters distribution shift."
-            }
-        ]
-    },
-    {
-        "original_id": 5,
-        "question": "When educators overly rely on AI-generated lesson plans, the primary long-term risk is:",
-        "correctFeedback": "Heavy dependence on automated content can gradually reduce diversity in instructional approaches and pedagogical creativity.",
-        "incorrectFeedback": "Generative systems often produce broadly optimized structures, which can unintentionally standardize teaching approaches when used without adaptation.",
-        "xp": 10,
-        "type": "choice",
-        "options": [
-            {
-                "text": "Reduced computational efficiency",
-                "correct": false,
-                "feedback": "Generative systems often produce broadly optimized structures, which can unintentionally standardize teaching approaches when used without adaptation."
-            },
-            {
-                "text": "Standardization of diverse pedagogical approaches",
-                "correct": true,
-                "feedback": "Heavy dependence on automated content can gradually reduce diversity in instructional approaches and pedagogical creativity."
-            },
-            {
-                "text": "Increased personalization of learning pathways",
-                "correct": false,
-                "feedback": "Generative systems often produce broadly optimized structures, which can unintentionally standardize teaching approaches when used without adaptation."
-            },
-            {
-                "text": "Decreased model scalability across subjects",
-                "correct": false,
-                "feedback": "Generative systems often produce broadly optimized structures, which can unintentionally standardize teaching approaches when used without adaptation."
-            }
-        ]
-    },
-    {
-        "original_id": 6,
-        "question": "Which best explains why AI outputs can vary even with similar prompts?",
-        "correctFeedback": "Generative AI predicts tokens using probability distributions, which can produce different outputs from similar prompts.",
-        "incorrectFeedback": "Generative models sample from probability distributions rather than following a single fixed output path.",
-        "xp": 10,
-        "type": "choice",
-        "options": [
-            {
-                "text": "Models revise goals dynamically during each interaction",
-                "correct": false,
-                "feedback": "Generative models sample from probability distributions rather than following a single fixed output path."
-            },
-            {
-                "text": "Outputs are probabilistic rather than deterministic",
-                "correct": true,
-                "feedback": "Generative AI predicts tokens using probability distributions, which can produce different outputs from similar prompts."
-            },
-            {
-                "text": "Training data updates continuously during conversation",
-                "correct": false,
-                "feedback": "Generative models sample from probability distributions rather than following a single fixed output path."
-            },
-            {
-                "text": "Human reasoning is simulated differently each time",
-                "correct": false,
-                "feedback": "Generative models sample from probability distributions rather than following a single fixed output path."
-            }
-        ]
-    },
-    {
-        "original_id": 7,
-        "question": "Which factors influence variability in generative AI outputs?",
-        "correctFeedback": "Output variability emerges from prompt wording, probabilistic token sampling, and internal parameter settings.",
-        "incorrectFeedback": "Generative systems produce outputs through probability sampling influenced by prompts and model parameters.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Prompt phrasing differences",
-                "correct": true
-            },
-            {
-                "text": "Probabilistic sampling mechanisms",
-                "correct": true
-            },
-            {
-                "text": "Emotional instability of the system",
-                "correct": false
-            },
-            {
-                "text": "Model parameter tuning",
-                "correct": true
-            }
-        ]
-    },
-    {
-        "original_id": 8,
-        "question": "Which risks increase when AI tools are adopted institution-wide without governance?",
-        "correctFeedback": "Without governance structures, AI adoption can create inconsistent practices, reinforce biases, and obscure responsibility.",
-        "incorrectFeedback": "Institution-wide AI deployment requires governance because systems can scale both inconsistencies and biases.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Inconsistent academic standards",
-                "correct": true
-            },
-            {
-                "text": "Amplification of systemic bias",
-                "correct": true
-            },
-            {
-                "text": "Elimination of human accountability",
-                "correct": true
-            },
-            {
-                "text": "Improved interpretability",
-                "correct": false
-            }
-        ]
-    },
-    {
-        "original_id": 9,
-        "question": "Which reflect structural limitations of generative AI?",
-        "correctFeedback": "Generative models rely on statistical pattern learning rather than grounded reasoning, making them sensitive to prompt framing.",
-        "incorrectFeedback": "Generative AI learns correlations from data rather than grounded causal understanding.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Lack of grounded real-world awareness",
-                "correct": true
-            },
-            {
-                "text": "Dependence on statistical associations",
-                "correct": true
-            },
-            {
-                "text": "Ability to reason causally across all domains",
-                "correct": false
-            },
-            {
-                "text": "Vulnerability to misleading prompts",
-                "correct": true
-            }
-        ]
-    },
-    {
-        "original_id": 10,
-        "question": "Which educational uses require especially strong human oversight?",
-        "correctFeedback": "Decisions affecting fairness, evaluation, or ethics require strong human oversight when AI systems are involved.",
-        "incorrectFeedback": "Oversight becomes essential when AI influences evaluation outcomes or ethical judgments.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "High-stakes grading",
-                "correct": true
-            },
-            {
-                "text": "Draft brainstorming",
-                "correct": false
-            },
-            {
-                "text": "Ethical adjudication",
-                "correct": true
-            },
-            {
-                "text": "Administrative automation",
-                "correct": false
-            }
-        ]
-    },
-    {
-        "original_id": 11,
-        "question": "Which factors contribute to hallucination risk in generative AI systems?",
-        "correctFeedback": "Hallucinations often emerge when prompts are unclear, training data lacks coverage, or the model extends patterns beyond verified information.",
-        "incorrectFeedback": "Hallucinations commonly arise from ambiguity in prompts, missing knowledge in training data, and pattern extension beyond reliable evidence.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Ambiguous prompts",
-                "correct": true
-            },
-            {
-                "text": "Gaps in training data",
-                "correct": true
-            },
-            {
-                "text": "Explicit fact-checking pipelines",
-                "correct": false
-            },
-            {
-                "text": "Overgeneralized pattern extension",
-                "correct": true
-            }
-        ]
-    },
-    {
-        "original_id": 12,
-        "question": "Which actions improve responsible AI integration in institutions?",
-        "correctFeedback": "Responsible AI integration depends on review processes, ongoing monitoring, and transparency about how systems are used.",
-        "incorrectFeedback": "Effective AI governance requires oversight mechanisms, continuous monitoring, and transparency about system usage.",
-        "xp": 10,
-        "type": "multiple_choice",
-        "options": [
-            {
-                "text": "Establishing review protocols",
-                "correct": true
-            },
-            {
-                "text": "Blind acceptance of fluent output",
-                "correct": false
-            },
-            {
-                "text": "Continuous monitoring",
-                "correct": true
-            },
-            {
-                "text": "Transparent usage disclosure",
-                "correct": true
-            }
-        ]
-    },
-    {
-        "original_id": 13,
-        "question": "Arrange the steps in diagnosing biased AI performance.",
-        "correctFeedback": "Bias diagnosis begins with identifying disparities, followed by examining data sources, implementing adjustments, and evaluating results.",
-        "incorrectFeedback": "Bias investigation typically starts with detecting outcome disparities, then analyzing training data before corrective action and re-evaluation.",
+        "question": "Arrange these milestones in the history of AI in chronological order:",
+        "correctFeedback": "Correct! The sequence is: Turing Test (1950) -> 'AI' gets its name (1956) -> Deep Blue beats Kasparov (1997) -> AlexNet wins image contest (2012).",
+        "incorrectFeedback": "Not quite. Remember the timeline: Turing Test (1950), the term Artificial Intelligence (1956), Deep Blue (1997), and then AlexNet (2012).",
         "xp": 10,
         "type": "ordering",
         "items": [
-            "Detect performance disparity",
-            "Re-evaluate outcomes",
-            "Implement corrective adjustment",
-            "Investigate training data"
-        ],
-        "correct_order": [
-            0,
-            3,
-            2,
-            1
-        ]
-    },
-    {
-        "original_id": 14,
-        "question": "Arrange the stages of refining a generative AI output.",
-        "correctFeedback": "A common workflow begins with generation, followed by critical review, evidence verification, and structural revision.",
-        "incorrectFeedback": "Generative output refinement generally follows the sequence: produce a draft, review its claims, verify evidence, and then revise.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Revise structure",
-            "Cross-check evidence",
-            "Generate initial draft",
-            "Critically review claims"
-        ],
-        "correct_order": [
-            2,
-            3,
-            1,
-            0
-        ]
-    },
-    {
-        "original_id": 15,
-        "question": "Arrange the abstraction layers in AI processing from input to output.",
-        "correctFeedback": "AI systems transform raw inputs into encoded representations, infer patterns, and finally generate outputs.",
-        "incorrectFeedback": "Machine learning pipelines typically begin with raw data, convert it into internal representations, infer patterns, and produce outputs.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Raw input data",
-            "Generated output",
-            "Encoded representations",
-            "Pattern inference"
-        ],
-        "correct_order": [
-            0,
-            2,
-            3,
-            1
-        ]
-    },
-    {
-        "original_id": 16,
-        "question": "Arrange the typical stages of institutional AI adoption.",
-        "correctFeedback": "Strategic adoption begins with clear goals, followed by tool evaluation, pilot testing, and governance policies.",
-        "incorrectFeedback": "AI adoption frameworks typically start with defining goals, evaluating tools, piloting deployment, and then formalizing governance.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Establish oversight policy",
-            "Evaluate tools",
-            "Pilot deployment",
-            "Define objectives"
-        ],
-        "correct_order": [
-            3,
-            1,
-            2,
-            0
-        ]
-    },
-    {
-        "original_id": 17,
-        "question": "Arrange the progression of risk escalation in AI systems.",
-        "correctFeedback": "Small inaccuracies can compound into recurring distortions, eventually reinforcing systemic bias and broader institutional effects.",
-        "incorrectFeedback": "Risk escalation typically begins with isolated inaccuracies before evolving into repeated distortions and systemic bias.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Institutional impact",
-            "Minor inaccuracy",
-            "Systemic bias",
-            "Repeated pattern distortion"
-        ],
-        "correct_order": [
-            1,
-            3,
-            2,
-            0
-        ]
-    },
-    {
-        "original_id": 18,
-        "question": "Arrange the progression of decision reliance on AI systems.",
-        "correctFeedback": "AI integration often progresses from suggestions to automation, eventually reaching high-stakes decisions and independent authority.",
-        "incorrectFeedback": "Decision reliance typically evolves gradually: first suggestions, then automation, followed by higher-stakes decision roles.",
-        "xp": 10,
-        "type": "ordering",
-        "items": [
-            "Assistive suggestion",
-            "Partial automation",
-            "High-stakes automation",
-            "Independent authority"
+            "Alan Turing proposes the Turing test",
+            "The term 'Artificial Intelligence' is coined",
+            "IBM's Deep Blue defeats Garry Kasparov",
+            "AlexNet blows everyone away in image recognition"
         ],
         "correct_order": [
             0,
@@ -1521,288 +1203,132 @@ const chapter1Level3Questions = [
         ]
     },
     {
-        "original_id": 19,
-        "question": "Match each concept to its implication.",
-        "correctFeedback": "Distribution shift refers to context mismatch, probabilistic sampling explains output variability, bias amplification reinforces trends, and oversight mitigates risk.",
-        "incorrectFeedback": "Distribution shift occurs when deployment context differs from training data, probabilistic sampling introduces variability, and oversight helps reduce risk.",
+        "original_id": 5,
+        "question": "What caused the 'AI Winter'?",
+        "correctFeedback": "Correct! The AI winter occurred when the hype got way ahead of the tech, as computers just weren't powerful enough yet to achieve grand human-like intelligence.",
+        "incorrectFeedback": "Try again. The AI winter wasn't caused by a lack of interest, but by computing hardware limitations and unrealistic expectations.",
+        "xp": 10,
+        "type": "choice",
+        "options": [
+            {
+                "text": "The public lost interest in science fiction concepts.",
+                "correct": false,
+                "feedback": "Try again. The AI winter wasn't caused by a lack of interest, but by computing hardware limitations and unrealistic expectations."
+            },
+            {
+                "text": "Computers were not powerful enough to meet the grand expectations.",
+                "correct": true,
+                "feedback": "Correct! The AI winter occurred when the hype got way ahead of the tech, as computers just weren't powerful enough yet to achieve grand human-like intelligence."
+            },
+            {
+                "text": "Governments banned artificial intelligence research globally.",
+                "correct": false,
+                "feedback": "Try again. The AI winter wasn't caused by a lack of interest, but by computing hardware limitations and unrealistic expectations."
+            },
+            {
+                "text": "A massive virus wiped out early AI datasets.",
+                "correct": false,
+                "feedback": "Try again. The AI winter wasn't caused by a lack of interest, but by computing hardware limitations and unrealistic expectations."
+            }
+        ]
+    },
+    {
+        "original_id": 6,
+        "question": "Match the era or milestone with its description:",
+        "correctFeedback": "Correct! You successfully matched the key AI milestones to their descriptions.",
+        "incorrectFeedback": "Check your matches. Deep Blue used brute force calculation, AlexNet marked the end of the AI winter, Expert Systems were 1980s rule-based AIs, and the Turing Test proposed a conversational challenge.",
         "xp": 10,
         "type": "matching",
         "pairs": [
             {
-                "left": "Distribution shift",
-                "right": "Data context mismatch"
+                "left": "Deep Blue",
+                "right": "Demonstrated raw analytical power via brute force calculation"
             },
             {
-                "left": "Probabilistic sampling",
-                "right": "Output variability"
+                "left": "AlexNet (2012)",
+                "right": "Combined deep neural networks, GPUs, and big data"
             },
             {
-                "left": "Bias amplification",
-                "right": "Reinforcement of skewed trends"
+                "left": "Expert Systems",
+                "right": "Practical rule-based AIs from the 1980s"
             },
             {
-                "left": "Human oversight",
-                "right": "Risk mitigation layer"
+                "left": "Turing Test",
+                "right": "A challenge to see if machines can convincingly chat"
             }
         ],
         "shuffledRight": [
-            "Reinforcement of skewed trends",
-            "Risk mitigation layer",
-            "Data context mismatch",
-            "Output variability"
+            "Combined deep neural networks, GPUs, and big data",
+            "A challenge to see if machines can convincingly chat",
+            "Practical rule-based AIs from the 1980s",
+            "Demonstrated raw analytical power via brute force calculation"
         ]
     },
     {
-        "original_id": 20,
-        "question": "Match the limitation with its classroom impact.",
-        "correctFeedback": "Hallucinations create misleading references, lack of empathy limits pastoral understanding, pattern overgeneralization simplifies categories, and context loss misinterprets nuance.",
-        "incorrectFeedback": "Hallucinations produce false references, pattern overgeneralization simplifies complexity, and missing context can distort nuanced topics.",
+        "original_id": 7,
+        "question": "Fill in the blank",
+        "correctFeedback": "Correct! The breakthrough in 2012 happened because of a perfect recipe combining deep neural networks, the power of gaming GPUs, and massive amounts of data.",
+        "incorrectFeedback": "Incorrect. The key ingredients for modern AI success are deep neural networks, powerful GPUs for heavy lifting, and massive amounts of data.",
         "xp": 10,
-        "type": "matching",
-        "pairs": [
+        "type": "fill_in_blanks",
+        "text": "The success of AlexNet in 2012 was the perfect recipe coming together: deep neural networks, the raw power of gaming [GPUs], and massive amounts of [data].",
+        "wordBank": [
+            "GPUs",
+            "data",
+            "CPUs",
+            "code",
+            "rules",
+            "philosophers"
+        ]
+    },
+    {
+        "original_id": 8,
+        "question": "What is the defining characteristic of 'Agentic AI' as described at the end of the video?",
+        "correctFeedback": "Correct! Agentic AI systems can plan and take multiple steps on their own to work towards a complex goal, rather than just answering a single prompt.",
+        "incorrectFeedback": "Remember, the video states that Agentic AI are not just tools that do one thing when asked, but systems that can plan and take multiple steps autonomously.",
+        "xp": 10,
+        "type": "choice",
+        "options": [
             {
-                "left": "Hallucination",
-                "right": "Misleading references"
+                "text": "They are purely physical robots designed for manual labor.",
+                "correct": false,
+                "feedback": "Remember, the video states that Agentic AI are not just tools that do one thing when asked, but systems that can plan and take multiple steps autonomously."
             },
             {
-                "left": "Lack of empathy",
-                "right": "Inadequate pastoral support"
+                "text": "They only respond to basic voice commands to play music or check weather.",
+                "correct": false,
+                "feedback": "Remember, the video states that Agentic AI are not just tools that do one thing when asked, but systems that can plan and take multiple steps autonomously."
             },
             {
-                "left": "Pattern overgeneralization",
-                "right": "Simplistic categorization"
+                "text": "They can plan, take multiple steps on their own, and work toward a complex goal.",
+                "correct": true,
+                "feedback": "Correct! Agentic AI systems can plan and take multiple steps on their own to work towards a complex goal, rather than just answering a single prompt."
             },
             {
-                "left": "Context loss",
-                "right": "Misinterpretation of nuanced topics"
+                "text": "They rely entirely on hand-coded rules to function.",
+                "correct": false,
+                "feedback": "Remember, the video states that Agentic AI are not just tools that do one thing when asked, but systems that can plan and take multiple steps autonomously."
             }
-        ],
-        "shuffledRight": [
-            "Inadequate pastoral support",
-            "Simplistic categorization",
-            "Misinterpretation of nuanced topics",
-            "Misleading references"
         ]
     },
     {
-        "original_id": 21,
-        "question": "Match each AI feature with its technical basis.",
-        "correctFeedback": "Personalization relies on behavioral data patterns, prediction uses probability estimation, text generation is based on sequence modeling, and clustering groups similar features.",
-        "incorrectFeedback": "Personalization typically analyzes user behavior, prediction estimates probabilities, sequence modeling generates text, and clustering groups similar data features.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Personalization",
-                "right": "Behavioral data analysis"
-            },
-            {
-                "left": "Prediction",
-                "right": "Probability estimation"
-            },
-            {
-                "left": "Text generation",
-                "right": "Sequence modeling"
-            },
-            {
-                "left": "Pattern clustering",
-                "right": "Feature grouping"
-            }
-        ],
-        "shuffledRight": [
-            "Sequence modeling",
-            "Feature grouping",
-            "Probability estimation",
-            "Behavioral data analysis"
-        ]
-    },
-    {
-        "original_id": 22,
-        "question": "Match each AI risk with the most relevant mitigation strategy.",
-        "correctFeedback": "Fabricated citations require verification, dataset imbalance needs diversified data, prompt ambiguity improves with clearer prompts, and overreliance requires human oversight.",
-        "incorrectFeedback": "Verification addresses fabricated information, diversified datasets reduce imbalance, clearer prompts reduce ambiguity, and human intervention prevents overreliance.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Fabricated citations",
-                "right": "Source verification"
-            },
-            {
-                "left": "Dataset imbalance",
-                "right": "Data diversification"
-            },
-            {
-                "left": "Prompt ambiguity",
-                "right": "Clear prompt design"
-            },
-            {
-                "left": "Overreliance",
-                "right": "Human intervention"
-            }
-        ],
-        "shuffledRight": [
-            "Source verification",
-            "Clear prompt design",
-            "Human intervention",
-            "Data diversification"
-        ]
-    },
-    {
-        "original_id": 23,
-        "question": "Match each conceptual layer of AI systems.",
-        "correctFeedback": "Training data provides examples, models store learned parameters, outputs generate responses, and oversight evaluates performance.",
-        "incorrectFeedback": "AI systems rely on training examples, learned parameters inside the model, generated outputs, and oversight checkpoints for evaluation.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Data",
-                "right": "Training examples"
-            },
-            {
-                "left": "Model",
-                "right": "Learned parameter structure"
-            },
-            {
-                "left": "Output",
-                "right": "Generated response"
-            },
-            {
-                "left": "Oversight",
-                "right": "Evaluation checkpoint"
-            }
-        ],
-        "shuffledRight": [
-            "Generated response",
-            "Evaluation checkpoint",
-            "Training examples",
-            "Learned parameter structure"
-        ]
-    },
-    {
-        "original_id": 24,
-        "question": "Match each AI adoption stage with its priority.",
-        "correctFeedback": "Exploration clarifies goals, pilots test ideas through limited experiments, scaling requires monitoring, and institutionalization demands governance structures.",
-        "incorrectFeedback": "AI adoption typically begins with objective clarity, then pilot experimentation, followed by large-scale monitoring and formal governance.",
-        "xp": 10,
-        "type": "matching",
-        "pairs": [
-            {
-                "left": "Exploration",
-                "right": "Objective clarity"
-            },
-            {
-                "left": "Pilot",
-                "right": "Limited experimentation"
-            },
-            {
-                "left": "Scaling",
-                "right": "System-wide monitoring"
-            },
-            {
-                "left": "Institutionalization",
-                "right": "Governance framework"
-            }
-        ],
-        "shuffledRight": [
-            "Governance framework",
-            "System-wide monitoring",
-            "Objective clarity",
-            "Limited experimentation"
-        ]
-    },
-    {
-        "original_id": 25,
+        "original_id": 9,
         "question": "Fill in the blank",
-        "correctFeedback": "Generative models produce outputs probabilistically by predicting likely word associations from training data.",
-        "incorrectFeedback": "Generative AI predicts words using probability distributions learned from statistical associations in training data.",
+        "correctFeedback": "Correct! The history of AI shows that it is the result of a long cycle of big ideas, hardware to run them, and data to fuel them.",
+        "incorrectFeedback": "Try again. The video emphasizes that AI's progress comes from a cycle of big ideas, hardware, and data.",
         "xp": 10,
         "type": "fill_in_blanks",
-        "text": "Generative AI responses are [probabilistic] because they rely on statistical [associations] rather than fixed outputs.",
+        "text": "AI isn't a sudden invention. It's built up over decades in a cycle of big [ideas], then the [hardware] to run them, and the data to fuel them.",
         "wordBank": [
-            "supervision",
-            "associations",
-            "probabilistic",
-            "deterministic"
-        ]
-    },
-    {
-        "original_id": 26,
-        "question": "Fill in the blank",
-        "correctFeedback": "Distribution shift occurs when the data environment during deployment differs from the one used in training.",
-        "incorrectFeedback": "Distribution shift describes the mismatch between training data conditions and real-world deployment contexts.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "A model may fail in new environments due to [distribution] shift between training and deployment [contexts].",
-        "wordBank": [
-            "contexts",
-            "sampling",
-            "parameter",
-            "distribution"
-        ]
-    },
-    {
-        "original_id": 27,
-        "question": "Fill in the blank",
-        "correctFeedback": "Bias amplification occurs when imbalanced historical patterns are repeated without oversight or correction.",
-        "incorrectFeedback": "Historical imbalances in datasets can be reinforced by models when oversight or corrective review is absent.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "Bias amplification occurs when historical [imbalances] in data are reproduced without adequate [oversight].",
-        "wordBank": [
-            "neutrality",
-            "imbalances",
-            "oversight",
-            "compression"
-        ]
-    },
-    {
-        "original_id": 28,
-        "question": "Fill in the blank",
-        "correctFeedback": "Hallucinations occur when models extend learned patterns beyond factual evidence or verified sources.",
-        "incorrectFeedback": "Generative models sometimes extend patterns learned from data even when supporting evidence is missing.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "Hallucinations arise when the system extends learned [patterns] beyond verified [evidence].",
-        "wordBank": [
-            "interface",
-            "evidence",
-            "authority",
-            "patterns"
-        ]
-    },
-    {
-        "original_id": 29,
-        "question": "Fill in the blank",
-        "correctFeedback": "Institutional governance structures combined with ongoing monitoring support responsible AI deployment.",
-        "incorrectFeedback": "Governance frameworks and continuous monitoring help institutions manage risk and maintain responsible AI use.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "Responsible AI integration requires institutional [governance] and continuous [monitoring].",
-        "wordBank": [
-            "automation",
-            "delegation",
-            "monitoring",
-            "governance"
-        ]
-    },
-    {
-        "original_id": 30,
-        "question": "Fill in the blank",
-        "correctFeedback": "AI systems generate outputs based on patterns in data but do not possess independent intent or human judgment.",
-        "incorrectFeedback": "Generative AI models do not have intent or judgment; they generate outputs from learned statistical patterns.",
-        "xp": 10,
-        "type": "fill_in_blanks",
-        "text": "AI tools assist decision-making but lack independent [intent] or intrinsic [judgment].",
-        "wordBank": [
-            "speed",
-            "judgment",
-            "intent",
-            "storage"
+            "ideas",
+            "hardware",
+            "profits",
+            "magic",
+            "emotions",
+            "rules"
         ]
     }
-];
+]
 
 const chapter1Level4Questions = [
     {

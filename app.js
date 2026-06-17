@@ -6459,7 +6459,11 @@ window.renderGodModeMiddlePane = function () {
             const isInfoType = ['info_card', 'video', 'gameplay_tutorial'].includes(qType);
             
             html += `
-                <div style="padding: 0.9rem 1rem; background: ${isQSelected ? 'rgba(var(--primary-rgb),0.15)' : (isInfoType ? 'rgba(var(--accent-rgb), 0.05)' : 'var(--bg-card)')}; border: 1px solid ${isQSelected ? 'var(--primary)' : (isInfoType ? 'rgba(var(--accent-rgb), 0.3)' : 'var(--border)')}; border-radius: var(--radius-s); cursor: pointer; opacity: ${isQSelected ? '1' : '0.5'}; transition: opacity 0.2s;"
+                <div style="padding: 0.9rem 1rem; background: ${isQSelected ? 'rgba(var(--primary-rgb),0.15)' : (isInfoType ? 'rgba(var(--accent-rgb), 0.05)' : 'var(--bg-card)')}; border: 1px solid ${isQSelected ? 'var(--primary)' : (isInfoType ? 'rgba(var(--accent-rgb), 0.3)' : 'var(--border)')}; border-radius: var(--radius-s); cursor: grab; opacity: ${isQSelected ? '1' : '0.5'}; transition: opacity 0.2s;"
+                     draggable="true"
+                     ondragstart="window.handleQuestionDragStart(event, '${adminSelectedChapter}', '${adminSelectedLevel}', ${qIdx})"
+                     ondragover="window.handleQuestionDragOver(event)"
+                     ondrop="window.handleQuestionDrop(event, '${adminSelectedChapter}', '${adminSelectedLevel}', ${qIdx})"
                      onclick="adminSelectQuestion('${qKey}')"
                      onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='${isQSelected ? '1' : '0.5'}'">
                     <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.3rem; display: flex; align-items: center; justify-content: space-between;">
@@ -7912,6 +7916,47 @@ window.handleLevelDrop = function (e, destChapterId, destIndex) {
 
         showToast(`Level reordered!`, "success");
         renderGodModeLeftPane();
+    } catch (err) {
+        console.error("Drop error:", err);
+    }
+};
+
+window.handleQuestionDragStart = function (e, chapterId, levelId, index) {
+    e.dataTransfer.setData('text/plain', JSON.stringify({ chapterId, levelId, index }));
+    e.currentTarget.style.opacity = '0.4';
+};
+
+window.handleQuestionDragOver = function (e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+};
+
+window.handleQuestionDrop = function (e, destChapterId, destLevelId, destIndex) {
+    e.preventDefault();
+    try {
+        const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+        const { chapterId: srcChapterId, levelId: srcLevelId, index: srcIndex } = data;
+
+        if (srcChapterId !== destChapterId || srcLevelId !== destLevelId) {
+            showToast("Moving questions between different levels is not supported yet", "error");
+            renderGodModeMiddlePane();
+            return;
+        }
+
+        if (srcIndex === destIndex) {
+            renderGodModeMiddlePane();
+            return;
+        }
+
+        const fullPool = getGodModePool(srcChapterId, srcLevelId);
+        if (!fullPool) return;
+
+        // Move the question in the array
+        const [movedQuestion] = fullPool.splice(srcIndex, 1);
+        fullPool.splice(destIndex, 0, movedQuestion);
+
+        showToast(`Question reordered!`, "success");
+        renderGodModeMiddlePane();
     } catch (err) {
         console.error("Drop error:", err);
     }
