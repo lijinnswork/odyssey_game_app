@@ -1,5 +1,24 @@
 [
     {
+        "original_id": "chapter2-L1-INTRO",
+        "type": "info_card",
+        "title": "Module 2: Use Cases",
+        "subtitle": "Real-world Applications",
+        "text": "Welcome to Chapter 2! In this module, we will explore how AI is being applied in education and other sectors. Let's watch an introduction.",
+        "buttonText": "Watch Video",
+        "xp": 0,
+        "published": true
+    },
+    {
+        "original_id": "chapter2-L1-INTRO-video",
+        "type": "video",
+        "title": "M2: Introduction",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "text": "Watch this introduction to Module 2.",
+        "xp": 15,
+        "published": true
+    },
+    {
         "original_id": 1,
         "question": "Which statement best distinguishes Artificial Intelligence from traditional rule-based software?",
         "correctFeedback": "Correct. Modern AI systems learn patterns from data instead of relying only on explicitly coded rules.",

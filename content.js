@@ -4915,7 +4915,7 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
     introNodes.sort((a, b) => String(a.original_id).localeCompare(String(b.original_id)));
 
     if (introNodes.length > 0) {
-        if (chapterId === 'chapter1' && levelIndex === 0) {
+        if ((chapterId === 'chapter1' || chapterId === 'chapter2') && levelIndex === 0) {
             // Level 1 explicitly wants the info_card and video in ONE question node (so they play back to back)
             questions.push({
                 id: `${chapterId}-L${levelIndex + 1}-INTRO`,
