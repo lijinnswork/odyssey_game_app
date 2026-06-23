@@ -199,6 +199,95 @@ window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neut
                 0%   { transform: translateY(0px) rotate(0deg); }
                 100% { transform: translateY(-3px) rotate(5deg); }
             }
+
+            /* --- NEW ANIMATION STATES --- */
+            /* Sleeping */
+            .garfield-svg.sleeping .eyes-neutral, .garfield-svg.sleeping .eyes-happy { opacity: 0; }
+            .garfield-svg.sleeping .eyes-sleeping { opacity: 1; }
+            .garfield-svg.sleeping .body-group { animation: mascot-breathe 3s infinite ease-in-out; }
+            .garfield-svg.sleeping .tail-neutral { animation: none; transform: rotate(10deg); }
+            .garfield-svg .zzz-group { opacity: 0; transition: opacity 0.4s; }
+            .garfield-svg.sleeping .zzz-group { opacity: 1; }
+
+            /* Thinking */
+            .garfield-svg .lightbulb-group { opacity: 0; transition: opacity 0.4s; transform: scale(0.8); transform-origin: 85px 15px; }
+            .garfield-svg.thinking .lightbulb-group { opacity: 1; animation: mascot-lightbulb-pulse 1.5s infinite alternate ease-in-out; }
+            .garfield-svg.thinking .paws-neutral, .garfield-svg.thinking .paws-happy { opacity: 0; }
+            .garfield-svg.thinking .paws-thinking { opacity: 1; }
+            .garfield-svg.thinking .eyes-neutral { opacity: 0; }
+            .garfield-svg.thinking .eyes-thinking { opacity: 1; }
+            .garfield-svg.thinking .ear-left { animation: mascot-ear-twitch 2s infinite; }
+            .garfield-svg.thinking .ear-right { animation: mascot-ear-twitch 2s infinite 0.5s; }
+
+            /* Celebrating */
+            .garfield-svg.celebrating .eyes-neutral { opacity: 0; }
+            .garfield-svg.celebrating .eyes-happy { opacity: 1; }
+            .garfield-svg.celebrating .mouth-neutral { opacity: 0; }
+            .garfield-svg.celebrating .mouth-happy { opacity: 1; }
+            .garfield-svg.celebrating .paws-neutral { opacity: 0; }
+            .garfield-svg.celebrating .paws-happy { opacity: 1; animation: mascot-paws-wave 0.4s infinite alternate ease-in-out; }
+            .garfield-svg.celebrating .body-group { animation: mascot-jump 0.6s infinite ease-in-out; transform-origin: center bottom; }
+            .garfield-svg .starburst-group { opacity: 0; transform-origin: 50px 50px; }
+            .garfield-svg.celebrating .starburst-group { opacity: 1; animation: mascot-starburst 0.6s infinite ease-in-out; }
+
+            /* Alert */
+            .garfield-svg.alert .eyes-neutral { opacity: 0; }
+            .garfield-svg.alert .eyes-alert { opacity: 1; }
+            .garfield-svg.alert .mouth-neutral { opacity: 0; }
+            .garfield-svg.alert .mouth-alert { opacity: 1; }
+            .garfield-svg.alert .ear-left, .garfield-svg.alert .ear-right { transform: rotate(0deg); animation: none; }
+            .garfield-svg.alert .tail-neutral { opacity: 0; }
+            .garfield-svg.alert .tail-alert { opacity: 1; animation: mascot-shiver 0.1s infinite; transform-origin: 50px 70px; }
+
+            /* Reading */
+            .garfield-svg .glasses-group { opacity: 0; transition: opacity 0.3s, transform 0.3s; transform: translateY(-10px); }
+            .garfield-svg.reading .glasses-group { opacity: 1; transform: translateY(0); }
+            .garfield-svg.reading .paws-neutral, .garfield-svg.reading .paws-happy { opacity: 0; }
+            .garfield-svg.reading .paws-reading { opacity: 1; }
+            .garfield-svg.reading .eyes-neutral { opacity: 1; } 
+
+            /* NEW KEYFRAMES */
+            @keyframes mascot-breathe {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.03, 0.98) translateY(1px); }
+            }
+            @keyframes mascot-jump {
+                0%, 100% { transform: translateY(0) scale(1, 1); }
+                50% { transform: translateY(-15px) scale(0.95, 1.05); }
+            }
+            @keyframes mascot-shiver {
+                0% { transform: rotate(-3deg); }
+                50% { transform: rotate(3deg); }
+                100% { transform: rotate(-3deg); }
+            }
+            @keyframes mascot-typing {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-4px); }
+            }
+            @keyframes mascot-lightbulb-pulse {
+                0% { transform: scale(0.95); opacity: 0.8; }
+                100% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 5px rgba(242, 201, 76, 0.8)); }
+            }
+            @keyframes zzz-float1 {
+                0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+                20% { opacity: 1; }
+                80% { opacity: 0.8; }
+                100% { transform: translate(15px, -30px) scale(1.2); opacity: 0; }
+            }
+            @keyframes zzz-float2 {
+                0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+                20% { opacity: 1; }
+                80% { opacity: 0.8; }
+                100% { transform: translate(-10px, -25px) scale(1); opacity: 0; }
+            }
+            @keyframes mascot-ear-twitch {
+                0%, 90%, 100% { transform: rotate(0deg); }
+                95% { transform: rotate(-8deg); }
+            }
+            @keyframes mascot-starburst {
+                0% { transform: scale(0.5); opacity: 1; }
+                100% { transform: scale(1.2); opacity: 0; }
+            }
         </style>
 
         <g class="body-group">
@@ -214,6 +303,12 @@ window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neut
                 <path d="M 70 75 Q 85 85 92 72 Q 96 62 88 55 Q 80 48 80 60 Q 80 70 70 75 Z" fill="url(#g-body)" />
                 <path d="M 77 72 Q 83 80 88 73" stroke="url(#g-stripe)" stroke-width="4" stroke-linecap="round" fill="none" />
                 <path d="M 87 65 Q 91 70 92 62" stroke="url(#g-stripe)" stroke-width="4" stroke-linecap="round" fill="none" />
+            </g>
+            <!-- Alert Tail (Straight Up) -->
+            <g class="tail-alert" style="opacity: 0; transition: opacity 0.3s;">
+                <path d="M 45 70 Q 50 15 55 70 Z" fill="url(#g-body)" />
+                <path d="M 47 45 Q 50 40 53 45" stroke="url(#g-stripe)" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M 48 30 Q 50 25 52 30" stroke="url(#g-stripe)" stroke-width="3" stroke-linecap="round" fill="none" />
             </g>
 
             <!-- Main Body -->
@@ -263,6 +358,30 @@ window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neut
                 <!-- Right back sitting paw -->
                 <rect x="68" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
                 <line x1="71" y1="84" x2="71" y2="90" stroke="#4a2712" stroke-width="1.5" />
+            </g>
+            <!-- Thinking Paws -->
+            <g class="paws-thinking" style="opacity: 0; transition: opacity 0.3s;">
+                <!-- Left paw to chin -->
+                <rect x="36" y="52" width="9" height="15" rx="4.5" fill="url(#g-belly)" transform="rotate(30 40 60)" />
+                <line x1="39" y1="58" x2="39" y2="63" stroke="#4a2712" stroke-width="1.5" transform="rotate(30 40 60)" />
+                <!-- Right sitting front paw -->
+                <rect x="55" y="80" width="9" height="12" rx="4.5" fill="url(#g-belly)" />
+                <line x1="58" y1="86" x2="58" y2="92" stroke="#4a2712" stroke-width="1.5" />
+                <!-- Left back paw -->
+                <rect x="22" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
+                <line x1="25" y1="84" x2="25" y2="90" stroke="#4a2712" stroke-width="1.5" />
+                <!-- Right back paw -->
+                <rect x="68" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
+                <line x1="71" y1="84" x2="71" y2="90" stroke="#4a2712" stroke-width="1.5" />
+            </g>
+            <!-- Reading Paws (Typing) -->
+            <g class="paws-reading" style="opacity: 0; transition: opacity 0.3s;">
+                <!-- Typing front paws -->
+                <rect x="35" y="75" width="9" height="12" rx="4.5" fill="url(#g-belly)" style="animation: mascot-typing 0.15s infinite alternate;" />
+                <rect x="56" y="75" width="9" height="12" rx="4.5" fill="url(#g-belly)" style="animation: mascot-typing 0.15s infinite alternate 0.07s;" />
+                <!-- Sitting back paws -->
+                <rect x="22" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
+                <rect x="68" y="78" width="10" height="12" rx="5" fill="url(#g-belly)" />
             </g>
 
             <!-- Head group -->
@@ -340,6 +459,68 @@ window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neut
                     <path d="M 34 39 Q 40 31 46 39" stroke="#1e1e1e" stroke-width="4.2" fill="none" stroke-linecap="round" />
                     <path d="M 54 39 Q 60 31 66 39" stroke="#1e1e1e" stroke-width="4.2" fill="none" stroke-linecap="round" />
                 </g>
+                <!-- Sleeping Eyes -->
+                <g class="eyes-sleeping" style="opacity: 0; transition: opacity 0.4s ease-in-out;">
+                    <path d="M 34 37 Q 40 43 46 37" stroke="#1e1e1e" stroke-width="3" fill="none" stroke-linecap="round" />
+                    <path d="M 54 37 Q 60 43 66 37" stroke="#1e1e1e" stroke-width="3" fill="none" stroke-linecap="round" />
+                </g>
+                <!-- Thinking Eyes -->
+                <g class="eyes-thinking" style="opacity: 0; transition: opacity 0.4s ease-in-out;">
+                    <ellipse cx="40" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <ellipse cx="60" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <!-- Pupils looking up right -->
+                    <ellipse cx="42" cy="34" rx="4.5" ry="5.5" fill="#1e1e1e" />
+                    <ellipse cx="62" cy="34" rx="4.5" ry="5.5" fill="#1e1e1e" />
+                    <circle cx="41" cy="32" r="1.6" fill="#ffffff" />
+                    <circle cx="61" cy="32" r="1.6" fill="#ffffff" />
+                </g>
+                <!-- Alert Eyes -->
+                <g class="eyes-alert" style="opacity: 0; transition: opacity 0.2s ease-in-out;">
+                    <ellipse cx="40" cy="37" rx="8" ry="9" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <ellipse cx="60" cy="37" rx="8" ry="9" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <!-- Pinned pupils -->
+                    <ellipse cx="40" cy="37" rx="3" ry="3" fill="#1e1e1e" />
+                    <ellipse cx="60" cy="37" rx="3" ry="3" fill="#1e1e1e" />
+                </g>
+                <!-- Alert Mouth -->
+                <g class="mouth-alert" style="opacity: 0; transition: opacity 0.2s ease-in-out;">
+                    <ellipse cx="50" cy="48" rx="3" ry="4" fill="#4a2712" />
+                </g>
+                
+                <!-- Glasses Group (Reading) -->
+                <g class="glasses-group">
+                    <rect x="31" y="32" width="18" height="14" rx="3" fill="rgba(100,200,255,0.2)" stroke="#222" stroke-width="2.5" />
+                    <rect x="51" y="32" width="18" height="14" rx="3" fill="rgba(100,200,255,0.2)" stroke="#222" stroke-width="2.5" />
+                    <line x1="49" y1="36" x2="51" y2="36" stroke="#222" stroke-width="2.5" />
+                    <line x1="25" y1="36" x2="31" y2="36" stroke="#222" stroke-width="2.5" />
+                    <line x1="69" y1="36" x2="75" y2="36" stroke="#222" stroke-width="2.5" />
+                </g>
+            </g> <!-- End Head Group -->
+
+            <!-- Floating Zzzs (Sleeping) -->
+            <g class="zzz-group">
+                <text x="65" y="20" font-family="Outfit, sans-serif" font-weight="900" font-size="14" fill="#a4c2f4" style="animation: zzz-float1 3s infinite;">Z</text>
+                <text x="45" y="10" font-family="Outfit, sans-serif" font-weight="900" font-size="10" fill="#a4c2f4" style="animation: zzz-float2 3s infinite 1.5s;">z</text>
+            </g>
+
+            <!-- Lightbulb (Thinking) -->
+            <g class="lightbulb-group">
+                <circle cx="85" cy="15" r="9" fill="#fff3c4" stroke="#f2c94c" stroke-width="2" />
+                <path d="M 81 15 Q 85 5 89 15 Q 88 20 85 20 Q 82 20 81 15" fill="#f2c94c" />
+                <rect x="83" y="24" width="4" height="3" fill="#888" />
+                <line x1="85" y1="3" x2="85" y2="0" stroke="#f2c94c" stroke-width="1.5" />
+                <line x1="97" y1="15" x2="100" y2="15" stroke="#f2c94c" stroke-width="1.5" />
+                <line x1="73" y1="15" x2="70" y2="15" stroke="#f2c94c" stroke-width="1.5" />
+                <line x1="93" y1="6" x2="95" y2="4" stroke="#f2c94c" stroke-width="1.5" />
+            </g>
+
+            <!-- Starbursts (Celebrating) -->
+            <g class="starburst-group">
+                <circle cx="20" cy="20" r="4" fill="#ffd700" />
+                <circle cx="85" cy="30" r="3.5" fill="#ff6b6b" />
+                <circle cx="25" cy="80" r="4.5" fill="#4a8bff" />
+                <circle cx="80" cy="85" r="3.5" fill="#35d18a" />
+                <path d="M 15 40 L 25 40 L 20 50 Z" fill="#9b5cff" transform="rotate(30 20 45)" />
             </g>
         </g>
     </svg>
@@ -398,7 +579,7 @@ const defaultState = {
     demoCompleted: false,
     lastPlayedDate: null,
     selectedIcon: null, // if null, uses landing-logo.png
-    selectedMascot: 'polly'
+    selectedMascot: 'garfield'
 };
 
 const GAME_ICONS = [
@@ -431,29 +612,8 @@ async function init() {
     try {
         const splashLoader = document.querySelector('.splash-loader');
         if (splashLoader) {
-            const savedUserStr = localStorage.getItem('saved_user');
-            const guestStr = localStorage.getItem('guest_gamestate');
-            let mascot = 'polly';
-            let mascotName = 'Polly';
-            
-            if (savedUserStr) {
-                try {
-                    const savedUser = JSON.parse(savedUserStr);
-                    if (savedUser && savedUser.selectedMascot === 'garfield') {
-                        mascot = 'garfield';
-                        mascotName = 'Garfield';
-                    }
-                } catch (e) {}
-            }
-            if (guestStr && mascot === 'polly') {
-                try {
-                    const guest = JSON.parse(guestStr);
-                    if (guest && guest.selectedMascot === 'garfield') {
-                        mascot = 'garfield';
-                        mascotName = 'Garfield';
-                    }
-                } catch (e) {}
-            }
+            let mascot = 'garfield';
+            let mascotName = 'Garfield';
             
             const textDiv = document.getElementById('splash-loading-text');
             if (textDiv) {
@@ -462,10 +622,8 @@ async function init() {
             
             const svgContainer = document.getElementById('splash-mascot-container');
             if (svgContainer) {
-                if (mascot === 'garfield' && typeof window.getGarfieldSVG === 'function') {
-                    svgContainer.innerHTML = window.getGarfieldSVG('140px', '140px', 'neutral');
-                } else if (typeof window.getParrotSVG === 'function') {
-                    svgContainer.innerHTML = window.getParrotSVG('140px', '140px', 'neutral');
+                if (typeof window.getGarfieldSVG === 'function') {
+                    svgContainer.innerHTML = window.getGarfieldSVG('140px', '140px', 'thinking');
                 }
             }
         }
@@ -790,9 +948,7 @@ function updateDesktopPanels(refreshLeaderboard = false) {
                     <div onclick="openIconPicker(); document.getElementById('settings-dropdown').classList.add('hidden')" style="padding: 0.75rem 1rem; font-size: 0.88rem; cursor: pointer; border-radius: var(--radius-s); transition: all 0.2s; display: flex; align-items: center; gap: 0.75rem; color: var(--text-secondary);" onmouseover="this.style.background='var(--bg-deep)'" onmouseout="this.style.background='transparent'">
                         <span class="material-symbols-rounded" style="font-size: 1.1rem;">face</span> Change Avatar
                     </div>
-                    <div onclick="openMascotPicker(); document.getElementById('settings-dropdown').classList.add('hidden')" style="padding: 0.75rem 1rem; font-size: 0.88rem; cursor: pointer; border-radius: var(--radius-s); transition: all 0.2s; display: flex; align-items: center; gap: 0.75rem; color: var(--text-secondary);" onmouseover="this.style.background='var(--bg-deep)'" onmouseout="this.style.background='transparent'">
-                        <span class="material-symbols-rounded" style="font-size: 1.1rem;">pets</span> Choose Mascot
-                    </div>
+
                     <div style="height: 1px; background: var(--border); margin: 0.25rem 0;"></div>
                     <div onclick="handleLogout(); document.getElementById('settings-dropdown').classList.add('hidden')" style="padding: 0.75rem 1rem; font-size: 0.88rem; color: #C73528; cursor: pointer; border-radius: var(--radius-s); transition: all 0.2s; display: flex; align-items: center; gap: 0.75rem;" onmouseover="this.style.background='rgba(199, 53, 40, 0.1)'" onmouseout="this.style.background='transparent'">
                         <span class="material-symbols-rounded" style="font-size: 1.1rem;">logout</span> Logout
@@ -1190,10 +1346,6 @@ window.toggleMobileSettings = function () {
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 0.75rem; width: 100%; margin-bottom: 0.5rem;">
-                    <button onclick="openMascotPicker()" class="btn-secondary" style="width: 100%; justify-content: flex-start; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
-                        <span class="material-symbols-rounded">pets</span> Choose Mascot
-                    </button>
                     <button onclick="handleResetPassword()" class="btn-secondary" style="width: 100%; justify-content: flex-start; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
                         <span class="material-symbols-rounded">lock</span> Change Password
                     </button>
@@ -3885,9 +4037,14 @@ window.renderActivity = function () {
                 </style>
                 
                 <div style="text-align: center; margin-bottom: 2rem;">
-                    <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; color: var(--text-main); font-family: 'Outfit', sans-serif;">${activity.title || "Polly's Flight Manual"}</h2>
+                    <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; color: var(--text-main); font-family: 'Outfit', sans-serif;">${activity.title || "Garfield's Guide"}</h2>
                     <p style="color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin: 0;">${activity.subtitle || "How to Play LearnAI"}</p>
                 </div>
+                <script>
+                    if (typeof window.showPollyBubble === 'function') {
+                        window.showPollyBubble("Here's some helpful information!", 5000, 'reading');
+                    }
+                </script>
 
                 <!-- Card Stack Container -->
                 <div style="position: relative; width: 100%; height: 380px; margin-bottom: 2.5rem; perspective: 1000px;">
@@ -4848,6 +5005,11 @@ window.showFeedbackUI = function (options) {
     const color = isCorrect ? 'var(--success)' : 'var(--error)';
     const icon = isCorrect ? 'check_circle' : (isSkip ? 'skip_next' : 'cancel');
     const displayTitle = title || (isCorrect ? 'Correct!' : 'Incorrect');
+
+    if (typeof window.showPollyBubble === 'function') {
+        const state = isCorrect ? 'celebrating' : 'alert';
+        window.showPollyBubble(message, 5000, state);
+    }
 
     feedbackArea.innerHTML = `
         <div style="position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%); 
@@ -8487,11 +8649,40 @@ window.handleDesktopCoachSend = async function() {
     historyContainer.scrollTop = historyContainer.scrollHeight;
 };
 
-// Initialize Desktop FAB Mascot
+// Initialize Desktop FAB Mascot & Idle Timer
+let garfieldIdleTimer = null;
+function resetGarfieldIdle() {
+    clearTimeout(garfieldIdleTimer);
+    
+    // Wake up if sleeping
+    const mascotContainer = document.getElementById('polly-mascot-container');
+    if (mascotContainer) {
+        const svg = mascotContainer.querySelector('.garfield-svg');
+        if (svg && svg.classList.contains('sleeping')) {
+            mascotContainer.innerHTML = window.getMascotSVG('100%', '100%', 'neutral');
+        }
+    }
+
+    // Only start idle timer if on main views (not in activity)
+    if (window.currentView !== 'activity' && window.currentView !== 'login') {
+        garfieldIdleTimer = setTimeout(() => {
+            if (mascotContainer && !isPollyHovered && !desktopCoachOpen) {
+                mascotContainer.innerHTML = window.getMascotSVG('100%', '100%', 'sleeping');
+            }
+        }, 30000); // 30 seconds idle
+    }
+}
+
+// Global listeners for idle
+document.addEventListener('mousemove', resetGarfieldIdle);
+document.addEventListener('keypress', resetGarfieldIdle);
+document.addEventListener('touchstart', resetGarfieldIdle);
+
 (function initPollyFAB() {
     const container = document.getElementById('polly-mascot-container');
     if (container && window.getMascotSVG) {
         container.innerHTML = window.getMascotSVG('100%', '100%', 'neutral');
+        resetGarfieldIdle();
     } else if (!container) {
         document.addEventListener('DOMContentLoaded', initPollyFAB);
     }
@@ -8501,7 +8692,7 @@ window.handleDesktopCoachSend = async function() {
 let isPollyHovered = false;
 let pollyTimeout = null;
 
-window.showPollyBubble = function(text, isHover = false) {
+window.showPollyBubble = function(text, isHover = false, state = null) {
     if (isHover) isPollyHovered = true;
     if (desktopCoachOpen) return;
     
@@ -8512,16 +8703,22 @@ window.showPollyBubble = function(text, isHover = false) {
     
     if (!bubble || !bubbleText || !fab) return;
 
-    bubbleText.textContent = text;
+    // Convert polly/garfield mentions dynamically just in case
+    let finalMessage = text.replace(/Polly/g, 'Garfield');
+
+    bubbleText.textContent = finalMessage;
     bubble.style.opacity = '1';
     bubble.style.transform = 'translateY(0) scale(1)';
     
     if (isHover) {
         fab.style.transform = 'scale(1.1) translateY(-10px)';
         if (mascotContainer) {
-            const svg = mascotContainer.querySelector('.polly-svg, .garfield-svg');
-            if (svg) svg.classList.add('happy');
+            mascotContainer.innerHTML = window.getMascotSVG('100%', '100%', 'happy');
         }
+    } else if (state && mascotContainer) {
+        mascotContainer.innerHTML = window.getMascotSVG('100%', '100%', state);
+    } else if (!state && mascotContainer) {
+        mascotContainer.innerHTML = window.getMascotSVG('100%', '100%', 'neutral');
     }
 
     // Auto hide if it's a periodic popup
@@ -8531,6 +8728,8 @@ window.showPollyBubble = function(text, isHover = false) {
             if (!isPollyHovered) window.hidePollyBubble(false);
         }, 7000); // Show for 7 seconds
     }
+    
+    resetGarfieldIdle();
 };
 
 window.hidePollyBubble = function(isHover = false) {
