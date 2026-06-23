@@ -3878,10 +3878,8 @@ body.login-mode .mobile-nav {
     75%      { transform: rotate(3deg); }
 }
 @keyframes mascot-blink {
-    0%, 94%, 100% { transform: scaleY(1); }
-    96%           { transform: scaleY(0.1); }
-    98%           { transform: scaleY(1); }
-    99%           { transform: scaleY(0.1); }
+    0%, 96%, 100% { transform: scaleY(1); }
+    98%           { transform: scaleY(0.15); }
 }
 @keyframes mascot-tail-wag {
     0%, 100% { transform: scaleY(1) rotate(0deg); }

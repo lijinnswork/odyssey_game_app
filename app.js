@@ -342,21 +342,33 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                 <!-- Neutral Eyes -->
                 <g class="eyes-neutral">
                     <!-- Whites -->
-                    <ellipse cx="40" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" style="animation: mascot-blink 7s infinite; transform-origin: 40px 37px;" />
-                    <ellipse cx="60" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" style="animation: mascot-blink 7s infinite; transform-origin: 60px 37px;" />
+                    <ellipse cx="40" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" style="animation: mascot-blink 10s infinite; transform-origin: 40px 37px;" />
+                    <ellipse cx="60" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" style="animation: mascot-blink 10s infinite; transform-origin: 60px 37px;" />
                     <!-- Pupils -->
-                    <ellipse cx="40" cy="37" rx="4.5" ry="5.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 40px 37px;" />
-                    <ellipse cx="60" cy="37" rx="4.5" ry="5.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 60px 37px;" />
+                    <ellipse cx="40" cy="37" rx="4.5" ry="5.5" fill="#1e1e1e" style="animation: mascot-blink 10s infinite; transform-origin: 40px 37px;" />
+                    <ellipse cx="60" cy="37" rx="4.5" ry="5.5" fill="#1e1e1e" style="animation: mascot-blink 10s infinite; transform-origin: 60px 37px;" />
                     <!-- Gleams -->
-                    <circle cx="38.5" cy="35" r="1.6" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 38.5px 35px;" />
-                    <circle cx="58.5" cy="35" r="1.6" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 58.5px 35px;" />
-                    <circle cx="41.5" cy="39" r="0.6" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 41.5px 39px;" />
-                    <circle cx="61.5" cy="39" r="0.6" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 61.5px 39px;" />
+                    <circle cx="38.5" cy="35" r="1.6" fill="#ffffff" style="animation: mascot-blink 10s infinite; transform-origin: 38.5px 35px;" />
+                    <circle cx="58.5" cy="35" r="1.6" fill="#ffffff" style="animation: mascot-blink 10s infinite; transform-origin: 58.5px 35px;" />
+                    <circle cx="41.5" cy="39" r="0.6" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 10s infinite; transform-origin: 41.5px 39px;" />
+                    <circle cx="61.5" cy="39" r="0.6" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 10s infinite; transform-origin: 61.5px 39px;" />
                 </g>
-                <!-- Happy Eyes -->
+                <!-- Happy Eyes (Open, Joyful & Sparkly) -->
                 <g class="eyes-happy">
-                    <path d="M 34 39 Q 40 31 46 39" stroke="#1e1e1e" stroke-width="4.2" fill="none" stroke-linecap="round" />
-                    <path d="M 54 39 Q 60 31 66 39" stroke="#1e1e1e" stroke-width="4.2" fill="none" stroke-linecap="round" />
+                    <!-- Joyful Eyebrows -->
+                    <path d="M 31 25 Q 38 19 45 23" stroke="#4a2712" stroke-width="2" fill="none" stroke-linecap="round" />
+                    <path d="M 69 25 Q 62 19 55 23" stroke="#4a2712" stroke-width="2" fill="none" stroke-linecap="round" />
+                    <!-- Whites -->
+                    <ellipse cx="40" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <ellipse cx="60" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
+                    <!-- Pupils -->
+                    <ellipse cx="40" cy="37" rx="4.8" ry="5.8" fill="#1e1e1e" />
+                    <ellipse cx="60" cy="37" rx="4.8" ry="5.8" fill="#1e1e1e" />
+                    <!-- Sparkly Gleams -->
+                    <circle cx="38" cy="34.5" r="2" fill="#ffffff" />
+                    <circle cx="58" cy="34.5" r="2" fill="#ffffff" />
+                    <circle cx="42.5" cy="39.5" r="0.8" fill="#ffffff" opacity="0.9" />
+                    <circle cx="61.5" cy="39.5" r="0.8" fill="#ffffff" opacity="0.9" />
                 </g>
                 <!-- Sleeping Eyes -->
                 <g class="eyes-sleeping">
