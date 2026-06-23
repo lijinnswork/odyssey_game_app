@@ -55,7 +55,7 @@ exports.handler = async (event) => {
                     level_stats = ${levelStats && Object.keys(levelStats).length > 0 ? levelStats : null},
                     demo_completed = ${demoCompleted || false},
                     selected_icon = ${selectedIcon || null},
-                    selected_mascot = ${selectedMascot || 'polly'},
+                    selected_mascot = ${selectedMascot || 'milo'},
                     last_played_date = CURRENT_DATE,
                     updated_at = NOW()
                 WHERE username = ${username}

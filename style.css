@@ -3890,7 +3890,7 @@ body.login-mode .mobile-nav {
 
 /* Responsive visibility for login icons */
 .login-hero-icon { display: none !important; }
-.login-hero-polly { display: flex !important; }
+.login-hero-milo { display: flex !important; }
 
 /* ============================================================
    GLOBAL POINTER-EVENTS & INTERACTIVITY GUARDRAILS

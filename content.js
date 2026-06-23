@@ -97,7 +97,7 @@ const chapter1Level1Questions = [
     {
         "original_id": "chapter1-L1-INTRO-3-TUTORIAL",
         "type": "gameplay_tutorial",
-        "title": "Polly's Flight Manual",
+        "title": "Milo's Field Guide",
         "subtitle": "How to Play LearnAI",
         "xp": 0,
         "published": true

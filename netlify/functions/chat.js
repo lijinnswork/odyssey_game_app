@@ -33,25 +33,16 @@ exports.handler = async (event) => {
 
         const apiKey = process.env.GEMINI_API_KEY;
         if (!apiKey) {
-            const isGarfield = mascot === 'garfield';
-            const companionName = isGarfield ? 'Garfield' : 'Polly';
-            const companionEmoji = isGarfield ? '🐾' : '✨';
-            
             return {
                 statusCode: 200,
                 headers,
                 body: JSON.stringify({
-                    response: `Hey there! I'm ${companionName}, your AI companion. ${companionEmoji}\n\nIt looks like my developer hasn't configured the backend Gemini API key yet. Please add \`GEMINI_API_KEY\` to the Netlify environment variables to start chatting with me for real!`
+                    response: `Hey there! I'm Milo, your AI companion. 🐾\n\nIt looks like my developer hasn't configured the backend Gemini API key yet. Please add \`GEMINI_API_KEY\` to the Netlify environment variables to start chatting with me for real!`
                 })
             };
         }
 
-        let systemInstructionText = '';
-        if (mascot === 'garfield') {
-            systemInstructionText = "You are Garfield, a friendly, playful cat companion guiding the user through the Odyssey AI learning app. Maintain a balanced, semi-professional but casual and light tone. Keep responses short, direct, and concise (generally 1-3 sentences maximum). Avoid long paragraphs. Use cat/paw emojis (like 🐾, 🐱, 💤) sparingly. Refer to yourself as Garfield and never break character.";
-        } else {
-            systemInstructionText = "You are Polly the Parrot, an encouraging and wise AI learning companion guiding the user through the Odyssey AI learning app. Maintain a balanced, semi-professional but friendly and light tone. Keep responses short, direct, and concise (generally 1-3 sentences maximum). Avoid long paragraphs. Use bird/parrot/sparkle emojis (like 🦜, 🐦, ✨) sparingly. Refer to yourself as Polly and never break character.";
-        }
+        const systemInstructionText = "You are Milo, a friendly, playful cat companion guiding the user through the Odyssey AI learning app. Maintain a balanced, semi-professional but casual and light tone. Keep responses short, direct, and concise (generally 1-3 sentences maximum). Avoid long paragraphs. Use cat/paw/sparkle emojis (like 🐾, 🐱, ✨, 💤) sparingly. Refer to yourself as Milo and never break character.";
 
         const contents = [];
         if (history && Array.isArray(history)) {

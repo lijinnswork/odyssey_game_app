@@ -5,118 +5,8 @@ const API_BASE = (window.location.hostname === 'localhost' || window.location.ho
 // ANIMATED MASCOT SVG
 // ─────────────────────────────────────────────
 window.getParrotSVG = function (width = "100%", height = "100%", state = "neutral") {
-    // Add the state class to the SVG for smooth CSS transitions
-    return `
-    <svg viewBox="-18 -8 136 118" width="${width}" height="${height}" style="overflow: visible;" class="polly-svg ${state}">
-        <defs>
-            <linearGradient id="p-body" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#4ade80" />
-                <stop offset="100%" stop-color="#16a34a" />
-            </linearGradient>
-            <linearGradient id="p-belly" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#bbf7d0" />
-                <stop offset="100%" stop-color="#4ade80" />
-            </linearGradient>
-            <linearGradient id="p-crest" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ef4444" />
-                <stop offset="100%" stop-color="#b91c1c" />
-            </linearGradient>
-            <linearGradient id="p-tail" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fde047" />
-                <stop offset="100%" stop-color="#eab308" />
-            </linearGradient>
-            <linearGradient id="p-beak" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fbbf24" />
-                <stop offset="100%" stop-color="#d97706" />
-            </linearGradient>
-            <linearGradient id="p-wing" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#22c55e" />
-                <stop offset="100%" stop-color="#15803d" />
-            </linearGradient>
-        </defs>
-
-        <style>
-            /* Smooth Transitions */
-            .polly-svg .eyes-neutral { opacity: 1; transition: opacity 0.4s ease-in-out; }
-            .polly-svg .eyes-happy { opacity: 0; transition: opacity 0.4s ease-in-out; }
-            .polly-svg.happy .eyes-neutral { opacity: 0; }
-            .polly-svg.happy .eyes-happy { opacity: 1; }
-
-            /* Animation Speeds */
-            .polly-svg .body-group { animation: mascot-hover 3s infinite ease-in-out; transform-origin: center; transition: animation-duration 0.5s; }
-            .polly-svg.happy .body-group { animation-duration: 1s; }
-
-            .polly-svg .tail-feather-1 { animation: mascot-tail-wag 1.5s infinite alternate ease-in-out; transform-origin: 50px 75px; transition: animation-duration 0.5s; }
-            .polly-svg .tail-feather-2 { animation: mascot-tail-wag 1.5s infinite alternate ease-in-out; transform-origin: 45px 70px; transition: animation-duration 0.5s; }
-            .polly-svg .tail-feather-3 { animation: mascot-tail-wag 1.5s infinite alternate ease-in-out; transform-origin: 55px 70px; transition: animation-duration 0.5s; }
-            .polly-svg.happy .tail-feather-1, .polly-svg.happy .tail-feather-2, .polly-svg.happy .tail-feather-3 { animation-duration: 0.7s; }
-
-            .polly-svg .wing-left { animation: mascot-wing-left 1.5s infinite ease-in-out; transform-origin: 25px 50px; transition: animation-duration 0.5s; }
-            .polly-svg.happy .wing-left { animation-duration: 0.6s; }
-
-            .polly-svg .wing-right { animation: mascot-wing-right 1.5s infinite ease-in-out; transform-origin: 75px 50px; transition: animation-duration 0.5s; }
-            .polly-svg.happy .wing-right { animation-duration: 0.6s; }
-
-            .polly-svg .head-group { animation: mascot-head-tilt 4s infinite ease-in-out; transform-origin: 50px 55px; transition: animation-duration 0.5s; }
-            .polly-svg.happy .head-group { animation-duration: 1.5s; }
-        </style>
-        
-        <g class="body-group">
-            
-            <!-- Tail Feathers -->
-            <path class="tail-feather-1" d="M 42 75 Q 45 90 50 95 Q 55 90 58 75 Z" fill="url(#p-tail)" />
-            <path class="tail-feather-2" d="M 35 70 Q 40 85 45 90 Q 45 80 45 70 Z" fill="url(#p-tail)" />
-            <path class="tail-feather-3" d="M 65 70 Q 60 85 55 90 Q 55 80 55 70 Z" fill="url(#p-tail)" />
-
-            <!-- Left Wing -->
-            <path class="wing-left" d="M 25 50 Q -5 45 0 70 Q 15 75 25 58 Z" fill="url(#p-wing)" />
-            <!-- Right Wing -->
-            <path class="wing-right" d="M 75 50 Q 105 45 100 70 Q 85 75 75 58 Z" fill="url(#p-wing)" />
-
-            <!-- Head & Body combined -->
-            <g class="head-group">
-                <!-- Main Body -->
-                <rect x="25" y="25" width="50" height="55" rx="25" fill="url(#p-body)" />
-                
-                <!-- Crest Feathers -->
-                <path d="M 45 25 Q 45 12 50 15 Q 55 12 55 25 Z" fill="url(#p-crest)"/>
-                <path d="M 40 27 Q 38 15 45 20 Z" fill="url(#p-crest)"/>
-                <path d="M 60 27 Q 62 15 55 20 Z" fill="url(#p-crest)"/>
-                
-                <!-- Belly -->
-                <ellipse cx="50" cy="62" rx="18" ry="15" fill="url(#p-belly)" />
-
-                <!-- White Face Mask -->
-                <path d="M 30 40 Q 30 28 50 28 Q 70 28 70 40 Q 70 50 50 50 Q 30 50 30 40 Z" fill="#ffffff" opacity="0.95"/>
-                
-                <!-- Blush Cheeks -->
-                <circle cx="35" cy="45" r="4.5" fill="#ff8da1" opacity="0.8"/>
-                <circle cx="65" cy="45" r="4.5" fill="#ff8da1" opacity="0.8"/>
-
-                <!-- Eyes Container -->
-                <g class="eyes-neutral">
-                    <circle cx="41" cy="38" r="6.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 41px 38px;"/>
-                    <circle cx="59" cy="38" r="6.5" fill="#1e1e1e" style="animation: mascot-blink 7s infinite; transform-origin: 59px 38px;"/>
-                    <!-- Eye Highlights (Gleam) -->
-                    <circle cx="39.5" cy="36" r="2.5" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 39.5px 36px;"/>
-                    <circle cx="57.5" cy="36" r="2.5" fill="#ffffff" style="animation: mascot-blink 7s infinite; transform-origin: 57.5px 36px;"/>
-                    <circle cx="43" cy="39" r="1" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 43px 39px;"/>
-                    <circle cx="61" cy="39" r="1" fill="#ffffff" opacity="0.8" style="animation: mascot-blink 7s infinite; transform-origin: 61px 39px;"/>
-                </g>
-
-                <g class="eyes-happy">
-                    <path d="M 35 41 Q 41 33 47 41" stroke="#1e1e1e" stroke-width="4.5" fill="none" stroke-linecap="round" />
-                    <path d="M 53 41 Q 59 33 65 41" stroke="#1e1e1e" stroke-width="4.5" fill="none" stroke-linecap="round" />
-                </g>
-
-                <!-- Beak -->
-                <path d="M 45 42 Q 50 38 55 42 L 50 54 Z" fill="url(#p-beak)"/>
-                <!-- Beak shadow/bottom -->
-                <path d="M 48 42 Q 50 40 52 42 L 50 50 Z" fill="#b45309"/>
-            </g>
-        </g>
-    </svg>
-    `;
+    // Overridden to always return Milo cat companion as Polly parrot has been removed
+    return window.getMiloSVG(width, height, state);
 };
 
 // --- ANIMATED COCOA MILO MASCOT SVG ---
@@ -199,6 +89,15 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                 0%   { transform: translateY(0px) rotate(0deg); }
                 100% { transform: translateY(-3px) rotate(5deg); }
             }
+
+            /* Default states for custom groups to avoid specificity issues with inline styles */
+            .milo-svg .tail-alert { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .milo-svg .paws-thinking { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .milo-svg .paws-reading { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .milo-svg .eyes-sleeping { opacity: 0; transition: opacity 0.4s ease-in-out; }
+            .milo-svg .eyes-thinking { opacity: 0; transition: opacity 0.4s ease-in-out; }
+            .milo-svg .eyes-alert { opacity: 0; transition: opacity 0.2s ease-in-out; }
+            .milo-svg .mouth-alert { opacity: 0; transition: opacity 0.2s ease-in-out; }
 
             /* --- NEW ANIMATION STATES --- */
             /* Sleeping */
@@ -305,7 +204,7 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                 <path d="M 87 65 Q 91 70 92 62" stroke="url(#g-stripe)" stroke-width="4" stroke-linecap="round" fill="none" />
             </g>
             <!-- Alert Tail (Straight Up) -->
-            <g class="tail-alert" style="opacity: 0; transition: opacity 0.3s;">
+            <g class="tail-alert">
                 <path d="M 45 70 Q 50 15 55 70 Z" fill="url(#g-body)" />
                 <path d="M 47 45 Q 50 40 53 45" stroke="url(#g-stripe)" stroke-width="3" stroke-linecap="round" fill="none" />
                 <path d="M 48 30 Q 50 25 52 30" stroke="url(#g-stripe)" stroke-width="3" stroke-linecap="round" fill="none" />
@@ -360,7 +259,7 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                 <line x1="71" y1="84" x2="71" y2="90" stroke="#4a2712" stroke-width="1.5" />
             </g>
             <!-- Thinking Paws -->
-            <g class="paws-thinking" style="opacity: 0; transition: opacity 0.3s;">
+            <g class="paws-thinking">
                 <!-- Left paw to chin -->
                 <rect x="36" y="52" width="9" height="15" rx="4.5" fill="url(#g-belly)" transform="rotate(30 40 60)" />
                 <line x1="39" y1="58" x2="39" y2="63" stroke="#4a2712" stroke-width="1.5" transform="rotate(30 40 60)" />
@@ -375,7 +274,7 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                 <line x1="71" y1="84" x2="71" y2="90" stroke="#4a2712" stroke-width="1.5" />
             </g>
             <!-- Reading Paws (Typing) -->
-            <g class="paws-reading" style="opacity: 0; transition: opacity 0.3s;">
+            <g class="paws-reading">
                 <!-- Typing front paws -->
                 <rect x="35" y="75" width="9" height="12" rx="4.5" fill="url(#g-belly)" style="animation: mascot-typing 0.15s infinite alternate;" />
                 <rect x="56" y="75" width="9" height="12" rx="4.5" fill="url(#g-belly)" style="animation: mascot-typing 0.15s infinite alternate 0.07s;" />
@@ -460,12 +359,12 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                     <path d="M 54 39 Q 60 31 66 39" stroke="#1e1e1e" stroke-width="4.2" fill="none" stroke-linecap="round" />
                 </g>
                 <!-- Sleeping Eyes -->
-                <g class="eyes-sleeping" style="opacity: 0; transition: opacity 0.4s ease-in-out;">
+                <g class="eyes-sleeping">
                     <path d="M 34 37 Q 40 43 46 37" stroke="#1e1e1e" stroke-width="3" fill="none" stroke-linecap="round" />
                     <path d="M 54 37 Q 60 43 66 37" stroke="#1e1e1e" stroke-width="3" fill="none" stroke-linecap="round" />
                 </g>
                 <!-- Thinking Eyes -->
-                <g class="eyes-thinking" style="opacity: 0; transition: opacity 0.4s ease-in-out;">
+                <g class="eyes-thinking">
                     <ellipse cx="40" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
                     <ellipse cx="60" cy="37" rx="6" ry="7" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
                     <!-- Pupils looking up right -->
@@ -475,7 +374,7 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                     <circle cx="61" cy="32" r="1.6" fill="#ffffff" />
                 </g>
                 <!-- Alert Eyes -->
-                <g class="eyes-alert" style="opacity: 0; transition: opacity 0.2s ease-in-out;">
+                <g class="eyes-alert">
                     <ellipse cx="40" cy="37" rx="8" ry="9" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
                     <ellipse cx="60" cy="37" rx="8" ry="9" fill="#ffffff" stroke="#4a2712" stroke-width="1.5" />
                     <!-- Pinned pupils -->
@@ -483,7 +382,7 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                     <ellipse cx="60" cy="37" rx="3" ry="3" fill="#1e1e1e" />
                 </g>
                 <!-- Alert Mouth -->
-                <g class="mouth-alert" style="opacity: 0; transition: opacity 0.2s ease-in-out;">
+                <g class="mouth-alert">
                     <ellipse cx="50" cy="48" rx="3" ry="4" fill="#4a2712" />
                 </g>
                 
@@ -529,14 +428,11 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
 
 // --- RESOLVE ACTIVE MASCOT SVG ---
 window.getMascotSVG = function (width = "100%", height = "100%", state = "neutral") {
-    if (gameState.selectedMascot === 'milo') {
-        return window.getMiloSVG(width, height, state);
-    }
-    return window.getParrotSVG(width, height, state);
+    return window.getMiloSVG(width, height, state);
 };
 
 window.getMascotAvatarSrc = function () {
-    return (gameState.selectedMascot === 'milo') ? 'milo.png' : 'polly.png';
+    return 'milo.png';
 };
 
 window.formatCompanionMarkdown = function(text) {
@@ -780,7 +676,7 @@ function updateDesktopPanels(refreshLeaderboard = false) {
             if (welcomeAvatar) {
                 welcomeAvatar.src = window.getMascotAvatarSrc();
             }
-            const mascotContainer = document.getElementById('polly-mascot-container');
+            const mascotContainer = document.getElementById('milo-mascot-container');
             if (mascotContainer) {
                 mascotContainer.innerHTML = window.getMascotSVG('100%', '100%');
             }
@@ -1423,14 +1319,14 @@ window.openMascotPicker = function () {
         cardStyle: 'min-height: var(--mascot-modal-min-height, 620px); display: flex; flex-direction: column; justify-content: space-between;',
         customHtml: `
             <div style="display: flex; gap: 1.5rem; width: 100%; margin: 1.5rem 0; flex: 1; align-items: center; justify-content: center;" class="mascot-picker-container">
-                <!-- Polly -->
-                <div onclick="selectMascot('polly')" 
+                <!-- Milo -->
+                <div onclick="selectMascot('milo')" 
                      style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: ${gameState.selectedMascot !== 'milo' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid ${gameState.selectedMascot !== 'milo' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
                      onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot === 'milo') this.style.borderColor='var(--border)'">
                     <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
                         ${window.getParrotSVG('100px', '100px')}
                     </div>
-                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Polly the Parrot</div>
+                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Milo the Parrot</div>
                     <div style="font-size: 0.8rem; color: var(--text-muted);">The vibrant, wise learning bird (Default)</div>
                 </div>
                 <!-- Milo -->
@@ -1469,7 +1365,7 @@ window.selectMascot = function (mascotId) {
     }
 
     // Refresh dynamic coach floating FAB mascot container if it exists
-    const mascotContainer = document.getElementById('polly-mascot-container');
+    const mascotContainer = document.getElementById('milo-mascot-container');
     if (mascotContainer) {
         mascotContainer.innerHTML = window.getMascotSVG('100%', '100%');
     }
@@ -1497,11 +1393,11 @@ window.selectMascot = function (mascotId) {
     saveProgress();
 
     setTimeout(() => {
-        if (typeof window.showPollyBubble === 'function') {
+        if (typeof window.showMiloBubble === 'function') {
             if (mascotId === 'milo') {
-                window.showPollyBubble("Hey! I'm Milo, your new companion! Let's learn! 🐾");
+                window.showMiloBubble("Hey! I'm Milo, your new companion! Let's learn! 🐾");
             } else {
-                window.showPollyBubble("Hey! I'm Polly, back to help you master AI! ✨");
+                window.showMiloBubble("Hey! I'm Milo, back to help you master AI! ✨");
             }
         }
     }, 500);
@@ -2243,7 +2139,7 @@ window.loginGuest = function (isRestore = false) {
             <div class="login-hero-icon" style="font-size: 5rem; animation: pop 0.6s ease-in-out; justify-content: center;">
                 <span class="material-symbols-rounded" style="font-size: 5rem; color: var(--success);">eco</span>
             </div>
-            <div class="login-hero-polly" style="width: 120px; height: 120px; margin: 0 auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3)); animation: mascot-hover 3s infinite ease-in-out; justify-content: center; align-items: center;">
+            <div class="login-hero-milo" style="width: 120px; height: 120px; margin: 0 auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3)); animation: mascot-hover 3s infinite ease-in-out; justify-content: center; align-items: center;">
                 ${window.getMascotSVG('100%', '100%', 'happy')}
             </div>
             <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Welcome, Traveler.</h2>
@@ -2341,7 +2237,7 @@ function loginSuccess(user, isRestore = false, isNewRegistration = false) {
     ` : `
         <div class="animate-fade-in" style="padding: 2.5rem; text-align: center; display: flex; flex-direction: column; height: 100%; justify-content: center; gap: 1.5rem;">
             <div class="login-hero-icon" style="font-size: 5rem; animation: pop 0.6s ease-in-out; justify-content: center;">🌱</div>
-            <div class="login-hero-polly" style="width: 120px; height: 120px; margin: 0 auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3)); animation: mascot-hover 3s infinite ease-in-out; justify-content: center; align-items: center;">
+            <div class="login-hero-milo" style="width: 120px; height: 120px; margin: 0 auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3)); animation: mascot-hover 3s infinite ease-in-out; justify-content: center; align-items: center;">
                 ${window.getMascotSVG('100%', '100%', 'happy')}
             </div>
             <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Welcome, ${currentUser}.</h2>
@@ -2755,7 +2651,7 @@ window.sendChatMessage = async function () {
             },
             body: JSON.stringify({
                 message: text,
-                mascot: gameState.selectedMascot || 'polly',
+                mascot: gameState.selectedMascot || 'milo',
                 history: recentHistory
             })
         });
@@ -3473,7 +3369,7 @@ window.renderActivity = function () {
                 message: 'You must complete previous levels to play this quiz! You can only watch the videos for now.',
                 confirmText: 'Back to Map',
                 cancelText: null,
-                pollyState: 'neutral',
+                miloState: 'neutral',
                 onConfirm: () => {
                     renderLevels(chapterId);
                 }
@@ -3528,7 +3424,7 @@ window.renderActivity = function () {
     const isIntro = activity.type === 'info_card' || activity.type === 'video' || activity.type === 'gameplay_tutorial';
     const isVideo = activity.type === 'video' || activity.type === 'info_card' || activity.type === 'gameplay_tutorial';
     
-    // Polly visibility logic: hide during game, show during info/chapters
+    // Milo visibility logic: hide during game, show during info/chapters
     if (isIntro) {
         document.body.classList.remove('game-active');
     } else {
@@ -3899,9 +3795,9 @@ window.renderActivity = function () {
     } else if (activity.type === 'gameplay_tutorial') {
         window.currentTutorialCardIndex = 0;
         const defaultTitles = ["Meet Your Companions", "Stay in the Game", "Learn by Playing", "The Chapter Map & Ranks"];
-        const defaultSubtitles = ["Polly & Milo", "Hearts & Gems", "Challenge Formats", "Track Progress"];
+        const defaultSubtitles = ["Milo & Milo", "Hearts & Gems", "Challenge Formats", "Track Progress"];
         const defaultContents = [
-            "Polly is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Polly in the bottom-right corner to open your Chat Coach! 💬",
+            "Milo is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Milo in the bottom-right corner to open your Chat Coach! 💬",
             "Each level starts with 5 hearts ❤️. Making mistakes costs a heart. Don't worry—completing activities rewards you with Gems 💎, which you can use to restore health!",
             "You'll solve matching cards, order processes, fill-in-the-blanks, and choice tasks. Every correct answer earns you experience points (⚡ XP)!",
             "Unlock new chapters on the map as you learn. Maintain your daily streak to rank up the leaderboard and prove your AI knowledge! 🏆"
@@ -3911,9 +3807,9 @@ window.renderActivity = function () {
                 <div style="display: flex; gap: 2.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; width: 100%;">
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
                         <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out;">
-                            <img src="polly.png" style="width: 100%; height: 100%; object-fit: contain;">
+                            <img src="milo.png" style="width: 100%; height: 100%; object-fit: contain;">
                         </div>
-                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--accent-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Polly (Coach)</span>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--accent-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Milo (Coach)</span>
                     </div>
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
                         <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out 1.5s;">
@@ -4041,8 +3937,8 @@ window.renderActivity = function () {
                     <p style="color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin: 0;">${activity.subtitle || "How to Play LearnAI"}</p>
                 </div>
                 <script>
-                    if (typeof window.showPollyBubble === 'function') {
-                        window.showPollyBubble("Here's some helpful information!", 5000, 'reading');
+                    if (typeof window.showMiloBubble === 'function') {
+                        window.showMiloBubble("Here's some helpful information!", 5000, 'reading');
                     }
                 </script>
 
@@ -5006,9 +4902,9 @@ window.showFeedbackUI = function (options) {
     const icon = isCorrect ? 'check_circle' : (isSkip ? 'skip_next' : 'cancel');
     const displayTitle = title || (isCorrect ? 'Correct!' : 'Incorrect');
 
-    if (typeof window.showPollyBubble === 'function') {
+    if (typeof window.showMiloBubble === 'function') {
         const state = isCorrect ? 'celebrating' : 'alert';
-        window.showPollyBubble(message, 5000, state);
+        window.showMiloBubble(message, 5000, state);
     }
 
     feedbackArea.innerHTML = `
@@ -5394,7 +5290,7 @@ function renderLevelComplete(chapterId, levelId) {
             message: `Nice work! "${nextLevel.title}" is now available.`,
             confirmText: 'Keep Going!',
             cancelText: null,
-            pollyState: 'happy'
+            miloState: 'happy'
         });
     }
 
@@ -5404,7 +5300,7 @@ function renderLevelComplete(chapterId, levelId) {
             message: `Amazing! You have mastered "${chapter.title}". "${nextChapter.title}" is now available.`,
             confirmText: 'Onwards!',
             cancelText: null,
-            pollyState: 'happy'
+            miloState: 'happy'
         });
     }
 
@@ -5938,7 +5834,7 @@ window.closeModal = function () {
     }, 200);
 };
 
-function showModal({ icon = '❓', title, message, confirmText = 'Confirm', cancelText = 'Cancel', onConfirm, onCancel, customHtml = null, confirmClass = 'btn-primary', cancelClass = 'btn-secondary', cardStyle = '', pollyState = null }) {
+function showModal({ icon = '❓', title, message, confirmText = 'Confirm', cancelText = 'Cancel', onConfirm, onCancel, customHtml = null, confirmClass = 'btn-primary', cancelClass = 'btn-secondary', cardStyle = '', miloState = null }) {
     const modal = document.createElement('div');
     modal.className = 'app-modal';
     modal.style.cssText = `
@@ -5954,11 +5850,11 @@ function showModal({ icon = '❓', title, message, confirmText = 'Confirm', canc
     `;
 
     modal.innerHTML = `
-        <div class="custom-scrollbar" style="position: relative; background: var(--bg-card); backdrop-filter: var(--backdrop-blur); -webkit-backdrop-filter: var(--backdrop-blur); border-radius: var(--radius-m); padding: ${pollyState ? '3.5rem 2.5rem 2.5rem 2.5rem' : '2.5rem'}; max-width: 440px; width: 90%; max-height: 85vh; overflow-y: auto; margin: 1.5rem; border: 1px solid var(--border); animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); ${cardStyle}">
+        <div class="custom-scrollbar" style="position: relative; background: var(--bg-card); backdrop-filter: var(--backdrop-blur); -webkit-backdrop-filter: var(--backdrop-blur); border-radius: var(--radius-m); padding: ${miloState ? '3.5rem 2.5rem 2.5rem 2.5rem' : '2.5rem'}; max-width: 440px; width: 90%; max-height: 85vh; overflow-y: auto; margin: 1.5rem; border: 1px solid var(--border); animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); ${cardStyle}">
             <span class="material-symbols-rounded" id="modal-close-icon" style="position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; transition: color 0.2s; user-select: none;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-muted)'">close</span>
-            ${pollyState ? `
+            ${miloState ? `
              <div style="width: 140px; height: 120px; margin: 1.5rem auto 1.5rem auto; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.25)); display: flex; justify-content: center; align-items: center; position: relative; overflow: visible;">
-                ${window.getMascotSVG('100%', '100%', pollyState)}
+                ${window.getMascotSVG('100%', '100%', miloState)}
             </div>
             ` : icon ? `
             <div style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem;">${/\p{Emoji}/u.test(icon) ? icon : `<span class="material-symbols-rounded" style="font-size: 2.5rem; color: var(--accent);">${icon}</span>`}</div>
@@ -7095,9 +6991,9 @@ window.renderGodModeRightPane = function () {
 
         if (qType === 'gameplay_tutorial') {
             const defaultTitles = ["Meet Your Companions", "Stay in the Game", "Learn by Playing", "The Chapter Map & Ranks"];
-            const defaultSubtitles = ["Polly & Milo", "Hearts & Gems", "Challenge Formats", "Track Progress"];
+            const defaultSubtitles = ["Milo & Milo", "Hearts & Gems", "Challenge Formats", "Track Progress"];
             const defaultContents = [
-                "Polly is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Polly in the bottom-right corner to open your Chat Coach! 💬",
+                "Milo is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Milo in the bottom-right corner to open your Chat Coach! 💬",
                 "Each level starts with 5 hearts ❤️. Making mistakes costs a heart. Don't worry—completing activities rewards you with Gems 💎, which you can use to restore health!",
                 "You'll solve matching cards, order processes, fill-in-the-blanks, and choice tasks. Every correct answer earns you experience points (⚡ XP)!",
                 "Unlock new chapters on the map as you learn. Maintain your daily streak to rank up the leaderboard and prove your AI knowledge! 🏆"
@@ -7107,7 +7003,7 @@ window.renderGodModeRightPane = function () {
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                     <div style="${sectionStyle}">
                         <label style="${labelStyle}">Page Title</label>
-                        <input type="text" id="admin-q-tutorial-title" value="${(act.title || "Polly's Flight Manual").replace(/"/g, '&quot;')}" placeholder="e.g., Polly's Flight Manual" style="${inputStyle}">
+                        <input type="text" id="admin-q-tutorial-title" value="${(act.title || "Milo's Flight Manual").replace(/"/g, '&quot;')}" placeholder="e.g., Milo's Flight Manual" style="${inputStyle}">
                     </div>
                     <div style="${sectionStyle}">
                         <label style="${labelStyle}">Page Subtitle</label>
@@ -8508,7 +8404,7 @@ window.toggleDesktopCoach = function() {
     const badge = document.getElementById('desktop-coach-badge');
     const input = document.getElementById('desktop-coach-input');
     const fab = document.getElementById('desktop-coach-fab');
-    const mascotContainer = document.getElementById('polly-mascot-container');
+    const mascotContainer = document.getElementById('milo-mascot-container');
     
     if (desktopCoachOpen) {
         drawer.style.transform = 'translateY(0)';
@@ -8517,26 +8413,26 @@ window.toggleDesktopCoach = function() {
         if (badge) badge.style.display = 'none';
         if (input) setTimeout(() => input.focus(), 300);
         
-        // Hide Polly's bubble immediately when drawer is opened
-        const bubble = document.getElementById('polly-speech-bubble');
+        // Hide Milo's bubble immediately when drawer is opened
+        const bubble = document.getElementById('milo-speech-bubble');
         if (bubble) {
             bubble.style.opacity = '0';
             bubble.style.transform = 'translateY(10px) scale(0.9)';
         }
         
-        // Move Polly back to position
+        // Move Milo back to position
         if (fab) {
             fab.style.transform = 'scale(1) translateY(0)';
         }
         
         // Maintain happy expression for 10 seconds
         if (mascotContainer) {
-            const svg = mascotContainer.querySelector('.polly-svg, .milo-svg');
+            const svg = mascotContainer.querySelector('.milo-svg, .milo-svg');
             if (svg) {
                 svg.classList.add('happy');
                 setTimeout(() => {
                     // Only remove if we aren't hovering it right now
-                    if (!isPollyHovered) {
+                    if (!isMiloHovered) {
                         svg.classList.remove('happy');
                     }
                 }, 10000);
@@ -8622,7 +8518,7 @@ window.handleDesktopCoachSend = async function() {
             },
             body: JSON.stringify({
                 message: message,
-                mascot: gameState.selectedMascot || 'polly',
+                mascot: gameState.selectedMascot || 'milo',
                 history: recentHistory
             })
         });
@@ -8655,7 +8551,7 @@ function resetMiloIdle() {
     clearTimeout(miloIdleTimer);
     
     // Wake up if sleeping
-    const mascotContainer = document.getElementById('polly-mascot-container');
+    const mascotContainer = document.getElementById('milo-mascot-container');
     if (mascotContainer) {
         const svg = mascotContainer.querySelector('.milo-svg');
         if (svg && svg.classList.contains('sleeping')) {
@@ -8666,10 +8562,10 @@ function resetMiloIdle() {
     // Only start idle timer if on main views (not in activity)
     if (window.currentView !== 'activity' && window.currentView !== 'login') {
         miloIdleTimer = setTimeout(() => {
-            if (mascotContainer && !isPollyHovered && !desktopCoachOpen) {
+            if (mascotContainer && !isMiloHovered && !desktopCoachOpen) {
                 mascotContainer.innerHTML = window.getMascotSVG('100%', '100%', 'sleeping');
             }
-        }, 30000); // 30 seconds idle
+        }, 300000); // 5 minutes idle
     }
 }
 
@@ -8678,33 +8574,33 @@ document.addEventListener('mousemove', resetMiloIdle);
 document.addEventListener('keypress', resetMiloIdle);
 document.addEventListener('touchstart', resetMiloIdle);
 
-(function initPollyFAB() {
-    const container = document.getElementById('polly-mascot-container');
+(function initMiloFAB() {
+    const container = document.getElementById('milo-mascot-container');
     if (container && window.getMascotSVG) {
         container.innerHTML = window.getMascotSVG('100%', '100%', 'neutral');
         resetMiloIdle();
     } else if (!container) {
-        document.addEventListener('DOMContentLoaded', initPollyFAB);
+        document.addEventListener('DOMContentLoaded', initMiloFAB);
     }
 })();
 
-// Polly Periodic Mentoring & Hover Logic
-let isPollyHovered = false;
-let pollyTimeout = null;
+// Milo Periodic Mentoring & Hover Logic
+let isMiloHovered = false;
+let miloTimeout = null;
 
-window.showPollyBubble = function(text, isHover = false, state = null) {
-    if (isHover) isPollyHovered = true;
+window.showMiloBubble = function(text, isHover = false, state = null) {
+    if (isHover) isMiloHovered = true;
     if (desktopCoachOpen) return;
     
-    const bubble = document.getElementById('polly-speech-bubble');
-    const bubbleText = document.getElementById('polly-bubble-text');
+    const bubble = document.getElementById('milo-speech-bubble');
+    const bubbleText = document.getElementById('milo-bubble-text');
     const fab = document.getElementById('desktop-coach-fab');
-    const mascotContainer = document.getElementById('polly-mascot-container');
+    const mascotContainer = document.getElementById('milo-mascot-container');
     
     if (!bubble || !bubbleText || !fab) return;
 
-    // Convert polly/milo mentions dynamically just in case
-    let finalMessage = text.replace(/Polly/g, 'Milo');
+    // Convert milo/milo mentions dynamically just in case
+    let finalMessage = text.replace(/Milo/g, 'Milo');
 
     bubbleText.textContent = finalMessage;
     bubble.style.opacity = '1';
@@ -8723,25 +8619,25 @@ window.showPollyBubble = function(text, isHover = false, state = null) {
 
     // Auto hide if it's a periodic popup
     if (!isHover) {
-        clearTimeout(pollyTimeout);
-        pollyTimeout = setTimeout(() => {
-            if (!isPollyHovered) window.hidePollyBubble(false);
+        clearTimeout(miloTimeout);
+        miloTimeout = setTimeout(() => {
+            if (!isMiloHovered) window.hideMiloBubble(false);
         }, 7000); // Show for 7 seconds
     }
     
     resetMiloIdle();
 };
 
-window.hidePollyBubble = function(isHover = false) {
-    if (isHover) isPollyHovered = false;
+window.hideMiloBubble = function(isHover = false) {
+    if (isHover) isMiloHovered = false;
     
-    const bubble = document.getElementById('polly-speech-bubble');
+    const bubble = document.getElementById('milo-speech-bubble');
     const fab = document.getElementById('desktop-coach-fab');
-    const mascotContainer = document.getElementById('polly-mascot-container');
+    const mascotContainer = document.getElementById('milo-mascot-container');
     
     if (!bubble || !fab) return;
 
-    if (!isPollyHovered) {
+    if (!isMiloHovered) {
         bubble.style.opacity = '0';
         bubble.style.transform = 'translateY(10px) scale(0.9)';
     }
@@ -8749,14 +8645,14 @@ window.hidePollyBubble = function(isHover = false) {
     if (isHover) {
         fab.style.transform = 'scale(1) translateY(0)';
         if (mascotContainer && !desktopCoachOpen) {
-            const svg = mascotContainer.querySelector('.polly-svg, .milo-svg');
+            const svg = mascotContainer.querySelector('.milo-svg, .milo-svg');
             if (svg) svg.classList.remove('happy');
         }
     }
 };
 
 // 50 Context-Aware Mentoring Messages
-const pollyMessages = [
+const miloMessages = [
     // Beginner Messages (XP < 300)
     { text: "Welcome to your AI journey!", condition: (s) => s.xp < 300 },
     { text: "Every great AI engineer started exactly where you are.", condition: (s) => s.xp < 300 },
@@ -8818,7 +8714,7 @@ const pollyMessages = [
     { text: "If you have questions, I'm right here.", condition: (s) => true }
 ];
 
-function triggerPeriodicPolly() {
+function triggerPeriodicMilo() {
     // Strictly limit random mascot popups to the homepage and levels selection page
     const allowedViews = ['home', 'journey', 'chapter'];
     if (!allowedViews.includes(window.currentView)) {
@@ -8826,20 +8722,20 @@ function triggerPeriodicPolly() {
     }
 
     // Only show if user isn't actively hovering, the drawer is closed, and user is logged in
-    if (!isPollyHovered && !desktopCoachOpen && currentUser && gameState) {
+    if (!isMiloHovered && !desktopCoachOpen && currentUser && gameState) {
         // Filter messages based on the user's current gameState
-        const validMessages = pollyMessages.filter(msg => msg.condition(gameState));
+        const validMessages = miloMessages.filter(msg => msg.condition(gameState));
         
         if (validMessages.length > 0) {
             const randomMsg = validMessages[Math.floor(Math.random() * validMessages.length)];
-            window.showPollyBubble(randomMsg.text, false);
+            window.showMiloBubble(randomMsg.text, false);
         }
     }
 }
 
 // Show the first progress-aware message after 5 seconds, then repeat every 45 seconds
 setTimeout(() => {
-    triggerPeriodicPolly();
-    setInterval(triggerPeriodicPolly, 45000);
+    triggerPeriodicMilo();
+    setInterval(triggerPeriodicMilo, 45000);
 }, 5000);
 

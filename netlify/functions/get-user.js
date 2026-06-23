@@ -92,7 +92,7 @@ exports.handler = async (event) => {
                 levelStats: (typeof user.level_stats === 'string') ? (() => { try { return JSON.parse(user.level_stats); } catch(e) { return {}; } })() : (user.level_stats || {}),
                 demoCompleted: user.demo_completed || false,
                 selectedIcon: user.selected_icon || null,
-                selectedMascot: user.selected_mascot || 'polly',
+                selectedMascot: user.selected_mascot || 'milo',
                 lastPlayedDate: user.last_played_date,
                 rank: user.current_rank
             })
