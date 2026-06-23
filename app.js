@@ -119,10 +119,10 @@ window.getParrotSVG = function (width = "100%", height = "100%", state = "neutra
     `;
 };
 
-// --- ANIMATED COCOA GARFIELD MASCOT SVG ---
-window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neutral") {
+// --- ANIMATED COCOA MILO MASCOT SVG ---
+window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral") {
     return `
-    <svg viewBox="-18 -8 136 118" width="${width}" height="${height}" style="overflow: visible;" class="garfield-svg ${state}">
+    <svg viewBox="-18 -8 136 118" width="${width}" height="${height}" style="overflow: visible;" class="milo-svg ${state}">
         <defs>
             <linearGradient id="g-body" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#cc6f36" />
@@ -148,40 +148,40 @@ window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neut
 
         <style>
             /* Smooth Transitions */
-            .garfield-svg .eyes-neutral { opacity: 1; transition: opacity 0.4s ease-in-out; }
-            .garfield-svg .eyes-happy { opacity: 0; transition: opacity 0.4s ease-in-out; }
-            .garfield-svg.happy .eyes-neutral { opacity: 0; }
-            .garfield-svg.happy .eyes-happy { opacity: 1; }
+            .milo-svg .eyes-neutral { opacity: 1; transition: opacity 0.4s ease-in-out; }
+            .milo-svg .eyes-happy { opacity: 0; transition: opacity 0.4s ease-in-out; }
+            .milo-svg.happy .eyes-neutral { opacity: 0; }
+            .milo-svg.happy .eyes-happy { opacity: 1; }
 
-            .garfield-svg .mouth-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
-            .garfield-svg .mouth-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
-            .garfield-svg.happy .mouth-neutral { opacity: 0; }
-            .garfield-svg.happy .mouth-happy { opacity: 1; }
+            .milo-svg .mouth-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
+            .milo-svg .mouth-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .milo-svg.happy .mouth-neutral { opacity: 0; }
+            .milo-svg.happy .mouth-happy { opacity: 1; }
 
-            .garfield-svg .paws-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
-            .garfield-svg .paws-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
-            .garfield-svg.happy .paws-neutral { opacity: 0; }
-            .garfield-svg.happy .paws-happy { opacity: 1; }
+            .milo-svg .paws-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
+            .milo-svg .paws-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .milo-svg.happy .paws-neutral { opacity: 0; }
+            .milo-svg.happy .paws-happy { opacity: 1; }
 
-            .garfield-svg .tail-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
-            .garfield-svg .tail-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
-            .garfield-svg.happy .tail-neutral { opacity: 0; }
-            .garfield-svg.happy .tail-happy { opacity: 1; }
+            .milo-svg .tail-neutral { opacity: 1; transition: opacity 0.3s ease-in-out; }
+            .milo-svg .tail-happy { opacity: 0; transition: opacity 0.3s ease-in-out; }
+            .milo-svg.happy .tail-neutral { opacity: 0; }
+            .milo-svg.happy .tail-happy { opacity: 1; }
 
             /* Animation Speeds */
-            .garfield-svg .body-group { animation: mascot-hover 3s infinite ease-in-out; transform-origin: center; transition: animation-duration 0.5s; }
-            .garfield-svg.happy .body-group { animation-duration: 1s; }
+            .milo-svg .body-group { animation: mascot-hover 3s infinite ease-in-out; transform-origin: center; transition: animation-duration 0.5s; }
+            .milo-svg.happy .body-group { animation-duration: 1s; }
 
-            .garfield-svg .tail-neutral { animation: mascot-tail-wag 2s infinite alternate ease-in-out; transform-origin: 30px 75px; }
-            .garfield-svg .tail-happy { animation: mascot-tail-wag 0.8s infinite alternate ease-in-out; transform-origin: 10px 65px; }
+            .milo-svg .tail-neutral { animation: mascot-tail-wag 2s infinite alternate ease-in-out; transform-origin: 30px 75px; }
+            .milo-svg .tail-happy { animation: mascot-tail-wag 0.8s infinite alternate ease-in-out; transform-origin: 10px 65px; }
 
-            .garfield-svg .ear-left { animation: mascot-ear-wiggle-left 4.5s infinite alternate ease-in-out; transform-origin: 26px 34px; }
-            .garfield-svg .ear-right { animation: mascot-ear-wiggle-right 4.8s infinite alternate ease-in-out; transform-origin: 74px 34px; }
+            .milo-svg .ear-left { animation: mascot-ear-wiggle-left 4.5s infinite alternate ease-in-out; transform-origin: 26px 34px; }
+            .milo-svg .ear-right { animation: mascot-ear-wiggle-right 4.8s infinite alternate ease-in-out; transform-origin: 74px 34px; }
 
-            .garfield-svg .head-group { animation: mascot-head-tilt 4s infinite ease-in-out; transform-origin: 50px 42px; transition: animation-duration 0.5s; }
-            .garfield-svg.happy .head-group { animation-duration: 1.5s; }
+            .milo-svg .head-group { animation: mascot-head-tilt 4s infinite ease-in-out; transform-origin: 50px 42px; transition: animation-duration 0.5s; }
+            .milo-svg.happy .head-group { animation-duration: 1.5s; }
 
-            .garfield-svg.happy .paws-happy { animation: mascot-paws-wave 0.8s infinite alternate ease-in-out; transform-origin: 50px 60px; }
+            .milo-svg.happy .paws-happy { animation: mascot-paws-wave 0.8s infinite alternate ease-in-out; transform-origin: 50px 60px; }
 
             @keyframes mascot-ear-wiggle-left {
                 0%, 90%, 100% { transform: rotate(0deg); }
@@ -202,49 +202,49 @@ window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neut
 
             /* --- NEW ANIMATION STATES --- */
             /* Sleeping */
-            .garfield-svg.sleeping .eyes-neutral, .garfield-svg.sleeping .eyes-happy { opacity: 0; }
-            .garfield-svg.sleeping .eyes-sleeping { opacity: 1; }
-            .garfield-svg.sleeping .body-group { animation: mascot-breathe 3s infinite ease-in-out; }
-            .garfield-svg.sleeping .tail-neutral { animation: none; transform: rotate(10deg); }
-            .garfield-svg .zzz-group { opacity: 0; transition: opacity 0.4s; }
-            .garfield-svg.sleeping .zzz-group { opacity: 1; }
+            .milo-svg.sleeping .eyes-neutral, .milo-svg.sleeping .eyes-happy { opacity: 0; }
+            .milo-svg.sleeping .eyes-sleeping { opacity: 1; }
+            .milo-svg.sleeping .body-group { animation: mascot-breathe 3s infinite ease-in-out; }
+            .milo-svg.sleeping .tail-neutral { animation: none; transform: rotate(10deg); }
+            .milo-svg .zzz-group { opacity: 0; transition: opacity 0.4s; }
+            .milo-svg.sleeping .zzz-group { opacity: 1; }
 
             /* Thinking */
-            .garfield-svg .lightbulb-group { opacity: 0; transition: opacity 0.4s; transform: scale(0.8); transform-origin: 85px 15px; }
-            .garfield-svg.thinking .lightbulb-group { opacity: 1; animation: mascot-lightbulb-pulse 1.5s infinite alternate ease-in-out; }
-            .garfield-svg.thinking .paws-neutral, .garfield-svg.thinking .paws-happy { opacity: 0; }
-            .garfield-svg.thinking .paws-thinking { opacity: 1; }
-            .garfield-svg.thinking .eyes-neutral { opacity: 0; }
-            .garfield-svg.thinking .eyes-thinking { opacity: 1; }
-            .garfield-svg.thinking .ear-left { animation: mascot-ear-twitch 2s infinite; }
-            .garfield-svg.thinking .ear-right { animation: mascot-ear-twitch 2s infinite 0.5s; }
+            .milo-svg .lightbulb-group { opacity: 0; transition: opacity 0.4s; transform: scale(0.8); transform-origin: 85px 15px; }
+            .milo-svg.thinking .lightbulb-group { opacity: 1; animation: mascot-lightbulb-pulse 1.5s infinite alternate ease-in-out; }
+            .milo-svg.thinking .paws-neutral, .milo-svg.thinking .paws-happy { opacity: 0; }
+            .milo-svg.thinking .paws-thinking { opacity: 1; }
+            .milo-svg.thinking .eyes-neutral { opacity: 0; }
+            .milo-svg.thinking .eyes-thinking { opacity: 1; }
+            .milo-svg.thinking .ear-left { animation: mascot-ear-twitch 2s infinite; }
+            .milo-svg.thinking .ear-right { animation: mascot-ear-twitch 2s infinite 0.5s; }
 
             /* Celebrating */
-            .garfield-svg.celebrating .eyes-neutral { opacity: 0; }
-            .garfield-svg.celebrating .eyes-happy { opacity: 1; }
-            .garfield-svg.celebrating .mouth-neutral { opacity: 0; }
-            .garfield-svg.celebrating .mouth-happy { opacity: 1; }
-            .garfield-svg.celebrating .paws-neutral { opacity: 0; }
-            .garfield-svg.celebrating .paws-happy { opacity: 1; animation: mascot-paws-wave 0.4s infinite alternate ease-in-out; }
-            .garfield-svg.celebrating .body-group { animation: mascot-jump 0.6s infinite ease-in-out; transform-origin: center bottom; }
-            .garfield-svg .starburst-group { opacity: 0; transform-origin: 50px 50px; }
-            .garfield-svg.celebrating .starburst-group { opacity: 1; animation: mascot-starburst 0.6s infinite ease-in-out; }
+            .milo-svg.celebrating .eyes-neutral { opacity: 0; }
+            .milo-svg.celebrating .eyes-happy { opacity: 1; }
+            .milo-svg.celebrating .mouth-neutral { opacity: 0; }
+            .milo-svg.celebrating .mouth-happy { opacity: 1; }
+            .milo-svg.celebrating .paws-neutral { opacity: 0; }
+            .milo-svg.celebrating .paws-happy { opacity: 1; animation: mascot-paws-wave 0.4s infinite alternate ease-in-out; }
+            .milo-svg.celebrating .body-group { animation: mascot-jump 0.6s infinite ease-in-out; transform-origin: center bottom; }
+            .milo-svg .starburst-group { opacity: 0; transform-origin: 50px 50px; }
+            .milo-svg.celebrating .starburst-group { opacity: 1; animation: mascot-starburst 0.6s infinite ease-in-out; }
 
             /* Alert */
-            .garfield-svg.alert .eyes-neutral { opacity: 0; }
-            .garfield-svg.alert .eyes-alert { opacity: 1; }
-            .garfield-svg.alert .mouth-neutral { opacity: 0; }
-            .garfield-svg.alert .mouth-alert { opacity: 1; }
-            .garfield-svg.alert .ear-left, .garfield-svg.alert .ear-right { transform: rotate(0deg); animation: none; }
-            .garfield-svg.alert .tail-neutral { opacity: 0; }
-            .garfield-svg.alert .tail-alert { opacity: 1; animation: mascot-shiver 0.1s infinite; transform-origin: 50px 70px; }
+            .milo-svg.alert .eyes-neutral { opacity: 0; }
+            .milo-svg.alert .eyes-alert { opacity: 1; }
+            .milo-svg.alert .mouth-neutral { opacity: 0; }
+            .milo-svg.alert .mouth-alert { opacity: 1; }
+            .milo-svg.alert .ear-left, .milo-svg.alert .ear-right { transform: rotate(0deg); animation: none; }
+            .milo-svg.alert .tail-neutral { opacity: 0; }
+            .milo-svg.alert .tail-alert { opacity: 1; animation: mascot-shiver 0.1s infinite; transform-origin: 50px 70px; }
 
             /* Reading */
-            .garfield-svg .glasses-group { opacity: 0; transition: opacity 0.3s, transform 0.3s; transform: translateY(-10px); }
-            .garfield-svg.reading .glasses-group { opacity: 1; transform: translateY(0); }
-            .garfield-svg.reading .paws-neutral, .garfield-svg.reading .paws-happy { opacity: 0; }
-            .garfield-svg.reading .paws-reading { opacity: 1; }
-            .garfield-svg.reading .eyes-neutral { opacity: 1; } 
+            .milo-svg .glasses-group { opacity: 0; transition: opacity 0.3s, transform 0.3s; transform: translateY(-10px); }
+            .milo-svg.reading .glasses-group { opacity: 1; transform: translateY(0); }
+            .milo-svg.reading .paws-neutral, .milo-svg.reading .paws-happy { opacity: 0; }
+            .milo-svg.reading .paws-reading { opacity: 1; }
+            .milo-svg.reading .eyes-neutral { opacity: 1; } 
 
             /* NEW KEYFRAMES */
             @keyframes mascot-breathe {
@@ -529,14 +529,14 @@ window.getGarfieldSVG = function (width = "100%", height = "100%", state = "neut
 
 // --- RESOLVE ACTIVE MASCOT SVG ---
 window.getMascotSVG = function (width = "100%", height = "100%", state = "neutral") {
-    if (gameState.selectedMascot === 'garfield') {
-        return window.getGarfieldSVG(width, height, state);
+    if (gameState.selectedMascot === 'milo') {
+        return window.getMiloSVG(width, height, state);
     }
     return window.getParrotSVG(width, height, state);
 };
 
 window.getMascotAvatarSrc = function () {
-    return (gameState.selectedMascot === 'garfield') ? 'garfield.png' : 'polly.png';
+    return (gameState.selectedMascot === 'milo') ? 'milo.png' : 'polly.png';
 };
 
 window.formatCompanionMarkdown = function(text) {
@@ -579,7 +579,7 @@ const defaultState = {
     demoCompleted: false,
     lastPlayedDate: null,
     selectedIcon: null, // if null, uses landing-logo.png
-    selectedMascot: 'garfield'
+    selectedMascot: 'milo'
 };
 
 const GAME_ICONS = [
@@ -612,8 +612,8 @@ async function init() {
     try {
         const splashLoader = document.querySelector('.splash-loader');
         if (splashLoader) {
-            let mascot = 'garfield';
-            let mascotName = 'Garfield';
+            let mascot = 'milo';
+            let mascotName = 'Milo';
             
             const textDiv = document.getElementById('splash-loading-text');
             if (textDiv) {
@@ -622,8 +622,8 @@ async function init() {
             
             const svgContainer = document.getElementById('splash-mascot-container');
             if (svgContainer) {
-                if (typeof window.getGarfieldSVG === 'function') {
-                    svgContainer.innerHTML = window.getGarfieldSVG('140px', '140px', 'thinking');
+                if (typeof window.getMiloSVG === 'function') {
+                    svgContainer.innerHTML = window.getMiloSVG('140px', '140px', 'thinking');
                 }
             }
         }
@@ -1425,22 +1425,22 @@ window.openMascotPicker = function () {
             <div style="display: flex; gap: 1.5rem; width: 100%; margin: 1.5rem 0; flex: 1; align-items: center; justify-content: center;" class="mascot-picker-container">
                 <!-- Polly -->
                 <div onclick="selectMascot('polly')" 
-                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: ${gameState.selectedMascot !== 'garfield' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid ${gameState.selectedMascot !== 'garfield' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
-                     onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot === 'garfield') this.style.borderColor='var(--border)'">
+                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: ${gameState.selectedMascot !== 'milo' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid ${gameState.selectedMascot !== 'milo' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
+                     onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot === 'milo') this.style.borderColor='var(--border)'">
                     <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
                         ${window.getParrotSVG('100px', '100px')}
                     </div>
                     <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Polly the Parrot</div>
                     <div style="font-size: 0.8rem; color: var(--text-muted);">The vibrant, wise learning bird (Default)</div>
                 </div>
-                <!-- Garfield -->
-                <div onclick="selectMascot('garfield')" 
-                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: ${gameState.selectedMascot === 'garfield' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid ${gameState.selectedMascot === 'garfield' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
-                     onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot !== 'garfield') this.style.borderColor='var(--border)'">
+                <!-- Milo -->
+                <div onclick="selectMascot('milo')" 
+                     style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: ${gameState.selectedMascot === 'milo' ? 'rgba(var(--accent-rgb), 0.1)' : 'var(--bg-overlay)'}; border: 3px solid ${gameState.selectedMascot === 'milo' ? 'var(--accent)' : 'var(--border)'}; border-radius: 20px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; text-align: center; gap: 0.75rem;"
+                     onmouseover="this.style.transform='scale(1.03)'; this.style.borderColor='var(--accent)'" onmouseout="this.style.transform='scale(1)'; if(gameState.selectedMascot !== 'milo') this.style.borderColor='var(--border)'">
                     <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
-                        ${window.getGarfieldSVG('100px', '100px')}
+                        ${window.getMiloSVG('100px', '100px')}
                     </div>
-                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Garfield Cat</div>
+                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">Milo Cat</div>
                     <div style="font-size: 0.8rem; color: var(--text-muted);">The playful, cute ginger cat companion</div>
                 </div>
             </div>
@@ -1498,8 +1498,8 @@ window.selectMascot = function (mascotId) {
 
     setTimeout(() => {
         if (typeof window.showPollyBubble === 'function') {
-            if (mascotId === 'garfield') {
-                window.showPollyBubble("Hey! I'm Garfield, your new companion! Let's learn! 🐾");
+            if (mascotId === 'milo') {
+                window.showPollyBubble("Hey! I'm Milo, your new companion! Let's learn! 🐾");
             } else {
                 window.showPollyBubble("Hey! I'm Polly, back to help you master AI! ✨");
             }
@@ -3899,7 +3899,7 @@ window.renderActivity = function () {
     } else if (activity.type === 'gameplay_tutorial') {
         window.currentTutorialCardIndex = 0;
         const defaultTitles = ["Meet Your Companions", "Stay in the Game", "Learn by Playing", "The Chapter Map & Ranks"];
-        const defaultSubtitles = ["Polly & Garfield", "Hearts & Gems", "Challenge Formats", "Track Progress"];
+        const defaultSubtitles = ["Polly & Milo", "Hearts & Gems", "Challenge Formats", "Track Progress"];
         const defaultContents = [
             "Polly is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Polly in the bottom-right corner to open your Chat Coach! 💬",
             "Each level starts with 5 hearts ❤️. Making mistakes costs a heart. Don't worry—completing activities rewards you with Gems 💎, which you can use to restore health!",
@@ -3917,9 +3917,9 @@ window.renderActivity = function () {
                     </div>
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
                         <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary); background: white; padding: 4px; box-shadow: var(--shadow-main); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: mascot-hover 3s infinite ease-in-out 1.5s;">
-                            <img src="garfield.png" style="width: 100%; height: 100%; object-fit: contain;">
+                            <img src="milo.png" style="width: 100%; height: 100%; object-fit: contain;">
                         </div>
-                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--primary-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Garfield (Learner)</span>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: rgba(var(--primary-rgb), 0.15); padding: 0.2rem 0.6rem; border-radius: 12px;">Milo (Learner)</span>
                     </div>
                 </div>
             `,
@@ -4037,7 +4037,7 @@ window.renderActivity = function () {
                 </style>
                 
                 <div style="text-align: center; margin-bottom: 2rem;">
-                    <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; color: var(--text-main); font-family: 'Outfit', sans-serif;">${activity.title || "Garfield's Guide"}</h2>
+                    <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; color: var(--text-main); font-family: 'Outfit', sans-serif;">${activity.title || "Milo's Guide"}</h2>
                     <p style="color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin: 0;">${activity.subtitle || "How to Play LearnAI"}</p>
                 </div>
                 <script>
@@ -7095,7 +7095,7 @@ window.renderGodModeRightPane = function () {
 
         if (qType === 'gameplay_tutorial') {
             const defaultTitles = ["Meet Your Companions", "Stay in the Game", "Learn by Playing", "The Chapter Map & Ranks"];
-            const defaultSubtitles = ["Polly & Garfield", "Hearts & Gems", "Challenge Formats", "Track Progress"];
+            const defaultSubtitles = ["Polly & Milo", "Hearts & Gems", "Challenge Formats", "Track Progress"];
             const defaultContents = [
                 "Polly is your AI Companion—always by your side. If you ever get stuck or want a deeper explanation, tap Polly in the bottom-right corner to open your Chat Coach! 💬",
                 "Each level starts with 5 hearts ❤️. Making mistakes costs a heart. Don't worry—completing activities rewards you with Gems 💎, which you can use to restore health!",
@@ -8531,7 +8531,7 @@ window.toggleDesktopCoach = function() {
         
         // Maintain happy expression for 10 seconds
         if (mascotContainer) {
-            const svg = mascotContainer.querySelector('.polly-svg, .garfield-svg');
+            const svg = mascotContainer.querySelector('.polly-svg, .milo-svg');
             if (svg) {
                 svg.classList.add('happy');
                 setTimeout(() => {
@@ -8650,14 +8650,14 @@ window.handleDesktopCoachSend = async function() {
 };
 
 // Initialize Desktop FAB Mascot & Idle Timer
-let garfieldIdleTimer = null;
-function resetGarfieldIdle() {
-    clearTimeout(garfieldIdleTimer);
+let miloIdleTimer = null;
+function resetMiloIdle() {
+    clearTimeout(miloIdleTimer);
     
     // Wake up if sleeping
     const mascotContainer = document.getElementById('polly-mascot-container');
     if (mascotContainer) {
-        const svg = mascotContainer.querySelector('.garfield-svg');
+        const svg = mascotContainer.querySelector('.milo-svg');
         if (svg && svg.classList.contains('sleeping')) {
             mascotContainer.innerHTML = window.getMascotSVG('100%', '100%', 'neutral');
         }
@@ -8665,7 +8665,7 @@ function resetGarfieldIdle() {
 
     // Only start idle timer if on main views (not in activity)
     if (window.currentView !== 'activity' && window.currentView !== 'login') {
-        garfieldIdleTimer = setTimeout(() => {
+        miloIdleTimer = setTimeout(() => {
             if (mascotContainer && !isPollyHovered && !desktopCoachOpen) {
                 mascotContainer.innerHTML = window.getMascotSVG('100%', '100%', 'sleeping');
             }
@@ -8674,15 +8674,15 @@ function resetGarfieldIdle() {
 }
 
 // Global listeners for idle
-document.addEventListener('mousemove', resetGarfieldIdle);
-document.addEventListener('keypress', resetGarfieldIdle);
-document.addEventListener('touchstart', resetGarfieldIdle);
+document.addEventListener('mousemove', resetMiloIdle);
+document.addEventListener('keypress', resetMiloIdle);
+document.addEventListener('touchstart', resetMiloIdle);
 
 (function initPollyFAB() {
     const container = document.getElementById('polly-mascot-container');
     if (container && window.getMascotSVG) {
         container.innerHTML = window.getMascotSVG('100%', '100%', 'neutral');
-        resetGarfieldIdle();
+        resetMiloIdle();
     } else if (!container) {
         document.addEventListener('DOMContentLoaded', initPollyFAB);
     }
@@ -8703,8 +8703,8 @@ window.showPollyBubble = function(text, isHover = false, state = null) {
     
     if (!bubble || !bubbleText || !fab) return;
 
-    // Convert polly/garfield mentions dynamically just in case
-    let finalMessage = text.replace(/Polly/g, 'Garfield');
+    // Convert polly/milo mentions dynamically just in case
+    let finalMessage = text.replace(/Polly/g, 'Milo');
 
     bubbleText.textContent = finalMessage;
     bubble.style.opacity = '1';
@@ -8729,7 +8729,7 @@ window.showPollyBubble = function(text, isHover = false, state = null) {
         }, 7000); // Show for 7 seconds
     }
     
-    resetGarfieldIdle();
+    resetMiloIdle();
 };
 
 window.hidePollyBubble = function(isHover = false) {
@@ -8749,7 +8749,7 @@ window.hidePollyBubble = function(isHover = false) {
     if (isHover) {
         fab.style.transform = 'scale(1) translateY(0)';
         if (mascotContainer && !desktopCoachOpen) {
-            const svg = mascotContainer.querySelector('.polly-svg, .garfield-svg');
+            const svg = mascotContainer.querySelector('.polly-svg, .milo-svg');
             if (svg) svg.classList.remove('happy');
         }
     }
