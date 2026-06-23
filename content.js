@@ -3288,151 +3288,23 @@ const chapter1Level5Questions = [
 
 const chapter2Level1Questions = [
     {
-        "type": "choice",
-        "question": "A university plans to use AI tutors. What's most responsible?",
-        "options": [
-            {
-                "text": "Replace faculty with AI",
-                "correct": false,
-                "feedback": "AI works best with human expertise."
-            },
-            {
-                "text": "Use AI to support educators",
-                "correct": true,
-                "feedback": "Exactly! AI enhances teaching."
-            }
-        ],
-        "xp": 10,
-        "original_id": "chapter2_0_0"
+        "original_id": "chapter2-L1-INTRO",
+        "type": "info_card",
+        "title": "Module 2: Use Cases",
+        "subtitle": "Real-world Applications",
+        "text": "Welcome to Chapter 2! In this module, we will explore how AI is being applied in education and other sectors. Let's watch an introduction.",
+        "buttonText": "Watch Video",
+        "xp": 0,
+        "published": true
     },
     {
-        "type": "task",
-        "prompt": "Name one way AI can help a teacher in the classroom.",
-        "placeholder": "Type here...",
-        "xp": 10,
-        "original_id": "chapter2_0_1"
-    },
-    {
-        "type": "choice",
-        "question": "True or False: Only CS teachers need to learn about AI.",
-        "options": [
-            {
-                "text": "True",
-                "correct": false,
-                "feedback": "AI impacts all subjects."
-            },
-            {
-                "text": "False",
-                "correct": true,
-                "feedback": "Correct! AI affects everyone."
-            }
-        ],
-        "xp": 10,
-        "original_id": "chapter2_0_2"
-    },
-    {
-        "type": "choice",
-        "question": "Which is a benefit of AI in grading?",
-        "options": [
-            {
-                "text": "It removes the need for teachers",
-                "correct": false,
-                "feedback": "Teachers are still needed for nuance."
-            },
-            {
-                "text": "It saves time on repetitive tasks",
-                "correct": true,
-                "feedback": "Yes, efficiency is key."
-            }
-        ],
-        "xp": 10,
-        "original_id": "chapter2_0_3"
-    },
-    {
-        "type": "choice",
-        "question": "A university plans to use AI tutors. What's most responsible?",
-        "options": [
-            {
-                "text": "Replace faculty with AI",
-                "correct": false,
-                "feedback": "AI works best with human expertise."
-            },
-            {
-                "text": "Use AI to support educators",
-                "correct": true,
-                "feedback": "Exactly! AI enhances teaching."
-            }
-        ],
-        "xp": 10,
-        "original_id": "chapter2_0_4"
-    },
-    {
-        "type": "task",
-        "prompt": "Name one way AI can help a teacher in the classroom. (Reflect again)",
-        "placeholder": "Type here...",
-        "xp": 10,
-        "original_id": "chapter2_0_5"
-    },
-    {
-        "type": "choice",
-        "question": "True or False: Only CS teachers need to learn about AI.",
-        "options": [
-            {
-                "text": "True",
-                "correct": false,
-                "feedback": "AI impacts all subjects."
-            },
-            {
-                "text": "False",
-                "correct": true,
-                "feedback": "Correct! AI affects everyone."
-            }
-        ],
-        "xp": 10,
-        "original_id": "chapter2_0_6"
-    },
-    {
-        "type": "choice",
-        "question": "Which is a benefit of AI in grading?",
-        "options": [
-            {
-                "text": "It removes the need for teachers",
-                "correct": false,
-                "feedback": "Teachers are still needed for nuance."
-            },
-            {
-                "text": "It saves time on repetitive tasks",
-                "correct": true,
-                "feedback": "Yes, efficiency is key."
-            }
-        ],
-        "xp": 10,
-        "original_id": "chapter2_0_7"
-    },
-    {
-        "type": "choice",
-        "question": "A university plans to use AI tutors. What's most responsible?",
-        "options": [
-            {
-                "text": "Replace faculty with AI",
-                "correct": false,
-                "feedback": "AI works best with human expertise."
-            },
-            {
-                "text": "Use AI to support educators",
-                "correct": true,
-                "feedback": "Exactly! AI enhances teaching."
-            }
-        ],
-        "xp": 10,
-        "original_id": "chapter2_0_8"
-    },
-    {
-        "type": "task",
-        "prompt": "Name one way AI can help a teacher in the classroom. (Reflect again)",
-        "placeholder": "Type here...",
-        "xp": 10,
-        "original_id": "chapter2_0_9"
+        "original_id": "chapter2-L1-INTRO-video",
+        "type": "video",
+        "title": "M2: Introduction",
+        "videoUrl": "https://player.vimeo.com/video/1174760843",
+        "text": "Watch this introduction to Module 2.",
+        "xp": 15,
+        "published": true
     }
 ];
 
@@ -4911,7 +4783,7 @@ function generateLevelQuestions(chapterId, levelIndex, baseXP) {
 
     // 1. Add intro info cards and videos
     // Find all introductory nodes explicitly marked to be at the start
-    const introNodes = rawPool.filter(q => (String(q.original_id).includes('-INTRO') || q.type === 'gameplay_tutorial') && q.published !== false);
+    const introNodes = rawPool.filter(q => (String(q.original_id).includes(`${chapterId}-L${levelIndex + 1}-INTRO`) || q.type === 'gameplay_tutorial') && q.published !== false);
     introNodes.sort((a, b) => String(a.original_id).localeCompare(String(b.original_id)));
 
     if (introNodes.length > 0) {
@@ -5287,9 +5159,9 @@ const chapters = [
                 description: `Master the core concepts of AI.`,
                 questions: generateLevelQuestions('chapter1', 0)
             },
-            ...Array.from({ length: 4 }, (_, i) => ({
+            ...Array.from({ length: 7 }, (_, i) => ({
                 id: `c1-l${i + 2}`,
-                title: `Level ${i + 1}: ${['Concepts', 'AI Systems', 'Limitations', 'AI in Practice'][i]}`,
+                title: `Level ${i + 1}`,
                 description: "Master the core concepts of AI.",
                 questions: generateLevelQuestions('chapter1', i + 1)
             }))
@@ -5297,7 +5169,7 @@ const chapters = [
     },
     {
         id: "chapter2",
-        title: "AI use cases in Education",
+        title: "Use Cases",
         description: "How AI is transforming the real world.",
         levels: [
             {
@@ -5305,32 +5177,7 @@ const chapters = [
                 title: `Introduction: Real-world AI`,
                 description: `Explore real-world applications.`,
                 questions: generateLevelQuestions('chapter2', 0)
-            },
-            ...Array.from({ length: 4 }, (_, i) => ({
-                id: `c2-l${i + 2}`,
-                title: `Level ${i + 1}: ${['Education', 'Healthcare', 'Finance', 'Transport'][i]}`,
-                description: "Explore real-world applications.",
-                questions: generateLevelQuestions('chapter2', i + 1)
-            }))
-        ]
-    },
-    {
-        id: "chapter3",
-        title: "Getting to know AI Tools",
-        description: "Navigating the responsibilities of powerful tech.",
-        levels: [
-            {
-                id: `c3-l1`,
-                title: `Introduction: Ethical Landscape`,
-                description: `Understand the ethical landscape.`,
-                questions: generateLevelQuestions('chapter3', 0)
-            },
-            ...Array.from({ length: 4 }, (_, i) => ({
-                id: `c3-l${i + 2}`,
-                title: `Level ${i + 1}: ${['Bias', 'Privacy', 'Security', 'Automation'][i]}`,
-                description: "Understand the ethical landscape.",
-                questions: generateLevelQuestions('chapter3', i + 1)
-            }))
+            }
         ]
     }
 ];

@@ -2658,7 +2658,12 @@ window.renderChapters = function () {
     }
 
     window.courseData.forEach((chapter, index) => {
-        const isUnlocked = true;
+        let isGamesUnlocked = true;
+        if (index > 0) {
+            const prevChapter = window.courseData[index - 1];
+            isGamesUnlocked = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
+        }
+        const isUnlocked = true; // Always allow clicking into the chapter to see the videos
         const isActive = chapter.id === activeChapterId;
         const levels = chapter.levels;
         // Calc Chapter Progress
@@ -2671,7 +2676,7 @@ window.renderChapters = function () {
         if (progressPercent === 0 && levelsPassed > 0) progressPercent = 5;
         if (progressPercent === 100 && levelsPassed < totalLevels) progressPercent = 95;
 
-        const statusIcon = isUnlocked ? (progressPercent === 100 ? 'check_circle' : 'lock_open') : 'lock';
+        const statusIcon = isGamesUnlocked ? (progressPercent === 100 ? 'check_circle' : 'lock_open') : 'lock';
 
         // All chapters now use the primary blue/indigo theme
         const variantClass = `card-variant-1 `;
@@ -2740,11 +2745,11 @@ window.renderChapters = function () {
                     ` : ''}
                 </div>
 
-                ${!isUnlocked ? `
-                <div style="position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center;">
-                    <div style="background: var(--bg-card); padding: 0.8rem 1.5rem; border-radius: var(--radius-pill); border: 1px solid var(--border); box-shadow: var(--shadow-premium); display: flex; align-items: center; gap: 0.75rem;">
-                        <span class="material-symbols-rounded" style="color: var(--text-muted); font-size: 1.2rem;">lock</span>
-                        <span style="font-size: 0.9rem; color: var(--text-main); font-weight: 600;">Complete Previous Chapter</span>
+                ${!isGamesUnlocked ? `
+                <div style="position: absolute; top: 1.25rem; right: 1.25rem; z-index: 2;">
+                    <div style="background: rgba(200, 50, 50, 0.15); backdrop-filter: blur(8px); padding: 0.5rem 0.8rem; border-radius: var(--radius-pill); border: 1px solid rgba(255, 100, 100, 0.2); display: flex; align-items: center; gap: 0.4rem;">
+                        <span class="material-symbols-rounded" style="color: #FF8A3D; font-size: 1.1rem;">lock</span>
+                        <span style="font-size: 0.75rem; color: #fff; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Games Locked</span>
                     </div>
                 </div>` : ''}
             </div>
@@ -2858,7 +2863,7 @@ window.renderChapters = function () {
     let globalNodeIndex = 0;
 
     window.courseData.forEach((chapter, cIndex) => {
-        const isChapterUnlocked = gameState.unlockedChapters.includes(chapter.id);
+        const isChapterUnlocked = true; // All chapters are unlocked to allow viewing intros
 
         // Chapter Banner deterministic colors
         const unitTheme = (cIndex % 5) + 1;
@@ -2889,9 +2894,24 @@ window.renderChapters = function () {
             const dx = nextX - currentX;
             globalNodeIndex++;
 
-            const isLevelUnlocked = gameState.unlockedLevels.includes(level.id);
+            let isGamesUnlocked = true;
+            if (cIndex > 0) {
+                const prevChapter = window.courseData[cIndex - 1];
+                isGamesUnlocked = prevChapter.levels.every(l => gameState.levelStats[l.id]?.passed);
+            }
+
+            // Allow intros to be played always (assuming intro levels have IDs or activities with 'INTRO')
+            const isIntroLevel = level.questions && level.questions.every(q => String(q.id).includes('-INTRO'));
+
+            let isLevelUnlocked = gameState.unlockedLevels.includes(level.id);
+            if (isIntroLevel) {
+                isLevelUnlocked = true;
+            } else if (!isGamesUnlocked) {
+                isLevelUnlocked = false; // Strictly enforce lock on game levels
+            }
+
             const levelIdx = gameState.unlockedLevels.indexOf(level.id);
-            const isCompleted = levelIdx !== -1 && (levelIdx < gameState.unlockedLevels.length - 1 || gameState.levelStats[level.id]?.passed);
+            const isCompleted = gameState.levelStats[level.id]?.passed;
 
             const unitThemeColors = {
                 1: { primary: '#4A8BFF', shadow: '#2639D8' },

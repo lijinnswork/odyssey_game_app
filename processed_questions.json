@@ -1,5 +1,24 @@
 [
     {
+        "original_id": "chapter1-L1-INTRO",
+        "type": "info_card",
+        "title": "Module 1: Getting Started with AI",
+        "subtitle": "AI Foundations",
+        "text": "Welcome to Chapter 1! In this module, we will explore the foundations of AI and its potential in education. Let's start with an introduction.",
+        "buttonText": "Watch Video",
+        "xp": 0,
+        "published": true
+    },
+    {
+        "original_id": "chapter1-L1-INTRO-video",
+        "type": "video",
+        "title": "M1: Introduction",
+        "videoUrl": "https://player.vimeo.com/video/1174728387?h=7f16d9f753",
+        "text": "Watch this introduction to Module 1.",
+        "xp": 15,
+        "published": true
+    },
+    {
         "original_id": "chapter2-L1-INTRO",
         "type": "info_card",
         "title": "Module 2: Use Cases",
@@ -13,7 +32,7 @@
         "original_id": "chapter2-L1-INTRO-video",
         "type": "video",
         "title": "M2: Introduction",
-        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "videoUrl": "https://player.vimeo.com/video/1174760843",
         "text": "Watch this introduction to Module 2.",
         "xp": 15,
         "published": true
