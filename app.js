@@ -506,20 +506,15 @@ function getAppLogo() {
 let gameState = { ...defaultState };
 let currentUser = null;
 let isOffline = false; // Initialize explicitly
-
-// DOM Elements
-const app = document.getElementById('app');
-
-// Icons
-const CHAPTER_ICONS = ['balance', 'rocket_launch', 'gavel'];
-const LEVEL_ICONS = ['eco', 'architecture', 'psychology', 'bolt', 'school', 'biotech', 'work', 'public', 'lightbulb', 'star', 'explore', 'stars', 'workspace_premium'];
-
 // --- BROWSER HISTORY ROUTER ---
 window.isApplyingPopState = false;
 window.isExitingLevel = false;
 
 window.pushAppHistory = function (view, params = {}) {
     if (window.isApplyingPopState) return;
+    // We do NOT push history for activity (quiz) and complete screens to prevent history clutter
+    if (view === 'activity' || view === 'complete') return;
+
     const state = { view, params };
     const currentState = window.history.state;
     if (currentState && currentState.view === view && JSON.stringify(currentState.params) === JSON.stringify(params)) {
@@ -533,15 +528,17 @@ window.pushAppHistory = function (view, params = {}) {
 };
 
 window.addEventListener('popstate', (event) => {
-    // Check if user is leaving an active quiz
-    if (window.currentView === 'activity' && document.body.classList.contains('game-active')) {
+    const currentView = window.currentView;
+
+    // 1. Check if user is leaving an active quiz
+    if (currentView === 'activity' && document.body.classList.contains('game-active')) {
         if (!window.isExitingLevel) {
-            // Push state back to freeze navigation visually and in history
+            // Push quiz state back to freeze navigation visually and in history pointer
             const chapterId = currentActivityState.chapterId;
             const levelId = currentActivityState.levelId;
             
             window.isApplyingPopState = true;
-            window.history.pushState({ view: 'activity', params: { chapterId, levelId } }, '', '');
+            window.history.pushState({ view: 'chapter', params: { chapterId } }, '', '');
             window.isApplyingPopState = false;
             
             showModal({
@@ -551,10 +548,15 @@ window.addEventListener('popstate', (event) => {
                 cancelText: 'Stay',
                 onConfirm: () => {
                     window.isExitingLevel = true;
-                    window.history.back(); // Trigger back to target view (chapter/home)
+                    // Trigger in-app exit behavior: back to levels map
+                    if (window.innerWidth < 1024) {
+                        renderChapters(false);
+                    } else {
+                        renderLevels(chapterId, false);
+                    }
                 },
                 onCancel: () => {
-                    // Do nothing (stay on the quiz)
+                    // Do nothing, they stay on the quiz
                 }
             });
             return;
@@ -564,21 +566,44 @@ window.addEventListener('popstate', (event) => {
     // Reset flag if it was set
     window.isExitingLevel = false;
 
-    const state = event.state;
-    window.isApplyingPopState = true;
-
-    if (state && state.view) {
-        navigateState(state.view, state.params);
-    } else {
-        // Fallback default
-        if (typeof currentUser !== 'undefined' && currentUser) {
+    // 2. Perform popstate handling mapping directly to in-app back buttons!
+    // Since the browser popped the state, we check what view we WERE on (currentView)
+    // and run its corresponding in-app Back button behavior.
+    
+    if (currentView === 'chapter') {
+        renderChapters(false);
+    } else if (currentView === 'leaderboard' || currentView === 'chat' || currentView === 'admin') {
+        renderChapters(false);
+    } else if (currentView === 'complete') {
+        const chapterId = currentActivityState.chapterId;
+        if (window.innerWidth < 1024) {
             renderChapters(false);
         } else {
-            renderLoginScreen(false);
+            renderLevels(chapterId, false);
         }
+    } else if (currentView === 'home') {
+        // Home view has no back button. Let browser navigate naturally (e.g. exit site / go to login)
+        const state = event.state;
+        if (state && state.view === 'login') {
+            renderLoginScreen(false);
+        } else {
+            // Let the browser go back to previous website/blank
+        }
+    } else {
+        // Fallback default
+        const state = event.state;
+        window.isApplyingPopState = true;
+        if (state && state.view) {
+            navigateState(state.view, state.params);
+        } else {
+            if (typeof currentUser !== 'undefined' && currentUser) {
+                renderChapters(false);
+            } else {
+                renderLoginScreen(false);
+            }
+        }
+        window.isApplyingPopState = false;
     }
-
-    window.isApplyingPopState = false;
 });
 
 function navigateState(view, params) {
@@ -600,6 +625,13 @@ function navigateState(view, params) {
         renderGodModeEditor(false);
     }
 }
+
+// DOM Elements
+const app = document.getElementById('app');
+
+// Icons
+const CHAPTER_ICONS = ['balance', 'rocket_launch', 'gavel'];
+const LEVEL_ICONS = ['eco', 'architecture', 'psychology', 'bolt', 'school', 'biotech', 'work', 'public', 'lightbulb', 'star', 'explore', 'stars', 'workspace_premium'];
 
 // Initialization
 async function init() {
