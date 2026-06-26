@@ -514,6 +514,93 @@ const app = document.getElementById('app');
 const CHAPTER_ICONS = ['balance', 'rocket_launch', 'gavel'];
 const LEVEL_ICONS = ['eco', 'architecture', 'psychology', 'bolt', 'school', 'biotech', 'work', 'public', 'lightbulb', 'star', 'explore', 'stars', 'workspace_premium'];
 
+// --- BROWSER HISTORY ROUTER ---
+window.isApplyingPopState = false;
+window.isExitingLevel = false;
+
+window.pushAppHistory = function (view, params = {}) {
+    if (window.isApplyingPopState) return;
+    const state = { view, params };
+    const currentState = window.history.state;
+    if (currentState && currentState.view === view && JSON.stringify(currentState.params) === JSON.stringify(params)) {
+        return;
+    }
+    if (!currentState) {
+        window.history.replaceState(state, '', '');
+    } else {
+        window.history.pushState(state, '', '');
+    }
+};
+
+window.addEventListener('popstate', (event) => {
+    // Check if user is leaving an active quiz
+    if (window.currentView === 'activity' && document.body.classList.contains('game-active')) {
+        if (!window.isExitingLevel) {
+            // Push state back to freeze navigation visually and in history
+            const chapterId = currentActivityState.chapterId;
+            const levelId = currentActivityState.levelId;
+            
+            window.isApplyingPopState = true;
+            window.history.pushState({ view: 'activity', params: { chapterId, levelId } }, '', '');
+            window.isApplyingPopState = false;
+            
+            showModal({
+                title: 'Exit Level?',
+                message: 'Are you sure you want to exit? Your progress will be lost.',
+                confirmText: 'Exit',
+                cancelText: 'Stay',
+                onConfirm: () => {
+                    window.isExitingLevel = true;
+                    window.history.back(); // Trigger back to target view (chapter/home)
+                },
+                onCancel: () => {
+                    // Do nothing (stay on the quiz)
+                }
+            });
+            return;
+        }
+    }
+
+    // Reset flag if it was set
+    window.isExitingLevel = false;
+
+    const state = event.state;
+    window.isApplyingPopState = true;
+
+    if (state && state.view) {
+        navigateState(state.view, state.params);
+    } else {
+        // Fallback default
+        if (typeof currentUser !== 'undefined' && currentUser) {
+            renderChapters(false);
+        } else {
+            renderLoginScreen(false);
+        }
+    }
+
+    window.isApplyingPopState = false;
+});
+
+function navigateState(view, params) {
+    if (view === 'login') {
+        renderLoginScreen(false);
+    } else if (view === 'home') {
+        renderChapters(false);
+    } else if (view === 'chapter') {
+        renderLevels(params.chapterId, false);
+    } else if (view === 'activity') {
+        startQuestion(params.chapterId, params.levelId, currentActivityState.questionIndex || 0, false);
+    } else if (view === 'complete') {
+        renderLevelComplete(params.chapterId, params.levelId, false);
+    } else if (view === 'leaderboard') {
+        renderLeaderboard(false);
+    } else if (view === 'chat') {
+        renderMobileChat(false);
+    } else if (view === 'admin') {
+        renderGodModeEditor(false);
+    }
+}
+
 // Initialization
 async function init() {
     // Sync Splash Loader mascot and text to the user's saved preference
@@ -1867,7 +1954,8 @@ function removeXP(amount) {
 // (Function unlockNextIfNeeded removed as its logic is now correctly handled in renderLevelComplete)
 
 // Render: Login
-function renderLoginScreen() {
+function renderLoginScreen(push = true) {
+    if (push) pushAppHistory('login');
     window.currentView = 'login';
     currentUser = null;
     isOffline = false;
@@ -2463,7 +2551,8 @@ function renderMobileStatsPanel() {
 // ─────────────────────────────────────────────
 // MOBILE AI COACH CHAT INTERFACE
 // ─────────────────────────────────────────────
-window.renderMobileChat = function () {
+window.renderMobileChat = function (push = true) {
+    if (push) pushAppHistory('chat');
     window.currentView = 'chat';
     updateMobileNav('chat');
 
@@ -2685,7 +2774,8 @@ window.sendChatMessage = async function () {
 };
 
 // Render: Chapters Selection (HOME)
-window.renderChapters = function () {
+window.renderChapters = function (push = true) {
+    if (push) pushAppHistory('home');
     document.body.classList.remove('game-active');
     window.currentView = 'home';
     updateDesktopPanels();
@@ -3096,7 +3186,8 @@ window.renderChapters = function () {
 
 
 // Render: Levels List for a Chapter
-window.renderLevels = function (chapterId) {
+window.renderLevels = function (chapterId, push = true) {
+    if (push) pushAppHistory('chapter', { chapterId });
     window.currentView = 'chapter';
     window.currentChapterId = chapterId;
     updateDesktopPanels();
@@ -3324,7 +3415,8 @@ let currentLevelSession = {
     startXP: 0
 };
 
-window.startQuestion = function (chapterId, levelId, qIndex) {
+window.startQuestion = function (chapterId, levelId, qIndex, push = true) {
+    if (push) pushAppHistory('activity', { chapterId, levelId });
     window.currentView = 'activity';
     updateDesktopPanels();
     currentActivityState = { chapterId, levelId, questionIndex: qIndex, activityIndex: 0 };
@@ -5137,7 +5229,8 @@ window.nextActivity = function (xpToAdd) {
 }
 
 // Level Completion Summary
-function renderLevelComplete(chapterId, levelId) {
+function renderLevelComplete(chapterId, levelId, push = true) {
+    if (push) pushAppHistory('complete', { chapterId, levelId });
     document.body.classList.remove('game-active');
     console.log("Entering renderLevelComplete:", { chapterId, levelId });
     window.currentView = 'complete';
@@ -6219,7 +6312,8 @@ window.addEventListener('click', function (event) {
 });
 
 // Leaderboard (Simplified reuse)
-window.renderLeaderboard = async function () {
+window.renderLeaderboard = async function (push = true) {
+    if (push) pushAppHistory('leaderboard');
     window.currentView = 'leaderboard';
     updateDesktopPanels();
     updateMobileNav('ranks');
@@ -6440,7 +6534,8 @@ window.getGodModePool = function (chapterId, levelId) {
 };
 
 
-window.renderGodModeEditor = function () {
+window.renderGodModeEditor = function (push = true) {
+    if (push) pushAppHistory('admin');
     window.currentView = 'admin';
     updateDesktopPanels();
 
