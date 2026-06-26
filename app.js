@@ -542,6 +542,7 @@ window.addEventListener('popstate', (event) => {
             window.isApplyingPopState = false;
             
             showModal({
+                icon: null,
                 title: 'Exit Level?',
                 message: 'Are you sure you want to exit? Your progress will be lost.',
                 confirmText: 'Exit',
