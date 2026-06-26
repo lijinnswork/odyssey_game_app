@@ -109,8 +109,6 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
             .milo-svg.sleeping .zzz-group { opacity: 1; }
 
             /* Thinking */
-            .milo-svg .lightbulb-group { opacity: 0; transition: opacity 0.4s; transform: scale(0.8); transform-origin: 85px 15px; }
-            .milo-svg.thinking .lightbulb-group { opacity: 1; animation: mascot-lightbulb-pulse 1.5s infinite alternate ease-in-out; }
             .milo-svg.thinking .paws-neutral, .milo-svg.thinking .paws-happy { opacity: 0; }
             .milo-svg.thinking .paws-thinking { opacity: 1; }
             .milo-svg.thinking .eyes-neutral { opacity: 0; }
@@ -162,11 +160,7 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
             @keyframes mascot-typing {
                 0% { transform: translateY(0); }
                 100% { transform: translateY(-4px); }
-            }
-            @keyframes mascot-lightbulb-pulse {
-                0% { transform: scale(0.95); opacity: 0.8; }
-                100% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 5px rgba(242, 201, 76, 0.8)); }
-            }
+
             @keyframes zzz-float1 {
                 0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
                 20% { opacity: 1; }
@@ -414,16 +408,6 @@ window.getMiloSVG = function (width = "100%", height = "100%", state = "neutral"
                 <text x="45" y="10" font-family="Outfit, sans-serif" font-weight="900" font-size="10" fill="#a4c2f4" style="animation: zzz-float2 3s infinite 1.5s;">z</text>
             </g>
 
-            <!-- Lightbulb (Thinking) -->
-            <g class="lightbulb-group">
-                <circle cx="85" cy="15" r="9" fill="#fff3c4" stroke="#f2c94c" stroke-width="2" />
-                <path d="M 81 15 Q 85 5 89 15 Q 88 20 85 20 Q 82 20 81 15" fill="#f2c94c" />
-                <rect x="83" y="24" width="4" height="3" fill="#888" />
-                <line x1="85" y1="3" x2="85" y2="0" stroke="#f2c94c" stroke-width="1.5" />
-                <line x1="97" y1="15" x2="100" y2="15" stroke="#f2c94c" stroke-width="1.5" />
-                <line x1="73" y1="15" x2="70" y2="15" stroke="#f2c94c" stroke-width="1.5" />
-                <line x1="93" y1="6" x2="95" y2="4" stroke="#f2c94c" stroke-width="1.5" />
-            </g>
 
             <!-- Starbursts (Celebrating) -->
             <g class="starburst-group">
@@ -645,13 +629,13 @@ async function init() {
             
             const textDiv = document.getElementById('splash-loading-text');
             if (textDiv) {
-                textDiv.textContent = `Waking up ${mascotName}...`;
+                textDiv.textContent = `Preparing your Odyssey...`;
             }
             
             const svgContainer = document.getElementById('splash-mascot-container');
             if (svgContainer) {
                 if (typeof window.getMiloSVG === 'function') {
-                    svgContainer.innerHTML = window.getMiloSVG('140px', '140px', 'thinking');
+                    svgContainer.innerHTML = window.getMiloSVG('140px', '140px', 'happy');
                 }
             }
         }
