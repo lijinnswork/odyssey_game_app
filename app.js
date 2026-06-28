@@ -7104,6 +7104,10 @@ window.renderGodModeLeftPane = function () {
     const pane = document.getElementById('admin-left-pane');
     if (!pane) return;
 
+    if (!window.activeCourseId && window.allCourses && window.allCourses.length > 0) {
+        window.activeCourseId = window.allCourses[0].id;
+    }
+
     let courseOptions = window.allCourses ? window.allCourses.map(c => `<option value="${c.id}" ${c.id === window.activeCourseId ? 'selected' : ''}>${c.title}</option>`).join('') : '<option value="">No Courses</option>';
 
     let html = `
@@ -7984,7 +7988,15 @@ window.adminSaveSettings = function () {
 }
 
 window.adminEditCourse = function () {
-    const course = window.allCourses.find(c => c.id === window.activeCourseId);
+    const activeId = window.activeCourseId || (window.allCourses && window.allCourses[0]?.id);
+    if (!activeId) {
+        showToast('No active course to edit.');
+        return;
+    }
+    if (!window.activeCourseId) {
+        window.activeCourseId = activeId;
+    }
+    const course = window.allCourses.find(c => c.id === activeId);
     if (!course) return;
 
     showModal({
