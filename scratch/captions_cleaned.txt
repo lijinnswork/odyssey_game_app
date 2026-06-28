@@ -1,0 +1,110 @@
+All right. In the next few minutes, we're going to try and demystify
+one of the most talked about technologies on the entire
+planet. Our goal is pretty simple, to answer one big
+question, what is artificial intelligence?
+Let's dive right in. So before we even get into a definition,
+let's actually start with you. I just want you to think about your day so
+far. Just take a second and think about it.
+Where do you think you might have bumped into AI without even realizing
+it? We tend to picture AI as, you know, these futuristic
+robots, but the truth is, most of it is pretty
+quiet, totally invisible, and already stitched into the
+fabric of our everyday lives. So did any of these pop into your
+head? Unlocking your phone with your face?
+Yep, that's AI. Your map app figuring out the
+absolute best way to dodge traffic?
+That's AI too. And that little grammar helper that saves you from
+embarrassing typos? You guessed it, also
+AI. It's already here, just humming along quietly
+in the background. Okay, so if it's all of these different things, then what's
+the common thread here? What are we actually talking about when we use that
+term AI? Let's try to move past all the science fiction hype
+and land on a clear, practical definition.
+Because AI isn't some kind of magic, it's really just a set
+of specific methods and models that are designed to do things that,
+well, look pretty intelligent. At its very core, this is
+it. Artificial intelligence is basically when computer systems can do
+things that we normally associate with the human brain.
+Things like recognizing patterns, like your face or your voice,
+or understanding language, or making smart predictions like what
+video you're probably going to want to watch next.
+And we can break down what AI does into a really simple four-step
+process. Think of it like this. First, it perceives the world
+around it using data. Then it learns from all that input.
+Based on what it's learned, it reasons about what it should do.
+And finally, it acts to complete a task.
+Perceive, learn, reason, and act.
+That's the loop. Now, here's a really important thing to get, not
+all AI is created equal. The AI that we have right now
+today is what we call narrow AI. It's
+incredibly powerful, but only at one very specific
+thing. Think about it, your spam filter is a genius at
+finding junk mail, but you can't ask it to write you a poem.
+That other idea, a machine that has broad human-like intelligence
+that can do anything a person can, that's general
+AI. And for now, that's still firmly in the world of science
+fiction. And this is so, so important for this conversation.
+When we're talking about AI tools in the classroom or for learning, we are
+always one hundred percent of the time talking about these super
+specialized narrow AI systems. Okay, so how does a machine
+actually learn to do these very specific things?
+This is where we get to the really big idea that completely changed the
+game, machine learning. This slide shows a massive
+shift in how we build smart systems.
+For decades, programming was all about a human having to write out every
+single step-by-step rule. If this happens, then you need to do
+that. But with machine learning, which has just exploded thanks
+to huge amounts of data and crazy computing power, we just
+flip the script. Instead of feeding it the rules, we feed it a
+ton of data and the right answers. The machine's job is to then work
+backward and figure out the rules for itself just by finding the
+patterns. So if you only remember one thing from this whole
+section, make it this, modern AI isn't programmed for
+every single possibility. It's all about learning from a mind-boggling
+number of examples and then using the patterns it finds to make
+predictions or create something new.
+And this powerful idea of learning from patterns, well, it's the
+engine behind the AI that's been making all the headlines lately,
+generative AI. And just like the name says, this kind of
+AI doesn't just analyze stuff, it actually creates brand-new
+content from scratch. It can generate text, you know, from emails to
+essays. It can create unbelievable images just from a short
+description, and it's getting scary good at making audio and
+even video. So how on earth does a chatbot write a whole
+paragraph? Well, it's actually a pretty simple concept, believe it or
+not. Based on all the text it's been trained on, it's just making a statistical
+guess one word at a time about what the very next word should be to make a
+sentence that sounds right. And this right here leads us to the
+single most important warning about these tools.
+Its goal is to sound plausible, to sound fluent, to give you an
+answer that looks good. Its goal is not to be factually
+correct. It can sound incredibly confident while being totally,
+completely wrong. So knowing that, knowing about this major
+flaw, how should we be thinking about using these tools, especially when it comes
+to learning? This brings us to a really helpful way to think about
+it. Let's be super clear about what AI can do and what it
+can't. It is awesome at finding patterns, at being
+fast, and at automating tasks. It can be a fantastic starting
+point for a first draft or a summary, but it is terrible at understanding
+human context. It can't make ethical judgments, and it can
+never, ever replace the empathy and mentorship of a real human
+connection. And really, it all boils down to this one simple
+idea, treat AI like a very capable but sometimes unreliable
+assistant. It's a tool that can help you with things, but it should never be
+treated as the final word on truth or judgment.
+That's where we, the humans, still have to be in charge.
+And let's be real, for most of us, especially for educators, the
+goal isn't to become a programmer.
+It's about building what we call AI literacy, just having a good gut
+feeling for what AI is, how it works on a basic level, and most
+importantly, knowing where its limits are.
+Because ready or not, these tools are already making a huge splash in
+education. They're changing how students write and research.
+They're forcing us to totally rethink our assignments, and they're bringing up
+some really big new questions about what things like originality and
+integrity even mean anymore. And that's the big question I want to
+leave you with. It's the challenge that's sitting right in front of all of us.
+As we start using these powerful new assistants in our lives and our classrooms,
+how do we make sure that they're being used to support learning and not just as a
+shortcut that replaces the messy, difficult, but vital
+process of critical thinking?

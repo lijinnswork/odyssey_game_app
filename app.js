@@ -647,26 +647,53 @@ async function init() {
         const res = await fetch(API_BASE + '/.netlify/functions/get-course-content');
         if (res.ok) {
             const data = await res.json();
-            if (!data.needsSeeding && data.chapters) {
-                window.courseData = data.chapters;
-                if (data.levelRules) {
-                    window.levelRules = data.levelRules;
+            if (!data.needsSeeding) {
+                if (data.courses) {
+                    window.allCourses = data.courses;
+                } else if (data.chapters) {
+                    // Backwards compatibility migration
+                    window.allCourses = [
+                        {
+                            id: "ai_ethics",
+                            title: "AI and Ethics",
+                            chapters: data.chapters,
+                            pools: data.pools || {},
+                            levelRules: data.levelRules || {}
+                        },
+                        {
+                            id: "data_science",
+                            title: "Data Science Basics",
+                            chapters: window.allCourses ? (window.allCourses.find(c => c.id === 'data_science')?.chapters || []) : [],
+                            pools: {},
+                            levelRules: {}
+                        },
+                        {
+                            id: "machine_learning",
+                            title: "Machine Learning Models",
+                            chapters: window.allCourses ? (window.allCourses.find(c => c.id === 'machine_learning')?.chapters || []) : [],
+                            pools: {},
+                            levelRules: {}
+                        }
+                    ];
                 }
 
-                // Migration: STRIP ALL legacy "Level N: " prefixes from data recursively
-                window.courseData.forEach(ch => {
-                    ch.levels.forEach(lvl => {
-                        // Use regex to strip "Level \d+: " at the start, case-insensitively
-                        while (lvl.title && /^Level \d+: /i.test(lvl.title)) {
-                            lvl.title = lvl.title.replace(/^Level \d+: /i, '').trim();
+                if (window.allCourses) {
+                    // Strip legacy levels in all courses
+                    window.allCourses.forEach(c => {
+                        if (c.chapters) {
+                            c.chapters.forEach(ch => {
+                                if (ch.levels) {
+                                    ch.levels.forEach(lvl => {
+                                        while (lvl.title && /^Level \d+: /i.test(lvl.title)) {
+                                            lvl.title = lvl.title.replace(/^Level \d+: /i, '').trim();
+                                        }
+                                    });
+                                }
+                            });
                         }
                     });
-                });
-
-                if (data.pools) {
-                    Object.keys(data.pools).forEach(k => window[k] = data.pools[k]);
+                    console.log('Loaded robust multi-course content from database.');
                 }
-                console.log('Loaded robust course content from database.');
             }
         }
     } catch (e) {
@@ -1660,7 +1687,8 @@ async function saveProgress(refreshLeaderboard = false) {
                 levelStats: gameState.levelStats,
                 userTitle: gameState.userTitle || 'AI EXPLORER',
                 demoCompleted: gameState.demoCompleted,
-                selectedIcon: gameState.selectedIcon
+                selectedIcon: gameState.selectedIcon,
+                courseProgress: gameState.courseProgress
             })
         });
 
@@ -1765,7 +1793,8 @@ async function loadProgress(username) {
                 ? data.unlockedLevels : (gameState.unlockedLevels || ['c1-l1']),
             completedQuestions: data.completedQuestions || [],
             rank: data.rank || '-',
-            userTitle: data.userTitle || 'AI NOVICE'
+            userTitle: data.userTitle || 'AI NOVICE',
+            courseProgress: data.courseProgress || gameState.courseProgress
         };
 
         // Migration logic for old users (Unit -> Chapter/Level)
@@ -2309,7 +2338,14 @@ function loginSuccess(user, isRestore = false, isNewRegistration = false) {
         unlockedLevels: user.unlockedLevels || ['c1-l1'],
         unlockedChapters: chapters,
         completedQuestions: user.completedQuestions || [],
-        demoCompleted: user.demoCompleted || false
+        demoCompleted: user.demoCompleted || false,
+        courseProgress: user.courseProgress || {
+            'ai_ethics': {
+                unlockedChapters: chapters,
+                unlockedLevels: user.unlockedLevels || ['c1-l1'],
+                completedQuestions: user.completedQuestions || []
+            }
+        }
     };
 
     // Derive XP/Gems from levelStats (same pattern as loadProgress)
@@ -2325,14 +2361,15 @@ function loginSuccess(user, isRestore = false, isNewRegistration = false) {
         // Session restore = returning user, never auto-show demo
         document.body.classList.remove('login-mode');
         updateDesktopPanels();
-        renderChapters();
+        renderCourseSelection();
 
         // Perform full background progression sync with database to ensure zero discrepancies between devices
         loadProgress(currentUser).then(() => {
             console.log("Restored session synchronized with Neon database successfully.");
             updateDesktopPanels(true);
-            if (window.currentView === 'home' || window.currentView === 'journey') {
-                renderChapters();
+            if (window.currentView === 'home' || window.currentView === 'journey' || window.currentView === 'course_selection') {
+                if (window.activeCourseId) renderChapters();
+                else renderCourseSelection();
             }
         }).catch(err => {
             console.error("Failed to background sync restored session:", err);
@@ -2368,7 +2405,7 @@ function loginSuccess(user, isRestore = false, isNewRegistration = false) {
     setTimeout(() => {
         document.body.classList.remove('login-mode');
         updateDesktopPanels(); // Ensure panels show up
-        renderChapters();
+        renderCourseSelection();
 
         // Auto-show demo ONLY on first registration, never on returning login (Desktop only)
         if (isNewRegistration && window.innerWidth >= 1024) {
@@ -2790,6 +2827,468 @@ window.sendChatMessage = async function () {
     msgs.scrollTop = msgs.scrollHeight;
 };
 
+window.selectCourse = function(courseId) {
+    window.activeCourseId = courseId;
+    const course = window.allCourses.find(c => c.id === courseId);
+    window.courseData = course.chapters;
+    window.pools = course.pools || {};
+    window.levelRules = course.levelRules || {};
+    
+    if (!gameState.courseProgress) gameState.courseProgress = {};
+    if (!gameState.courseProgress[courseId]) {
+        gameState.courseProgress[courseId] = {
+            unlockedChapters: ['chapter1'],
+            unlockedLevels: ['c1-l1'],
+            completedQuestions: []
+        };
+    }
+    
+    gameState.unlockedChapters = gameState.courseProgress[courseId].unlockedChapters;
+    gameState.unlockedLevels = gameState.courseProgress[courseId].unlockedLevels;
+    gameState.completedQuestions = gameState.courseProgress[courseId].completedQuestions;
+    
+    recalculateStats();
+    validateProgressionIntegrity();
+    saveProgress();
+    
+    window.renderChapters();
+};
+
+window.renderCourseSelection = function(push = true) {
+    if (push) pushAppHistory('course_selection');
+    document.body.classList.remove('game-active');
+    window.currentView = 'course_selection';
+    updateDesktopPanels();
+    updateMobileNav('course_selection');
+    
+    // Calculate Courses Stats
+    const startedCourses = [];
+    const exploreCourses = [];
+    
+    let totalCompletedLevels = 0;
+    let totalLevels = 0;
+    
+    window.allCourses.forEach(course => {
+        const prog = gameState.courseProgress && gameState.courseProgress[course.id];
+        
+        let courseLevels = 0;
+        course.chapters.forEach(ch => {
+            if(ch.levels) courseLevels += ch.levels.length;
+        });
+        
+        let completed = prog && prog.unlockedLevels ? prog.unlockedLevels.length - 1 : 0;
+        if(completed < 0) completed = 0;
+        
+        const perc = courseLevels > 0 ? Math.min(100, Math.round((completed / courseLevels) * 100)) : 0;
+        
+        totalLevels += courseLevels;
+        totalCompletedLevels += completed;
+        
+        const courseDataObj = {
+            ...course,
+            progressPerc: perc,
+            completedLevels: completed,
+            totalLevels: courseLevels
+        };
+        
+        if (prog) {
+            startedCourses.push(courseDataObj);
+        } else {
+            exploreCourses.push(courseDataObj);
+        }
+    });
+    
+    const overallPerc = totalLevels > 0 ? Math.min(100, Math.round((totalCompletedLevels / totalLevels) * 100)) : 0;
+    const coursesCompleted = startedCourses.filter(c => c.progressPerc === 100).length;
+
+    let html = `
+    <style>
+        .course-sel-page {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            min-height: 100vh;
+            color: var(--text-main);
+            padding-bottom: 6rem;
+        }
+        
+        .cs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .cs-welcome { display: flex; flex-direction: column; gap: 0.2rem; }
+        .cs-welcome h1 { font-size: 20px; font-weight: 600; margin: 0; color: var(--text-main); }
+        .cs-welcome p { font-size: 13px; margin: 0; color: var(--text-muted); }
+        
+        .cs-stats-bar {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .cs-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--bg-card);
+            padding: 0.4rem 0.75rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .cs-pill .material-symbols-rounded { font-size: 16px; }
+        
+        .cs-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+        
+        .cs-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .cs-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+        
+        /* Stats Grid */
+        .cs-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        @media (max-width: 950px) {
+            .cs-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .cs-stat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cs-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .cs-stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cs-stat-icon .material-symbols-rounded { font-size: 20px; }
+        
+        /* Progress Bar */
+        .cs-prog-bg { background: var(--border); height: 5px; border-radius: 4px; width: 100%; overflow: hidden; margin-top: 0.5rem;}
+        .cs-prog-fill { background: var(--primary, #2563EB); height: 100%; border-radius: 4px; transition: width 1s ease-in-out; }
+        
+        /* Course Grid */
+        .cs-course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .cs-course-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .cs-course-card {
+                max-width: 360px;
+            }
+        }
+        .cs-course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+        .cs-course-card-inner { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+        
+        .cs-course-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .cs-course-icon { font-size: 24px; color: var(--primary, #2563EB); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; background: rgba(37, 99, 235, 0.1); }
+        .cs-course-icon .material-symbols-rounded { font-size: 24px; }
+        
+        .cs-course-title { font-size: 16px; font-weight: 700; margin: 0; color: var(--text-main); }
+        .cs-course-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin: 0; flex: 1; }
+        
+        .cs-badge { display: inline-flex; align-items: center; gap: 0.2rem; padding: 0.2rem 0.6rem; background: var(--border); color: var(--text-muted); border-radius: 6px; font-size: 11px; font-weight: 600; }
+        
+        .cs-btn-primary, .cs-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: max-content;
+            margin-top: 0.5rem;
+        }
+        .cs-btn-primary {
+            background: var(--primary, #2563EB);
+            color: white;
+            border: 1px solid transparent;
+        }
+        .cs-btn-primary:hover {
+            background: #1D4ED8;
+        }
+        .cs-btn-secondary {
+            background: transparent;
+            color: var(--primary, #2563EB);
+            border: 1px solid var(--primary, #2563EB);
+        }
+        .cs-btn-secondary:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        /* Recommended Section */
+        .cs-rec-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cs-rec-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+        .cs-mascot {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        
+        @media (max-width: 768px) {
+            .cs-header { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1rem; }
+            .cs-rec-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
+            .cs-stats-grid { grid-template-columns: 1fr 1fr; }
+            .cs-container { padding: 2rem 1rem; gap: 32px; }
+            .cs-course-grid { grid-template-columns: 1fr; }
+            .cs-course-card { max-width: 100%; }
+        }
+        @media (max-width: 480px) {
+            .cs-stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <div class="course-sel-page">
+        <!-- Header -->
+        <div class="cs-header">
+            <div class="cs-welcome">
+                <h1>Welcome back</h1>
+                <p>Continue your learning journey.</p>
+            </div>
+            <div class="cs-stats-bar">
+                <div class="cs-pill" style="color: #F59E0B;">
+                    <span class="material-symbols-rounded">bolt</span> ${gameState.xp || 0}
+                </div>
+                <div class="cs-pill" style="color: #3B82F6;">
+                    <span class="material-symbols-rounded">diamond</span> ${gameState.gems || 0}
+                </div>
+                <div class="cs-pill" style="color: #10B981;">
+                    <span class="material-symbols-rounded">trophy</span> 
+                    ${gameState.rank ? (gameState.rank.title || 'Novice') : 'Novice'}
+                </div>
+                <div class="cs-pill" style="cursor: pointer; color: var(--text-main);" onclick="document.querySelector('.theme-toggle')?.click() || (window.toggleTheme && toggleTheme())">
+                    <span class="material-symbols-rounded">contrast</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cs-container">
+            <!-- Progress Summary -->
+            <section class="cs-section">
+                <h2 class="cs-section-title">Your Progress</h2>
+                <div class="cs-stats-grid">
+                    <div class="cs-stat-card">
+                        <div class="cs-stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">
+                            <span class="material-symbols-rounded">star</span>
+                        </div>
+                        <div>
+                            <div style="font-size: 20px; font-weight: 700;">${gameState.xp || 0}</div>
+                            <div style="font-size: 12px; color: var(--text-muted);">XP Earned</div>
+                        </div>
+                    </div>
+                    <div class="cs-stat-card">
+                        <div class="cs-stat-icon" style="background: rgba(239, 68, 68, 0.1); color: #EF4444;">
+                            <span class="material-symbols-rounded">local_fire_department</span>
+                        </div>
+                        <div>
+                            <div style="font-size: 20px; font-weight: 700;">${gameState.streak || 0}</div>
+                            <div style="font-size: 12px; color: var(--text-muted);">Day Streak</div>
+                        </div>
+                    </div>
+                    <div class="cs-stat-card">
+                        <div class="cs-stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">
+                            <span class="material-symbols-rounded">school</span>
+                        </div>
+                        <div>
+                            <div style="font-size: 20px; font-weight: 700;">${coursesCompleted}</div>
+                            <div style="font-size: 12px; color: var(--text-muted);">Courses Completed</div>
+                        </div>
+                    </div>
+                    <div class="cs-stat-card" style="flex-direction: column; align-items: stretch; gap: 0.4rem; justify-content: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 12px; color: var(--text-muted);">Overall Progress</span>
+                            <span style="font-size: 14px; font-weight: 700; color: var(--primary, #2563EB);">${overallPerc}%</span>
+                        </div>
+                        <div class="cs-prog-bg">
+                            <div class="cs-prog-fill" style="width: ${overallPerc}%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Continue Learning -->
+            ${startedCourses.length > 0 ? `
+            <section class="cs-section">
+                <h2 class="cs-section-title">Continue Learning</h2>
+                <div class="cs-course-grid">
+                    ${startedCourses.map(course => `
+                        <div class="cs-course-card" onclick="selectCourse('${course.id}')">
+                            <div class="cs-course-card-inner">
+                                <div class="cs-course-header">
+                                    <div class="cs-course-icon"><span class="material-symbols-rounded">menu_book</span></div>
+                                    <span class="cs-badge"><span class="material-symbols-rounded" style="font-size:12px;">layers</span> ${course.chapters.length} Chapters</span>
+                                </div>
+                                <div>
+                                    <h3 class="cs-course-title">${course.title}</h3>
+                                    <p class="cs-course-desc">${course.chapters[0]?.description || 'Dive back into your learning journey.'}</p>
+                                </div>
+                                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 0.2rem;">
+                                            <span style="color: var(--text-muted)">Progress</span>
+                                            <span style="font-weight: 600;">${course.progressPerc}%</span>
+                                        </div>
+                                        <div class="cs-prog-bg">
+                                            <div class="cs-prog-fill" style="width: ${course.progressPerc}%"></div>
+                                        </div>
+                                    </div>
+                                    <button class="cs-btn-primary">Continue Learning</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+            ` : ''}
+
+            <!-- Explore Courses -->
+            ${exploreCourses.length > 0 ? `
+            <section class="cs-section">
+                <h2 class="cs-section-title">Explore Courses</h2>
+                <div class="cs-course-grid">
+                    ${exploreCourses.map(course => `
+                        <div class="cs-course-card" onclick="selectCourse('${course.id}')">
+                            <div class="cs-course-card-inner">
+                                <div class="cs-course-header">
+                                    <div class="cs-course-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;"><span class="material-symbols-rounded">explore</span></div>
+                                    <span class="cs-badge" style="background: rgba(16, 185, 129, 0.1); color: #10B981;"><span class="material-symbols-rounded" style="font-size:12px;">fiber_new</span> New</span>
+                                </div>
+                                <div>
+                                    <h3 class="cs-course-title">${course.title}</h3>
+                                    <p class="cs-course-desc">${course.chapters[0]?.description || 'Explore this new path and expand your knowledge.'}</p>
+                                </div>
+                                <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end;">
+                                    <span class="cs-badge"><span class="material-symbols-rounded" style="font-size:12px;">layers</span> ${course.chapters.length} Chapters</span>
+                                    <button class="cs-btn-secondary" style="margin: 0;">Start Learning</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+            ` : ''}
+
+            <!-- Recommended Next -->
+            ${exploreCourses.length > 0 ? `
+            <section class="cs-section">
+                <h2 class="cs-section-title">Recommended Next</h2>
+                <div class="cs-rec-banner" onclick="selectCourse('${exploreCourses[0].id}')" style="cursor:pointer;">
+                    <div class="cs-mascot">
+                        ${typeof window.getMascotSVG === 'function' ? window.getMascotSVG('100%', '100%', 'happy') : '<span class="material-symbols-rounded" style="font-size:64px;color:var(--primary);">emoji_objects</span>'}
+                    </div>
+                    <div style="flex: 1; z-index: 1;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem;">
+                            <span class="material-symbols-rounded" style="font-size: 16px; color: var(--primary);">lightbulb</span>
+                            <span style="font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;">Suggestion</span>
+                        </div>
+                        <h3 style="font-size: 18px; font-weight: 600; margin: 0 0 0.2rem 0; color: var(--text-main);">${exploreCourses[0].title}</h3>
+                        <p style="color: var(--text-muted); line-height: 1.4; margin: 0 0 1rem 0; font-size: 13px;">
+                            Based on your completed milestones, this course will help you expand your technical foundation.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span class="cs-badge" style="background: transparent; padding: 0; border: none; color: var(--text-muted);"><span class="material-symbols-rounded" style="font-size:14px;">layers</span> ${exploreCourses[0].chapters.length} Chapters</span>
+                            <button class="cs-btn-primary" style="margin: 0;">Continue This Path</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            ` : `
+            <section class="cs-section">
+                <h2 class="cs-section-title">Great Job!</h2>
+                <div class="cs-rec-banner">
+                    <div class="cs-mascot">
+                        ${typeof window.getMascotSVG === 'function' ? window.getMascotSVG('100%', '100%', 'happy') : '<span class="material-symbols-rounded" style="font-size:64px;color:var(--primary);">emoji_events</span>'}
+                    </div>
+                    <div style="flex: 1; z-index: 1;">
+                        <h3 style="font-size: 18px; font-weight: 600; margin: 0 0 0.2rem 0; color: var(--text-main);">You're a superstar!</h3>
+                        <p style="color: var(--text-muted); line-height: 1.4; margin: 0; font-size: 13px;">
+                            You have started all available courses! Keep pushing forward to reach 100% completion. Let's keep that streak alive!
+                        </p>
+                    </div>
+                </div>
+            </section>
+            `}
+        </div>
+    </div>
+    `;
+    
+    app.innerHTML = html;
+};
+
 // Render: Chapters Selection (HOME)
 window.renderChapters = function (push = true) {
     if (push) pushAppHistory('home');
@@ -2797,7 +3296,7 @@ window.renderChapters = function (push = true) {
     window.currentView = 'home';
     updateDesktopPanels();
     updateMobileNav('home');
-    let html = renderHeader(null, "Odyssey by IIMBx");
+    let html = renderHeader("renderCourseSelection()", window.allCourses.find(c => c.id === window.activeCourseId)?.title || "Course Map");
 
     html += `
         <div class="main-scroll-area" style="padding: 2rem; display: flex; flex-direction: column; gap: 2rem;">
@@ -6576,13 +7075,40 @@ window.renderGodModeEditor = function (push = true) {
     renderGodModeRightPane();
 };
 
+window.adminChangeCourse = function(courseId) {
+    if (courseId) {
+        window.activeCourseId = courseId;
+        const course = window.allCourses.find(c => c.id === courseId);
+        window.courseData = course.chapters;
+        window.pools = course.pools || {};
+        window.levelRules = course.levelRules || {};
+        
+        adminSelectedChapter = null;
+        adminSelectedLevel = null;
+        adminSelectedQuestion = null;
+        window.adminSelectedView = null;
+        
+        window.renderGodModeLeftPane();
+        window.renderGodModeMiddlePane();
+        window.renderGodModeRightPane();
+    }
+};
+
 window.renderGodModeLeftPane = function () {
     const pane = document.getElementById('admin-left-pane');
     if (!pane) return;
 
+    let courseOptions = window.allCourses ? window.allCourses.map(c => `<option value="${c.id}" ${c.id === window.activeCourseId ? 'selected' : ''}>${c.title}</option>`).join('') : '<option value="">No Courses</option>';
+
     let html = `
         <div style="padding: 1.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg-dark); z-index: 10;">
             <h2 style="font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--error);"><span class="material-symbols-rounded">admin_panel_settings</span> Content Manager</h2>
+            <div style="margin-top: 1rem; width: 100%;">
+                <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; display: block;">Active Course</label>
+                <select onchange="adminChangeCourse(this.value)" style="width: 100%; padding: 0.5rem; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); font-family: 'Inter', sans-serif; cursor: pointer;">
+                    ${courseOptions}
+                </select>
+            </div>
             <button onclick="renderChapters()" style="margin-top: 1rem; width: 100%; padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); cursor: pointer;">Exit Admin Mode</button>
             <button onclick="exportContentJS()" class="pulse-cta" style="margin-top: 0.5rem; width: 100%; padding: 0.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-s); font-weight: 700; cursor: pointer;">Publish Live to DB</button>
             <button onclick="adminSelectSettings()" style="margin-top: 0.5rem; width: 100%; padding: 0.5rem; background: ${window.adminSelectedView === 'settings' ? 'rgba(var(--primary-rgb), 0.15)' : 'var(--bg-overlay)'}; border: 1px solid ${window.adminSelectedView === 'settings' ? 'var(--primary)' : 'var(--border)'}; border-radius: var(--radius-s); color: ${window.adminSelectedView === 'settings' ? 'var(--primary)' : 'var(--text-main)'}; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: all 0.2s;" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='${window.adminSelectedView === 'settings' ? 'rgba(var(--primary-rgb), 0.15)' : 'var(--bg-overlay)'}'">
@@ -8474,21 +9000,29 @@ window.adminDeleteQuestion = function (qId) {
 
 // Generate the final content.js file for download
 window.exportContentJS = async function () {
+    const activeCourse = window.allCourses ? window.allCourses.find(c => c.id === window.activeCourseId) : null;
+    
+    if (activeCourse) {
+        activeCourse.chapters = window.courseData;
+        activeCourse.levelRules = window.levelRules;
+        activeCourse.pools = {};
+        window.courseData.forEach((ch, cIdx) => {
+            const chapNum = cIdx + 1;
+            ch.levels.forEach((lvl, lIdx) => {
+                const levelNum = lIdx + 1;
+                const varName = `chapter${chapNum}Level${levelNum}Questions`;
+                activeCourse.pools[varName] = window.getGodModePool(ch.id, lvl.id);
+            });
+        });
+    }
+
     const payload = {
         adminUser: currentUser,
+        courses: window.allCourses,
         chapters: window.courseData,
         levelRules: window.levelRules,
-        pools: {}
+        pools: activeCourse ? activeCourse.pools : {}
     };
-
-    window.courseData.forEach((ch, cIdx) => {
-        const chapNum = cIdx + 1;
-        ch.levels.forEach((lvl, lIdx) => {
-            const levelNum = lIdx + 1;
-            const varName = `chapter${chapNum}Level${levelNum}Questions`;
-            payload.pools[varName] = window.getGodModePool(ch.id, lvl.id);
-        });
-    });
 
     try {
         const res = await fetch(API_BASE + '/.netlify/functions/save-course-content', {

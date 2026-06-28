@@ -1,0 +1,561 @@
+WEBVTT
+
+1
+00:00:03.980 --> 00:00:07.660
+All right, let's dive in. Today, we are going to take a
+
+2
+00:00:07.740 --> 00:00:11.720
+quick trip back in time to unpack the really surprising history
+
+3
+00:00:11.860 --> 00:00:15.080
+of artificial intelligence, especially if you're an
+
+4
+00:00:15.160 --> 00:00:18.880
+educator. I mean, how did we get from these abstract
+
+5
+00:00:18.980 --> 00:00:22.320
+theories decades ago to AI sitting right there in your
+
+6
+00:00:22.360 --> 00:00:26.020
+classroom? Let's find out. So picture
+
+7
+00:00:26.080 --> 00:00:29.440
+this, it's late, you're slogging through a pile of
+
+8
+00:00:29.480 --> 00:00:32.701
+assignments, and you land on an essay that just feels
+
+9
+00:00:32.900 --> 00:00:36.800
+off. The grammar is perfect, the structure is
+
+10
+00:00:36.860 --> 00:00:39.840
+flawless, but the voice, the actual
+
+11
+00:00:39.960 --> 00:00:43.340
+ideas, they feel strangely generic.
+
+12
+00:00:43.380 --> 00:00:47.100
+Or maybe you've been playing around with an AI tool yourself,
+
+13
+00:00:47.200 --> 00:00:50.060
+watching it spit out lesson plans in seconds.
+
+14
+00:00:50.100 --> 00:00:52.400
+And it's got to make you wonder, right?
+
+15
+00:00:52.480 --> 00:00:55.940
+How on earth did we get here? How did we go from these
+
+16
+00:00:56.000 --> 00:00:59.820
+giant clunky computers to AI that can write and
+
+17
+00:00:59.860 --> 00:01:02.940
+reason and brainstorm just like that?
+
+18
+00:01:03.000 --> 00:01:06.980
+Well, to answer that, we have to rewind the clock all the way back
+
+19
+00:01:07.020 --> 00:01:10.780
+to the nineteen fifties, because the story of AI, believe it or
+
+20
+00:01:10.800 --> 00:01:13.400
+not, doesn't start with a machine.
+
+21
+00:01:13.460 --> 00:01:16.060
+It starts with a single incredibly powerful
+
+22
+00:01:16.160 --> 00:01:19.920
+question. In nineteen fifty, this genius
+
+23
+00:01:20.020 --> 00:01:23.260
+mathematician, Alan Turing, he posed this very
+
+24
+00:01:23.300 --> 00:01:27.020
+question: Can machines think? Now, he
+
+25
+00:01:27.100 --> 00:01:31.020
+knew that could get stuck in philosophical knots forever, so he
+
+26
+00:01:31.060 --> 00:01:34.980
+came up with a practical test. Basically, if a person was
+
+27
+00:01:35.020 --> 00:01:38.250
+chatting with something and couldn't tell if it was another human or a
+
+28
+00:01:38.300 --> 00:01:41.650
+machine, well, then maybe we could say that machine was
+
+29
+00:01:41.680 --> 00:01:45.380
+intelligent. This idea, the Turing test, was a
+
+30
+00:01:45.420 --> 00:01:49.060
+total game changer. It framed AI not as metal
+
+31
+00:01:49.100 --> 00:01:52.960
+robots on an assembly line, but as something that could communicate, that
+
+32
+00:01:53.000 --> 00:01:56.970
+could reason. You could say the seeds of today's chatbots were
+
+33
+00:01:57.000 --> 00:02:00.760
+planted right then and there. And then just six
+
+34
+00:02:00.800 --> 00:02:04.720
+years later, a group of researchers at Dartmouth College officially gave it
+
+35
+00:02:04.760 --> 00:02:08.021
+a name, artificial intelligence.
+
+36
+00:02:08.039 --> 00:02:12.030
+And let me tell you, the optimism was just sky-high.
+
+37
+00:02:12.060 --> 00:02:15.670
+So the first real attempts at building AI back in the sixties and
+
+38
+00:02:15.700 --> 00:02:18.580
+seventies were all about one thing,
+
+39
+00:02:18.640 --> 00:02:22.380
+rules. Think of it like teaching a very, very literal
+
+40
+00:02:22.480 --> 00:02:26.200
+student. You give them a precise set of instructions, and they
+
+41
+00:02:26.240 --> 00:02:29.080
+follow them to the letter with absolutely no room for
+
+42
+00:02:29.120 --> 00:02:32.640
+interpretation. This whole approach is called symbolic
+
+43
+00:02:32.760 --> 00:02:36.320
+AI. The idea was that you could literally build a
+
+44
+00:02:36.400 --> 00:02:40.280
+mind out of symbols, logic, and these simple if-then
+
+45
+00:02:40.380 --> 00:02:44.090
+statements. You know, like a giant, incredibly detailed
+
+46
+00:02:44.180 --> 00:02:47.960
+flowchart. If the chess board looks like this, then you
+
+47
+00:02:48.000 --> 00:02:51.910
+make this specific move. And they really tried to put this into
+
+48
+00:02:51.980 --> 00:02:55.900
+action. You had things like the general problem solver, which tried
+
+49
+00:02:55.940 --> 00:02:59.180
+to think through problems like a formal math proof.
+
+50
+00:02:59.200 --> 00:03:03.130
+And then there was Shakey the robot, one of the first machines that
+
+51
+00:03:03.160 --> 00:03:06.640
+could actually look at its environment and then make a plan for
+
+52
+00:03:06.680 --> 00:03:10.670
+education. And the dream was obvious, create
+
+53
+00:03:10.670 --> 00:03:14.250
+these perfect automated tutors that could follow pedagogical
+
+54
+00:03:14.360 --> 00:03:18.300
+rules perfectly. But here's the thing, real
+
+55
+00:03:18.340 --> 00:03:22.140
+classrooms are messy, and this super rigid rule-based
+
+56
+00:03:22.180 --> 00:03:24.960
+approach really struggled once you took it out of the
+
+57
+00:03:25.000 --> 00:03:28.980
+lab. So as you can probably guess, these early
+
+58
+00:03:29.040 --> 00:03:32.280
+struggles led to some serious disillusionment.
+
+59
+00:03:32.290 --> 00:03:36.220
+The initial hype started to wear off, and that set the stage for what would
+
+60
+00:03:36.260 --> 00:03:40.200
+be the first of several AI winters, and eventually a
+
+61
+00:03:40.280 --> 00:03:42.580
+massive shift in how we thought about AI
+
+62
+00:03:42.590 --> 00:03:46.280
+altogether. Back in the seventies and eighties, the
+
+63
+00:03:46.340 --> 00:03:49.660
+next big thing was supposed to be expert systems.
+
+64
+00:03:49.670 --> 00:03:53.120
+The idea was to basically interview a human expert, a
+
+65
+00:03:53.130 --> 00:03:56.700
+doctor, an engineer, maybe even a master teacher, and
+
+66
+00:03:56.760 --> 00:03:59.400
+capture all their decision-making rules in a piece of
+
+67
+00:03:59.420 --> 00:04:02.900
+software. It sounded perfect for education, didn't
+
+68
+00:04:02.940 --> 00:04:06.430
+it? Yeah. Well, the reality was very
+
+69
+00:04:06.500 --> 00:04:09.329
+different. These systems were incredibly
+
+70
+00:04:09.440 --> 00:04:13.240
+brittle. The moment a situation came up that wasn't in the rule
+
+71
+00:04:13.320 --> 00:04:17.209
+book, they just broke. They were super expensive to build,
+
+72
+00:04:17.260 --> 00:04:20.840
+a total nightmare to update, and they had zero ability to
+
+73
+00:04:20.880 --> 00:04:24.700
+adapt. And the results, enthusiasm just
+
+74
+00:04:24.740 --> 00:04:28.500
+collapsed. Funding dried up, and interest totally froze
+
+75
+00:04:28.620 --> 00:04:31.900
+over. This became known as the first AI
+
+76
+00:04:31.980 --> 00:04:35.320
+winter, and this is such a vital lesson from
+
+77
+00:04:35.360 --> 00:04:39.130
+history. AI progress is not a straight line
+
+78
+00:04:39.340 --> 00:04:42.360
+up. It's a cycle of big hype, big
+
+79
+00:04:42.400 --> 00:04:45.240
+disappointment, and then reinvention.
+
+80
+00:04:46.180 --> 00:04:49.940
+But you know, it was during those quiet periods when the hype died
+
+81
+00:04:50.000 --> 00:04:53.370
+down that a completely different idea started to take hold.
+
+82
+00:04:54.620 --> 00:04:58.480
+What if, instead of trying to program all the rules, we could
+
+83
+00:04:58.500 --> 00:05:00.900
+get machines to learn the rules for themselves?
+
+84
+00:05:01.980 --> 00:05:05.900
+This was the fundamental pivot, the big fork in the road.
+
+85
+00:05:05.960 --> 00:05:09.540
+The old way, symbolic AI, was all about giving the
+
+86
+00:05:09.580 --> 00:05:13.480
+machine the answer key, every single rule.
+
+87
+00:05:13.520 --> 00:05:17.440
+The new way, which we call machine learning, was about giving the machine
+
+88
+00:05:17.680 --> 00:05:21.420
+thousands and thousands of examples and letting it figure out the
+
+89
+00:05:21.480 --> 00:05:25.140
+patterns on its own. It's really the difference between
+
+90
+00:05:25.200 --> 00:05:29.080
+memorizing grammar rules from a textbook and actually learning a
+
+91
+00:05:29.180 --> 00:05:31.200
+language through total immersion.
+
+92
+00:05:32.260 --> 00:05:36.240
+So this idea eventually grew into deep learning, which uses
+
+93
+00:05:36.280 --> 00:05:39.780
+these complex structures inspired by the brain called neural
+
+94
+00:05:39.840 --> 00:05:43.580
+networks. A great way to think about it, especially for
+
+95
+00:05:43.640 --> 00:05:46.200
+educators, is how a student learns to
+
+96
+00:05:46.280 --> 00:05:49.940
+read. The first layer of the network might just
+
+97
+00:05:50.000 --> 00:05:53.870
+recognize individual letters. The next layer puts those
+
+98
+00:05:53.940 --> 00:05:57.680
+together to see whole words. The layer after that
+
+99
+00:05:57.800 --> 00:06:01.680
+figures out sentence structure until finally the top layer can
+
+100
+00:06:01.720 --> 00:06:05.476
+grasp the overall meaning of a paragraph.And
+
+101
+00:06:05.636 --> 00:06:08.846
+this new approach led to some absolutely staggering
+
+102
+00:06:08.916 --> 00:06:12.716
+breakthroughs. In the mid-two thousands, Google's AlphaGo
+
+103
+00:06:12.916 --> 00:06:16.796
+beat the world's best human player at the game of Go, something
+
+104
+00:06:16.856 --> 00:06:20.066
+experts thought was still decades away.
+
+105
+00:06:20.116 --> 00:06:24.066
+It was this huge, clear signal that AI was becoming incredibly
+
+106
+00:06:24.076 --> 00:06:27.806
+powerful, even if nobody could really explain how these
+
+107
+00:06:27.836 --> 00:06:31.616
+systems were thinking. And all of that brings us
+
+108
+00:06:31.676 --> 00:06:35.556
+right here to the present moment, the moment AI stepped out of
+
+109
+00:06:35.596 --> 00:06:38.536
+the research lab and walked directly into your
+
+110
+00:06:38.556 --> 00:06:41.376
+classroom. This is the generative
+
+111
+00:06:41.416 --> 00:06:45.106
+revolution. So the technology that powers tools like
+
+112
+00:06:45.196 --> 00:06:48.436
+ChatGPT are called foundation models.
+
+113
+00:06:48.476 --> 00:06:52.285
+Think of them as these massive AI systems that have been trained on
+
+114
+00:06:52.316 --> 00:06:54.976
+an unbelievable amount of text and data from the
+
+115
+00:06:55.036 --> 00:06:58.836
+internet. And because they've seen so much stuff, they're
+
+116
+00:06:58.846 --> 00:07:01.296
+not just limited to one little task.
+
+117
+00:07:01.336 --> 00:07:05.196
+They can summarize, translate, brainstorm, write computer
+
+118
+00:07:05.276 --> 00:07:09.196
+code, and a whole lot more. And just look at how fast
+
+119
+00:07:09.256 --> 00:07:12.736
+this all happened. It's kind of dizzying.
+
+120
+00:07:12.796 --> 00:07:15.456
+Around two thousand and twenty, these big models start to
+
+121
+00:07:15.516 --> 00:07:18.936
+appear. Then late twenty twenty-two,
+
+122
+00:07:18.976 --> 00:07:22.936
+ChatGPT is released to the public, and boom, for
+
+123
+00:07:22.996 --> 00:07:26.736
+the first time, anyone could have a real conversation with a powerful
+
+124
+00:07:26.856 --> 00:07:30.776
+AI. By twenty twenty-four, the tools were going
+
+125
+00:07:30.956 --> 00:07:34.576
+way beyond text to create images, audio, and even
+
+126
+00:07:34.656 --> 00:07:35.216
+video.
+
+127
+00:07:36.236 --> 00:07:40.096
+This is the point when AI stopped being an abstract idea and
+
+128
+00:07:40.136 --> 00:07:44.026
+became immediate, practical, and frankly unavoidable for
+
+129
+00:07:44.056 --> 00:07:44.806
+educators.
+
+130
+00:07:46.216 --> 00:07:50.176
+Okay, so after that whirlwind tour, let's just step back for a
+
+131
+00:07:50.216 --> 00:07:53.416
+second and ask the most important question.
+
+132
+00:07:53.496 --> 00:07:56.616
+Why does any of this history matter to you in your classroom right
+
+133
+00:07:56.696 --> 00:08:00.436
+now? Well, first it reminds us that AI
+
+134
+00:08:00.696 --> 00:08:04.496
+always moves in these cycles. We see the huge promises
+
+135
+00:08:04.536 --> 00:08:08.156
+and all the hype, but that's always, always followed by the
+
+136
+00:08:08.176 --> 00:08:11.376
+discovery of real-world limitations.
+
+137
+00:08:11.436 --> 00:08:13.996
+And that disappointment is what leads to the next
+
+138
+00:08:14.016 --> 00:08:17.856
+reinvention. Just understanding this pattern helps
+
+139
+00:08:17.916 --> 00:08:21.576
+us approach the tools we have today with a healthy dose of critical
+
+140
+00:08:21.696 --> 00:08:25.516
+optimism instead of either panic or just blind faith.

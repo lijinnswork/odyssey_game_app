@@ -5182,6 +5182,49 @@ const chapters = [
     }
 ];
 
-// Expose globally
+// Build Dummy Courses
+const dummyChapters = [
+    {
+        id: "chapter1",
+        title: "Introduction to the Course",
+        description: "Welcome to this new course.",
+        levels: [
+            {
+                id: `c1-l1`,
+                title: `Welcome Level`,
+                description: `First steps.`,
+                questions: [
+                    { id: 'q1', type: 'micro_concept', text: 'This is a placeholder course.', xp: 10 }
+                ]
+            }
+        ]
+    }
+];
+
+window.allCourses = [
+    {
+        id: "ai_ethics",
+        title: "AI and Ethics",
+        chapters: chapters,
+        pools: window.pools || {},
+        levelRules: window.levelRules || {}
+    },
+    {
+        id: "data_science",
+        title: "Data Science Basics",
+        chapters: dummyChapters,
+        pools: {},
+        levelRules: {}
+    },
+    {
+        id: "machine_learning",
+        title: "Machine Learning Models",
+        chapters: dummyChapters,
+        pools: {},
+        levelRules: {}
+    }
+];
+
+// Provide fallback for legacy logic before course selection
 window.courseData = chapters;
-console.log("Chapter-based Course Data Loaded:", window.courseData);
+console.log("Multi-course Data Loaded:", window.allCourses);

@@ -1,0 +1,345 @@
+WEBVTT
+
+1
+00:00:03.960 --> 00:00:07.660
+In our earlier sessions, we traced the history of artificial intelligence
+
+2
+00:00:08.061 --> 00:00:10.100
+and the foundational ideas behind it.
+
+3
+00:00:10.120 --> 00:00:14.100
+Today, we shift to a practical question for educators, especially
+
+4
+00:00:14.120 --> 00:00:15.930
+in management and higher education.
+
+5
+00:00:16.000 --> 00:00:19.720
+How do we understand AI well enough to use it responsibly without
+
+6
+00:00:19.790 --> 00:00:23.410
+over-relying on it? We'll cover five things: What AI
+
+7
+00:00:23.480 --> 00:00:27.090
+literacy means in teaching, how AI is used in education
+
+8
+00:00:27.120 --> 00:00:30.780
+today, practical use cases, how to evaluate AI
+
+9
+00:00:30.920 --> 00:00:34.760
+outputs, and how to guide students to use AI wisely.
+
+10
+00:00:34.860 --> 00:00:37.260
+One, what AI literacy means for teaching.
+
+11
+00:00:37.340 --> 00:00:40.520
+AI literacy is not merely knowing which buttons to click.
+
+12
+00:00:40.540 --> 00:00:43.680
+It's understanding what AI is doing, how it generates
+
+13
+00:00:43.760 --> 00:00:47.680
+outputs, what it does not know, and how it can influence learning
+
+14
+00:00:47.720 --> 00:00:51.500
+and assessment. Educators are not just consumers of AI.
+
+15
+00:00:51.560 --> 00:00:54.800
+We are evaluators and designers of AI-enhanced learning
+
+16
+00:00:54.840 --> 00:00:58.470
+experiences. AI literacy includes knowing what
+
+17
+00:00:58.540 --> 00:01:02.490
+decisions AI can and cannot reliably make, asking
+
+18
+00:01:02.520 --> 00:01:06.120
+what an output is based on and what it may be missing,
+
+19
+00:01:06.180 --> 00:01:09.340
+avoiding over-trust without verification.
+
+20
+00:01:09.350 --> 00:01:12.530
+This bridges simple tech use with meaningful learning
+
+21
+00:01:12.620 --> 00:01:15.550
+design. The expanding role of AI in
+
+22
+00:01:15.600 --> 00:01:19.180
+education. AI is increasingly embedded across
+
+23
+00:01:19.300 --> 00:01:22.940
+teaching and academic workflows, instructional design,
+
+24
+00:01:22.980 --> 00:01:26.610
+personalized learning, assessment support, and administrative
+
+25
+00:01:26.700 --> 00:01:30.220
+tasks. At its best, AI can personalize
+
+26
+00:01:30.260 --> 00:01:33.450
+pathways, enhance engagement through adaptive practice and
+
+27
+00:01:33.480 --> 00:01:37.380
+feedback, and support educator decisions by identifying learning
+
+28
+00:01:37.420 --> 00:01:40.580
+gaps or class-level trends. The goal is
+
+29
+00:01:40.620 --> 00:01:44.500
+augmentation, not replacement. Practical real-world use
+
+30
+00:01:44.580 --> 00:01:47.110
+cases for educators. Let's make this
+
+31
+00:01:47.120 --> 00:01:50.610
+concrete. A, personalized learning and
+
+32
+00:01:50.700 --> 00:01:54.560
+pathways. AI platforms can analyze student interaction
+
+33
+00:01:54.660 --> 00:01:58.440
+patterns and recommend targeted readings, exercises, or
+
+34
+00:01:58.460 --> 00:02:02.120
+revision tasks. In large classes, this can support
+
+35
+00:02:02.160 --> 00:02:05.600
+differentiation and self-paced progress.
+
+36
+00:02:05.640 --> 00:02:08.840
+B, feedback and assessment support.
+
+37
+00:02:08.861 --> 00:02:12.640
+AI can provide immediate formative feedback on practice work,
+
+38
+00:02:12.680 --> 00:02:15.880
+helping students learn from mistakes in the moment.
+
+39
+00:02:15.920 --> 00:02:19.780
+For educators, AI can summarize performance data and surface
+
+40
+00:02:19.880 --> 00:02:23.040
+common misconceptions that need reteaching.
+
+41
+00:02:23.160 --> 00:02:27.140
+C, content creation and administrative efficiency.
+
+42
+00:02:27.180 --> 00:02:30.740
+AI can assist with lesson outlines, discussion prompts, quiz
+
+43
+00:02:30.820 --> 00:02:34.440
+drafts, and summaries of long readings, reducing routine
+
+44
+00:02:34.500 --> 00:02:38.329
+workload. In higher education, it may also flag engagement
+
+45
+00:02:38.420 --> 00:02:42.380
+patterns, so faculty can adjust support earlier.
+
+46
+00:02:42.460 --> 00:02:45.400
+Four, evaluative and critical skills for AI
+
+47
+00:02:45.540 --> 00:02:49.460
+use. Understanding AI also means judging its outputs
+
+48
+00:02:49.500 --> 00:02:53.420
+for quality, relevance, and reliability because
+
+49
+00:02:53.430 --> 00:02:56.310
+"sounds right" is not the same as "is right."
+
+50
+00:02:57.420 --> 00:03:00.480
+A, alignment with learning objectives.
+
+51
+00:03:00.540 --> 00:03:04.460
+Before using any AI output, ask, "Does this serve my
+
+52
+00:03:04.500 --> 00:03:08.200
+learning goals?" And, "Is it accurate and appropriate for my
+
+53
+00:03:08.240 --> 00:03:11.900
+learners and context?" Evaluate not only the final
+
+54
+00:03:11.940 --> 00:03:15.660
+text, but the assumptions behind it, especially where nuance
+
+55
+00:03:15.700 --> 00:03:18.730
+matters. B, recognizing
+
+56
+00:03:18.800 --> 00:03:22.490
+limitations. AI can produce confident, plausible
+
+57
+00:03:22.560 --> 00:03:26.300
+responses that are incorrect, incomplete, or biased,
+
+58
+00:03:26.340 --> 00:03:28.960
+sometimes called hallucinations.
+
+59
+00:03:29.000 --> 00:03:32.440
+Cross-check important outputs with trusted sources, your course
+
+60
+00:03:32.480 --> 00:03:36.450
+materials, or expert judgment. When stakes are high,
+
+61
+00:03:36.480 --> 00:03:39.960
+require evidence, references, or comparison with multiple
+
+62
+00:03:40.060 --> 00:03:40.660
+sources.
+
+63
+00:03:41.920 --> 00:03:45.340
+C, criteria for selecting AI tools.
+
+64
+00:03:45.400 --> 00:03:48.620
+Good practice includes considering data privacy, ethical
+
+65
+00:03:48.680 --> 00:03:52.620
+safeguards, transparency, accessibility, and alignment
+
+66
+00:03:52.660 --> 00:03:56.300
+with curriculum standards. Also, check whether the tool clearly
+
+67
+00:03:56.320 --> 00:03:59.800
+explains data use and consent options.
+
+68
+00:03:59.860 --> 00:04:03.769
+Five, supporting students to use AI wisely.
+
+69
+00:04:03.820 --> 00:04:07.580
+Students are already using AI for academic work, often outside
+
+70
+00:04:07.600 --> 00:04:11.450
+supervision, and sometimes without understanding limits.
+
+71
+00:04:11.500 --> 00:04:15.260
+That makes guidance essential, so AI strengthens learning
+
+72
+00:04:15.300 --> 00:04:18.079
+instead of replacing it. Teach critical
+
+73
+00:04:18.161 --> 00:04:22.000
+interpretation. Verify outputs, spot gaps, and notice
+
+74
+00:04:22.101 --> 00:04:25.060
+bias. Clarify collaboration versus
+
+75
+00:04:25.140 --> 00:04:28.870
+outsourcing. AI can help brainstorm or draft, but
+
+76
+00:04:28.920 --> 00:04:31.320
+students must still demonstrate reasoning.
+
+77
+00:04:31.380 --> 00:04:35.000
+So design tasks that require reflection, interpretation, or
+
+78
+00:04:35.040 --> 00:04:38.340
+critique. Embed responsible use.
+
+79
+00:04:38.380 --> 00:04:42.370
+Clarify what's allowed, when to cite AI assistance, and how
+
+80
+00:04:42.440 --> 00:04:46.060
+academic integrity applies. This prepares students for a
+
+81
+00:04:46.100 --> 00:04:49.900
+workplace where AI will support analysis, communication, and
+
+82
+00:04:49.940 --> 00:04:53.740
+decision-making. To conclude, understanding
+
+83
+00:04:53.840 --> 00:04:57.190
+AI as educators is about literacy, judgment, and
+
+84
+00:04:57.300 --> 00:05:01.260
+strategy. Align AI with pedagogy, evaluate
+
+85
+00:05:01.340 --> 00:05:04.560
+outputs critically, and empower students to use AI
+
+86
+00:05:04.600 --> 00:05:05.980
+responsibly.

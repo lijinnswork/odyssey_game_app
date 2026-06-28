@@ -1,0 +1,441 @@
+WEBVTT
+
+1
+00:00:03.920 --> 00:00:07.860
+All right. In the next few minutes, we're going to try and demystify
+
+2
+00:00:07.920 --> 00:00:10.800
+one of the most talked about technologies on the entire
+
+3
+00:00:10.920 --> 00:00:14.840
+planet. Our goal is pretty simple, to answer one big
+
+4
+00:00:14.960 --> 00:00:18.460
+question, what is artificial intelligence?
+
+5
+00:00:18.520 --> 00:00:22.400
+Let's dive right in. So before we even get into a definition,
+
+6
+00:00:22.420 --> 00:00:25.840
+let's actually start with you. I just want you to think about your day so
+
+7
+00:00:25.960 --> 00:00:29.100
+far. Just take a second and think about it.
+
+8
+00:00:29.160 --> 00:00:32.570
+Where do you think you might have bumped into AI without even realizing
+
+9
+00:00:32.640 --> 00:00:36.610
+it? We tend to picture AI as, you know, these futuristic
+
+10
+00:00:36.680 --> 00:00:39.880
+robots, but the truth is, most of it is pretty
+
+11
+00:00:39.940 --> 00:00:43.600
+quiet, totally invisible, and already stitched into the
+
+12
+00:00:43.640 --> 00:00:47.300
+fabric of our everyday lives. So did any of these pop into your
+
+13
+00:00:47.360 --> 00:00:50.480
+head? Unlocking your phone with your face?
+
+14
+00:00:50.540 --> 00:00:54.020
+Yep, that's AI. Your map app figuring out the
+
+15
+00:00:54.100 --> 00:00:56.600
+absolute best way to dodge traffic?
+
+16
+00:00:56.640 --> 00:01:00.470
+That's AI too. And that little grammar helper that saves you from
+
+17
+00:01:00.500 --> 00:01:03.640
+embarrassing typos? You guessed it, also
+
+18
+00:01:03.720 --> 00:01:07.640
+AI. It's already here, just humming along quietly
+
+19
+00:01:07.680 --> 00:01:11.590
+in the background. Okay, so if it's all of these different things, then what's
+
+20
+00:01:11.620 --> 00:01:15.510
+the common thread here? What are we actually talking about when we use that
+
+21
+00:01:15.540 --> 00:01:19.360
+term AI? Let's try to move past all the science fiction hype
+
+22
+00:01:19.380 --> 00:01:22.200
+and land on a clear, practical definition.
+
+23
+00:01:22.300 --> 00:01:26.200
+Because AI isn't some kind of magic, it's really just a set
+
+24
+00:01:26.280 --> 00:01:30.000
+of specific methods and models that are designed to do things that,
+
+25
+00:01:30.340 --> 00:01:34.060
+well, look pretty intelligent. At its very core, this is
+
+26
+00:01:34.120 --> 00:01:38.060
+it. Artificial intelligence is basically when computer systems can do
+
+27
+00:01:38.100 --> 00:01:41.160
+things that we normally associate with the human brain.
+
+28
+00:01:41.200 --> 00:01:45.180
+Things like recognizing patterns, like your face or your voice,
+
+29
+00:01:45.220 --> 00:01:49.190
+or understanding language, or making smart predictions like what
+
+30
+00:01:49.240 --> 00:01:51.650
+video you're probably going to want to watch next.
+
+31
+00:01:51.680 --> 00:01:55.460
+And we can break down what AI does into a really simple four-step
+
+32
+00:01:55.480 --> 00:01:59.220
+process. Think of it like this. First, it perceives the world
+
+33
+00:01:59.280 --> 00:02:03.180
+around it using data. Then it learns from all that input.
+
+34
+00:02:03.240 --> 00:02:06.460
+Based on what it's learned, it reasons about what it should do.
+
+35
+00:02:06.470 --> 00:02:09.200
+And finally, it acts to complete a task.
+
+36
+00:02:09.241 --> 00:02:12.640
+Perceive, learn, reason, and act.
+
+37
+00:02:12.709 --> 00:02:16.560
+That's the loop. Now, here's a really important thing to get, not
+
+38
+00:02:16.640 --> 00:02:20.480
+all AI is created equal. The AI that we have right now
+
+39
+00:02:20.500 --> 00:02:23.810
+today is what we call narrow AI. It's
+
+40
+00:02:23.860 --> 00:02:27.160
+incredibly powerful, but only at one very specific
+
+41
+00:02:27.170 --> 00:02:31.030
+thing. Think about it, your spam filter is a genius at
+
+42
+00:02:31.060 --> 00:02:34.300
+finding junk mail, but you can't ask it to write you a poem.
+
+43
+00:02:34.980 --> 00:02:38.720
+That other idea, a machine that has broad human-like intelligence
+
+44
+00:02:38.960 --> 00:02:42.080
+that can do anything a person can, that's general
+
+45
+00:02:42.160 --> 00:02:45.940
+AI. And for now, that's still firmly in the world of science
+
+46
+00:02:46.000 --> 00:02:49.600
+fiction. And this is so, so important for this conversation.
+
+47
+00:02:49.640 --> 00:02:53.480
+When we're talking about AI tools in the classroom or for learning, we are
+
+48
+00:02:53.640 --> 00:02:57.100
+always one hundred percent of the time talking about these super
+
+49
+00:02:57.240 --> 00:03:01.200
+specialized narrow AI systems. Okay, so how does a machine
+
+50
+00:03:01.300 --> 00:03:03.900
+actually learn to do these very specific things?
+
+51
+00:03:03.910 --> 00:03:07.609
+This is where we get to the really big idea that completely changed the
+
+52
+00:03:07.680 --> 00:03:11.420
+game, machine learning. This slide shows a massive
+
+53
+00:03:11.520 --> 00:03:13.740
+shift in how we build smart systems.
+
+54
+00:03:13.860 --> 00:03:17.780
+For decades, programming was all about a human having to write out every
+
+55
+00:03:17.900 --> 00:03:21.490
+single step-by-step rule. If this happens, then you need to do
+
+56
+00:03:21.560 --> 00:03:25.380
+that. But with machine learning, which has just exploded thanks
+
+57
+00:03:25.440 --> 00:03:29.380
+to huge amounts of data and crazy computing power, we just
+
+58
+00:03:29.400 --> 00:03:33.200
+flip the script. Instead of feeding it the rules, we feed it a
+
+59
+00:03:33.240 --> 00:03:37.220
+ton of data and the right answers. The machine's job is to then work
+
+60
+00:03:37.240 --> 00:03:40.780
+backward and figure out the rules for itself just by finding the
+
+61
+00:03:40.820 --> 00:03:44.250
+patterns. So if you only remember one thing from this whole
+
+62
+00:03:44.360 --> 00:03:48.160
+section, make it this, modern AI isn't programmed for
+
+63
+00:03:48.260 --> 00:03:52.140
+every single possibility. It's all about learning from a mind-boggling
+
+64
+00:03:52.180 --> 00:03:55.780
+number of examples and then using the patterns it finds to make
+
+65
+00:03:55.840 --> 00:03:58.080
+predictions or create something new.
+
+66
+00:03:58.090 --> 00:04:01.880
+And this powerful idea of learning from patterns, well, it's the
+
+67
+00:04:01.960 --> 00:04:05.720
+engine behind the AI that's been making all the headlines lately,
+
+68
+00:04:05.840 --> 00:04:09.820
+generative AI. And just like the name says, this kind of
+
+69
+00:04:09.940 --> 00:04:13.770
+AI doesn't just analyze stuff, it actually creates brand-new
+
+70
+00:04:13.860 --> 00:04:17.840
+content from scratch. It can generate text, you know, from emails to
+
+71
+00:04:17.940 --> 00:04:21.800
+essays. It can create unbelievable images just from a short
+
+72
+00:04:21.820 --> 00:04:25.460
+description, and it's getting scary good at making audio and
+
+73
+00:04:25.540 --> 00:04:28.820
+even video. So how on earth does a chatbot write a whole
+
+74
+00:04:28.940 --> 00:04:32.670
+paragraph? Well, it's actually a pretty simple concept, believe it or
+
+75
+00:04:32.740 --> 00:04:36.650
+not. Based on all the text it's been trained on, it's just making a statistical
+
+76
+00:04:36.760 --> 00:04:40.580
+guess one word at a time about what the very next word should be to make a
+
+77
+00:04:40.620 --> 00:04:44.280
+sentence that sounds right. And this right here leads us to the
+
+78
+00:04:44.440 --> 00:04:47.420
+single most important warning about these tools.
+
+79
+00:04:47.480 --> 00:04:51.100
+Its goal is to sound plausible, to sound fluent, to give you an
+
+80
+00:04:51.200 --> 00:04:54.340
+answer that looks good. Its goal is not to be factually
+
+81
+00:04:54.420 --> 00:04:58.060
+correct. It can sound incredibly confident while being totally,
+
+82
+00:04:58.080 --> 00:05:01.640
+completely wrong. So knowing that, knowing about this major
+
+83
+00:05:01.740 --> 00:05:05.660
+flaw, how should we be thinking about using these tools, especially when it comes
+
+84
+00:05:05.700 --> 00:05:09.170
+to learning? This brings us to a really helpful way to think about
+
+85
+00:05:09.220 --> 00:05:12.640
+it. Let's be super clear about what AI can do and what it
+
+86
+00:05:12.680 --> 00:05:15.960
+can't. It is awesome at finding patterns, at being
+
+87
+00:05:16.080 --> 00:05:19.969
+fast, and at automating tasks. It can be a fantastic starting
+
+88
+00:05:20.060 --> 00:05:23.990
+point for a first draft or a summary, but it is terrible at understanding
+
+89
+00:05:23.990 --> 00:05:27.710
+human context. It can't make ethical judgments, and it can
+
+90
+00:05:27.800 --> 00:05:31.300
+never, ever replace the empathy and mentorship of a real human
+
+91
+00:05:31.320 --> 00:05:34.680
+connection. And really, it all boils down to this one simple
+
+92
+00:05:34.740 --> 00:05:38.660
+idea, treat AI like a very capable but sometimes unreliable
+
+93
+00:05:38.700 --> 00:05:42.420
+assistant. It's a tool that can help you with things, but it should never be
+
+94
+00:05:42.440 --> 00:05:45.240
+treated as the final word on truth or judgment.
+
+95
+00:05:45.280 --> 00:05:48.640
+That's where we, the humans, still have to be in charge.
+
+96
+00:05:48.680 --> 00:05:52.420
+And let's be real, for most of us, especially for educators, the
+
+97
+00:05:52.460 --> 00:05:54.260
+goal isn't to become a programmer.
+
+98
+00:05:54.320 --> 00:05:58.300
+It's about building what we call AI literacy, just having a good gut
+
+99
+00:05:58.340 --> 00:06:02.060
+feeling for what AI is, how it works on a basic level, and most
+
+100
+00:06:02.100 --> 00:06:04.770
+importantly, knowing where its limits are.
+
+101
+00:06:04.800 --> 00:06:08.469
+Because ready or not, these tools are already making a huge splash in
+
+102
+00:06:08.500 --> 00:06:12.330
+education. They're changing how students write and research.
+
+103
+00:06:12.360 --> 00:06:16.220
+They're forcing us to totally rethink our assignments, and they're bringing up
+
+104
+00:06:16.260 --> 00:06:19.840
+some really big new questions about what things like originality and
+
+105
+00:06:19.880 --> 00:06:23.760
+integrity even mean anymore. And that's the big question I want to
+
+106
+00:06:23.820 --> 00:06:27.800
+leave you with. It's the challenge that's sitting right in front of all of us.
+
+107
+00:06:27.880 --> 00:06:31.760
+As we start using these powerful new assistants in our lives and our classrooms,
+
+108
+00:06:32.180 --> 00:06:35.860
+how do we make sure that they're being used to support learning and not just as a
+
+109
+00:06:35.900 --> 00:06:39.380
+shortcut that replaces the messy, difficult, but vital
+
+110
+00:06:39.400 --> 00:06:40.930
+process of critical thinking?

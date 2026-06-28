@@ -37,7 +37,7 @@ exports.handler = async (event) => {
         const payload = JSON.parse(event.body || '{}');
         const adminUser = payload.adminUser || 'unknown_admin';
 
-        if (!payload || !payload.chapters) {
+        if (!payload || (!payload.chapters && !payload.courses)) {
             return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid course data structure.' }) };
         }
 
@@ -66,7 +66,8 @@ exports.handler = async (event) => {
 
         // Log the publication
         await auditLog(sql, adminUser, 'PUBLISH_CONTENT', 'CURRICULUM', 'GLOBAL_LIVE_CONTENT', {
-            chapterCount: payload.chapters.length,
+            courseCount: payload.courses ? payload.courses.length : 1,
+            chapterCount: payload.chapters ? payload.chapters.length : 0,
             publishTimestamp: new Date().toISOString()
         });
 

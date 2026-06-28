@@ -1274,9 +1274,9 @@ body[data-theme="light"] .chapter-card {
         color: #FFFFFF !important;
     }
 
-    /* Fix white gap on overscroll in light mode */
+    /* Fix white gap on overscroll in light mode without causing a hard split line */
     body[data-theme="light"]:not(.login-mode) .app-content {
-        background: linear-gradient(180deg, #1A365D 0%, #1A365D 50vh, var(--bg-card) 50vh, var(--bg-card) 100%) !important;
+        background: var(--bg-main) !important;
     }
 
     .main-scroll-area {

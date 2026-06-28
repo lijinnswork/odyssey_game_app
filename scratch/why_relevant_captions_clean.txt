@@ -1,0 +1,86 @@
+In our earlier sessions, we traced the history of artificial intelligence
+and the foundational ideas behind it.
+Today, we shift to a practical question for educators, especially
+in management and higher education.
+How do we understand AI well enough to use it responsibly without
+over-relying on it? We'll cover five things: What AI
+literacy means in teaching, how AI is used in education
+today, practical use cases, how to evaluate AI
+outputs, and how to guide students to use AI wisely.
+One, what AI literacy means for teaching.
+AI literacy is not merely knowing which buttons to click.
+It's understanding what AI is doing, how it generates
+outputs, what it does not know, and how it can influence learning
+and assessment. Educators are not just consumers of AI.
+We are evaluators and designers of AI-enhanced learning
+experiences. AI literacy includes knowing what
+decisions AI can and cannot reliably make, asking
+what an output is based on and what it may be missing,
+avoiding over-trust without verification.
+This bridges simple tech use with meaningful learning
+design. The expanding role of AI in
+education. AI is increasingly embedded across
+teaching and academic workflows, instructional design,
+personalized learning, assessment support, and administrative
+tasks. At its best, AI can personalize
+pathways, enhance engagement through adaptive practice and
+feedback, and support educator decisions by identifying learning
+gaps or class-level trends. The goal is
+augmentation, not replacement. Practical real-world use
+cases for educators. Let's make this
+concrete. A, personalized learning and
+pathways. AI platforms can analyze student interaction
+patterns and recommend targeted readings, exercises, or
+revision tasks. In large classes, this can support
+differentiation and self-paced progress.
+B, feedback and assessment support.
+AI can provide immediate formative feedback on practice work,
+helping students learn from mistakes in the moment.
+For educators, AI can summarize performance data and surface
+common misconceptions that need reteaching.
+C, content creation and administrative efficiency.
+AI can assist with lesson outlines, discussion prompts, quiz
+drafts, and summaries of long readings, reducing routine
+workload. In higher education, it may also flag engagement
+patterns, so faculty can adjust support earlier.
+Four, evaluative and critical skills for AI
+use. Understanding AI also means judging its outputs
+for quality, relevance, and reliability because
+"sounds right" is not the same as "is right."
+A, alignment with learning objectives.
+Before using any AI output, ask, "Does this serve my
+learning goals?" And, "Is it accurate and appropriate for my
+learners and context?" Evaluate not only the final
+text, but the assumptions behind it, especially where nuance
+matters. B, recognizing
+limitations. AI can produce confident, plausible
+responses that are incorrect, incomplete, or biased,
+sometimes called hallucinations.
+Cross-check important outputs with trusted sources, your course
+materials, or expert judgment. When stakes are high,
+require evidence, references, or comparison with multiple
+sources.
+C, criteria for selecting AI tools.
+Good practice includes considering data privacy, ethical
+safeguards, transparency, accessibility, and alignment
+with curriculum standards. Also, check whether the tool clearly
+explains data use and consent options.
+Five, supporting students to use AI wisely.
+Students are already using AI for academic work, often outside
+supervision, and sometimes without understanding limits.
+That makes guidance essential, so AI strengthens learning
+instead of replacing it. Teach critical
+interpretation. Verify outputs, spot gaps, and notice
+bias. Clarify collaboration versus
+outsourcing. AI can help brainstorm or draft, but
+students must still demonstrate reasoning.
+So design tasks that require reflection, interpretation, or
+critique. Embed responsible use.
+Clarify what's allowed, when to cite AI assistance, and how
+academic integrity applies. This prepares students for a
+workplace where AI will support analysis, communication, and
+decision-making. To conclude, understanding
+AI as educators is about literacy, judgment, and
+strategy. Align AI with pedagogy, evaluate
+outputs critically, and empower students to use AI
+responsibly.
