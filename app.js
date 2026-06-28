@@ -7089,6 +7089,13 @@ window.adminChangeCourse = function(courseId) {
         window.pools = course.pools || {};
         window.levelRules = course.levelRules || {};
         
+        // Load course pools into global scope variables
+        if (course.pools) {
+            Object.keys(course.pools).forEach(varName => {
+                window[varName] = course.pools[varName];
+            });
+        }
+        
         adminSelectedChapter = null;
         adminSelectedLevel = null;
         adminSelectedQuestion = null;
@@ -7115,16 +7122,23 @@ window.renderGodModeLeftPane = function () {
             <h2 style="font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--error);"><span class="material-symbols-rounded">admin_panel_settings</span> Content Manager</h2>
             <div style="margin-top: 1rem; width: 100%;">
                 <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; display: block;">Active Course</label>
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <div style="display: flex; gap: 0.4rem; align-items: center;">
                     <select onchange="adminChangeCourse(this.value)" style="flex: 1; padding: 0.5rem; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); font-family: 'Inter', sans-serif; cursor: pointer; min-width: 0;">
                         ${courseOptions}
                     </select>
                     <button onclick="adminEditCourse()" 
-                            style="cursor: pointer; opacity: 0.8; color: var(--text-main); transition: all 0.2s; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-s); background: var(--bg-overlay); border: 1px solid var(--border); flex-shrink: 0;" 
+                            style="cursor: pointer; opacity: 0.8; color: var(--text-main); transition: all 0.2s; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-s); background: var(--bg-overlay); border: 1px solid var(--border); flex-shrink: 0;" 
                             onmouseover="this.style.opacity=1; this.style.background='rgba(var(--primary-rgb), 0.1)'" 
                             onmouseout="this.style.opacity=0.8; this.style.background='var(--bg-overlay)'" 
                             title="Edit Course Name">
                         <span class="material-symbols-rounded" style="font-size: 1.1rem;">edit</span>
+                    </button>
+                    <button onclick="adminAddCourse()" 
+                            style="cursor: pointer; opacity: 0.8; color: var(--text-main); transition: all 0.2s; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-s); background: var(--bg-overlay); border: 1px solid var(--border); flex-shrink: 0;" 
+                            onmouseover="this.style.opacity=1; this.style.background='rgba(var(--primary-rgb), 0.1)'" 
+                            onmouseout="this.style.opacity=0.8; this.style.background='var(--bg-overlay)'" 
+                            title="Add New Course">
+                        <span class="material-symbols-rounded" style="font-size: 1.1rem;">add</span>
                     </button>
                 </div>
             </div>
@@ -8021,6 +8035,99 @@ window.adminEditCourse = function () {
                 window.renderGodModeLeftPane();
                 showToast('Course name updated successfully! Remember to "Publish Live to DB" to save changes.');
             }
+        }
+    });
+};
+
+window.adminAddCourse = function () {
+    showModal({
+        icon: 'add_circle',
+        title: 'Add New Course',
+        message: 'Create a brand new course path.',
+        confirmText: 'Create',
+        cancelText: 'Cancel',
+        customHtml: `
+            <div style="text-align: left; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <label style="display: block; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Course Name</label>
+                    <input type="text" id="modal-new-course-title" placeholder="e.g., Deep Learning Specialization" 
+                           style="width: 100%; padding: 0.8rem; background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border); border-radius: var(--radius-s); font-size: 0.95rem; font-family: inherit; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Unique URL Slug (ID)</label>
+                    <input type="text" id="modal-new-course-slug" placeholder="e.g., deep_learning" 
+                           style="width: 100%; padding: 0.8rem; background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border); border-radius: var(--radius-s); font-size: 0.95rem; font-family: inherit; box-sizing: border-box;">
+                </div>
+            </div>
+        `,
+        onConfirm: () => {
+            const title = document.getElementById('modal-new-course-title').value.trim();
+            let slug = document.getElementById('modal-new-course-slug').value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '_');
+            
+            if (!title) {
+                showToast('Course name is required!');
+                return;
+            }
+            if (!slug) {
+                slug = title.toLowerCase().replace(/[^a-z0-9_]/g, '_');
+            }
+
+            if (window.allCourses && window.allCourses.some(c => c.id === slug)) {
+                showToast('A course with this ID already exists!');
+                return;
+            }
+
+            // Create a default chapter & level structure for the new course
+            const newCourse = {
+                id: slug,
+                title: title,
+                chapters: [
+                    {
+                        id: 'chapter1',
+                        title: 'Chapter 1: Welcome',
+                        description: 'Introduction to ' + title,
+                        levels: [
+                            {
+                                id: 'c1-l1',
+                                title: 'Level 1: Getting Started',
+                                description: 'Start your journey.',
+                                questions: []
+                            }
+                        ]
+                    }
+                ],
+                pools: {
+                    'chapter1Level1Questions': []
+                },
+                levelRules: {
+                    totalQuestions: 5,
+                    quota: 3
+                }
+            };
+
+            if (!window.allCourses) window.allCourses = [];
+            window.allCourses.push(newCourse);
+            
+            // Set as active
+            window.activeCourseId = slug;
+            window.courseData = newCourse.chapters;
+            window.pools = newCourse.pools;
+            window.levelRules = newCourse.levelRules;
+
+            // Make sure the global variable for chapter 1 level 1 questions exists in memory
+            window['chapter1Level1Questions'] = [];
+
+            // Reload left, middle, right panes
+            adminSelectedChapter = 'chapter1';
+            adminSelectedLevel = 'c1-l1';
+            adminSelectedQuestion = null;
+            window.adminSelectedView = null;
+
+            window.renderGodModeLeftPane();
+            window.renderGodModeMiddlePane();
+            window.renderGodModeRightPane();
+
+            showToast('New course created! Add chapters/levels and remember to click "Publish Live to DB".');
         }
     });
 };
