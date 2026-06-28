@@ -7111,9 +7111,18 @@ window.renderGodModeLeftPane = function () {
             <h2 style="font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--error);"><span class="material-symbols-rounded">admin_panel_settings</span> Content Manager</h2>
             <div style="margin-top: 1rem; width: 100%;">
                 <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; display: block;">Active Course</label>
-                <select onchange="adminChangeCourse(this.value)" style="width: 100%; padding: 0.5rem; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); font-family: 'Inter', sans-serif; cursor: pointer;">
-                    ${courseOptions}
-                </select>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <select onchange="adminChangeCourse(this.value)" style="flex: 1; padding: 0.5rem; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); font-family: 'Inter', sans-serif; cursor: pointer; min-width: 0;">
+                        ${courseOptions}
+                    </select>
+                    <button onclick="adminEditCourse()" 
+                            style="cursor: pointer; opacity: 0.8; color: var(--text-main); transition: all 0.2s; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-s); background: var(--bg-overlay); border: 1px solid var(--border); flex-shrink: 0;" 
+                            onmouseover="this.style.opacity=1; this.style.background='rgba(var(--primary-rgb), 0.1)'" 
+                            onmouseout="this.style.opacity=0.8; this.style.background='var(--bg-overlay)'" 
+                            title="Edit Course Name">
+                        <span class="material-symbols-rounded" style="font-size: 1.1rem;">edit</span>
+                    </button>
+                </div>
             </div>
             <button onclick="renderChapters()" style="margin-top: 1rem; width: 100%; padding: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-s); color: var(--text-main); cursor: pointer;">Exit Admin Mode</button>
             <button onclick="exportContentJS()" class="pulse-cta" style="margin-top: 0.5rem; width: 100%; padding: 0.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-s); font-weight: 700; cursor: pointer;">Publish Live to DB</button>
@@ -7973,6 +7982,36 @@ window.adminSaveSettings = function () {
 
     renderGodModeRightPane();
 }
+
+window.adminEditCourse = function () {
+    const course = window.allCourses.find(c => c.id === window.activeCourseId);
+    if (!course) return;
+
+    showModal({
+        icon: 'edit',
+        title: 'Edit Course Details',
+        message: 'Update the name of this course.',
+        confirmText: 'Save',
+        cancelText: 'Cancel',
+        customHtml: `
+            <div style="text-align: left; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <label style="display: block; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Course Name</label>
+                    <input type="text" id="modal-course-title" value="${(course.title || '').replace(/"/g, '&quot;')}" 
+                           style="width: 100%; padding: 0.8rem; background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border); border-radius: var(--radius-s); font-size: 0.95rem; font-family: inherit; box-sizing: border-box;">
+                </div>
+            </div>
+        `,
+        onConfirm: () => {
+            const title = document.getElementById('modal-course-title').value;
+            if (title.trim()) {
+                course.title = title.trim();
+                window.renderGodModeLeftPane();
+                showToast('Course name updated successfully! Remember to "Publish Live to DB" to save changes.');
+            }
+        }
+    });
+};
 
 window.adminEditChapter = function (chapterId) {
     const chapter = window.courseData.find(c => c.id === chapterId);
