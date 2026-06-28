@@ -3484,7 +3484,10 @@ window.renderChapters = function (push = true) {
 
     let mobileHtml = `
         <div class="journey-map-container" style="padding-bottom: 120px; overflow-x: hidden; width: 100%; box-sizing: border-box;">
-            <div style="text-align: center; margin-top: 1rem; margin-bottom: 1.25rem; width: 100%; box-sizing: border-box;">
+            <div style="position: relative; text-align: center; margin-top: 1rem; margin-bottom: 1.25rem; width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; min-height: 2.5rem;">
+                <button onclick="renderCourseSelection()" style="position: absolute; left: 1rem; font-size: 1.4rem; color: var(--text-main); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); cursor: pointer; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; outline: none; -webkit-tap-highlight-color: transparent;">
+                    <span class="material-symbols-rounded" style="font-size:1.2rem">arrow_back</span>
+                </button>
                 <div style="font-weight: 900; font-size: 2rem; color: var(--text-main); line-height: 1.2; display: flex; align-items: center; justify-content: center; gap: 0.4rem; flex-wrap: wrap;">
                     Odyssey <span style="color: var(--accent);">Journey</span>
                 </div>
