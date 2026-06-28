@@ -567,10 +567,11 @@ window.addEventListener('popstate', (event) => {
             renderLevels(chapterId, false);
         }
     } else if (currentView === 'home') {
-        // Home view has no back button. Let browser navigate naturally (e.g. exit site / go to login)
         const state = event.state;
         if (state && state.view === 'login') {
             renderLoginScreen(false);
+        } else if (state && state.view === 'course_selection') {
+            renderCourseSelection(false);
         } else {
             // Let the browser go back to previous website/blank
         }
@@ -594,6 +595,8 @@ window.addEventListener('popstate', (event) => {
 function navigateState(view, params) {
     if (view === 'login') {
         renderLoginScreen(false);
+    } else if (view === 'course_selection') {
+        renderCourseSelection(false);
     } else if (view === 'home') {
         renderChapters(false);
     } else if (view === 'chapter') {
