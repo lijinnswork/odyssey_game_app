@@ -2995,6 +2995,9 @@ window.renderCourseSelection = function(push = true) {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
+        .cs-stat-card:active {
+            transform: scale(0.96);
+        }
         .cs-stat-icon {
             width: 40px;
             height: 40px;
@@ -3014,6 +3017,25 @@ window.renderCourseSelection = function(push = true) {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 24px;
+        }
+        @media (max-width: 768px) {
+            .cs-course-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 1rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .cs-course-grid::-webkit-scrollbar {
+                display: none;
+            }
+            .cs-course-grid > .cs-course-card {
+                scroll-snap-align: center;
+                flex: 0 0 85%;
+                max-width: 85%;
+            }
         }
         .cs-course-card {
             background: var(--bg-card);
@@ -3035,6 +3057,9 @@ window.renderCourseSelection = function(push = true) {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             border-color: rgba(37, 99, 235, 0.3);
+        }
+        .cs-course-card:active {
+            transform: scale(0.97);
         }
         .cs-course-card-inner { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
         
@@ -3061,12 +3086,14 @@ window.renderCourseSelection = function(push = true) {
             margin-top: 0.5rem;
         }
         .cs-btn-primary {
-            background: var(--primary, #2563EB);
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             color: white;
             border: 1px solid transparent;
         }
         .cs-btn-primary:hover {
-            background: #1D4ED8;
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+            filter: brightness(1.1);
         }
         .cs-btn-secondary {
             background: transparent;
@@ -3075,6 +3102,9 @@ window.renderCourseSelection = function(push = true) {
         }
         .cs-btn-secondary:hover {
             background: rgba(37, 99, 235, 0.05);
+        }
+        .cs-btn-primary:active, .cs-btn-secondary:active {
+            transform: scale(0.96);
         }
 
         /* Recommended Section */
@@ -3094,6 +3124,9 @@ window.renderCourseSelection = function(push = true) {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0,0,0,0.05);
             border-color: rgba(37, 99, 235, 0.2);
+        }
+        .cs-rec-banner:active {
+            transform: scale(0.98);
         }
         .cs-mascot {
             width: 100px;

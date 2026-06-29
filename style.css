@@ -1,11 +1,11 @@
 /* Design System Variables */
 :root {
     /* New Semantic System Colors */
-    --bg-main: #191D2F;
-    --bg-deep: #101221;
-    --surface: #12131F;
-    --surface-glass: rgba(18, 19, 31, 0.82);
-    --bg-overlay: rgba(255, 255, 255, 0.06);
+    --bg-main: #0F172A;
+    --bg-deep: #020617;
+    --surface: #1E293B;
+    --surface-glass: rgba(15, 23, 42, 0.82);
+    --bg-overlay: rgba(255, 255, 255, 0.05);
     --mascot-modal-min-height: 620px;
     
     --text-primary: #FFFFFF;
@@ -69,7 +69,7 @@
     --error-rgb: 255, 92, 112;
     --bg-dark: var(--bg-deep);
     --gradient-bg: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-deep) 100%);
-    --bg-card: var(--surface-glass);
+    --bg-card: var(--surface);
     --backdrop-blur: blur(24px);
     --border: var(--soft-border);
     --text-main: var(--text-primary);
@@ -3058,7 +3058,10 @@ body.login-mode .mobile-nav {
 @media (max-width: 1023px) {
 
     .app-content>header {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+        background: var(--surface-glass) !important;
+        backdrop-filter: blur(24px) saturate(150%) !important;
+        -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
         padding-top: calc(env(safe-area-inset-top, 0px) + 0.75rem) !important;
         padding-bottom: 0 !important;
         padding-left: 1rem !important;
@@ -3637,29 +3640,39 @@ body.login-mode .mobile-nav {
     .desktop-view-chapters { display: none !important; }
     .mobile-view-chapters { display: block !important; padding-bottom: 100px; }
     
+    /* Elevated Cards with Soft Shadows */
+    .chapter-card,
+    .unit-card,
+    .cs-course-card,
+    .cs-stat-card {
+        border-radius: 20px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+    
     /* Premium Glassmorphism Floating Bottom Nav */
     .mobile-nav {
         display: flex !important;
         justify-content: space-around !important;
         align-items: center !important;
-        background: rgba(15, 20, 40, 0.72) !important;
+        background: var(--surface-glass) !important;
         backdrop-filter: blur(28px) saturate(200%) !important;
         -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
-        border: 1px solid rgba(255,255,255,0.12) !important;
+        border: 1px solid var(--border) !important;
         border-radius: 100px !important;
         margin: 0 1rem 1.25rem 1rem !important;
         bottom: 0 !important;
         position: fixed !important;
         left: 0 !important;
         right: 0 !important;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.08) !important;
         padding: 0.55rem 1.25rem !important;
         width: auto !important;
         z-index: 9999 !important;
     }
 
     .mobile-nav-item {
-        color: rgba(255,255,255,0.45) !important;
+        color: var(--text-muted) !important;
         transition: color 0.2s ease, transform 0.15s ease !important;
     }
     .mobile-nav-item:active {
