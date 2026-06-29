@@ -492,6 +492,15 @@ let currentUser = null;
 let isOffline = false; // Initialize explicitly
 // --- BROWSER HISTORY ROUTER ---
 window.isApplyingPopState = false;
+window.lastHomeView = 'course_selection';
+
+window.navigateHome = function() {
+    if (window.lastHomeView === 'course_selection') {
+        window.renderCourseSelection();
+    } else {
+        window.renderChapters();
+    }
+};
 window.isExitingLevel = false;
 
 window.pushAppHistory = function (view, params = {}) {
@@ -558,7 +567,11 @@ window.addEventListener('popstate', (event) => {
     if (currentView === 'chapter') {
         renderChapters(false);
     } else if (currentView === 'leaderboard' || currentView === 'chat' || currentView === 'admin') {
-        renderChapters(false);
+        if (window.lastHomeView === 'course_selection') {
+            window.renderCourseSelection(false);
+        } else {
+            window.renderChapters(false);
+        }
     } else if (currentView === 'complete') {
         const chapterId = currentActivityState.chapterId;
         if (window.innerWidth < 1024) {
@@ -2858,6 +2871,7 @@ window.selectCourse = function(courseId) {
 
 window.renderCourseSelection = function(push = true) {
     if (push) pushAppHistory('course_selection');
+    window.lastHomeView = 'course_selection';
     document.body.classList.remove('game-active');
     window.currentView = 'course_selection';
     updateDesktopPanels();
@@ -3335,6 +3349,7 @@ window.renderCourseSelection = function(push = true) {
 // Render: Chapters Selection (HOME)
 window.renderChapters = function (push = true) {
     if (push) pushAppHistory('home');
+    window.lastHomeView = 'home';
     document.body.classList.remove('game-active');
     window.currentView = 'home';
     updateDesktopPanels();
