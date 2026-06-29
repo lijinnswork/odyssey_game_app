@@ -1917,7 +1917,7 @@ body[data-theme="light"] .login-hero {
 
     .app-content {
         /* Ensure content never hides behind the nav bar + safe area */
-        padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px));
     }
 }
 
@@ -3638,7 +3638,7 @@ body.login-mode .mobile-nav {
 
 @media (max-width: 1023px) {
     .desktop-view-chapters { display: none !important; }
-    .mobile-view-chapters { display: block !important; padding-bottom: 100px; }
+    .mobile-view-chapters { display: block !important; padding-bottom: 140px; }
     
     /* Elevated Cards with Soft Shadows */
     .chapter-card,
