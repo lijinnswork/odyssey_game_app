@@ -1388,10 +1388,9 @@ window.toggleMobileSettings = function () {
                     </div>
                 </div>
 
-                    <button onclick="handleResetPassword()" class="btn-secondary" style="width: 100%; justify-content: flex-start; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
-                        <span class="material-symbols-rounded">lock</span> Change Password
-                    </button>
-                </div>
+                <button onclick="handleResetPassword()" class="btn-secondary" style="width: 100%; justify-content: flex-start; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="material-symbols-rounded">lock</span> Change Password
+                </button>
             </div>
         `
     });
