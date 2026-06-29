@@ -3023,8 +3023,8 @@ window.renderCourseSelection = function(push = true) {
                 flex-wrap: nowrap;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding-bottom: 2rem;
-                margin-bottom: 1.5rem;
+                padding-bottom: 1.25rem;
+                margin-bottom: 0;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
                 align-items: stretch;
@@ -3119,7 +3119,7 @@ window.renderCourseSelection = function(push = true) {
             gap: 2rem;
             position: relative;
             transition: all 0.3s ease;
-            margin-top: 3rem; /* Space for mascot to peek out */
+            margin-top: 1.5rem; /* Space for mascot to peek out */
             box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.05), 0 10px 30px rgba(0,0,0,0.15);
         }
         .cs-rec-banner:hover {
@@ -3131,11 +3131,16 @@ window.renderCourseSelection = function(push = true) {
             transform: scale(0.98);
         }
         .cs-mascot {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             flex-shrink: 0;
-            animation: float 4s ease-in-out infinite;
+            margin-top: -3.5rem; /* Mascot peeks out of the top */
+            margin-bottom: -1.25rem;
+            animation: float-mascot 4s ease-in-out infinite;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
+            z-index: 10;
         }
+        @keyframes float-mascot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         
         @media (max-width: 768px) {
