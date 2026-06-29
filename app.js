@@ -3036,9 +3036,7 @@ window.renderCourseSelection = function(push = true) {
             .cs-course-grid > .cs-course-card {
                 scroll-snap-align: center;
                 flex: 0 0 85%;
-            }
-            .cs-course-grid > .cs-course-card:only-child {
-                flex: 1 1 100%;
+                max-width: 85%;
             }
         }
         .cs-course-card {
@@ -3051,6 +3049,11 @@ window.renderCourseSelection = function(push = true) {
             flex-direction: column;
             cursor: pointer;
             position: relative;
+        }
+        @media (min-width: 768px) {
+            .cs-course-card {
+                max-width: 360px;
+            }
         }
         .cs-course-card:hover {
             transform: translateY(-2px);
@@ -3140,8 +3143,9 @@ window.renderCourseSelection = function(push = true) {
             .cs-header { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1rem; }
             .cs-rec-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
             .cs-stats-grid { grid-template-columns: 1fr 1fr; }
-            .cs-container { padding: 2rem 1rem; gap: 48px; }
+            .cs-container { padding: 2rem 1rem; gap: 32px; }
             .cs-course-grid { grid-template-columns: 1fr; }
+            .cs-course-card { max-width: 100%; }
         }
         @media (max-width: 480px) {
             .cs-stats-grid { grid-template-columns: 1fr; }
@@ -3266,11 +3270,9 @@ window.renderCourseSelection = function(push = true) {
                                     <h3 class="cs-course-title">${course.title}</h3>
                                     <p class="cs-course-desc">${course.chapters[0]?.description || 'Explore this new path and expand your knowledge.'}</p>
                                 </div>
-                                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.75rem;">
-                                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); font-weight: 600;">
-                                        <span style="display: flex; align-items: center; gap: 4px;"><span class="material-symbols-rounded" style="font-size:14px;">layers</span> ${course.chapters.length} Chapters</span>
-                                    </div>
-                                    <button class="cs-btn-primary" style="margin: 0; width: 100%;">Start Learning</button>
+                                <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end;">
+                                    <span class="cs-badge"><span class="material-symbols-rounded" style="font-size:12px;">layers</span> ${course.chapters.length} Chapters</span>
+                                    <button class="cs-btn-secondary" style="margin: 0;">Start Learning</button>
                                 </div>
                             </div>
                         </div>

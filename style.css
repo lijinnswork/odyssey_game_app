@@ -4019,4 +4019,13 @@ body.game-active .desktop-coach-wrapper {
     .app-content > div {
         padding-bottom: 140px !important;
     }
+
+    /* Ensure the entire background of the course selection page is pure black on mobile view */
+    body:has(.course-sel-page),
+    .app-content:has(.course-sel-page),
+    .course-sel-page,
+    .course-sel-page .cs-header {
+        background: #000000 !important;
+        background-image: none !important;
+    }
 }
