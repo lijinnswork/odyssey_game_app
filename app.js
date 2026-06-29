@@ -3759,6 +3759,28 @@ window.renderChapters = function (push = true) {
         <div class="desktop-view-chapters">${html}</div>
         <div class="mobile-view-chapters">${mobileHtml}</div>
     `;
+
+    // Reset scroll to top instantly
+    const scrollArea = document.querySelector('.app-content');
+    if (scrollArea) {
+        scrollArea.scrollTop = 0;
+    }
+    window.scrollTo(0, 0);
+
+    // After 2 seconds, smoothly drag/scroll down to the active level node
+    setTimeout(() => {
+        if (window.innerWidth < 1024) {
+            const activeNode = document.querySelector('.mobile-view-chapters .pulse-node');
+            if (activeNode) {
+                activeNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        } else {
+            const activeCard = document.getElementById('active-chapter-card');
+            if (activeCard) {
+                activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }, 2000);
 }
 
 
