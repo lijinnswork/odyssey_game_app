@@ -3119,7 +3119,7 @@ window.renderCourseSelection = function(push = true) {
             gap: 2rem;
             position: relative;
             transition: all 0.3s ease;
-            margin-top: 1.5rem; /* Space for mascot to peek out */
+            margin-top: 0; /* Space for mascot to peek out */
             box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.05), 0 10px 30px rgba(0,0,0,0.15);
         }
         .cs-rec-banner:hover {
@@ -3134,8 +3134,8 @@ window.renderCourseSelection = function(push = true) {
             width: 120px;
             height: 120px;
             flex-shrink: 0;
-            margin-top: -3.5rem; /* Mascot peeks out of the top */
-            margin-bottom: -1.25rem;
+            margin-top: -2.5rem; /* Mascot peeks out of the top */
+            margin-bottom: -0.5rem;
             animation: float-mascot 4s ease-in-out infinite;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
             z-index: 10;
