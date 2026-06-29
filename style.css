@@ -1915,9 +1915,13 @@ body[data-theme="light"] .login-hero {
         display: flex;
     }
 
-    .app-content {
-        /* Ensure content never hides behind the nav bar + safe area */
-        padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px));
+    /* Bulletproof spacer for mobile scroll containers */
+    .app-content::after {
+        content: "";
+        display: block;
+        height: calc(140px + env(safe-area-inset-bottom, 0px));
+        width: 100%;
+        flex-shrink: 0;
     }
 }
 
@@ -4003,5 +4007,16 @@ body.game-active .desktop-coach-wrapper {
         border-top-left-radius: var(--radius-l) !important;
         border-top-right-radius: 0 !important;
         background: var(--bg-card) !important;
+    }
+}
+
+/* Force bottom padding on specific inner containers for mobile floating nav */
+@media (max-width: 1023px) {
+    .cs-container,
+    .journey-map-container,
+    .main-scroll-area,
+    #chat-screen,
+    .app-content > div {
+        padding-bottom: 140px !important;
     }
 }

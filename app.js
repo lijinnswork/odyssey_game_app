@@ -3024,9 +3024,11 @@ window.renderCourseSelection = function(push = true) {
                 flex-wrap: nowrap;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding-bottom: 1rem;
+                padding-bottom: 2rem;
+                margin-bottom: 1.5rem;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
+                align-items: stretch;
             }
             .cs-course-grid::-webkit-scrollbar {
                 display: none;
@@ -3034,7 +3036,9 @@ window.renderCourseSelection = function(push = true) {
             .cs-course-grid > .cs-course-card {
                 scroll-snap-align: center;
                 flex: 0 0 85%;
-                max-width: 85%;
+            }
+            .cs-course-grid > .cs-course-card:only-child {
+                flex: 1 1 100%;
             }
         }
         .cs-course-card {
@@ -3047,11 +3051,6 @@ window.renderCourseSelection = function(push = true) {
             flex-direction: column;
             cursor: pointer;
             position: relative;
-        }
-        @media (min-width: 768px) {
-            .cs-course-card {
-                max-width: 360px;
-            }
         }
         .cs-course-card:hover {
             transform: translateY(-2px);
@@ -3109,21 +3108,22 @@ window.renderCourseSelection = function(push = true) {
 
         /* Recommended Section */
         .cs-rec-banner {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(139, 92, 246, 0.2) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 20px;
             padding: 1.5rem 2rem;
             display: flex;
             align-items: center;
             gap: 2rem;
             position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
+            margin-top: 3rem; /* Space for mascot to peek out */
+            box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.05), 0 10px 30px rgba(0,0,0,0.15);
         }
         .cs-rec-banner:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-            border-color: rgba(37, 99, 235, 0.2);
+            transform: translateY(-4px);
+            box-shadow: inset 0 0 30px rgba(139, 92, 246, 0.15), 0 20px 40px rgba(139, 92, 246, 0.25);
+            border-color: rgba(139, 92, 246, 0.7);
         }
         .cs-rec-banner:active {
             transform: scale(0.98);
@@ -3140,9 +3140,8 @@ window.renderCourseSelection = function(push = true) {
             .cs-header { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1rem; }
             .cs-rec-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
             .cs-stats-grid { grid-template-columns: 1fr 1fr; }
-            .cs-container { padding: 2rem 1rem; gap: 32px; }
+            .cs-container { padding: 2rem 1rem; gap: 48px; }
             .cs-course-grid { grid-template-columns: 1fr; }
-            .cs-course-card { max-width: 100%; }
         }
         @media (max-width: 480px) {
             .cs-stats-grid { grid-template-columns: 1fr; }
@@ -3267,9 +3266,11 @@ window.renderCourseSelection = function(push = true) {
                                     <h3 class="cs-course-title">${course.title}</h3>
                                     <p class="cs-course-desc">${course.chapters[0]?.description || 'Explore this new path and expand your knowledge.'}</p>
                                 </div>
-                                <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end;">
-                                    <span class="cs-badge"><span class="material-symbols-rounded" style="font-size:12px;">layers</span> ${course.chapters.length} Chapters</span>
-                                    <button class="cs-btn-secondary" style="margin: 0;">Start Learning</button>
+                                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.75rem;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); font-weight: 600;">
+                                        <span style="display: flex; align-items: center; gap: 4px;"><span class="material-symbols-rounded" style="font-size:14px;">layers</span> ${course.chapters.length} Chapters</span>
+                                    </div>
+                                    <button class="cs-btn-primary" style="margin: 0; width: 100%;">Start Learning</button>
                                 </div>
                             </div>
                         </div>
