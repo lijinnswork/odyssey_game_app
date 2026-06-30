@@ -3308,16 +3308,11 @@ window.renderCourseSelection = function(push = true) {
                         ${typeof window.getMascotSVG === 'function' ? window.getMascotSVG('100%', '100%', 'happy') : '<span class="material-symbols-rounded" style="font-size:64px;color:var(--primary);">emoji_objects</span>'}
                     </div>
                     <div style="flex: 1; z-index: 1;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem;">
-                            <span class="material-symbols-rounded" style="font-size: 16px; color: var(--primary);">lightbulb</span>
-                            <span style="font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;">Suggestion</span>
-                        </div>
                         <h3 style="font-size: 18px; font-weight: 600; margin: 0 0 0.2rem 0; color: var(--text-main);">${exploreCourses[0].title}</h3>
                         <p style="color: var(--text-muted); line-height: 1.4; margin: 0 0 1rem 0; font-size: 13px;">
                             Based on your completed milestones, this course will help you expand your technical foundation.
                         </p>
                         <div style="display: flex; align-items: center; gap: 1rem;">
-                            <span class="cs-badge" style="background: transparent; padding: 0; border: none; color: var(--text-muted);"><span class="material-symbols-rounded" style="font-size:14px;">layers</span> ${exploreCourses[0].chapters.length} Chapters</span>
                             <button class="cs-btn-primary" style="margin: 0;">Continue This Path</button>
                         </div>
                     </div>
