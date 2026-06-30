@@ -3996,11 +3996,7 @@ window.renderChapters = function (push = true) {
             }, 2000);
         }
     } else {
-        // Desktop standard smooth scroll
-        const activeCard = document.getElementById('active-chapter-card');
-        if (activeCard) {
-            activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        // Desktop auto-scroll disabled as per user request
     }
 }
 
