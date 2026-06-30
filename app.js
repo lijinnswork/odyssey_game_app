@@ -3768,91 +3768,96 @@ window.renderChapters = function (push = true) {
         }
         window.scrollTo(0, 0);
 
-        // Create and inject the premium locating path indicator
-        const indicator = document.createElement('div');
-        indicator.id = 'journey-scroll-indicator';
-        indicator.style.cssText = `
-            position: fixed;
-            top: 5.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid var(--accent);
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 99999;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            pointer-events: none;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        `;
-        indicator.innerHTML = `
-            <span class="material-symbols-rounded" style="color: var(--accent); font-size: 1.2rem; display: inline-block; animation: spin 1.5s linear infinite;">sync</span>
-            Locating active level...
-        `;
-        
-        // Add spin animation dynamically if not present
-        if (!document.getElementById('spin-style')) {
-            const style = document.createElement('style');
-            style.id = 'spin-style';
-            style.textContent = `
-                @keyframes spin { 100% { transform: rotate(360deg); } }
+        // Check if the active level is level 1 or level 2 of unit 1
+        const isUnit1Level1Or2 = window.courseData[0]?.levels?.slice(0, 2).some(l => l.id === activeLevelId);
+
+        if (!isUnit1Level1Or2) {
+            // Create and inject the premium locating path indicator
+            const indicator = document.createElement('div');
+            indicator.id = 'journey-scroll-indicator';
+            indicator.style.cssText = `
+                position: fixed;
+                top: 5.5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(15, 23, 42, 0.95);
+                border: 1px solid var(--accent);
+                padding: 0.6rem 1.2rem;
+                border-radius: 50px;
+                color: #fff;
+                font-size: 0.85rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                z-index: 99999;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+                transition: opacity 0.5s ease, transform 0.5s ease;
+                pointer-events: none;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
             `;
-            document.head.appendChild(style);
-        }
-        
-        document.body.appendChild(indicator);
-
-        // After 2 seconds, smoothly scroll/drag down to active node (slower, cinematic)
-        setTimeout(() => {
-            const activeNode = document.querySelector('.mobile-view-chapters .pulse-node');
-            const container = document.querySelector('.app-content');
+            indicator.innerHTML = `
+                <span class="material-symbols-rounded" style="color: var(--accent); font-size: 1.2rem; display: inline-block; animation: spin 1.5s linear infinite;">sync</span>
+                Locating active level...
+            `;
             
-            // Fade out and remove indicator
-            indicator.style.opacity = '0';
-            indicator.style.transform = 'translateX(-50%) translateY(-10px)';
-            setTimeout(() => indicator.remove(), 500);
-
-            if (container && activeNode) {
-                const containerHeight = container.clientHeight;
-                const nodeRect = activeNode.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
-                const targetY = container.scrollTop + (nodeRect.top - containerRect.top) - (containerHeight / 2) + (nodeRect.height / 2);
-                const maxScroll = container.scrollHeight - containerHeight;
-                const finalTargetY = Math.max(0, Math.min(targetY, maxScroll));
-                
-                // Custom slow smooth scroll animation over 1.2 seconds
-                const startY = container.scrollTop;
-                const difference = finalTargetY - startY;
-                const startTime = performance.now();
-                const duration = 1200; // Slower, premium transition
-
-                function easeInOutCubic(t) {
-                    return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-                }
-
-                function step(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const easedProgress = easeInOutCubic(progress);
-
-                    container.scrollTop = startY + difference * easedProgress;
-
-                    if (progress < 1) {
-                        requestAnimationFrame(step);
-                    }
-                }
-
-                requestAnimationFrame(step);
+            // Add spin animation dynamically if not present
+            if (!document.getElementById('spin-style')) {
+                const style = document.createElement('style');
+                style.id = 'spin-style';
+                style.textContent = `
+                    @keyframes spin { 100% { transform: rotate(360deg); } }
+                `;
+                document.head.appendChild(style);
             }
-        }, 2000);
+            
+            document.body.appendChild(indicator);
+
+            // After 2 seconds, smoothly scroll/drag down to active node (slower, cinematic)
+            setTimeout(() => {
+                const activeNode = document.querySelector('.mobile-view-chapters .pulse-node');
+                const container = document.querySelector('.app-content');
+                
+                // Fade out and remove indicator
+                indicator.style.opacity = '0';
+                indicator.style.transform = 'translateX(-50%) translateY(-10px)';
+                setTimeout(() => indicator.remove(), 500);
+
+                if (container && activeNode) {
+                    const containerHeight = container.clientHeight;
+                    const nodeRect = activeNode.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+                    const targetY = container.scrollTop + (nodeRect.top - containerRect.top) - (containerHeight / 2) + (nodeRect.height / 2);
+                    const maxScroll = container.scrollHeight - containerHeight;
+                    const finalTargetY = Math.max(0, Math.min(targetY, maxScroll));
+                    
+                    // Custom slow smooth scroll animation over 1.2 seconds
+                    const startY = container.scrollTop;
+                    const difference = finalTargetY - startY;
+                    const startTime = performance.now();
+                    const duration = 1200; // Slower, premium transition
+
+                    function easeInOutCubic(t) {
+                        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+                    }
+
+                    function step(currentTime) {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const easedProgress = easeInOutCubic(progress);
+
+                        container.scrollTop = startY + difference * easedProgress;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(step);
+                        }
+                    }
+
+                    requestAnimationFrame(step);
+                }
+            }, 2000);
+        }
     } else {
         // Desktop standard smooth scroll
         const activeCard = document.getElementById('active-chapter-card');
