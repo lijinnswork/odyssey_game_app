@@ -2953,13 +2953,107 @@ window.renderCourseSelection = function(push = true) {
             align-items: center;
             gap: 0.4rem;
             background: var(--bg-card);
-            padding: 0.4rem 0.75rem;
+            padding: 0.45rem 0.85rem;
             border-radius: 50px;
             border: 1px solid var(--border);
-            font-weight: 600;
+            font-weight: 700;
             font-size: 13px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cs-pill:hover {
+            transform: translateY(-1px) scale(1.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .cs-pill:active {
+            transform: scale(0.97);
         }
         .cs-pill .material-symbols-rounded { font-size: 16px; }
+
+        /* Themed Glowing Stats Pills - Dark Theme */
+        body[data-theme="dark"] .cs-pill-xp {
+            color: #F59E0B;
+            background: rgba(245, 158, 11, 0.07);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+        body[data-theme="dark"] .cs-pill-xp:hover {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.45);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+        body[data-theme="dark"] .cs-pill-gems {
+            color: #3B82F6;
+            background: rgba(59, 130, 246, 0.07);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        body[data-theme="dark"] .cs-pill-gems:hover {
+            background: rgba(59, 130, 246, 0.12);
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+        }
+        body[data-theme="dark"] .cs-pill-rank {
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.07);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+        body[data-theme="dark"] .cs-pill-rank:hover {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.45);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+        }
+        body[data-theme="dark"] .cs-pill-theme {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+        body[data-theme="dark"] .cs-pill-theme:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px) scale(1.03) rotate(15deg);
+        }
+
+        /* Themed Glowing Stats Pills - Light Theme */
+        body[data-theme="light"] .cs-pill-xp {
+            color: #D97706;
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+        body[data-theme="light"] .cs-pill-xp:hover {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.12);
+        }
+        body[data-theme="light"] .cs-pill-gems {
+            color: #2563EB;
+            background: rgba(59, 130, 246, 0.08);
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+        body[data-theme="light"] .cs-pill-gems:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.12);
+        }
+        body[data-theme="light"] .cs-pill-rank {
+            color: #059669;
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+        body[data-theme="light"] .cs-pill-rank:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.12);
+        }
+        body[data-theme="light"] .cs-pill-theme {
+            color: #0F172A;
+            background: rgba(15, 23, 42, 0.04);
+            border-color: rgba(15, 23, 42, 0.08);
+            cursor: pointer;
+        }
+        body[data-theme="light"] .cs-pill-theme:hover {
+            background: rgba(15, 23, 42, 0.08);
+            border-color: rgba(15, 23, 42, 0.2);
+            transform: translateY(-1px) scale(1.03) rotate(15deg);
+        }
         
         .cs-container {
             max-width: 1150px;
@@ -3197,17 +3291,7 @@ window.renderCourseSelection = function(push = true) {
             box-shadow: 0 20px 45px rgba(139, 92, 246, 0.12);
             border-color: rgba(139, 92, 246, 0.45);
         }
-        body[data-theme="light"] .cs-pill {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-        }
-        body[data-theme="light"] .cs-pill:hover {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: rgba(37, 99, 235, 0.2);
-        }
+        /* Cleaned old overrides */
 
         @media (max-width: 768px) {
             .cs-header { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1rem; }
@@ -3231,17 +3315,17 @@ window.renderCourseSelection = function(push = true) {
                 <p>Continue your learning journey.</p>
             </div>
             <div class="cs-stats-bar">
-                <div class="cs-pill" style="color: #F59E0B;">
+                <div class="cs-pill cs-pill-xp">
                     <span class="material-symbols-rounded">bolt</span> ${gameState.xp || 0}
                 </div>
-                <div class="cs-pill" style="color: #3B82F6;">
+                <div class="cs-pill cs-pill-gems">
                     <span class="material-symbols-rounded">diamond</span> ${gameState.gems || 0}
                 </div>
-                <div class="cs-pill" style="color: #10B981;">
+                <div class="cs-pill cs-pill-rank">
                     <span class="material-symbols-rounded">trophy</span> 
                     ${gameState.rank ? (gameState.rank.title || 'Novice') : 'Novice'}
                 </div>
-                <div class="cs-pill" style="cursor: pointer; color: var(--text-main);" onclick="document.querySelector('.theme-toggle')?.click() || (window.toggleTheme && toggleTheme())">
+                <div class="cs-pill cs-pill-theme" onclick="document.querySelector('.theme-toggle')?.click() || (window.toggleTheme && toggleTheme())">
                     <span class="material-symbols-rounded">contrast</span>
                 </div>
             </div>
