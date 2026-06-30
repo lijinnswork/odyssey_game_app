@@ -3156,7 +3156,59 @@ window.renderCourseSelection = function(push = true) {
         }
         @keyframes float-mascot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        
+
+        /* Premium Theme Overrides */
+        body[data-theme="light"] .course-sel-page {
+            background: linear-gradient(135deg, #F0F4F8 0%, #E6F0FA 40%, #F5F3FF 100%);
+        }
+        body[data-theme="light"] .cs-header {
+            background: rgba(230, 240, 250, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        body[data-theme="dark"] .cs-header {
+            background: rgba(10, 14, 26, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        body[data-theme="light"] .cs-course-card, 
+        body[data-theme="light"] .cs-stat-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+        }
+        body[data-theme="light"] .cs-course-card:hover,
+        body[data-theme="light"] .cs-stat-card:hover {
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 12px 40px 0 rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+        body[data-theme="light"] .cs-rec-banner {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(139, 92, 246, 0.12) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.04);
+        }
+        body[data-theme="light"] .cs-rec-banner:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.18) 100%);
+            box-shadow: 0 20px 45px rgba(139, 92, 246, 0.12);
+            border-color: rgba(139, 92, 246, 0.45);
+        }
+        body[data-theme="light"] .cs-pill {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+        body[data-theme="light"] .cs-pill:hover {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
         @media (max-width: 768px) {
             .cs-header { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1rem; }
             .cs-rec-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
