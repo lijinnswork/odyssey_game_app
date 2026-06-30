@@ -3828,11 +3828,11 @@ window.renderChapters = function (push = true) {
                 const maxScroll = container.scrollHeight - containerHeight;
                 const finalTargetY = Math.max(0, Math.min(targetY, maxScroll));
                 
-                // Custom slow smooth scroll animation over 1.8 seconds
+                // Custom slow smooth scroll animation over 1.2 seconds
                 const startY = container.scrollTop;
                 const difference = finalTargetY - startY;
                 const startTime = performance.now();
-                const duration = 1800; // Slower, premium transition
+                const duration = 1200; // Slower, premium transition
 
                 function easeInOutCubic(t) {
                     return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
