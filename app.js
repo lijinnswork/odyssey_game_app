@@ -3160,6 +3160,7 @@ window.renderCourseSelection = function(push = true) {
         @media (max-width: 768px) {
             .cs-header { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1rem; }
             .cs-rec-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
+            .cs-rec-banner .rec-btn-container { justify-content: center; }
             .cs-stats-grid { grid-template-columns: 1fr 1fr; }
             .cs-container { padding: 2rem 1rem; gap: 32px; }
             .cs-course-grid { grid-template-columns: 1fr; }
@@ -3312,7 +3313,7 @@ window.renderCourseSelection = function(push = true) {
                         <p style="color: var(--text-muted); line-height: 1.4; margin: 0 0 1rem 0; font-size: 13px;">
                             Based on your completed milestones, this course will help you expand your technical foundation.
                         </p>
-                        <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="rec-btn-container" style="display: flex; align-items: center; gap: 1rem;">
                             <button class="cs-btn-primary" style="margin: 0;">Continue This Path</button>
                         </div>
                     </div>
