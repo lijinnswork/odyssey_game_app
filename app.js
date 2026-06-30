@@ -3161,6 +3161,7 @@ window.renderCourseSelection = function(push = true) {
             .cs-header { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1rem; }
             .cs-rec-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
             .cs-rec-banner .rec-btn-container { justify-content: center; }
+            .cs-rec-banner .rec-suggestion-container { justify-content: center; }
             .cs-stats-grid { grid-template-columns: 1fr 1fr; }
             .cs-container { padding: 2rem 1rem; gap: 32px; }
             .cs-course-grid { grid-template-columns: 1fr; }
@@ -3309,6 +3310,10 @@ window.renderCourseSelection = function(push = true) {
                         ${typeof window.getMascotSVG === 'function' ? window.getMascotSVG('100%', '100%', 'happy') : '<span class="material-symbols-rounded" style="font-size:64px;color:var(--primary);">emoji_objects</span>'}
                     </div>
                     <div style="flex: 1; z-index: 1;">
+                        <div class="rec-suggestion-container" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem;">
+                            <span class="material-symbols-rounded" style="font-size: 16px; color: var(--primary);">lightbulb</span>
+                            <span style="font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;">Suggestion</span>
+                        </div>
                         <h3 style="font-size: 18px; font-weight: 600; margin: 0 0 0.2rem 0; color: var(--text-main);">${exploreCourses[0].title}</h3>
                         <p style="color: var(--text-muted); line-height: 1.4; margin: 0 0 1rem 0; font-size: 13px;">
                             Based on your completed milestones, this course will help you expand your technical foundation.
