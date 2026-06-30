@@ -1365,6 +1365,27 @@ body[data-theme="light"] .chapter-card {
     .desktop-visible {
         display: flex !important;
     }
+
+    /* Apply curve to the ENTIRE right column (including header) just like the Course Selection page */
+    .content-panel {
+        /* Make the area behind app-content match the sidebar so the curve cuts perfectly */
+        background: var(--bg-deep);
+    }
+    
+    body[data-theme="light"] .content-panel {
+        background: linear-gradient(180deg, #1A365D 0%, #0A192F 100%) !important;
+    }
+    
+    body[data-theme="dark"] .content-panel {
+        background: linear-gradient(180deg, #101221 0%, #191D2F 100%) !important;
+    }
+
+    .app-content {
+        border-top-left-radius: 24px;
+        overflow: hidden; /* Clips the header so the curve is visible */
+        background: var(--bg-main);
+        min-height: 100vh;
+    }
 }
 
 /* Mobile: Hide Hero, stack Form */
