@@ -1276,7 +1276,7 @@ body[data-theme="light"] .chapter-card {
 
     /* Fix white gap on overscroll in light mode without causing a hard split line */
     body[data-theme="light"]:not(.login-mode) .app-content {
-        background: var(--bg-main) !important;
+        background: linear-gradient(90deg, #1A365D 0%, #0A192F 100%) !important;
     }
 
     .main-scroll-area {
@@ -1288,8 +1288,7 @@ body[data-theme="light"] .chapter-card {
         flex-direction: column;
     }
 
-    body.video-active .main-scroll-area,
-    .panel-collapsed .main-scroll-area {
+    body.video-active .main-scroll-area {
         border-top-left-radius: 0 !important;
     }
 
@@ -1364,27 +1363,6 @@ body[data-theme="light"] .chapter-card {
     /* Desktop: Show Hero */
     .desktop-visible {
         display: flex !important;
-    }
-
-    /* Apply curve to the ENTIRE right column (including header) just like the Course Selection page */
-    .content-panel {
-        /* Make the area behind app-content match the sidebar so the curve cuts perfectly */
-        background: var(--bg-deep);
-    }
-    
-    body[data-theme="light"] .content-panel {
-        background: linear-gradient(180deg, #1A365D 0%, #0A192F 100%) !important;
-    }
-    
-    body[data-theme="dark"] .content-panel {
-        background: linear-gradient(180deg, #101221 0%, #191D2F 100%) !important;
-    }
-
-    .app-content {
-        border-top-left-radius: 24px;
-        overflow: hidden; /* Clips the header so the curve is visible */
-        background: var(--bg-main);
-        min-height: 100vh;
     }
 }
 
